@@ -176,7 +176,7 @@ class Principal(Ventanas):
         #root.attributes("-alpha", 0.5 )   
 #_________________________________________________________________________
         path_1 = "E:/1-RICHI/MovilesDB"
-        self.Leer_folder (path_1)       # Llamando a la funcion para que lea la carpeta
+        self.Leer_folder (path_1)       # Llamando a la funcion para que lea la carpetaa
 #_________________________________________________________________________
 
         self.Label_Toogle = Frame (root, bg="#141e32",  width= 70, height=22)
