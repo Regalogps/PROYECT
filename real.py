@@ -178,36 +178,23 @@ class Principal(Ventanas):
         path_1 = "E:/1-RICHI/MovilesDB"
         self.Leer_folder (path_1)       # Llamando a la funcion para que lea la carpetaa
 #_________________________________________________________________________
-
-        self.Label_Toogle = Frame (root, bg="#141e32",  width= 70, height=22)
-        self.Label_Toogle . grid(column= 4, row= 4 )
-        
-
-#________________________LABEL Y FRAMES Y SPIN BOX__________________________________________________
-       #self.Frame0 = Frame (root, bg="green", width=130, height=65)
+     
+        #self.Frame0 = Frame (root, bg="green", width=130, height=120)
         #self.Frame0 . grid(column= 0, row= 0)
         #self.Frame0 . grid_propagate(0)
-
-        #self.Cuadro_de_inicio = Frame (self.Frame0, bg="#11161d", width=120, height=52)
-        #self.Cuadro_de_inicio . grid(column= 0, row= 0, padx=(5,5), pady=(6,6))
-        #self.Cuadro_de_inicio . grid_propagate(0)  
-#___________        
-
-        self.Frame0 = Frame (root, bg="green", width=130, height=120)
-        self.Frame0 . grid(column= 0, row= 0)
-        #self.Frame0 . grid_propagate(0)
         
-        self.Cuadro_de_inicio = Frame (self.Frame0, bg="#11161d", width=100, height=102)
-        self.Cuadro_de_inicio . grid(column= 0, row= 0, padx=(5,5), pady=(6,6))
+        self.Cuadro_de_inicio = Frame (root, bg="#11161d", width=60, height=65)
+        self.Cuadro_de_inicio . grid(column= 0, row= 0, padx=(0,0), pady=(0,0))
         self.Cuadro_de_inicio . grid_propagate(0)
 
-        self.Configuracion = Button (self.Cuadro_de_inicio, image = self.Lista1[110] )
+        self.Configuracion = Button (self.Cuadro_de_inicio, image = self.Lista1[110],bg="#11161d", bd=0, activebackground="#11161d", command= self.Max_cuadro_inicial )
         self.Configuracion . grid (column=0, row= 1)
 #_______________________________________________________
 
-        self.buscador = Spinbox(self.Cuadro_de_inicio)
-        self.buscador.config(width= 12)
-        self.buscador.grid(column = 0, row = 1, padx=(3,3), pady=(8,0))
+
+        #self.buscador = Spinbox(self.Cuadro_de_inicio)
+        #self.buscador.config(width= 12)
+        #self.buscador.grid(column = 0, row = 1, padx=(3,3), pady=(8,0))
 
         #self.dialogo = Label (self.Frame0, bg= "blue", width=0, height=50)
         #self.dialogo . grid (column=0, row=0)
@@ -299,8 +286,8 @@ class Principal(Ventanas):
 
 #______________________________BOTON PARA OCULTAR LOS BOTONES DE MOVILES____________________________
 
-        self. ON_OFF = Button (self.Cuadro_de_inicio, image = self. Lista1 [107], bg="#11161d", bd=0, activebackground="#11161d" , command= self.Metodo_Toggle)
-        self. ON_OFF . grid(column= 0, row= 0)     
+        self. Logo_Ash = Button (self.Cuadro_de_inicio, image = self. Lista1 [107], bg="#11161d", bd=0, activebackground="#11161d" , command= self.Metodo_Toggle)
+        self. Logo_Ash . grid(column= 0, row= 0, padx=3, pady=1)     
 #______________________________________
         
     def Leer_folder (self, path):      # Funcion para leer todas las imagenes 
@@ -329,11 +316,11 @@ class Principal(Ventanas):
         global is_on
 
         if is_on:
-            self.ON_OFF.config(image = self.Lista1[107])  
+            self.Logo_Ash.config(image = self.Lista1[107])  
             is_on = False
 
         else:
-            self.ON_OFF.config(image = self.Lista1[107]) # aki es el 108 que seria OFF
+            self.Logo_Ash.config(image = self.Lista1[107]) # aki es el 108 que seria OFF
             is_on = True
 
 
@@ -347,6 +334,11 @@ class Principal(Ventanas):
     def Movil_trico (self):  # BORRAR ESTA FUNCION 
         pass 
 #___________________________________
+
+    def Max_cuadro_inicial(self):
+        self.Cuadro_de_inicio.config(width=60, height=100)
+
+        
 
 
 if __name__=="__main__":
