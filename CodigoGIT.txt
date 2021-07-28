@@ -4,3 +4,7 @@ Git log --oneline para ver los comit resumidos
 Git log --oneline grafic  ver diagrama
 Git config --global user.name ""
 Git config --global user.email "" sin el nombre , devuelve el actual
+Git commit -m "descripción"
+Git diff para ver diferencias
+Git restore --staged _____=nombre del archivo.   
+Este restore devuelve el archivo al área de trabajo, no tiene que estar comiteado
