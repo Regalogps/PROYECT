@@ -19,5 +19,6 @@ Git switch ___= nombre de la rama ala que deseamos movernos
 Git merge___= nombre de la rama que deseamos unir a nuestra rama , tienes q posicionarte en la rama que máster, dependiendo
 Git log --oneline --graph.   Te da un diagrama de los comit creados con distintas ramas
 
-Git remote.     Para ver los remotos locales
-Git remote add ___= url del remoto ejm: http/github..../xx.git   Para agregar un remoto
+Git remote.     Para ver los remotos locales que tienes
+Git remote add ____ = nombre del remoto usualmente es "origin" sin comillas ,luego la ___= url del remoto ejm: http/github..../xx.git   Para agregar un remoto
+Git push origin master.  Origin es el nombre del remoto, puede ser cualquiera y máster es la rama de los comit que quieres subir al repositorio
