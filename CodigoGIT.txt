@@ -8,6 +8,10 @@ Git commit -m "descripción"
 Git diff para ver diferencias
 Git restore --staged _____=nombre del archivo.   
 Este restore devuelve el archivo al área de trabajo, no tiene que estar comiteado
+Git restore ___= nombre d/a   restaura los cambios
+hechos en el archivo específico y si le agregas un punto restablece los cambios de todos, pero no tienen que estar comiteados
 Git checkout ___= id del commit ejm: jdh3737
 Este es para moverse entre los commit
-Git 
+Git checkout máster  te establece en el último commit creado
+Git diff ____ _____ == id,s de los comit  te da la diferencia entre dos commit
+Git jdd
