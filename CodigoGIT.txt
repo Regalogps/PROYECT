@@ -14,4 +14,9 @@ Git checkout ___= id del commit ejm: jdh3737
 Este es para moverse entre los commit
 Git checkout máster  te establece en el último commit creado
 Git diff ____ _____ == id,s de los comit  te da la diferencia entre dos commit
-Git jdd
+Ramas:
+Git branch.    Te devuelve todas las ramas creadas y donde estás ubicado
+Git branch ____ = nombre de una nueva rama para crearla
+Git checkout ____= hace lo mismo que arriba
+Git switch ___= nombre de la rama ala que deseamos movernos
+Git merge___= nombre de la rama que deseamos unir a nuestra rama , tienes q posicionarte en la rama que máster, dependiendo
