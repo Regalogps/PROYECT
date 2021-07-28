@@ -8,3 +8,6 @@ Git commit -m "descripción"
 Git diff para ver diferencias
 Git restore --staged _____=nombre del archivo.   
 Este restore devuelve el archivo al área de trabajo, no tiene que estar comiteado
+Git checkout ___= id del commit ejm: jdh3737
+Este es para moverse entre los commit
+Git 
