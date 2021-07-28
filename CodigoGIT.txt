@@ -2,3 +2,5 @@ Git add con un punto.    es para agregar todo
 Git remote.     Para ver si ya está agregado el remoto
 Git log --oneline para ver los comit resumidos
 Git log --oneline grafic  ver diagrama
+Git config --global user.name ""
+Git config --global user.email "" sin el nombre , devuelve el actual
