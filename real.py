@@ -44,7 +44,7 @@ class Ventanas():
         self.hoja1 . config(bg = "magenta2")
         self.hoja1 . resizable(1,1)
   
-        trico_izquierda = cv2.imread ("1Trico.jpg")                          # Leyendo la imagen
+        trico_izquierda = cv2.imread ("33__Knight")                          # Leyendo la imagen
         trico_IZQUIERDA = cv2.cvtColor (trico_izquierda, cv2.COLOR_BGR2RGB)  # Cambiando a RGB
 
         TRICO_IZQ = Image.fromarray (trico_IZQUIERDA)                        # Convierte la imagen en un objeto para utilizar
@@ -57,16 +57,16 @@ class Ventanas():
         self.label1. pack (fill=BOTH, expand = YES) 
 #____________________________________________________________________
                                                                      #   
-        self._1_Frog.config(state= "disable")                        #
+        #self._1_Frog.config(state= "disable")                        #
                                                                      #
-        self.hoja1.protocol("WM_DELETE_WINDOW", self.cerrando)       #  
+        #self.hoja1.protocol("WM_DELETE_WINDOW", self.cerrando)       #  
                                                                      #   
-    def cerrando (self):                                             #                                           
-            self.hoja1. destroy()                                    #
-            self.hoja2. destroy()                                    #
-            self.hoja3. destroy()                                    # 
+   # def cerrando (self):                                             #                                           
+          #  self.hoja1. destroy()                                    #
+          #  self.hoja2. destroy()                                    #
+          #  self.hoja3. destroy()                                    # 
                                                                      #  
-            self._1_Frog.config(state= "normal")                     # 
+          # self._1_Frog.config(state= "normal")                     # 
 #____________________________________________________________________#
 
     def resize_image_1 (self,event):
@@ -82,7 +82,7 @@ class Ventanas():
 
 #______________APERTURA___2____________________________________
 
-    def apertura_2 (self):
+    def apertura_4 (self):
 
         self.hoja2 = Toplevel()
         self.hoja2 . wm_attributes("-topmost", True)
@@ -119,7 +119,7 @@ class Ventanas():
 
 #______________APERTURA___3___________________________________
 
-    def apertura_3 (self):
+    def apertura_4 (self):
 
         self.hoja3 = Toplevel()
         self.hoja3 . wm_attributes("-topmost", True)
@@ -201,7 +201,7 @@ class Principal(Ventanas):
 
 #_______________________________________________________
 
-        self.Fondo_plomo = Frame (root, bg="#282b30", width=756, height=65)    # Este frame es contenedor del contenedor de los botones COLOR plomo
+        self.Fondo_plomo = Frame (root, bg="#31343a", width=756, height=65)    # Este frame es contenedor del contenedor de los botones COLOR plomo
         self.Fondo_plomo . grid (column= 1, row= 0, padx=0, pady=0, sticky="n")
         self.Fondo_plomo . grid_propagate (0)
         
@@ -324,11 +324,25 @@ class Principal(Ventanas):
             is_on = True
 
 
-        if self.Botones.winfo_ismapped():
-            self.Botones.grid_remove()
+       # if self.Botones.winfo_ismapped():
+       #     self.Botones.grid_remove()
+    
+       # else:
+       #     self.Botones.grid()
+
+        if self.Fondo_plomo.winfo_ismapped():      # esto esta a prueba
+            self.Fondo_plomo.grid_remove()
     
         else:
-            self.Botones.grid()
+            self.Fondo_plomo.grid()
+
+        self.Fondo_plomo.somewidget.update()
+        
+        if self.Fondo_plomo.winfo_width():   # esto esta a prueba
+            self.Fondo_plomo(root, bg="#31343a", width=556, height=65)
+    
+        else:
+            self.Fondo_plomo.grid()
 
 #___________________________________
     def Movil_trico (self):  # BORRAR ESTA FUNCION 
@@ -336,9 +350,13 @@ class Principal(Ventanas):
 #___________________________________
 
     def Max_cuadro_inicial(self):
-        self.Cuadro_de_inicio.config(width=60, height=100)
 
-        
+        if self.Cuadro_de_inicio.winfo_ismapped():
+            self.Cuadro_de_inicio.config(width=60, height=100)
+            self.Fondo_plomo . grid_propagate (0)
+
+        else:
+            self.Cuadro_de_inicio.config(width=60, height=200)
 
 
 if __name__=="__main__":
