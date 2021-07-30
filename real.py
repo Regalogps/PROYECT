@@ -339,13 +339,14 @@ class Principal(Ventanas):
         self.Fondo_plomo.somewidget.update()
         
         if self.Fondo_plomo.winfo_width():   # esto esta a prueba
-            self.Fondo_plomo(root, bg="#31343a", width=556, height=65)
+            self.Fondo_plomo(self.root, bg="#31343a", width=556, height=65)
     
         else:
             self.Fondo_plomo.grid()
 
 #___________________________________
-    def Movil_trico (self):  # BORRAR ESTA FUNCION 
+    def Movil_trico (self):  # BORRAR ESTA FUNCION sss
+
         pass 
 #___________________________________
 
@@ -357,6 +358,9 @@ class Principal(Ventanas):
 
         else:
             self.Cuadro_de_inicio.config(width=60, height=200)
+
+    def errororor(self):
+        pass
 
 
 if __name__=="__main__":
