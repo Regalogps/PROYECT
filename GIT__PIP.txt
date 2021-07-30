@@ -23,3 +23,8 @@ Git remote.     Para ver los remotos locales que tienes
 Git remote add ____ = nombre del remoto usualmente es "origin" sin comillas ,luego la ___= url del remoto ejm: http/github..../xx.git   Para agregar un remoto
 Git push origin master.  Origin es el nombre del remoto, puede ser cualquiera y máster es la rama de los comit que quieres subir al repositorio, puede ser otra rama no importa la sube al mismo remoto osea irigin
 Git pull origin master  Baja los archivos creados a tu IDE
+
+PIP
+
+pip freeze  listar modulos instalados con pip creo
+
