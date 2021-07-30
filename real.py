@@ -345,7 +345,7 @@ class Principal(Ventanas):
             self.Fondo_plomo.grid()
 
 #___________________________________
-    def Movil_trico (self):  # BORRAR ESTA FUNCION sss
+    def Movil_trico (self):  # BORRAR ESTA FUNCION sssddddddf
 
         pass 
 #___________________________________
