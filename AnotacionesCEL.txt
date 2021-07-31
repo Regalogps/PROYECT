@@ -1,0 +1,2 @@
+Proteger código python:
+- bytescodec.  : se resuelve con ingeniería inversa 
