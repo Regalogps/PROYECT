@@ -13,21 +13,9 @@ import sys
 global is_on
 is_on = True
 
-'''
-        if self.Frame_root.winfo_ismapped():
-            self.Frame_root.grid_remove()
-
-            self.Boton_On_Off . place(x= 416, y= 0)
-            self.buscador.place(x= 311, y= 0)        
-        else:
-            self.Frame_root.grid()
-
-            self.Boton_On_Off . place(x= 416, y= 50)
-            self.buscador.place(x= 311, y= 51)
-'''
 class Ventanas():
 
-    def aperturas_Frog (self):
+    def Aperturas_Ventanas (self):
 
         self.apertura_1 ()        
         self.apertura_2 ()
@@ -183,14 +171,14 @@ class Principal(Ventanas):
         #self.Frame0 . grid(column= 0, row= 0)
         #self.Frame0 . grid_propagate(0)
         
-        self.Cuadro_de_inicio = Frame (root, bg="#11161d", width=60, height=65)
-        self.Cuadro_de_inicio . grid(column= 0, row= 0, padx=(0,0), pady=(0,0))
-        self.Cuadro_de_inicio . grid_propagate(0)
+        self.Cuadro_inicial = Frame (root, bg="#11161d", width=60, height=65)
+        self.Cuadro_inicial . grid(column= 0, row= 0, padx=(0,0), pady=(0,0))
+        self.Cuadro_inicial . grid_propagate(0)
 
-        self.Configuracion = Button (self.Cuadro_de_inicio, image = self.Lista1[110],bg="#11161d", bd=0, activebackground="#11161d", command= self.Max_cuadro_inicial )
+        self.Configuracion = Button (self.Cuadro_inicial, image = self.Lista1[110],bg="#11161d", bd=0, activebackground="#11161d", command= self.Config_GUI )
         self.Configuracion . grid (column=0, row= 1)
 #_______________________________________________________
-
+        
 
         #self.buscador = Spinbox(self.Cuadro_de_inicio)
         #self.buscador.config(width= 12)
@@ -217,7 +205,7 @@ class Principal(Ventanas):
 
     def Botones_off (self):           # BOTONES DE TODOS LOS MOVILES
 
-        self.Frog_1 = Button (self.Botones, text="Frog", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.aperturas_Frog)
+        self.Frog_1 = Button (self.Botones, text="Frog", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Aperturas_Ventanas)
         self.Frog_1 . grid (column= 1, row= 1, pady=3, padx=(5,0))
 
         self.Fox_2 = Button (self.Botones, text="Fox", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= self.Movil_trico)
@@ -286,7 +274,7 @@ class Principal(Ventanas):
 
 #______________________________BOTON PARA OCULTAR LOS BOTONES DE MOVILES____________________________
 
-        self. Logo_Ash = Button (self.Cuadro_de_inicio, image = self. Lista1 [107], bg="#11161d", bd=0, activebackground="#11161d" , command= self.Metodo_Toggle)
+        self. Logo_Ash = Button (self.Cuadro_inicial, image = self. Lista1 [107], bg="#11161d", bd=0, activebackground="#11161d" , command= self.Metodo_Toggle)
         self. Logo_Ash . grid(column= 0, row= 0, padx=3, pady=1)     
 #______________________________________
         
@@ -324,26 +312,11 @@ class Principal(Ventanas):
             is_on = True
 
 
-       # if self.Botones.winfo_ismapped():
-       #     self.Botones.grid_remove()
-    
-       # else:
-       #     self.Botones.grid()
-
-        if self.Fondo_plomo.winfo_ismapped():      # esto esta a prueba
+        if self.Fondo_plomo.winfo_ismapped():      
             self.Fondo_plomo.grid_remove()
     
         else:
             self.Fondo_plomo.grid()
-
-        Info=self.Cuadro_de_inicio.winfo_reqheight()
-        
-        
-        if info=65:
-            self.Cuadro_de_inicio.config(width=60, height=165)
-    
-        else:
-            self.Cuadro_de_inicio.config(width=60, height=65)
 
 #___________________________________
     def Movil_trico (self):  # BORRAR ESTA FUNCION sssddddddf
@@ -351,17 +324,15 @@ class Principal(Ventanas):
         pass 
 #___________________________________
 
-    def Max_cuadro_inicial(self):
+    def Config_GUI(self):
 
-        if self.Cuadro_de_inicio.winfo_ismapped():
-            self.Cuadro_de_inicio.config(width=60, height=100)
-            self.Fondo_plomo . grid_propagate (0)
-
+        self.Info=self.Cuadro_inicial . winfo_reqheight()
+         
+        if self.Info==65:
+            self.Cuadro_inicial . config(width=60, height=165)
+    
         else:
-            self.Cuadro_de_inicio.config(width=60, height=200)
-
-    def errororor(self):
-        pass
+            self.Cuadro_inicial . config(width=60, height=65)
 
 
 if __name__=="__main__":
