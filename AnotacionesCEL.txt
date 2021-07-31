@@ -1,0 +1,28 @@
+Proteger código python:
+- bytescodec.  : se resuelve con ingeniería inversa
+
+Proteger código:
+https://qastack.mx/programming/261638/how-do-i-protect-python-code
+https://wiki.python.org/moin/Asking%20for%20Help/How%20do%20you%20protect%20Python%20source%20code%3F
+
+
+Páginas del cel:
+
+Para cambiar código a POO:
+https://es.stackoverflow.com/questions/288847/python-poo-y-tkinter
+
+Mover ventana sin bordes:
+https://es.stackoverflow.com/questions/134890/mover-ventana-sin-bordes
+ 
+Ocultar un boton:
+https://es.stackoverflow.com/questions/133278/c%C3%B3mo-ocultar-un-bot%C3%B3n-completamente
+
+Variables de control tkinter:
+https://python-para-impacientes.blogspot.com/2016/02/variables-de-control-en-tkinter.html?m=1
+
+Instalador y actualizador de aplicaciones de escritorio:
+https://www.iteramos.com/pregunta/68273/instalador-y-actualizador-de-una-aplicacion-de-escritorio-python
+
+Mover lienzo con el mouse tkinter:
+https://stackoverflow.com/questions/20645532/move-a-tkinter-canvas-with-mouse
+
