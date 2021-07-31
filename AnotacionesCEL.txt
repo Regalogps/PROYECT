@@ -1,2 +1,10 @@
 Proteger código python:
-- bytescodec.  : se resuelve con ingeniería inversa 
+- bytescodec.  : se resuelve con ingeniería inversa
+
+Páginas del cel:
+
+Para cambiar código a POO
+https://es.stackoverflow.com/questions/288847/python-poo-y-tkinter
+
+
+ 
