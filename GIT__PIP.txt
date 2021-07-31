@@ -28,3 +28,6 @@ PIP
 
 pip freeze  listar modulos instalados con pip creo
 
+GIT
+
+pwd : para ver en q ruta de nuestro sistema está ubicado nuestro terminal
