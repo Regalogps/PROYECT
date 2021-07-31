@@ -3,8 +3,18 @@ Proteger código python:
 
 Páginas del cel:
 
-Para cambiar código a POO
+Para cambiar código a POO:
 https://es.stackoverflow.com/questions/288847/python-poo-y-tkinter
 
-
+Mover ventana sin bordes:
+https://es.stackoverflow.com/questions/134890/mover-ventana-sin-bordes
  
+Ocultar un boton:
+https://es.stackoverflow.com/questions/133278/c%C3%B3mo-ocultar-un-bot%C3%B3n-completamente
+
+Variables de control tkinter:
+https://python-para-impacientes.blogspot.com/2016/02/variables-de-control-en-tkinter.html?m=1
+
+Instalador y actualizador de aplicaciones de escritorio:
+https://www.iteramos.com/pregunta/68273/instalador-y-actualizador-de-una-aplicacion-de-escritorio-python
+
