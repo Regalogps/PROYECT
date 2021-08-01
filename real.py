@@ -15,11 +15,10 @@ is_on = True
 
 class Ventanas():
 
-    def Aperturas_Ventanas (self):
 
-        self.apertura_1 ()        
-        self.apertura_2 ()
-        self.apertura_3 ()
+    def __ini__(self):
+        self.ver = self.apertura_1.opened()
+        print(self.ver)
 
 #______________APERTURA___1____________________________________
     
@@ -32,7 +31,7 @@ class Ventanas():
         self.hoja1 . config(bg = "magenta2")
         self.hoja1 . resizable(1,1)
   
-        trico_izquierda = cv2.imread ("33__Knight")                          # Leyendo la imagen
+        trico_izquierda = cv2.imread ("33__Knight.jpg")                          # Leyendo la imagen
         trico_IZQUIERDA = cv2.cvtColor (trico_izquierda, cv2.COLOR_BGR2RGB)  # Cambiando a RGB
 
         TRICO_IZQ = Image.fromarray (trico_IZQUIERDA)                        # Convierte la imagen en un objeto para utilizar
@@ -141,10 +140,23 @@ class Ventanas():
 
         self.label3.config(image = TRICO_GAME_STUF_FUNCION)                  
         self.label3.image = TRICO_GAME_STUF_FUNCION 
+
+
+
+
+
+
+
+    def Aperturas_Ventanas (self):
+       
+        
+        self.apertura_1 ()        
+        #self.apertura_2 ()
+        #self.apertura_3 ()
         
 
 
-#__________________________________________________
+#__________________________________________________________________________________________________________________________________________________________________
 
 class Principal(Ventanas):
 
@@ -152,8 +164,6 @@ class Principal(Ventanas):
 
         #ventana.overrideredirect(1)
         #ventana.attributes("-toolwindow",-1)
-        
-
         root = Tk ()                                         # CAJA
         root. title ("_AshmanBot_")                          #  BORRAR
         root. geometry ("1000x150")                           # TAMANIO DE LA VENTANA
@@ -274,7 +284,7 @@ class Principal(Ventanas):
 
 #______________________________BOTON PARA OCULTAR LOS BOTONES DE MOVILES____________________________
 
-        self. Logo_Ash = Button (self.Cuadro_inicial, image = self. Lista1 [107], bg="#11161d", bd=0, activebackground="#11161d" , command= self.Metodo_Toggle)
+        self. Logo_Ash = Button (self.Cuadro_inicial, image = self. Lista1 [107], bg="#11161d", bd=0, activebackground="#11161d" , command= self.Metodo_Logo)
         self. Logo_Ash . grid(column= 0, row= 0, padx=3, pady=1)     
 #______________________________________
         
@@ -299,7 +309,7 @@ class Principal(Ventanas):
 #_____________________________________      
         
     
-    def Metodo_Toggle (self):
+    def Metodo_Logo(self):
 
         global is_on
 
@@ -333,6 +343,7 @@ class Principal(Ventanas):
     
         else:
             self.Cuadro_inicial . config(width=60, height=65)
+            
 
 
 if __name__=="__main__":
