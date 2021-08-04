@@ -71,6 +71,10 @@ class Interfaz_juego(Tk):
         
 
     def widget_creator(self):                    # Objetos creados de la clase Frame
+
+        self.marco = Frame (self, width= 50 , height=50)
+        self.marco . grid (column=1, row= 1)
+        self.marco . grid_propagate (0)
     
         self.frame_inicial = Class_Frame (self, bg="#11161d", width=60, height=65)       # Frama inicial donde se aloja el boton del LOGO "Ash"
         self.frame_inicial . btn_img_rueda ()                                                       # boton config                                                                          
@@ -86,6 +90,7 @@ class Interfaz_juego(Tk):
         self.contenedor_de_botones . btn_moviles ()                                                  # botones de los moviles
         self.contenedor_de_botones . grid (padx = (10,0), pady = (6,0))  
 
+        print (isinstance(self.frame_inicial, Frame))
 
     def Config_frame_inicial(self):
 
@@ -97,16 +102,17 @@ class Interfaz_juego(Tk):
         else:
             self.frame_inicial . config(width=60, height=65)
 
-    def Metodo_Logo(self):
-        '''    
+
+    def Metodo_Logo2(self):
+            
         global is_on
         
         if is_on:
-            self.img_ash.config(image = Lista2[107])  
+            self.img_ash . config (image = Lista2[107])  
             is_on = False
 
         else:
-            self.img_ash.config(image = Lista2[107]) 
+            self.img_ash . config (image = Lista2[109]) 
             is_on = True
         '''
         
@@ -114,17 +120,29 @@ class Interfaz_juego(Tk):
             self.frame_plomo.grid_remove()
     
         else:
-            self.frame_plomo.grid()     
+            self.frame_plomo.grid() 
+
+        '''
+    def Metodo_Logo(self):  
+
+        
+
+        if self.marco.winfo_ismapped():      
+            self.marco.grid_remove()
+    
+        else:
+            self.marco.grid()   
         
 #______________________________________________________________________________________________________________________________________________________________________________________
 
 class Class_Frame (Frame, Interfaz_juego):     # hereda primordialmente de Frame y despues hereda de Class interfaz porque tiene todas las imagenes
 
-    def __init__(self, master, **kwargs):
+    def __init__(self, parent, **kwargs):
 
-        Frame.__init__(self, master, **kwargs)     # **kwargs se usa para llamar a mas atributos en el momento de crear el objeto de la clase "Class_Frame"
-        self.master = master
+        Frame.__init__(self, parent, **kwargs)     # **kwargs se usa para llamar a mas atributos en el momento de crear el objeto de la clase "Class_Frame"
 
+        #self.master = master
+        #Interfaz_juego. __init__(self)
 
     def btn_img_ash(self):
         self.img_ash = Button (self, image = Lista2 [107], bg="#11161d", bd=0, activebackground="#11161d" , command= self.Metodo_Logo)
