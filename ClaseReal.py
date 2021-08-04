@@ -22,7 +22,7 @@ class Interfaz_juego(Tk):
 
     def __init__(self):
         
-        super(). __init__()                     # Llamando a Tk
+        super(). __init__()                     # Llamando a Tkkkkk
 
         self.config_interfaz()                   # Llamando a la metodo de configuracion de la ventana raiz
 
