@@ -87,7 +87,7 @@ class Interfaz_juego(Tk):
         self.Frame_plomo . grid_propagate (0)
 
         self.contenedor_de_botones = Class_Frame (self.Frame_plomo, bg = "#11161d",)     # Frame contenedor de los botones 
-        self.contenedor_de_botones . Btn_moviles ()                                                  # botones de los moviles
+        self.contenedor_de_botones . btn_moviles ()                                                  # botones de los moviles
         self.contenedor_de_botones . grid (padx = (10,0), pady = (6,0))  
 
     def Metodo_Logo(self):
@@ -130,7 +130,7 @@ class Class_Frame (Frame, Interfaz_juego):     # hereda primordialmente de Frame
         self.img_config . grid (column=0, row= 1)
 
         
-    def Btn_moviles(self):
+    def btn_moviles(self):
 
         self.Frog_1 = Button (self, text="Frog", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Aperturas_Ventanas)
         self.Frog_1 . grid (column= 1, row= 1, pady=3, padx=(5,0))
