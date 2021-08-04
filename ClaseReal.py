@@ -23,7 +23,11 @@ class Interfaz_juego(Tk):
 
     def __init__(self):
         
+<<<<<<< HEAD
         Tk. __init__(self)                     # Llamando a Tk , con super no requiere self
+=======
+        super(). __init__()                     # Llamando a Tkkkkk
+>>>>>>> 2534079c04929546473f121193fff2fdfd1d7921
 
         self.configuracion_interfaz()                   # Llamando a la metodo de configuracion de la ventana raiz
 
@@ -57,24 +61,48 @@ class Interfaz_juego(Tk):
         #self.Frame_All = Class_Frame (self)
         #self.Frame_All . grid (column= 0, row= 0)
     
-        self.Frame_inicial = Class_Frame (self, bg="#11161d", width=60, height=65)       # Frama inicial donde se aloja el boton del LOGO "Ash"
-        self.Frame_inicial . Btn_img_config ()                                                       # boton config                                                                          
-        self.Frame_inicial . btn_img_ash()                                                           # boton logo ash
-        self.Frame_inicial . grid (column= 0, row= 0, padx=(0,0), pady=(0,0))
-        self.Frame_inicial . grid_propagate (0)
+        #self.frame_inicial = Class_Frame (self, bg="#11161d", width=60, height=65)       # Frama inicial donde se aloja el boton del LOGO "Ash"
+        #self.frame_inicial . btn_img_rueda ()                                                       # boton config                                                                          
+        #self.frame_inicial . btn_img_ash()                                                           # boton logo ash
+        #self.frame_inicial . grid (column= 0, row= 0, padx=(0,0), pady=(0,0))
+        #self.frame_inicial . grid_propagate (0)
 
+<<<<<<< HEAD
         self.Frame_plomo = Class_Frame (self, bg="#31343a", width=756, height=65)        # Frame inicial donde se aloja el frame que tiene alos botones 
         self.Frame_plomo . grid (column= 1, row= 0, padx=0, pady=0, sticky="n")
         self.Frame_plomo . grid_propagate (0)
+=======
+        self.frame_plomo = Class_Frame (self, bg="#31343a", width=756, height=65)        # Frame inicial donde se aloja el frame que tiene alos botones
+        self.frame_plomo . grid (column= 1, row= 0, padx=0, pady=0, sticky="n")
+        self.frame_plomo . grid_propagate (0)
+>>>>>>> 2534079c04929546473f121193fff2fdfd1d7921
 
         self.contenedor_de_botones = Class_Frame (self.Frame_plomo, bg = "#11161d",)     # Frame contenedor de los botones 
-        self.contenedor_de_botones . Btn_moviles ()                                                  # botones de los moviles
+        self.contenedor_de_botones . btn_moviles ()                                                  # botones de los moviles
         self.contenedor_de_botones . grid (padx = (10,0), pady = (6,0))  
 
+<<<<<<< HEAD
         
 
         #self.Btn_pp = Button(self, command= self.Metodo_Logo2)
         #self.Btn_pp . grid (column=0, row= 0)
+=======
+        self.frame_inicial = Class_Frame (self, bg="#11161d", width=60, height=65)       # Frama inicial donde se aloja el boton del LOGO "Ash"
+        self.frame_inicial . btn_img_rueda ()                                                       # boton config                                                                          
+        self.frame_inicial . btn_img_ash()                                                           # boton logo ash
+        self.frame_inicial . grid (column= 0, row= 0, padx=(0,0), pady=(0,0))
+        self.frame_inicial . grid_propagate (0)
+
+    def Config_frame_inicial(self):
+
+        self.winfo = self.frame_inicial . winfo_reqheight()
+         
+        if self.winfo == 65:
+            self.frame_inicial . config(width=60, height=165)
+    
+        else:
+            self.frame_inicial . config(width=60, height=65)
+>>>>>>> 2534079c04929546473f121193fff2fdfd1d7921
 
     def Metodo_Logo(self):
 
@@ -135,13 +163,13 @@ class Class_Frame (Frame, Interfaz_juego):     # hereda primordialmente de Frame
         self.img_ash . grid(column= 0, row= 0, padx=3, pady=1)
 
             
-    def Btn_img_config(self):
+    def btn_img_rueda(self):
 
-        self.img_config = Button (self, image = Lista2 [110], bg="#11161d", bd=0, activebackground="#11161d", command= self.Config_GUI )
+        self.img_config = Button (self, image = Lista2 [110], bg="#11161d", bd=0, activebackground="#11161d", command= self.Config_frame_inicial)
         self.img_config . grid (column=0, row= 1)
 
         
-    def Btn_moviles(self):
+    def btn_moviles(self):
 
         self.Frog_1 = Button (self, text="Frog", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Aperturas_Ventanas)
         self.Frog_1 . grid (column= 1, row= 1, pady=3, padx=(5,0))
@@ -219,9 +247,6 @@ class Class_Frame (Frame, Interfaz_juego):     # hereda primordialmente de Frame
         pass
 
     def Movil_trico(self):
-        pass
-
-    def Config_GUI(self):
         pass
 
 
