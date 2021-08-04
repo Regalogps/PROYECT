@@ -76,11 +76,11 @@ class Interfaz_juego(Tk):
 
     def widget_creator(self):                    # Objetos creados de la clase Frame
     
-        self.frame_inicial = Class_Frame (self, bg="#11161d", width=60, height=65)       # Frama inicial donde se aloja el boton del LOGO "Ash"
-        self.frame_inicial . btn_img_rueda ()                                                       # boton config                                                                          
-        self.frame_inicial . btn_img_ash()                                                           # boton logo ash
-        self.frame_inicial . grid (column= 0, row= 0, padx=(0,0), pady=(0,0))
-        self.frame_inicial . grid_propagate (0)
+        #self.frame_inicial = Class_Frame (self, bg="#11161d", width=60, height=65)       # Frama inicial donde se aloja el boton del LOGO "Ash"
+        #self.frame_inicial . btn_img_rueda ()                                                       # boton config                                                                          
+        #self.frame_inicial . btn_img_ash()                                                           # boton logo ash
+        #self.frame_inicial . grid (column= 0, row= 0, padx=(0,0), pady=(0,0))
+        #self.frame_inicial . grid_propagate (0)
 
         self.frame_plomo = Class_Frame (self, bg="#31343a", width=756, height=65)        # Frame inicial donde se aloja el frame que tiene alos botones
         self.frame_plomo . grid (column= 1, row= 0, padx=0, pady=0, sticky="n")
@@ -89,6 +89,12 @@ class Interfaz_juego(Tk):
         self.contenedor_de_botones = Class_Frame (self.Frame_plomo, bg = "#11161d",)     # Frame contenedor de los botones 
         self.contenedor_de_botones . btn_moviles ()                                                  # botones de los moviles
         self.contenedor_de_botones . grid (padx = (10,0), pady = (6,0))  
+
+        self.frame_inicial = Class_Frame (self, bg="#11161d", width=60, height=65)       # Frama inicial donde se aloja el boton del LOGO "Ash"
+        self.frame_inicial . btn_img_rueda ()                                                       # boton config                                                                          
+        self.frame_inicial . btn_img_ash()                                                           # boton logo ash
+        self.frame_inicial . grid (column= 0, row= 0, padx=(0,0), pady=(0,0))
+        self.frame_inicial . grid_propagate (0)
 
     def Config_frame_inicial(self):
 
@@ -136,7 +142,7 @@ class Class_Frame (Frame, Interfaz_juego):     # hereda primordialmente de Frame
             
     def btn_img_rueda(self):
 
-        self.img_config = Button (self, image = Lista2 [110], bg="#11161d", bd=0, activebackground="#11161d", command= self.Config_GUI )
+        self.img_config = Button (self, image = Lista2 [110], bg="#11161d", bd=0, activebackground="#11161d", command= self.Config_frame_inicial)
         self.img_config . grid (column=0, row= 1)
 
         
@@ -218,9 +224,6 @@ class Class_Frame (Frame, Interfaz_juego):     # hereda primordialmente de Frame
         pass
 
     def Movil_trico(self):
-        pass
-
-    def Config_GUI(self):
         pass
 
 
