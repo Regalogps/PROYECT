@@ -90,6 +90,16 @@ class Interfaz_juego(Tk):
         self.contenedor_de_botones . btn_moviles ()                                                  # botones de los moviles
         self.contenedor_de_botones . grid (padx = (10,0), pady = (6,0))  
 
+    def Config_frame_inicial(self):
+
+        self.winfo = self.frame_inicial . winfo_reqheight()
+         
+        if self.winfo == 65:
+            self.frame_inicial . config(width=60, height=165)
+    
+        else:
+            self.frame_inicial . config(width=60, height=65)
+
     def Metodo_Logo(self):
 
         global is_on
