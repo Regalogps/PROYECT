@@ -77,7 +77,7 @@ class Interfaz_juego(Tk):
     def widget_creator(self):                    # Objetos creados de la clase Frame
     
         self.Frame_inicial = Class_Frame (self, bg="#11161d", width=60, height=65)       # Frama inicial donde se aloja el boton del LOGO "Ash"
-        self.Frame_inicial . Btn_img_config ()                                                       # boton config                                                                          
+        self.Frame_inicial . btn_img_rueda ()                                                       # boton config                                                                          
         self.Frame_inicial . btn_img_ash()                                                           # boton logo ash
         self.Frame_inicial . grid (column= 0, row= 0, padx=(0,0), pady=(0,0))
         self.Frame_inicial . grid_propagate (0)
@@ -124,7 +124,7 @@ class Class_Frame (Frame, Interfaz_juego):     # hereda primordialmente de Frame
         self.img_ash . grid(column= 0, row= 0, padx=3, pady=1)
 
             
-    def Btn_img_config(self):
+    def btn_img_rueda(self):
 
         self.img_config = Button (self, image = Lista2 [110], bg="#11161d", bd=0, activebackground="#11161d", command= self.Config_GUI )
         self.img_config . grid (column=0, row= 1)
