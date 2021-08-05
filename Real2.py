@@ -11,151 +11,128 @@ import sys
 
 
 
-global Lista2
-Lista2 = None
+global Imagenes
+Imagenes = None
 
 global is_on
 is_on = True
 
 
-class Interfaz_juego(Tk):
+class Interfaz(Tk):
 
-    def __init__(self):
-        
-        Tk. __init__(self)                     # Llamando a Tkkkkk
+    def __init__(self):      
+        Tk. __init__(self)    # Llamando a Tk ()
 
-        
-        self.path_1 = "E:/1-RICHI/MovilesDB"      # Ruta de la carpeta que tiene todas las imagenes
-
-        global Lista2
-        Lista2 = self.Leer_folder(self.path_1)     # Llamando a la metodo Leer_forder y guardandola en una variable el return : Lista2
+        global Imagenes
+        path_1 = "E:/1-RICHI/MovilesDB"      # Ruta de la carpeta de imagenes
+     
+        Imagenes = self.leer_folder(path_1)   # Llama al Metodo y guarda en una varible las imagenes
         self. configurar_interfaz()
-        self. widget_creator()                   # Llamando a la metodo de configuracion de la ventana raiz
+        self. widgets()                   
 
-    def configurar_interfaz(self):                   # Configuracion de la ventana principal , no tiene nada mas                        
-        
+    def configurar_interfaz(self):   # Configuracion de la ventana
+      
         #ventana.overrideredirect(1)
         #ventana.attributes("-toolwindow",-1)
-
         self. title ("_AshmanBot_")                           #  BORRAR
         self. geometry ("1000x150")                           # TAMANIO DE LA VENTANA
         self. resizable (1,1)                                 # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
         self. config (bg="magenta2")                          # CONFIGURA EL FONDO DE LA VENTANA, etc
         self. wm_attributes("-topmost", True)                 # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
         self. wm_attributes("-transparentcolor", "magenta2")  # BORRA EL COLOR SELECCIONADO DE LA VENTANA
-        #root.attributes("-alpha", 0.5 )  
-         
+        #root.attributes("-alpha", 0.5 )          
         #self.path_1 = "E:/1-RICHI/MovilesDB"                 # Ruta de la carpeta que tiene todas las imagenes
         #self.Leer_folder (self.path_1)                       # Llamando a la funcion para que lea la carpetaa
 
 
-    def Leer_folder (self, path):                # Funcion para leer todas las imagenes 
+    def leer_folder (self, path):  # Metodo para leer todas las imagenes
 
         Imagenes = os.listdir(path)
-        self.Lista1 = []              
+        self.lista = []              
         
         for i in Imagenes:
             ruta_completa = path + "/" + i
 
             #print (ruta_completa)
 
-            Abrir = cv2.imread (ruta_completa)
-            Rgb = cv2.cvtColor (Abrir, cv2.COLOR_BGR2RGB)
-            Objeto = Image.fromarray (Rgb)
+            abrir = cv2.imread (ruta_completa)
+            RGB = cv2.cvtColor (abrir, cv2.COLOR_BGR2RGB)
+            objeto = Image.fromarray (RGB)
 
-            Photo = ImageTk.PhotoImage(Objeto)
+            photo = ImageTk.PhotoImage(objeto)
 
-            self.Lista1. append (Photo)
+            self.lista. append (photo)
 
-        return self.Lista1
+        return self.lista
         
 
-    def widget_creator(self):                    # Objetos creados de la clase Frame
+    def widgets(self):  # widgets de la ventana Principal
 
-        self.marco = Frame (self, width= 50 , height=50)
-        self.marco . grid (column=1, row= 1)
-        self.marco . grid_propagate (0)
-    
-        self.frame_inicial = Class_Frame (self, bg="#11161d", width=60, height=65)       # Frama inicial donde se aloja el boton del LOGO "Ash"
-        self.frame_inicial . btn_img_rueda ()                                                       # boton config                                                                          
-        self.frame_inicial . btn_img_ash()                                                           # boton logo ash
+        self.frame_inicial = Create_Frame (self, bg="#11161d", width=60, height=65)   # Frame Contenedor del logo y la rueda 
         self.frame_inicial . grid (column= 0, row= 0, padx=(0,0), pady=(0,0))
-        self.frame_inicial . grid_propagate (0)
+        self.frame_inicial . grid_propagate (0)     
+        self.frame_inicial . btn_img_rueda ()   # Metodo de la clase segundaria                                              
+        self.frame_inicial . btn_img_ash ()      # Metodo de la clase segundaria
 
-        self.frame_plomo = Class_Frame (self, bg="#31343a", width=756, height=65)        # Frame inicial donde se aloja el frame que tiene alos botones
+        self.frame_plomo = Create_Frame (self, bg="#31343a", width=756, height=65)    # Frame Contenedor del Contenedor de los Botones
         self.frame_plomo . grid (column= 1, row= 0, padx=0, pady=0, sticky="n")
         self.frame_plomo . grid_propagate (0)
 
-        self.contenedor_de_botones = Class_Frame (self.frame_plomo, bg = "#11161d",)     # Frame contenedor de los botones 
-        self.contenedor_de_botones . btn_moviles ()                                                  # botones de los moviles
+        self.contenedor_de_botones = Create_Frame (self.frame_plomo, bg = "#11161d",)  # Frame Contenedor de los Botones
+        self.contenedor_de_botones . btn_moviles ()    # Metodo de la clase segundaria                                             
         self.contenedor_de_botones . grid (padx = (10,0), pady = (6,0))  
+     
 
-        print (isinstance(self.frame_inicial, Frame))
-
-    def Config_frame_inicial(self):
+    def configurar_height(self):  # Metodo para configurar Frame
 
         self.winfo = self.frame_inicial . winfo_reqheight()
          
         if self.winfo == 65:
-            self.frame_inicial . config(width=60, height=165)
-    
+            self.frame_inicial . config(width=60, height=165)   
         else:
             self.frame_inicial . config(width=60, height=65)
 
 
-    def Metodo_Logo2(self):
-            
+    def remover_frame(self):  # Metodo para Remover Frame
+
+        if self.frame_plomo.winfo_ismapped():      
+            self.frame_plomo.grid_remove()   
+        else:
+            self.frame_plomo.grid()  
+
         global is_on
-        
+        '''
         if is_on:
-            self.img_ash . config (image = Lista2[107])  
+            self.img_ash . config (image = Imagenes[107])  
             is_on = False
 
         else:
-            self.img_ash . config (image = Lista2[109]) 
+            self.img_ash . config (image = Imagenes[109]) 
             is_on = True
         '''
         
-        if self.frame_plomo.winfo_ismapped():      
-            self.frame_plomo.grid_remove()
-    
-        else:
-            self.frame_plomo.grid() 
-
-        '''
-    def Metodo_Logo(self):  
-
-        
-
-        if self.marco.winfo_ismapped():      
-            self.marco.grid_remove()
-    
-        else:
-            self.marco.grid()   
-        
 #______________________________________________________________________________________________________________________________________________________________________________________
 
-class Class_Frame (Frame, Interfaz_juego):     # hereda primordialmente de Frame y despues hereda de Class interfaz porque tiene todas las imagenes
+class Create_Frame (Frame, Interfaz):   
 
     def __init__(self, parent, **kwargs):
-
-        Frame.__init__(self, parent, **kwargs)     # **kwargs se usa para llamar a mas atributos en el momento de crear el objeto de la clase "Class_Frame"
-
+        Frame.__init__(self, parent, **kwargs)   # Llamando a Frame ()  #, **kwargs : pasar mas valores al momento de la llamada (diccionarios)
         #self.master = master
-        #Interfaz_juego. __init__(self)
 
-    def btn_img_ash(self):
-        self.img_ash = Button (self, image = Lista2 [107], bg="#11161d", bd=0, activebackground="#11161d" , command= self.Metodo_Logo)
+
+    def btn_img_ash(self):  # Metodo que crea -1- Boton (logo)
+        
+        self.img_ash = Button (self, image = Imagenes [107], bg="#11161d", bd=0, activebackground="#11161d" , command= self.master.remover_frame)
         self.img_ash . grid(column= 0, row= 0, padx=3, pady=1)
 
             
-    def btn_img_rueda(self):
+    def btn_img_rueda(self):  # Metodo que crea -1- Boton (rueda)
 
-        self.img_config = Button (self, image = Lista2 [110], bg="#11161d", bd=0, activebackground="#11161d", command= self.Config_frame_inicial)
+        self.img_config = Button (self, image = Imagenes [110], bg="#11161d", bd=0, activebackground="#11161d", command= self.master.configurar_height)
         self.img_config . grid (column=0, row= 1)
 
         
-    def btn_moviles(self):
+    def btn_moviles(self):  # Metodo que crea -22- Botones (moviles)
 
         self.Frog_1 = Button (self, text="Frog", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Aperturas_Ventanas)
         self.Frog_1 . grid (column= 1, row= 1, pady=3, padx=(5,0))
@@ -225,29 +202,22 @@ class Class_Frame (Frame, Interfaz_juego):     # hereda primordialmente de Frame
         self.Dragon2_22. grid (column= 11, row= 2, pady=2, padx=(0,5))
 
 
-        
-
-
-
     def Aperturas_Ventanas(self):
         pass
 
     def Movil_trico(self):
         pass
 
+class Ventanas ():
+    pass
+    
+#__________________________________________
 
+def main ():
 
-#____________________________________________________________________________________________________________________________________________________________________________________
-
-
-def main():
-
-    app= Interfaz_juego ()  
-    app . mainloop ()
-
-
-        
-#____________________________________________________________________________________________________________________________________________________________________________________
+    app_1 = Interfaz ()  
+    app_1 . mainloop ()    
+#___________________________________________
 
 if __name__=="__main__":
     main ()
