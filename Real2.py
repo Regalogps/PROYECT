@@ -17,8 +17,40 @@ Imagenes = None
 global is_on
 is_on = True
 
+#__________________________________________
+class Ventanas (Toplevel):
+    def __init__(self): 
+        Toplevel. __init__(self)
 
-class Interfaz(Tk):
+    def configurar_toplevel(self,titulo,tamano):
+
+        self . wm_attributes("-topmost", True)
+        self . title(titulo)
+        self . geometry(tamano)
+        self . config(bg = "magenta2")
+        self . resizable(1,1)
+
+    def widgets_toplevel(self, name):
+        self.label0 = name
+        self.label0 = Label (self, image = Imagenes [0])
+        self.label0. bind ('<Configure>', self.resize_image_1)
+        self.label0. pack (fill=BOTH, expand = YES)
+
+    def resize_image_1(self, event):
+
+        ImagenesCopia = Imagenes
+        # crear una copia de toda la lista es creo la solucion
+        new_width = event.width
+        new_height = event.height
+
+        Imagen1 = ImagenesCopia [0] . resize ((new_width, new_height))
+        Imagen2 = ImageTk.PhotoImage(Imagen1)
+
+        self.label0 . config (image = Imagen2 [0])                  # Configurando el " Label
+        self.label0 . image = Imagen2 [0] 
+
+#__________________________________________
+class Interfaz(Tk, Ventanas):
 
     def __init__(self):      
         Tk. __init__(self)    # Llamando a Tk ()
@@ -110,9 +142,14 @@ class Interfaz(Tk):
             self.img_ash . config (image = Imagenes[109]) 
             is_on = True
         '''
-        
-#______________________________________________________________________________________________________________________________________________________________________________________
 
+    def abrir_toplevel (self):
+
+        self.hoja1 = Ventanas()
+        self.hoja1 . configurar_toplevel("izq", "195x690")
+        self.hoja1 . widgets_toplevel("label1")
+
+#___________________________________________
 class Create_Frame (Frame, Interfaz):   
 
     def __init__(self, parent, **kwargs):
@@ -134,7 +171,7 @@ class Create_Frame (Frame, Interfaz):
         
     def btn_moviles(self):  # Metodo que crea -22- Botones (moviles)
 
-        self.Frog_1 = Button (self, text="Frog", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Aperturas_Ventanas)
+        self.Frog_1 = Button (self, text="Frog", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.abrir_toplevel)
         self.Frog_1 . grid (column= 1, row= 1, pady=3, padx=(5,0))
 
         self.Fox_2 = Button (self, text="Fox", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= self.Movil_trico)
@@ -208,9 +245,6 @@ class Create_Frame (Frame, Interfaz):
     def Movil_trico(self):
         pass
 
-class Ventanas ():
-    pass
-    
 #__________________________________________
 
 def main ():
