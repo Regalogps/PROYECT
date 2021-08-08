@@ -10,7 +10,7 @@ def n_ventana():
     
     n_ventana.opened = True
     
-    root2 = Tk()
+    root2 = Toplevel(root)
 
     #Espero a que la ventana se cierre
     root2.wait_window()
