@@ -14,6 +14,9 @@ import sys
 global Imagenes
 Imagenes = None
 
+global Imagenes_copia
+Imagenes_copia = None
+
 global is_on
 is_on = True
 
@@ -26,11 +29,16 @@ class Interfaz(Tk):
 
         global Imagenes
         path_1 = "E:/1-RICHI/MovilesDB"      # Ruta de la carpeta de imagenes
+
      
-        Imagenes = self.leer_folder(path_1)   # Llama al Metodo y guarda en una varible las imagenes
+        Imagenes = self.leer_folder(path_1)  # Llama al Metodo y guarda en una varible las imagenes
         #print (Imagenes)
-        self. configurar_interfaz()
-        self. widgets()  
+
+        global Imagenes_copia
+        Imagenes_copia = self.leer_folder(path_1)
+
+        self. configurar_interfaz()          
+        self. widgets()                      
  
         self.mainloop ()
 
@@ -128,7 +136,6 @@ class Interfaz(Tk):
             self.hoja1.widgets_toplevel("labelll")
 
 
-
 #_______
         try:  #--------------------------------------------------codifo recuperado       
             self.hoja2.winfo_viewable()  #-----------------------codifo recuperado
@@ -171,12 +178,12 @@ class Ventanas (Toplevel):
 
     def resize_image_1(self, event):
 
-        ImagenesCopia = Imagenes
+        
         # crear una copia de toda la lista es creo la solucion
         new_width = event.width
         new_height = event.height
 
-        Imagen1 = ImagenesCopia [0] . resize ((new_width, new_height))
+        Imagen1 = Imagenes_copia [0] . resize ((new_width, new_height))
         Imagen2 = ImageTk.PhotoImage(Imagen1)
 
         self.label0 . config (image = Imagen2 [0])                  # Configurando el " Label
