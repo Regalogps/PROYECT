@@ -11,11 +11,7 @@ import sys
 
 
 
-global Imagenes
-Imagenes = None
 
-global Imagenes_copia
-Imagenes_copia = None
 
 global is_on
 is_on = True
@@ -27,16 +23,10 @@ class Interfaz(Tk):
     def __init__(self):      
         Tk. __init__(self)    # Llamando a Tk ()
 
-        global Imagenes
-        path_1 = "E:/1-RICHI/MovilesDB"      # Ruta de la carpeta de imagenes
-
-     
-        Imagenes = self.leer_folder(path_1)  # Llama al Metodo y guarda en una varible las imagenes
-        #print (Imagenes)
-
-        global Imagenes_copia
-        Imagenes_copia = self.leer_folder(path_1)
-
+        self.path_1 = "E:/1-RICHI/MovilesDB"      # Ruta de la carpeta de imagenes
+        self.Imagenes = self.leer_folder(self.path_1, "total")  # Llama al Metodo y guarda en una varible las imagenes
+        self.Imagenes_copia = self.leer_folder(self.path_1, "parcial")  # Llama al Metodo y guarda en una varible las imagenes
+        # Llamando a las Metodos de Configuracion 
         self. configurar_interfaz()          
         self. widgets()                      
  
@@ -58,25 +48,37 @@ class Interfaz(Tk):
         #self.Leer_folder (self.path_1)                       # Llamando a la funcion para que lea la carpetaa
 
 
-    def leer_folder (self, path):  # Metodo para leer todas las imagenes
+    def leer_folder (self, path, lista):  # Metodo para leer todas las imagenes
 
-        Imagenes = os.listdir(path)
-        self.lista = []              
-        
-        for i in Imagenes:
-            ruta_completa = path + "/" + i
+        imagenes = os.listdir(path)
+        self.lista_parcial = [] 
+        self.lista_total = [] 
 
-            #print (ruta_completa)
+        if lista == "parcial" :
+            for i in imagenes:
+                ruta_completa = path + "/" + i               
+                #print (ruta_completa)
 
-            abrir = cv2.imread (ruta_completa)
-            RGB = cv2.cvtColor (abrir, cv2.COLOR_BGR2RGB)
-            objeto = Image.fromarray (RGB)
+                abrir = cv2.imread (ruta_completa)
+                RGB = cv2.cvtColor (abrir, cv2.COLOR_BGR2RGB)
+                objeto = Image.fromarray (RGB)
 
-            photo = ImageTk.PhotoImage(objeto)
+                self.lista_parcial. append (objeto)
 
-            self.lista. append (photo)
+            return self.lista_parcial
 
-        return self.lista
+        if lista == "total" :
+            for i in imagenes:
+                ruta_completa = path + "/" + i
+
+                abrir = cv2.imread (ruta_completa)
+                RGB = cv2.cvtColor (abrir, cv2.COLOR_BGR2RGB)
+                objeto = Image.fromarray (RGB)
+                photo = ImageTk.PhotoImage(objeto)
+
+                self.lista_total. append (photo)
+
+            return self.lista_total
         
 
     def widgets(self):  # widgets de la ventana Principal
@@ -125,13 +127,15 @@ class Interfaz(Tk):
         '''
 
     def abrir_toplevel (self):
-    
+        
+        
         try:  #--------------------------------------------------codifo recuperado
-            self.hoja1.winfo_viewable()  #-----------------------codifo recuperado
+            self.el =self.hoja1.winfo_viewable()  #-----------------------codifo recuperado
+            print (self.el)
+
         except Exception as err:         #-----------------------codifo recuperado
             self.hoja1 = Ventanas()
-            self.hoja1.transient(self)
-
+            self.hoja1.transient(self) #__desde aqui es mi codifgo
             self.hoja1.configurar_toplevel("izq","195x690")
             self.hoja1.widgets_toplevel("labelll")
 
@@ -155,7 +159,7 @@ class Interfaz(Tk):
             self.hoja3.configurar_toplevel("stuf","700x190")
  
 
-
+        
 #__________________________________________
 class Ventanas (Toplevel):
     def __init__(self): 
@@ -171,23 +175,22 @@ class Ventanas (Toplevel):
         self . resizable(1,1)
 
     def widgets_toplevel(self, name):
+
         self.label0 = name
-        self.label0 = Label (self, image = Imagenes [0])
-        self.label0. bind ('<Configure>', self.resize_image_1)
+        self.label0 = Label (self, image = self.master.Imagenes [0])
+        self.label0. bind ('<Configure>', self.resize_image)
         self.label0. pack (fill=BOTH, expand = YES)
 
-    def resize_image_1(self, event):
+    def resize_image(self, event):
 
-        
-        # crear una copia de toda la lista es creo la solucion
         new_width = event.width
         new_height = event.height
 
-        Imagen1 = Imagenes_copia [0] . resize ((new_width, new_height))
-        Imagen2 = ImageTk.PhotoImage(Imagen1)
+        var1 = self.master.Imagenes_copia [0].resize((new_width, new_height))
+        var2 = ImageTk.PhotoImage(var1)
 
-        self.label0 . config (image = Imagen2 [0])                  # Configurando el " Label
-        self.label0 . image = Imagen2 [0] 
+        self.label0 . config (image = var2)     # Configurando el " Label
+        self.label0 . image = var2 
 
 
 #___________________________________________
@@ -200,13 +203,13 @@ class Create_Frame (Frame):
 
     def btn_img_ash(self):  # Metodo que crea -1- Boton (logo)
         
-        self.img_ash = Button (self, image = Imagenes [107], bg="#11161d", bd=0, activebackground="#11161d" , command= self.master.remover_frame)
+        self.img_ash = Button (self, image = self.master.Imagenes [107], bg="#11161d", bd=0, activebackground="#11161d" , command= self.master.remover_frame)
         self.img_ash . grid(column= 0, row= 0, padx=3, pady=1)
 
             
     def btn_img_rueda(self):  # Metodo que crea -1- Boton (rueda)
 
-        self.img_config = Button (self, image = Imagenes [110], bg="#11161d", bd=0, activebackground="#11161d", command= self.master.configurar_height)
+        self.img_config = Button (self, image = self.master.Imagenes [110], bg="#11161d", bd=0, activebackground="#11161d", command= self.master.configurar_height)
         self.img_config . grid (column=0, row= 1)
 
         
@@ -214,48 +217,48 @@ class Create_Frame (Frame):
 
         self.Frog_1 = Button (self, text="Frog", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
 
-        self.Fox_2 = Button (self, text="Fox", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= self.Movil_trico)
+        self.Fox_2 = Button (self, text="Fox", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= self.master.master.abrir_toplevel)
 
-        self.Boomer_3 = Button (self, text="Boomer", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Movil_trico)      
+        self.Boomer_3 = Button (self, text="Boomer", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)      
 
-        self.Ice_4 = Button (self, text="Ice", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Movil_trico)
+        self.Ice_4 = Button (self, text="Ice", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
 
-        self.JD_5 = Button (self, text="J.D", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Movil_trico)
+        self.JD_5 = Button (self, text="J.D", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
 
-        self.Grub_6 = Button (self, text="Grub", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Movil_trico)   
+        self.Grub_6 = Button (self, text="Grub", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)   
 
-        self.Light_7 = Button (self, text="Light", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width=10, bd=0, command= self.Movil_trico)       
+        self.Light_7 = Button (self, text="Light", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width=10, bd=0, command= self.master.master.abrir_toplevel)       
 
-        self.Aduka_8 = Button (self, text="Aduka", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Movil_trico)       
+        self.Aduka_8 = Button (self, text="Aduka", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)       
 
-        self.Knight_9 = Button (self, text="Knight", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= self.Movil_trico)      
+        self.Knight_9 = Button (self, text="Knight", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= self.master.master.abrir_toplevel)      
 
-        self.Calziddon_10 = Button (self, text="Kalsiddon", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Movil_trico)
+        self.Calziddon_10 = Button (self, text="Kalsiddon", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
 
-        self.Mage_11 = Button (self, text="Mage", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Movil_trico)    
+        self.Mage_11 = Button (self, text="Mage", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)    
    
 
-        self.Randomizer_12 = Button (self, text="Randomizer", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Movil_trico)
+        self.Randomizer_12 = Button (self, text="Randomizer", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
  
-        self.Jolteon_13 = Button (self, text="Jolteon", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= self.Movil_trico)
+        self.Jolteon_13 = Button (self, text="Jolteon", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= self.master.master.abrir_toplevel)
  
-        self.Turtle_14 = Button (self, text="Turtle", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Movil_trico)
+        self.Turtle_14 = Button (self, text="Turtle", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
 
-        self.Armor_15 = Button (self, text="Armor", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Movil_trico)
+        self.Armor_15 = Button (self, text="Armor", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
 
-        self.Asate_16 = Button (self, text="A.Sate", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Movil_trico)
+        self.Asate_16 = Button (self, text="A.Sate", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
 
-        self.Raon_17 = Button (self, text="Raon", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Movil_trico)
+        self.Raon_17 = Button (self, text="Raon", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
  
-        self.Trico_18 = Button (self, text="Trico", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Movil_trico)
+        self.Trico_18 = Button (self, text="Trico", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
 
-        self.Nak_19 = Button (self, text="Nak", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Movil_trico)
+        self.Nak_19 = Button (self, text="Nak", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
  
-        self.Big_20 = Button (self, text="Big", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.Movil_trico)
+        self.Big_20 = Button (self, text="Big", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
  
-        self.Dragon1_21 = Button (self, text="Dragon 1", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= self.Movil_trico)
+        self.Dragon1_21 = Button (self, text="Dragon 1", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= self.master.master.abrir_toplevel)
  
-        self.Dragon2_22 = Button (self, text="Dragon 2", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= self.Movil_trico)
+        self.Dragon2_22 = Button (self, text="Dragon 2", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= self.master.master.abrir_toplevel)
 
         self.Frog_1 . grid (column= 1, row= 1, pady=3, padx=(5,0))
         self.Fox_2. grid (column= 2, row= 1, pady=3, padx=(0,0))
@@ -289,8 +292,7 @@ class Create_Frame (Frame):
 
 def main ():
 
-    app_1 = Interfaz ()  
-    #app_1 . mainloop ()    
+    app_1 = Interfaz ()    
 #___________________________________________
 
 if __name__=="__main__":

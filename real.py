@@ -36,7 +36,8 @@ class Ventanas():
 
         TRICO_IZQ = Image.fromarray (trico_IZQUIERDA)                        # Convierte la imagen en un objeto para utilizar
 
-        self.COPIA_1 = TRICO_IZQ.copy()                             
+        self.COPIA_1 = TRICO_IZQ.copy()   
+        print(self.COPIA_1)                          
         TRICO_IZQUIERDA = ImageTk.PhotoImage(TRICO_IZQ)                      # Insertando la imagen dendo del SCRIPT
 
         self.label1 = Label (self.hoja1, image = TRICO_IZQUIERDA)
