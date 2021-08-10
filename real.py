@@ -30,8 +30,9 @@ class Ventanas():
         self.hoja1 . geometry("195x690")
         self.hoja1 . config(bg = "magenta2")
         self.hoja1 . resizable(1,1)
-  
-        trico_izquierda = cv2.imread ("33__Knight.jpg")                          # Leyendo la imagen
+        self.hoja1 . attributes("-transparentcolor", "magenta2")
+
+        trico_izquierda = cv2.imread ("__105__Vida.jpg")                          # Leyendo la imagen
         trico_IZQUIERDA = cv2.cvtColor (trico_izquierda, cv2.COLOR_BGR2RGB)  # Cambiando a RGB
 
         TRICO_IZQ = Image.fromarray (trico_IZQUIERDA)                        # Convierte la imagen en un objeto para utilizar

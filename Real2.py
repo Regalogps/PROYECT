@@ -10,22 +10,23 @@ import os
 import sys
 
 
+#global is_on
+#is_on = True
 
 
 
-global is_on
-is_on = True
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_DESDE AQUI EMPIEZA EL CODIGO-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-
 
+class Interfaz (Tk):
 
-#__________________________________________
-class Interfaz(Tk):
-
-    def __init__(self):      
+    def __init__(self): #-------------------------------------------------------------NO TOCAR     
         Tk. __init__(self)    # Llamando a Tk ()
 
         self.path_1 = "E:/1-RICHI/MovilesDB"      # Ruta de la carpeta de imagenes
         self.Imagenes = self.leer_folder(self.path_1, "total")  # Llama al Metodo y guarda en una varible las imagenes
         self.Imagenes_copia = self.leer_folder(self.path_1, "parcial")  # Llama al Metodo y guarda en una varible las imagenes
+
         # Llamando a las Metodos de Configuracion 
         self. configurar_interfaz()          
         self. widgets()                      
@@ -33,7 +34,7 @@ class Interfaz(Tk):
         self.mainloop ()
 
 
-    def configurar_interfaz(self):   # Configuracion de la ventana
+    def configurar_interfaz(self):   # Configuracion de la ventana -------------------NO TOCAR (despues)
       
         #ventana.overrideredirect(1)
         #ventana.attributes("-toolwindow",-1)
@@ -48,7 +49,7 @@ class Interfaz(Tk):
         #self.Leer_folder (self.path_1)                       # Llamando a la funcion para que lea la carpetaa
 
 
-    def leer_folder (self, path, lista):  # Metodo para leer todas las imagenes
+    def leer_folder (self, path, lista):  # Metodo para leer todas las imageneS ------NO TOCAR
 
         imagenes = os.listdir(path)
         self.lista_parcial = [] 
@@ -81,7 +82,7 @@ class Interfaz(Tk):
             return self.lista_total
         
 
-    def widgets(self):  # widgets de la ventana Principal
+    def widgets(self):  # widgets de la ventana Principal ----------------------------NO TOCAR  EDITAR DESPUES A CLASE BOTON O LABEL
 
         self.frame_inicial = Create_Frame (self, bg="#11161d", width=60, height=65)   # Frame Contenedor del logo y la rueda 
         self.frame_inicial . grid (column= 0, row= 0, padx=(0,0), pady=(0,0))
@@ -98,7 +99,7 @@ class Interfaz(Tk):
         self.contenedor_de_botones . grid (padx = (10,0), pady = (6,0))  
      
 
-    def configurar_height(self):  # Metodo para configurar Frame
+    def configurar_height(self):  # Metodo para configurar Frame ---------------------NO TOCAR
 
         self.winfo = self.frame_inicial . winfo_reqheight()
          
@@ -108,7 +109,7 @@ class Interfaz(Tk):
             self.frame_inicial . config(width=60, height=65)
 
 
-    def remover_frame(self):  # Metodo para Remover Frame
+    def remover_frame(self):  # Metodo para Remover Frame ----------------------------NO TOCAR
 
         if self.frame_plomo.winfo_ismapped():      
             self.frame_plomo.grid_remove()   
@@ -126,53 +127,124 @@ class Interfaz(Tk):
             is_on = True
         '''
 
-    def abrir_toplevel (self):
+
+    def abrir_toplevel (self,boton): 
+
+#____________________________________
+        try: 
+            self.Ventana_izquierda.winfo_viewable() 
+            
+        except Exception as err:        
+#____________________________________
+
+
+            self.Ventana_izquierda = Ventana_Toplevel()  # CREANDO <---VENTANA IZQUIERDA---> (TOPLEVEL)                                                                        # despues iba  #self.hoja1.transient(self) #__desde aqui es mi codifgo           
+            # Llamando alos metodos de clase : TOPLEVEL:
+
+            self.Ventana_izquierda . configurar_toplevel("izq","195x690")
+
+            if boton == 1:
+                self.sapo= Frame_Original(self.Ventana_izquierda)
+                self.sapo . mobil_1()
+                self.sapo. grid()
+
+            if boton == 2:
+                self.fox= Frame_Original(self.Ventana_izquierda)
+                self.fox . mobil_2()
+                self.fox. grid()
+        '''
+#____________________________________
+        try:        
+            self.Ventana_derecha.winfo_viewable()  #-----------------------codifo recuperado
+
+        except Exception as err:         
+#____________________________________
+
+            self.Ventana_derecha = Ventana_Toplevel()  # CREANDO <---VENTANA DERECHA---> (TOPLEVEL)
+            # Llamando alos metodos de clase : TOPLEVEL:
+
+
+            self.Ventana_derecha . configurar_toplevel("der","195x690") 
+            #self.hoja2.
+     
+#____________________________________
+        try:  
+            self.Ventana_stuff.winfo_viewable()  
+
+        except Exception as err:  
+#____________________________________
+
+            self.Ventana_stuff = Ventana_Toplevel()  # CREANDO <---VENTANA GAME STUF---> (TOPLEVEL)
+            # Llamando alos metodos de clase : TOPLEVEL:
+            
+
+            self.Ventana_stuff . configurar_toplevel("stuf","700x190")
+        '''
+
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
+
+class Frame_Original(Frame):
+
+    def __init__(self, parent, **kwargs):
+        Frame.__init__(self, parent, **kwargs)   
         
         
-        try:  #--------------------------------------------------codifo recuperado
-            self.el =self.hoja1.winfo_viewable()  #-----------------------codifo recuperado
-            print (self.el)
-
-        except Exception as err:         #-----------------------codifo recuperado
-            self.hoja1 = Ventanas()
-            self.hoja1.transient(self) #__desde aqui es mi codifgo
-            self.hoja1.configurar_toplevel("izq","195x690")
-            self.hoja1.widgets_toplevel("labelll")
+        
+        
+    def mobil_1(self):
 
 
-#_______
-        try:  #--------------------------------------------------codifo recuperado       
-            self.hoja2.winfo_viewable()  #-----------------------codifo recuperado
-        except Exception as err:         #-----------------------codifo recuperado
-            self.hoja2 = Ventanas()
-            self.hoja2.transient( self)
+        #self.label2 = Label(self, image=self.master.master.Imagenes [1])
+        #self.label2 . grid (column=0, row= 0)
+        #self.label2 . grid_propagate (0)
 
-            self.hoja2.configurar_toplevel("der","195x690")
-#_______      
 
-        try:  #--------------------------------------------------codifo recuperado
-            self.hoja3.winfo_viewable()  #-----------------------codifo recuperado
-        except Exception as err:         #-----------------------codifo recuperado
-            self.hoja3 = Ventanas()
-            #self.hoja3.transient( self) #-----------------------codifo recuperado
+           
+        self.label_1 = Label (self, image= self.master.master.Imagenes [0]) 
+        self.label_1 . grid (column=0, row= 0) 
+        self.label_1 . grid_propagate (0) 
 
-            self.hoja3.configurar_toplevel("stuf","700x190")
+        self.btn_midiendo = Button (self.label_1, bg="green", bd=0, activebackground="green2" )
+        self.btn_midiendo . grid (padx = 20, pady=220)
+
+    def mobil_2(self):
+
+
+        #self.label2 = Label(self, image=self.master.master.Imagenes [1])
+        #self.label2 . grid (column=0, row= 0)
+        #self.label2 . grid_propagate (0)
+
+
+           
+        self.label_2 = Label (self, image= self.master.master.Imagenes [4]) 
+        self.label_2 . grid (column=0, row= 0) 
+        self.label_2 . grid_propagate (0) 
+
+        self.btn_midiendo = Button (self.label_2, bg="green", bd=0, activebackground="green2")
+        self.btn_midiendo . grid (padx = 20, pady=220)
+
+    
  
-
         
-#__________________________________________
-class Ventanas (Toplevel):
-    def __init__(self): 
+      
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
+
+class Ventana_Toplevel (Toplevel):
+
+    def __init__(self): #---------------------------------------------------------NO TOCAR 
         Toplevel. __init__(self) 
         #self.masters = masters
           
-    def configurar_toplevel(self,titulo,tamano):
+    def configurar_toplevel(self,titulo,tamano): #--------------------------------NO TOCAR (despues)
 
         self . wm_attributes("-topmost", True)
         self . title(titulo)
         self . geometry(tamano)
         self . config(bg = "magenta2")
         self . resizable(1,1)
+        self . wm_attributes("-transparentcolor", "magenta2")
 
     def widgets_toplevel(self, name):
 
@@ -193,31 +265,34 @@ class Ventanas (Toplevel):
         self.label0 . image = var2 
 
 
-#___________________________________________
+
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
+
 class Create_Frame (Frame):   
 
-    def __init__(self, parent, **kwargs):
+    def __init__(self, parent, **kwargs): #---------------------------------------NO TOCAR (despues) 
         Frame.__init__(self, parent, **kwargs)   # Llamando a Frame ()  #, **kwargs : pasar mas valores al momento de la llamada (diccionarios)
         #self.master = master
         
 
-    def btn_img_ash(self):  # Metodo que crea -1- Boton (logo)
+    def btn_img_ash(self):  # Metodo que crea -1- Boton (logo) -------------------NO TOCAR (despues)
         
         self.img_ash = Button (self, image = self.master.Imagenes [107], bg="#11161d", bd=0, activebackground="#11161d" , command= self.master.remover_frame)
         self.img_ash . grid(column= 0, row= 0, padx=3, pady=1)
 
             
-    def btn_img_rueda(self):  # Metodo que crea -1- Boton (rueda)
+    def btn_img_rueda(self):  # Metodo que crea -1- Boton (rueda)-----------------NO TOCAR (despues)
 
         self.img_config = Button (self, image = self.master.Imagenes [110], bg="#11161d", bd=0, activebackground="#11161d", command= self.master.configurar_height)
         self.img_config . grid (column=0, row= 1)
 
         
-    def btn_moviles(self):  # Metodo que crea -22- Botones (moviles)
+    def btn_moviles(self):  # Metodo que crea -22- Botones (moviles)  #command = lambda:images(1))
 
-        self.Frog_1 = Button (self, text="Frog", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
+        self.Frog_1 = Button (self, text="Frog", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.abrir_toplevel(1))
 
-        self.Fox_2 = Button (self, text="Fox", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= self.master.master.abrir_toplevel)
+        self.Fox_2 = Button (self, text="Fox", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= lambda: self.master.master.abrir_toplevel(2))
 
         self.Boomer_3 = Button (self, text="Boomer", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)      
 
@@ -285,16 +360,12 @@ class Create_Frame (Frame):
         self.Dragon2_22. grid (column= 11, row= 2, pady=2, padx=(0,5))
 
 
-    def Movil_trico(self):
-        pass
 
-#__________________________________________
-
-def main ():
+def main (): #--------------------------------------------------------------------NO TOCAR 
 
     app_1 = Interfaz ()    
 #___________________________________________
 
-if __name__=="__main__":
+if __name__=="__main__":  #-------------------------------------------------------NO TOCAR 
     main ()
    
