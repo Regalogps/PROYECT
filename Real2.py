@@ -344,7 +344,14 @@ class Frame_frog (Frame):
         self.label_base = Label(self, image= self.master.master.Imagenes [0])
         self.label_base.grid(columna=0, row=0)
 
-        btn_ocultar= Button(self,label_base, (configure botón), command= self.ocultar)
+        self.label_medir = Label(self, image= self.master.master.Imagenes [1])
+        self.label_medir.grid(columna=0, row=0)
+
+        #btn_ocultar= Button(self,label_base, (configure botón), command= self.ocultar)
+        #btn_ocultar.grid()
+
+        btn_ocultar= Label(self,label_base, (configure botón), command= self.ocultar)
+        btn_ocultar= bind("<Button-1>", self.ocultar)
         btn_ocultar.grid()
 
     def ocultar (self): #agregar un (,event=None) si no funciona
