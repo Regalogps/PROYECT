@@ -116,20 +116,8 @@ class Interfaz (Tk):
         else:
             self.frame_plomo.grid()  
 
-        global is_on
-        '''
-        if is_on:
-            self.img_ash . config (image = Imagenes[107])  
-            is_on = False
-
-        else:
-            self.img_ash . config (image = Imagenes[109]) 
-            is_on = True
-        '''
-
 
     def abrir_toplevel (self,boton): 
-
 #____________________________________
         try: 
             self.Ventana_izquierda.winfo_viewable() 
@@ -141,17 +129,20 @@ class Interfaz (Tk):
             self.Ventana_izquierda = Ventana_Toplevel()  # CREANDO <---VENTANA IZQUIERDA---> (TOPLEVEL)                                                                        # despues iba  #self.hoja1.transient(self) #__desde aqui es mi codifgo           
             # Llamando alos metodos de clase : TOPLEVEL:
 
-            self.Ventana_izquierda . configurar_toplevel("izq","195x690")
+            self.Ventana_izquierda . configurar_toplevel("izq","195x690")  # CONFIGURANDO LA VENTANA IZQUIERDA
 
             if boton == 1:
-                self.sapo= Frame_Original(self.Ventana_izquierda)
-                self.sapo . mobil_1()
-                self.sapo. grid()
+                
+                self.sapo= Frame_Original(self.Ventana_izquierda) # CREO EL FRAME Y LO POSICIONO EN VENTANA IZQ
+                self.sapo . mobil_1()  # LLAMO AL LABEL
+                self.sapo. grid()  # LABEL UBICADO
 
             if boton == 2:
-                self.fox= Frame_Original(self.Ventana_izquierda)
+                self.fox= Frame_Original(self.Ventana_izquierda) # CREO EL FRAME
                 self.fox . mobil_2()
                 self.fox. grid()
+
+
         '''
 #____________________________________
         try:        
@@ -166,7 +157,7 @@ class Interfaz (Tk):
 
             self.Ventana_derecha . configurar_toplevel("der","195x690") 
             #self.hoja2.
-     
+        
 #____________________________________
         try:  
             self.Ventana_stuff.winfo_viewable()  
@@ -189,17 +180,7 @@ class Frame_Original(Frame):
     def __init__(self, parent, **kwargs):
         Frame.__init__(self, parent, **kwargs)   
         
-        
-        
-        
     def mobil_1(self):
-
-
-        #self.label2 = Label(self, image=self.master.master.Imagenes [1])
-        #self.label2 . grid (column=0, row= 0)
-        #self.label2 . grid_propagate (0)
-
-
            
         self.label_1 = Label (self, image= self.master.master.Imagenes [0]) 
         self.label_1 . grid (column=0, row= 0) 
@@ -209,14 +190,10 @@ class Frame_Original(Frame):
         self.btn_midiendo . grid (padx = 20, pady=220)
 
     def mobil_2(self):
-
-
         #self.label2 = Label(self, image=self.master.master.Imagenes [1])
         #self.label2 . grid (column=0, row= 0)
         #self.label2 . grid_propagate (0)
-
-
-           
+        #          
         self.label_2 = Label (self, image= self.master.master.Imagenes [4]) 
         self.label_2 . grid (column=0, row= 0) 
         self.label_2 . grid_propagate (0) 
