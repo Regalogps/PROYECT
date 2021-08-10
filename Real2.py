@@ -337,6 +337,29 @@ class Create_Frame (Frame):
         self.Dragon2_22. grid (column= 11, row= 2, pady=2, padx=(0,5))
 
 
+class Frame_frog (Frame): 
+    def __init__(self, master):
+        tk.Tk.__init__(self, master)
+
+        # Agregar los widgets....
+
+        self.label_base = Label(self, image= self.master.master.Imagenes [0])
+        self.label_base.grid(columna=0, row=0)
+
+        HideLabelButton = Button(self, text="Ocultar el label", command=self.ocultar)
+        ShowLabelButton = Button(self, text="Mostrar el label", command=self.mostrar)
+
+        HideLabelButton.place(x=485, y=12)
+        ShowLabelButton.place(x=359, y=12)
+
+    def mostrar (self, event=None): # Mostrar
+        self.label_base.grid(columna=0, row=0)
+
+    def ocultar(self, event=None): # Ocultar
+        self.label_base.grid_forget() 
+
+
+
 
 def main (): #--------------------------------------------------------------------NO TOCAR 
 
