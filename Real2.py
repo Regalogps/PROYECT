@@ -341,22 +341,18 @@ class Frame_frog (Frame):
     def __init__(self, master):
         tk.Tk.__init__(self, master)
 
-        # Agregar los widgets....
-
         self.label_base = Label(self, image= self.master.master.Imagenes [0])
         self.label_base.grid(columna=0, row=0)
 
-        HideLabelButton = Button(self, text="Ocultar el label", command=self.ocultar)
-        ShowLabelButton = Button(self, text="Mostrar el label", command=self.mostrar)
+        btn_ocultar= Button(self,label_base, (configure botón), command= self.ocultar)
+        btn_ocultar.grid()
 
-        HideLabelButton.place(x=485, y=12)
-        ShowLabelButton.place(x=359, y=12)
+    def ocultar (self): #agregar un (,event=None) si no funciona
 
-    def mostrar (self, event=None): # Mostrar
-        self.label_base.grid(columna=0, row=0)
-
-    def ocultar(self, event=None): # Ocultar
-        self.label_base.grid_forget() 
+        if self.label_base.grid_info() != {}:
+            self.label_base.grid_forget()
+        else:
+            self.label_base.grid(column=0, row=0)
 
 
 
