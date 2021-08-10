@@ -339,7 +339,7 @@ class Create_Frame (Frame):
 
 class Frame_frog (Frame): 
     def __init__(self, master):
-        tk.Tk.__init__(self, master)
+        Frame.__init__(self, master)
 
         self.label_base = Label(self, image= self.master.master.Imagenes [0])
         self.label_base.grid(columna=0, row=0)
@@ -347,19 +347,44 @@ class Frame_frog (Frame):
         self.label_medir = Label(self, image= self.master.master.Imagenes [1])
         self.label_medir.grid(columna=0, row=0)
 
-        #btn_ocultar= Button(self,label_base, (configure botón), command= self.ocultar)
+        #btn_ocultar= Button(self,label_base, text="Guia", command= self.ocultar)
         #btn_ocultar.grid()
 
-        btn_ocultar= Label(self,label_base, (configure botón), command= self.ocultar)
+        btn_ocultar= Label(self,label_base, text="Guia", command= self.ocultar)
         btn_ocultar= bind("<Button-1>", self.ocultar)
         btn_ocultar.grid()
 
     def ocultar (self): #agregar un (,event=None) si no funciona
 
-        if self.label_base.grid_info() != {}:
-            self.label_base.grid_forget()
+        if self.label_medir.grid_info() != {}:
+            self.label_medir.grid_forget()
         else:
-            self.label_base.grid(column=0, row=0)
+            self.label_medir.grid(column=0, row=0)
+
+
+class Frame_fox (Frame): 
+    def __init__(self, master):
+        Frame.__init__(self, master)
+
+        self.label_base = Label(self, image= self.master.master.Imagenes [4])
+        self.label_base.grid(columna=0, row=0)
+
+        self.label_medir = Label(self, image= self.master.master.Imagenes [5])
+        self.label_medir.grid(columna=0, row=0)
+
+        #btn_ocultar= Button(self,label_base, text="Guia", command= self.ocultar)
+        #btn_ocultar.grid()
+
+        btn_ocultar= Label(self,label_base, text="Guia", command= self.ocultar)
+        btn_ocultar= bind("<Button-1>", self.ocultar)
+        btn_ocultar.grid()
+
+    def ocultar (self): #agregar un (,event=None) si no funciona
+
+        if self.label_medir.grid_info() != {}:
+            self.label_medir.grid_forget()
+        else:
+            self.label_medir.grid(column=0, row=0)
 
 
 
