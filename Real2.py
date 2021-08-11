@@ -160,7 +160,7 @@ class Interfaz (Tk):
             self._frame.pack()
 
 
-            self.boomer.protocol("WM_DELETE_WINDOW",self.cerrar_1)
+            self.Vent_IZQUIERDA.protocol("WM_DELETE_WINDOW",self.cerrar_1)
 
 
 #___ ventana DERECHA
@@ -177,16 +177,16 @@ class Interfaz (Tk):
             self._frame = nuevo_frame
             self._frame.pack()
 
-            self.ice.protocol("WM_DELETE_WINDOW",self.cerrar_2)
+            self.Vent_DERECHA.protocol("WM_DELETE_WINDOW",self.cerrar_2)
  
 #__________Metodo para eliminar la ventana
 
     def cerrar_1(self):
-        self.boomer.destroy()
+        self.Vent_IZQUIERDA.destroy()
         self.estado_1=True
 
     def cerrar_2(self):
-        self.ice.destroy()
+        self.Vent_DERECHA.destroy()
         self.estado_2=True
 
 
