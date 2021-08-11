@@ -29,7 +29,17 @@ class Interfaz (Tk):
 
         # Llamando a las Metodos de Configuracion 
         self. configurar_interfaz()          
-        self. widgets()                      
+        self. widgets()   
+
+#__________________________anadiendo
+# 
+        self._frame = None
+        #self.switch_frame() 
+        
+#______________
+        self.estado_1 = True  
+        self.estado_2 = True  
+
  
         self.mainloop ()
 
@@ -117,8 +127,79 @@ class Interfaz (Tk):
             self.frame_plomo.grid()  
 
 
-    def abrir_toplevel (self,boton): 
-#____________________________________
+    def switch_frame(self, frame_class):
+
+        new_frame = frame_class(self) #
+
+        if self._frame is not None: #
+            self._frame.destroy()  #
+
+        self._frame = new_frame
+        self._frame.pack()
+
+
+
+
+
+
+
+
+
+    def ventanass(self, argumento_frame):
+
+        if self.estado_1 == True: 
+            self.Vent_IZQUIERDA = Ventanas_Toplevel()  # VENTANA TOPLEVEL
+
+            self.estado_1 = False     
+                                    
+            nuevo_frame = argumento_frame(self.Ventana_izquierdAAA)  # ES UN FRAME POSICIONADO EN TOPLEVEL
+
+            if self._frame is not None:
+                self._frame.destroy()
+                self._frame = nuevo_frame
+                self._frame.pack()
+
+
+            self.boomer.protocol("WM_DELETE_WINDOW",self.cerrar_1)
+
+
+#___ ventana DERECHA
+
+        if self.estado_2 == True:
+            self.Vent_DERECHA = Ventanas_Toplevel()  # VENTANA TOPLEVEL
+
+            self.estado_2=False
+
+            nuevo_frame = argumento_frame(self.Ventana_izquierdAAA)  # ES UN FRAME POSICIONADO EN TOPLEVEL
+
+            if self._frame is not None:
+                self._frame.destroy()
+                self._frame = nuevo_frame
+                self._frame.pack()
+
+            self.ice.protocol("WM_DELETE_WINDOW",self.cerrar_2)
+ 
+#__________Metodo para eliminar la ventana
+
+    def cerrar_1(self):
+        self.boomer.destroy()
+        self.estado_1=True
+
+    def cerrar_2(self):
+        self.ice.destroy()
+        self.estado_2=True
+
+
+
+
+
+
+
+
+
+#_______________________________________
+    def abrir_toplevel (self,boton):    #
+#_______________________________________#
         try: 
             self.Ventana_izquierda.winfo_viewable() 
             
@@ -126,22 +207,21 @@ class Interfaz (Tk):
 #____________________________________
 
 
-            self.Ventana_izquierda = Ventana_Toplevel()  # CREANDO <---VENTANA IZQUIERDA---> (TOPLEVEL)                                                                        # despues iba  #self.hoja1.transient(self) #__desde aqui es mi codifgo           
+            self.Ventana_izquierda = Ventanas_Toplevel()  # CREANDO <---VENTANA IZQUIERDA---> (TOPLEVEL)                                                                        # despues iba  #self.hoja1.transient(self) #__desde aqui es mi codifgo           
             # Llamando alos metodos de clase : TOPLEVEL:
 
-            self.Ventana_izquierda . configurar_toplevel("izq","195x690")  # CONFIGURANDO LA VENTANA IZQUIERDA
+            self.Ventana_izquierda . configurar_toplevel("izq","205x690")  # CONFIGURANDO LA VENTANA IZQUIERDA
 
             if boton == 1:
                 
-                self.sapo= Frame_Original(self.Ventana_izquierda) # CREO EL FRAME Y LO POSICIONO EN VENTANA IZQ
-                self.sapo . mobil_1()  # LLAMO AL LABEL
-                self.sapo. grid()  # LABEL UBICADO
+                self.sapo = Frame_frog(self.Ventana_izquierda) # CREO EL FRAME Y LO POSICIONO EN VENTANA IZQ
+                self.sapo . grid (column=0, row=0)
+                
 
             if boton == 2:
-                self.fox= Frame_Original(self.Ventana_izquierda) # CREO EL FRAME
-                self.fox . mobil_2()
-                self.fox. grid()
-
+                self.fox = Frame_fox(self.Ventana_izquierda) # CREO EL FRAME
+                self.fox . grid (column=0, row=0)
+                
 
         '''
 #____________________________________
@@ -151,7 +231,7 @@ class Interfaz (Tk):
         except Exception as err:         
 #____________________________________
 
-            self.Ventana_derecha = Ventana_Toplevel()  # CREANDO <---VENTANA DERECHA---> (TOPLEVEL)
+            self.Ventana_derecha = Ventanas_Toplevel()  # CREANDO <---VENTANA DERECHA---> (TOPLEVEL)
             # Llamando alos metodos de clase : TOPLEVEL:
 
 
@@ -165,53 +245,21 @@ class Interfaz (Tk):
         except Exception as err:  
 #____________________________________
 
-            self.Ventana_stuff = Ventana_Toplevel()  # CREANDO <---VENTANA GAME STUF---> (TOPLEVEL)
+            self.Ventana_stuff = Ventanas_Toplevel()  # CREANDO <---VENTANA GAME STUF---> (TOPLEVEL)
             # Llamando alos metodos de clase : TOPLEVEL:
             
 
             self.Ventana_stuff . configurar_toplevel("stuf","700x190")
         '''
 
+   
 #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
 #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
 
-class Frame_Original(Frame):
+class Ventanas_Toplevel (Toplevel):
 
-    def __init__(self, parent, **kwargs):
-        Frame.__init__(self, parent, **kwargs)   
-        
-    def mobil_1(self):
-           
-        self.label_1 = Label (self, image= self.master.master.Imagenes [0]) 
-        self.label_1 . grid (column=0, row= 0) 
-        self.label_1 . grid_propagate (0) 
-
-        self.btn_midiendo = Button (self.label_1, bg="green", bd=0, activebackground="green2" )
-        self.btn_midiendo . grid (padx = 20, pady=220)
-
-    def mobil_2(self):
-        #self.label2 = Label(self, image=self.master.master.Imagenes [1])
-        #self.label2 . grid (column=0, row= 0)
-        #self.label2 . grid_propagate (0)
-        #          
-        self.label_2 = Label (self, image= self.master.master.Imagenes [4]) 
-        self.label_2 . grid (column=0, row= 0) 
-        self.label_2 . grid_propagate (0) 
-
-        self.btn_midiendo = Button (self.label_2, bg="green", bd=0, activebackground="green2")
-        self.btn_midiendo . grid (padx = 20, pady=220)
-
-    
- 
-        
-      
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
-
-class Ventana_Toplevel (Toplevel):
-
-    def __init__(self): #---------------------------------------------------------NO TOCAR 
-        Toplevel. __init__(self) 
+    def __init__(self, *args, **kwargs): #---------------------------------------------------------NO TOCAR 
+        Toplevel. __init__(self, *args, **kwargs) 
         #self.masters = masters
           
     def configurar_toplevel(self,titulo,tamano): #--------------------------------NO TOCAR (despues)
@@ -271,9 +319,9 @@ class Create_Frame (Frame):
 
         self.Fox_2 = Button (self, text="Fox", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= lambda: self.master.master.abrir_toplevel(2))
 
-        self.Boomer_3 = Button (self, text="Boomer", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)      
+        self.Boomer_3 = Button (self, text="Boomer", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.ventanass)      
 
-        self.Ice_4 = Button (self, text="Ice", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
+        self.Ice_4 = Button (self, text="Ice", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.ventanass)
 
         self.JD_5 = Button (self, text="J.D", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
 
@@ -337,54 +385,58 @@ class Create_Frame (Frame):
         self.Dragon2_22. grid (column= 11, row= 2, pady=2, padx=(0,5))
 
 
+
 class Frame_frog (Frame): 
+
     def __init__(self, master):
         Frame.__init__(self, master)
 
-        self.label_base = Label(self, image= self.master.master.Imagenes [0])
-        self.label_base.grid(columna=0, row=0)
+        self.label_base = Label(self, image= self.master.master.Imagenes [0], bd=0)
+        self.label_base . grid(column=0, row=0)
+        self.label_base . grid_propagate(0)
 
-        self.label_medir = Label(self, image= self.master.master.Imagenes [1])
-        self.label_medir.grid(columna=0, row=0)
+        self.label_medir = Label(self, image= self.master.master.Imagenes [1], bd=0)       
+        #self.label_medir . grid(column=0, row=0, sticky="n")
+        
+        self.label_ocultar = Label(self.label_base, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
+        self.label_ocultar . bind("<Button-1>", self.ocultar)
+        self.label_ocultar . grid(column=0, row=0, padx=2, pady=61)
+        self.label_ocultar . grid_propagate (0)
+        
+    def ocultar (self, event=None): 
 
-        #btn_ocultar= Button(self,label_base, text="Guia", command= self.ocultar)
-        #btn_ocultar.grid()
-
-        btn_ocultar= Label(self,label_base, text="Guia", command= self.ocultar)
-        btn_ocultar= bind("<Button-1>", self.ocultar)
-        btn_ocultar.grid()
-
-    def ocultar (self): #agregar un (,event=None) si no funciona
-
-        if self.label_medir.grid_info() != {}:
-            self.label_medir.grid_forget()
+        if self.label_medir . grid_info() != {}:  # Metodo de mapeado     
+            self.label_medir . grid_forget()      # Metodo para ocultar # Este metodo devuelve {} si es
         else:
-            self.label_medir.grid(column=0, row=0)
+            self.label_medir . grid(column=0, row=0, sticky="n")
 
 
-class Frame_fox (Frame): 
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_
+#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_           
+
+class Frame_fox (Frame):
+
     def __init__(self, master):
         Frame.__init__(self, master)
 
-        self.label_base = Label(self, image= self.master.master.Imagenes [4])
-        self.label_base.grid(columna=0, row=0)
+        self.label_base = Label(self, image= self.master.master.Imagenes [4], bd=0)
+        self.label_base . grid(column=0, row=0)
+        self.label_base . grid_propagate(0)
 
-        self.label_medir = Label(self, image= self.master.master.Imagenes [5])
-        self.label_medir.grid(columna=0, row=0)
+        self.label_medir = Label(self, image= self.master.master.Imagenes [5], bd=0)
+        #self.label_medir . grid(column=0, row=0, sticky="n")
 
-        #btn_ocultar= Button(self,label_base, text="Guia", command= self.ocultar)
-        #btn_ocultar.grid()
+        self.label_ocultar = Label(self.label_base, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  
+        self.label_ocultar . bind("<Button-1>", self.ocultar)
+        self.label_ocultar . grid(column=0, row=0, padx=2, pady=61)
+        self.label_ocultar . grid_propagate (0)
 
-        btn_ocultar= Label(self,label_base, text="Guia", command= self.ocultar)
-        btn_ocultar= bind("<Button-1>", self.ocultar)
-        btn_ocultar.grid()
+    def ocultar (self, event=None): 
 
-    def ocultar (self): #agregar un (,event=None) si no funciona
-
-        if self.label_medir.grid_info() != {}:
-            self.label_medir.grid_forget()
+        if self.label_medir . grid_info() != {}:  # Metodo de mapeado 
+            self.label_medir . grid_forget()      # Metodo para ocultar
         else:
-            self.label_medir.grid(column=0, row=0)
+            self.label_medir . grid(column=0, row=0, sticky="n")
 
 
 
