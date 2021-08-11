@@ -319,7 +319,7 @@ class Create_Frame (Frame):
 
         self.Fox_2 = Button (self, text="Fox", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= lambda: self.master.master.abrir_toplevel(2))
 
-        self.Boomer_3 = Button (self, text="Boomer", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanass(Frame_boomer))     
+        self.Boomer_3 = Button (self, text="Boomer", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanass(Frame_boomer_IZQ, Frame_boomer_DER))     
 
         self.Ice_4 = Button (self, text="Ice", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanass(Frame_ice))
 
@@ -440,7 +440,7 @@ class Frame_fox (Frame):
 
 
 
-class Frame_boomer(Frame):
+class Frame_boomer_IZQ (Frame):
 
     def __init__(self, master):
         Frame.__init__(self, master)
@@ -463,6 +463,36 @@ class Frame_boomer(Frame):
             self.label_medir . grid_forget()      # Metodo para ocultar
         else:
             self.label_medir . grid(column=0, row=0, sticky="n")
+
+
+class Frame_boomer_DER (Frame):
+
+    def __init__(self, master):
+        Frame.__init__(self, master)
+
+        self.label_base = Label(self, image= self.master.master.Imagenes [10], bd=0)
+        self.label_base . grid(column=0, row=0)
+        self.label_base . grid_propagate(0)
+
+        self.label_77 = Label(self, image= self.master.master.Imagenes [11], bd=0)
+        #self.label_77 . grid(column=0, row=0, sticky="n")
+        
+        # convertir a FRAME si es conveniente
+        #self.label_ocultar = Label(self.label_base, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)
+
+        self.label_ocultar = Label(self.label_base, bg="", width= 50, height= 180, bd=0)  
+        self.label_ocultar . bind("<Button-1>", self.ocultar)
+        self.label_ocultar . grid(column=0, row=0, padx=2, pady=61)
+        self.label_ocultar . grid_propagate (0)
+
+    def ocultar (self, event=None): 
+
+        if self.label_77 . grid_info() != {}:  # Metodo de mapeado 
+            self.label_77 . grid_forget()      # Metodo para ocultar
+        else:
+            self.label_77 . grid(column=0, row=0, sticky="n")
+
+
 
 
 class Frame_ice (Frame):
