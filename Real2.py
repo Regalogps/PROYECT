@@ -152,7 +152,7 @@ class Interfaz (Tk):
 
             self.estado_1 = False     
                                     
-            nuevo_frame = argumento_frame(self.Ventana_izquierdAAA)  # ES UN FRAME POSICIONADO EN TOPLEVEL
+            nuevo_frame = argumento_frame(self.Vent_IZQUIERDA)  # ES UN FRAME POSICIONADO EN TOPLEVEL
 
             if self._frame is not None:
                 self._frame.destroy()
@@ -170,7 +170,7 @@ class Interfaz (Tk):
 
             self.estado_2=False
 
-            nuevo_frame = argumento_frame(self.Ventana_izquierdAAA)  # ES UN FRAME POSICIONADO EN TOPLEVEL
+            nuevo_frame = argumento_frame(self.Vent_DERECHA)  # ES UN FRAME POSICIONADO EN TOPLEVEL
 
             if self._frame is not None:
                 self._frame.destroy()
