@@ -156,8 +156,8 @@ class Interfaz (Tk):
 
             if self._frame is not None:
                 self._frame.destroy()
-                self._frame = nuevo_frame
-                self._frame.pack()
+            self._frame = nuevo_frame
+            self._frame.pack()
 
 
             self.boomer.protocol("WM_DELETE_WINDOW",self.cerrar_1)
@@ -174,8 +174,8 @@ class Interfaz (Tk):
 
             if self._frame is not None:
                 self._frame.destroy()
-                self._frame = nuevo_frame
-                self._frame.pack()
+            self._frame = nuevo_frame
+            self._frame.pack()
 
             self.ice.protocol("WM_DELETE_WINDOW",self.cerrar_2)
  
