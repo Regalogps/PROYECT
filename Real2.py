@@ -440,6 +440,56 @@ class Frame_fox (Frame):
 
 
 
+class Frame_boomer(Frame):
+
+    def __init__(self, master):
+        Frame.__init__(self, master)
+
+        self.label_base = Label(self, image= self.master.master.Imagenes [8], bd=0)
+        self.label_base . grid(column=0, row=0)
+        self.label_base . grid_propagate(0)
+
+        self.label_medir = Label(self, image= self.master.master.Imagenes [9], bd=0)
+        #self.label_medir . grid(column=0, row=0, sticky="n")
+
+        self.label_ocultar = Label(self.label_base, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  
+        self.label_ocultar . bind("<Button-1>", self.ocultar)
+        self.label_ocultar . grid(column=0, row=0, padx=2, pady=61)
+        self.label_ocultar . grid_propagate (0)
+
+    def ocultar (self, event=None): 
+
+        if self.label_medir . grid_info() != {}:  # Metodo de mapeado 
+            self.label_medir . grid_forget()      # Metodo para ocultar
+        else:
+            self.label_medir . grid(column=0, row=0, sticky="n")
+
+
+class Frame_ice (Frame):
+
+    def __init__(self, master):
+        Frame.__init__(self, master)
+
+        self.label_base = Label(self, image= self.master.master.Imagenes [12], bd=0)
+        self.label_base . grid(column=0, row=0)
+        self.label_base . grid_propagate(0)
+
+        self.label_medir = Label(self, image= self.master.master.Imagenes [13], bd=0)
+        #self.label_medir . grid(column=0, row=0, sticky="n")
+
+        self.label_ocultar = Label(self.label_base, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  
+        self.label_ocultar . bind("<Button-1>", self.ocultar)
+        self.label_ocultar . grid(column=0, row=0, padx=2, pady=61)
+        self.label_ocultar . grid_propagate (0)
+
+    def ocultar (self, event=None): 
+
+        if self.label_medir . grid_info() != {}:  # Metodo de mapeado 
+            self.label_medir . grid_forget()      # Metodo para ocultar
+        else:
+            self.label_medir . grid(column=0, row=0, sticky="n")
+
+
 
 def main (): #--------------------------------------------------------------------NO TOCAR 
 
