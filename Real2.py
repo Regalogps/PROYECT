@@ -621,7 +621,7 @@ class Frame_ice_DERECHA (Frame):  #------------------------------- DERECHA :  BA
         self.lbl_BASE . grid_propagate(0)
 
         self.lbl_77 = Label(self, image= self.master.master.Imagenes [15], bd=0)       
-        self.lbl_77 . grid(column=0, row=0, sticky="n")
+        self.lbl_77 . grid(column=0, row=0, sticky="ne")
         
         self.lbl_guia = Label(self.lbl_BASE, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
         self.lbl_guia . bind("<Button-1>", self.ocultar)
