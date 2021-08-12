@@ -555,26 +555,24 @@ class Frame_boomer_DERECHA (Frame):  #------------------------------- DERECHA : 
         self.lbl_77 = Label(self, image= self.master.master.Imagenes [11], bd=0)       
         self.lbl_77 . grid(column=0, row=0, sticky="ne")
 
-        self.lbl_FLECHA_77 = Label(self, image= self.master.master.Imagenes [108], bd=0)       
-        self.lbl_FLECHA_77 . grid(column=0, row=0, sticky="se")
+        self.lbl_FLECHA = Label(self, image= self.master.master.Imagenes [108], bd=0)       
+        self.lbl_FLECHA . grid(column=0, row=0, sticky="se")
      
-        self.lbl_guia = Label(self.lbl_BASE, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
-        self.lbl_guia . bind("<Button-1>", self.ocultar)
-        self.lbl_guia . grid(column=0, row=0, padx=2, pady=61)
-        self.lbl_guia . grid_propagate (0)
+        self.lbl_quitar_columna77 = Label(self.lbl_BASE, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
+        self.lbl_borrar_columna77 . bind("<Button-1>", self.ocultar)
+        self.lbl_borrar_columna77 . grid(column=0, row=0, padx=2, pady=61)
+        self.lbl_borrar_columna77 . grid_propagate (0)
         
     def ocultar (self, event=None): 
 
-        if self.lbl_77 . grid_info() == {} and self.lbl_FLECHA_77 . grid_info() == {} :  # Metodo de info de un widget
-      
-            self.lbl_77 . grid(column=0, row=0, sticky="ne")
+        if self.lbl_77 . grid_info() == {} and self.lbl_FLECHA . grid_info() == {} :  # Metodo de info de un widget
 
-            self.lbl_FLECHA_77 . grid(column=0, row=0, sticky="se")   
-       
+            self.lbl_77 . grid(column=0, row=0, sticky="ne")
+            self.lbl_FLECHA . grid(column=0, row=0, sticky="se")        
+     
         else:
             self.lbl_77 . grid_forget()
-
-            self.lbl_FLECHA_77 . grid_forget()
+            self.lbl_FLECHA . grid_forget()
 
 
        
