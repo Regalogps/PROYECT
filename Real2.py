@@ -146,17 +146,17 @@ class Interfaz (Tk):
             self.TopLevel_IZQUIERDA = Ventanas_Toplevel()  # VENTANA TOPLEVEL
             self.TopLevel_IZQUIERDA . configurar_toplevel("izq", "210x690")
 
-            self.estado_1 = False     
-                                    
-            nuevo_frame_izq = var_1(self.TopLevel_IZQUIERDA)  # ES UN FRAME POSICIONADO EN TOPLEVEL
+        self.estado_1 = False     
+                                
+        nuevo_frame_izq = var_1(self.TopLevel_IZQUIERDA)  # ES UN FRAME POSICIONADO EN TOPLEVEL
 
-            if self.__frame_1 is not None:  # Si frame_1 YA NO ES NONE ejecuta:
-                self.__frame_1 . destroy()
-            self.__frame_1 = nuevo_frame_izq
-            self.__frame_1 . pack()
+        if self.__frame_1 is not None:  # Si frame_1 YA NO ES NONE ejecuta:
+            self.__frame_1 . destroy()
+        self.__frame_1 = nuevo_frame_izq
+        self.__frame_1 . pack()
 
 
-            self.TopLevel_IZQUIERDA.protocol("WM_DELETE_WINDOW",lambda:self.cerrar_1(1))
+        self.TopLevel_IZQUIERDA.protocol("WM_DELETE_WINDOW",lambda:self.cerrar_1(1))
         
        
 
@@ -167,16 +167,16 @@ class Interfaz (Tk):
             self.TopLevel_DERECHA = Ventanas_Toplevel()  # VENTANA TOPLEVEL
             self.TopLevel_DERECHA . configurar_toplevel("der", "210x690")
 
-            self.estado_2=False
+        self.estado_2=False
 
-            nuevo_frame_der = var_2(self.TopLevel_DERECHA)  # ES UN FRAME POSICIONADO EN TOPLEVEL
+        nuevo_frame_der = var_2(self.TopLevel_DERECHA)  # ES UN FRAME POSICIONADO EN TOPLEVEL
 
-            if self.__frame_2 is not None:
-                self.__frame_2 . destroy()
-            self.__frame_2 = nuevo_frame_der
-            self.__frame_2 . pack()
+        if self.__frame_2 is not None:
+            self.__frame_2 . destroy()
+        self.__frame_2 = nuevo_frame_der
+        self.__frame_2 . pack()
 
-            self.TopLevel_DERECHA.protocol("WM_DELETE_WINDOW", lambda:self.cerrar_1(2))
+        self.TopLevel_DERECHA.protocol("WM_DELETE_WINDOW", lambda:self.cerrar_1(2))
 
         
 
@@ -527,7 +527,7 @@ class Frame_boomer_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA
         self.lbl_DELAY . grid_propagate(0)
 
         self.lbl_MEDIR = Label(self, image= self.master.master.Imagenes [9], bd=0)       
-        self.lbl_MEDIR . grid(column=0, row=0, sticky="n")
+        #self.lbl_MEDIR . grid(column=0, row=0, sticky="n")
         
         self.lbl_guia = Label(self.lbl_DELAY, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
         self.lbl_guia . bind("<Button-1>", self.ocultar)
@@ -559,9 +559,9 @@ class Frame_boomer_DERECHA (Frame):  #------------------------------- DERECHA : 
         self.lbl_FLECHA . grid(column=0, row=0, sticky="se")
      
         self.lbl_quitar_columna77 = Label(self.lbl_BASE, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
-        self.lbl_borrar_columna77 . bind("<Button-1>", self.ocultar)
-        self.lbl_borrar_columna77 . grid(column=0, row=0, padx=2, pady=61)
-        self.lbl_borrar_columna77 . grid_propagate (0)
+        self.lbl_quitar_columna77 . bind("<Button-1>", self.ocultar)
+        self.lbl_quitar_columna77 . grid(column=0, row=0, padx=2, pady=61)
+        self.lbl_quitar_columna77 . grid_propagate (0)
         
     def ocultar (self, event=None): 
 
@@ -653,7 +653,7 @@ class Frame_jd_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA :  
         self.lbl_DELAY . grid_propagate(0)
 
         self.lbl_MEDIR = Label(self, image= self.master.master.Imagenes [17], bd=0)       
-        self.lbl_MEDIR . grid(column=0, row=0, sticky="n")
+        #self.lbl_MEDIR . grid(column=0, row=0, sticky="n")
         
         self.lbl_guia = Label(self.lbl_DELAY, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
         self.lbl_guia . bind("<Button-1>", self.ocultar)
@@ -685,9 +685,9 @@ class Frame_jd_DERECHA (Frame):  #------------------------------- DERECHA :  BAS
         self.lbl_FLECHA . grid(column=0, row=0, sticky="se")
      
         self.lbl_quitar_columna77 = Label(self.lbl_BASE, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
-        self.lbl_borrar_columna77 . bind("<Button-1>", self.ocultar)
-        self.lbl_borrar_columna77 . grid(column=0, row=0, padx=2, pady=61)
-        self.lbl_borrar_columna77 . grid_propagate (0)
+        self.lbl_quitar_columna77 . bind("<Button-1>", self.ocultar)
+        self.lbl_quitar_columna77 . grid(column=0, row=0, padx=2, pady=61)
+        self.lbl_quitar_columna77 . grid_propagate (0)
         
     def ocultar (self, event=None): 
 
