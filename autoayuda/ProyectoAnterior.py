@@ -43,7 +43,7 @@ class Principal():
           Select.configure(font=("Arial",9,"bold"))
           Select.grid(column= 0, row= 0, padx=0)
 
-          self.apertura_1.opened= False
+      
 
 #__________________________BOTONES_______________________________________________________________________________________________________         
 
@@ -184,11 +184,7 @@ class Principal():
 
 
 
-          self.hoja1.wait_window()
-
-          self.apertura_1.opened= False
-
-      
+         
      
    
 
@@ -261,8 +257,6 @@ class Principal():
   
           
 
-     def salir (self):
-          sys.exit()
 
 
 if __name__ == "__main__":
