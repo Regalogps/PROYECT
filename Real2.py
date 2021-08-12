@@ -330,7 +330,7 @@ class Create_Frame (Frame):
 
         self.Boomer_3 = Button (self, text="Boomer", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanass(Frame_boomer_IZQUIERDA, Frame_boomer_DERECHA))     
 
-        self.Ice_4 = Button (self, text="Ice", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanass(Frame_ice))
+        self.Ice_4 = Button (self, text="Ice", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanass(Frame_jd_IZQUIERDA, Frame_jd_DERECHA))
 
         self.JD_5 = Button (self, text="J.D", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
 
@@ -640,18 +640,19 @@ class Frame_ice_DERECHA (Frame):  #------------------------------- DERECHA :  BA
 class Frame_ice_STUFF (Frame):  #-------------------------------- REGLA: GAME STUFF
      pass
 
-################################  F R A M E  " I C E "  ################################
 
-class Frame_boomer_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+################################  F R A M E  " J D "  ################################
+
+class Frame_jd_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
 
     def __init__(self, master):
         Frame.__init__(self, master)
 
-        self.lbl_DELAY = Label(self, image= self.master.master.Imagenes [8], bd=0)
+        self.lbl_DELAY = Label(self, image= self.master.master.Imagenes [16], bd=0)
         self.lbl_DELAY . grid(column=0, row=0)
         self.lbl_DELAY . grid_propagate(0)
 
-        self.lbl_MEDIR = Label(self, image= self.master.master.Imagenes [9], bd=0)       
+        self.lbl_MEDIR = Label(self, image= self.master.master.Imagenes [17], bd=0)       
         self.lbl_MEDIR . grid(column=0, row=0, sticky="n")
         
         self.lbl_guia = Label(self.lbl_DELAY, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
@@ -668,16 +669,16 @@ class Frame_boomer_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA
 
 
 
-class Frame_boomer_DERECHA (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Frame_jd_DERECHA (Frame):  #------------------------------- DERECHA :  BASE  /  77
 
     def __init__(self, master):
         Frame.__init__(self, master)
 
-        self.lbl_BASE = Label(self, image= self.master.master.Imagenes [10], bd=0)
+        self.lbl_BASE = Label(self, image= self.master.master.Imagenes [18], bd=0)
         self.lbl_BASE . grid(column=0, row=0)
         self.lbl_BASE . grid_propagate(0)
 
-        self.lbl_77 = Label(self, image= self.master.master.Imagenes [11], bd=0)       
+        self.lbl_77 = Label(self, image= self.master.master.Imagenes [19], bd=0)       
         self.lbl_77 . grid(column=0, row=0, sticky="ne")
 
         self.lbl_FLECHA = Label(self, image= self.master.master.Imagenes [108], bd=0)       
@@ -704,7 +705,7 @@ class Frame_boomer_DERECHA (Frame):  #------------------------------- DERECHA : 
 
 
 
-class Frame_boomer_STUFF (Frame):  #-------------------------------- REGLA: GAME STUFF
+class Frame_jd_STUFF (Frame):  #-------------------------------- REGLA: GAME STUFF
      pass
 
 
