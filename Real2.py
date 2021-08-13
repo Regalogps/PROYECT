@@ -58,6 +58,8 @@ class Interfaz (Tk):
 
         if lista == "parcial" :
             for i in imagenes:
+                if i . split(".")[-1] not is ["jpeg", "png"]:
+                    continue
                 ruta_completa = path + "/" + i               
                 #print (ruta_completa)
 
@@ -71,6 +73,8 @@ class Interfaz (Tk):
 
         if lista == "total" :
             for i in imagenes:
+                if i . split(".")[-1] not is ["jpeg", "png"]:
+                    continue
                 ruta_completa = path + "/" + i
 
                 abrir = cv2.imread (ruta_completa)
