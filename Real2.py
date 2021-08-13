@@ -9,11 +9,8 @@ import numpy as np
 import os 
 import sys
 
-
 #global is_on
 #is_on = True
-
-
 
 #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
 #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_DESDE AQUI EMPIEZA EL CODIGO-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-
@@ -31,18 +28,15 @@ class Interfaz (Tk):
         self. configurar_interfaz()          
         self. widgets()   
 
-#____________________anadiendo al CONSTRUCTOR
-# 
+#_______V A R I A B L E S  de  C O N T R O L  para las :  V E N T A N A S , izquierda; derecha; stuff
+ 
         self.__frame_1 = None
         self.__frame_2 = None
-        #self.switch_frame() 
-        
-#______________
+        self.__frame_3 = None
+
         self.estado_1 = True  
         self.estado_2 = True  
-
- 
-        self.mainloop ()
+        self.estado_3 = True
 
     def configurar_interfaz(self):   # Configuracion de la ventana -------------------NO TOCAR (despues)
       
@@ -55,7 +49,6 @@ class Interfaz (Tk):
         self. attributes("-topmost", True)                 # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
         self. wm_attributes("-transparentcolor", "magenta2")  # BORRA EL COLOR SELECCIONADO DE LA VENTANA
         #root.attributes("-alpha", 0.5 )          
-
 
     def leer_folder (self, path, lista):  # Metodo para leer todas las imageneS ------NO TOCAR
 
@@ -121,70 +114,66 @@ class Interfaz (Tk):
         else:
             self.frame_plomo.grid()  
 
+############   M E T O D O S   P A R A   G E S T I O N A R   L A S   V E N T A N A S   S U P E R I O R E S   ############ 
 
-    def switch_frame(self, frame_class):
-
-        new_frame = frame_class(self) #
-
-        if self._frame is not None: #
-            self._frame.destroy()  #
-
-        self._frame = new_frame
-        self._frame.pack()
-
-
-
-
-
-
-
-#___ VENTANA TOPLEVEL IZQUIERDA
-
-    def ventanass(self, var_1, var_2):
+    def ventanas_123(self, var_1, var_2, var_3):
 
         if self.estado_1 == True: 
-            self.TopLevel_IZQUIERDA = Ventanas_Toplevel()  # VENTANA TOPLEVEL
-            self.TopLevel_IZQUIERDA . configurar_toplevel("izq", "210x690")
+            self.TopLevel_IZQUIERDA = _Toplevel()  #############################################################   VENTANA TOPLEVEL IZQUIERDA
+            self.TopLevel_IZQUIERDA . configurar_toplevel("izq", "220x690") #  metodo 
 
         self.estado_1 = False     
                                 
-        nuevo_frame_izq = var_1(self.TopLevel_IZQUIERDA)  # ES UN FRAME POSICIONADO EN TOPLEVEL
+        contenedor_frame_izq = var_1(self.TopLevel_IZQUIERDA)  #  var_1 es un frame
 
-        if self.__frame_1 is not None:  # Si frame_1 YA NO ES NONE ejecuta:
+        if self.__frame_1 is not None:  
             self.__frame_1 . destroy()
-        self.__frame_1 = nuevo_frame_izq
+        self.__frame_1 = contenedor_frame_izq
         self.__frame_1 . pack()
-
-
-        self.TopLevel_IZQUIERDA.protocol("WM_DELETE_WINDOW",lambda:self.cerrar_1(1))
         
-       
+        self.TopLevel_IZQUIERDA.protocol("WM_DELETE_WINDOW",lambda:self.cerrar_ventanas(1))
 
-
-#___ VENTANA TOPLEVEL DERECHA
+#_______
 
         if self.estado_2 == True:
-            self.TopLevel_DERECHA = Ventanas_Toplevel()  # VENTANA TOPLEVEL
-            self.TopLevel_DERECHA . configurar_toplevel("der", "210x690")
+            self.TopLevel_DERECHA = _Toplevel()  #############################################################   VENTANA TOPLEVEL DERECHA
+            self.TopLevel_DERECHA . configurar_toplevel("der", "220x690")
 
         self.estado_2=False
 
-        nuevo_frame_der = var_2(self.TopLevel_DERECHA)  # ES UN FRAME POSICIONADO EN TOPLEVEL
+        contenedor_frame_der = var_2(self.TopLevel_DERECHA)  # ES UN FRAME POSICIONADO EN TOPLEVEL
 
         if self.__frame_2 is not None:
             self.__frame_2 . destroy()
-        self.__frame_2 = nuevo_frame_der
+        self.__frame_2 = contenedor_frame_der
         self.__frame_2 . pack()
 
-        self.TopLevel_DERECHA.protocol("WM_DELETE_WINDOW", lambda:self.cerrar_1(2))
 
+        self.TopLevel_DERECHA.protocol("WM_DELETE_WINDOW", lambda:self.cerrar_ventanas(2))
+
+#_______ desde aqui falta completar este if
         
+        if self.estado_3 == True:
+            self.TopLevel_STUFF = _Toplevel()  #############################################################   VENTANA TOPLEVEL STUFF
+            self.TopLevel_STUFF . configurar_toplevel("der", "620x190")
 
-        
+        self.estado_3=False
 
-# Metodo para eliminar la ventana
+        contenedor_frame_stuff = var_3(self.TopLevel_STUFF)  # ES UN FRAME POSICIONADO EN TOPLEVEL
 
-    def cerrar_1(self, number):
+        if self.__frame_3 is not None:
+            self.__frame_3 . destroy()
+        self.__frame_3 = contenedor_frame_stuff
+        self.__frame_3 . pack()
+
+
+        self.TopLevel_STUFF.protocol("WM_DELETE_WINDOW", lambda:self.cerrar_ventanas(3))
+
+
+
+
+
+    def cerrar_ventanas(self, number):
 
         if number== 1:
             self.TopLevel_IZQUIERDA.destroy()
@@ -194,94 +183,30 @@ class Interfaz (Tk):
             self.TopLevel_DERECHA.destroy()
             self.estado_2=True
 
-        #if number== 3:
-        #    self.TopLevel_.destroy()
-        #    self.estado_2=True
+        if number== 3:
+            self.TopLevel_STUFF.destroy()
+            self.estado_3=True
 
 
-
-
-
-
-
-
-
-
-
-#_______________________________________
-    def abrir_toplevel (self,boton):    #
-#_______________________________________#
-        try: 
-            self.Ventana_izquierda.winfo_viewable() 
-            
-        except Exception as err:        
-#____________________________________
-
-
-            self.Ventana_izquierda = Ventanas_Toplevel()  # CREANDO <---VENTANA IZQUIERDA---> (TOPLEVEL)                                                                        # despues iba  #self.hoja1.transient(self) #__desde aqui es mi codifgo           
-            # Llamando alos metodos de clase : TOPLEVEL:
-
-            self.Ventana_izquierda . configurar_toplevel("izq","205x690")  # CONFIGURANDO LA VENTANA IZQUIERDA
-
-            if boton == 1:
-                
-                self.sapo = Frame_frog(self.Ventana_izquierda) # CREO EL FRAME Y LO POSICIONO EN VENTANA IZQ
-                self.sapo . grid (column=0, row=0)
-                
-
-            if boton == 2:
-                self.fox = Frame_fox(self.Ventana_izquierda) # CREO EL FRAME
-                self.fox . grid (column=0, row=0)
-                
-
-        
-#____________________________________
-        try:        
-            self.Ventana_derecha.winfo_viewable()  #-----------------------codifo recuperado
-
-        except Exception as err:         
-#____________________________________
-
-            self.Ventana_derecha = Ventanas_Toplevel()  # CREANDO <---VENTANA DERECHA---> (TOPLEVEL)
-            # Llamando alos metodos de clase : TOPLEVEL:
-
-
-            self.Ventana_derecha . configurar_toplevel("der","195x690") 
-            #self.hoja2.
-        
-#____________________________________
-        try:  
-            self.Ventana_stuff.winfo_viewable()  
-
-        except Exception as err:  
-#____________________________________
-
-            self.Ventana_stuff = Ventanas_Toplevel()  # CREANDO <---VENTANA GAME STUF---> (TOPLEVEL)
-            # Llamando alos metodos de clase : TOPLEVEL:
-            
-
-            self.Ventana_stuff . configurar_toplevel("stuf","700x190")
-        
-
-   
 #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
 #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
 
-class Ventanas_Toplevel (Toplevel):
+class _Toplevel (Toplevel):
 
     def __init__(self, *args, **kwargs): #---------------------------------------------------------NO TOCAR 
         Toplevel. __init__(self, *args, **kwargs) 
         #self.masters = masters
           
     def configurar_toplevel(self,titulo,tamano): #--------------------------------NO TOCAR (despues)
-
-        
-        self . title(titulo)
-        self . geometry(tamano)
+     
+        self . title(titulo,)    #  titulo
+        self . geometry(tamano)  #  tamaño
         self . resizable(1,1)
         self . wm_attributes("-topmost", True)
         self . config(bg = "magenta2")
         self . wm_attributes("-transparentcolor", "magenta2")
+
+#   desde ahy que editar...
 
     def widgets_toplevel(self, name):
 
@@ -298,9 +223,8 @@ class Ventanas_Toplevel (Toplevel):
         var1 = self.master.Imagenes_copia [0].resize((new_width, new_height))
         var2 = ImageTk.PhotoImage(var1)
 
-        self.label0 . config (image = var2)     # Configurando el " Label
+        self.label0 . config (image = var2) 
         self.label0 . image = var2 
-
 
 
 #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
@@ -308,10 +232,9 @@ class Ventanas_Toplevel (Toplevel):
 
 class Create_Frame (Frame):   
 
-    def __init__(self, parent, **kwargs): #---------------------------------------NO TOCAR (despues) 
-        Frame.__init__(self, parent, **kwargs)   # Llamando a Frame ()  #, **kwargs : pasar mas valores al momento de la llamada (diccionarios)
-        #self.master = master
-        
+    def __init__(self, *args, **kwargs): #---------------------------------------NO TOCAR (despues) 
+        Frame.__init__(self, *args, **kwargs)   # Llamando a Frame ()  #, **kwargs : pasar mas valores al momento de la llamada (diccionarios)
+
     def btn_img_ash(self):  # Metodo que crea -1- Boton (logo) -------------------NO TOCAR (despues)
         
         self.img_ash = Button (self, image = self.master.Imagenes [107], bg="#11161d", bd=0, activebackground="#11161d" , command= self.master.remover_frame)
@@ -324,50 +247,50 @@ class Create_Frame (Frame):
        
     def btn_moviles(self):  # Metodo que crea -22- Botones (moviles)  #command = lambda:images(1))
 
-        self.Frog_1 = Button (self, text="Frog", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.abrir_toplevel(1))
+        self.Frog_1 = Button (self, text="Frog", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_frog_IZQUIERDA, Frame_frog_DERECHA, Frame_frog_STUFF)) 
 
-        self.Fox_2 = Button (self, text="Fox", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= lambda: self.master.master.abrir_toplevel(2))
+        self.Fox_2 = Button (self, text="Fox", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_fox_IZQUIERDA, Frame_fox_DERECHA, Frame_fox_STUFF)) 
 
-        self.Boomer_3 = Button (self, text="Boomer", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanass(Frame_boomer_IZQUIERDA, Frame_boomer_DERECHA))     
+        self.Boomer_3 = Button (self, text="Boomer", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_boomer_IZQUIERDA, Frame_boomer_DERECHA, Frame_boomer_STUFF))     
 
-        self.Ice_4 = Button (self, text="Ice", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanass(Frame_jd_IZQUIERDA, Frame_jd_DERECHA))
+        self.Ice_4 = Button (self, text="Ice", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_ice_IZQUIERDA, Frame_ice_DERECHA, Frame_ice_STUFF))
 
-        self.JD_5 = Button (self, text="J.D", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
+        self.JD_5 = Button (self, text="J.D", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_jd_IZQUIERDA, Frame_jd_DERECHA, Frame_jd_STUFF))
 
-        self.Grub_6 = Button (self, text="Grub", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)   
+        self.Grub_6 = Button (self, text="Grub", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_grub_IZQUIERDA, Frame_grub_DERECHA, Frame_grub_STUFF))   
 
-        self.Light_7 = Button (self, text="Light", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width=10, bd=0, command= self.master.master.abrir_toplevel)       
+        self.Light_7 = Button (self, text="Light", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width=10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_light_IZQUIERDA, Frame_light_DERECHA, Frame_light_STUFF))       
 
-        self.Aduka_8 = Button (self, text="Aduka", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)       
+        self.Aduka_8 = Button (self, text="Aduka", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_aduka_IZQUIERDA, Frame_aduka_DERECHA, Frame_aduka_STUFF))      
 
-        self.Knight_9 = Button (self, text="Knight", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= self.master.master.abrir_toplevel)      
+        self.Knight_9 = Button (self, text="Knight", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_knight_IZQUIERDA, Frame_knight_DERECHA, Frame_knight_STUFF))     
 
-        self.Calziddon_10 = Button (self, text="Kalsiddon", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
+        self.Calziddon_10 = Button (self, text="Kalsiddon", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_kalsiddon_IZQUIERDA, Frame_kalsiddon_DERECHA, Frame_kalsiddon_STUFF))
 
-        self.Mage_11 = Button (self, text="Mage", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)    
+        self.Mage_11 = Button (self, text="Mage", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_mage_IZQUIERDA, Frame_mage_DERECHA, Frame_mage_STUFF))  
    
 
-        self.Randomizer_12 = Button (self, text="Randomizer", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
+        self.Randomizer_12 = Button (self, text="Randomizer", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_randomizer_IZQUIERDA, Frame_randomizer_DERECHA, Frame_randomizer_STUFF))
  
-        self.Jolteon_13 = Button (self, text="Jolteon", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= self.master.master.abrir_toplevel)
+        self.Jolteon_13 = Button (self, text="Jolteon", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_jolteon_IZQUIERDA, Frame_jolteon_DERECHA, Frame_jolteon_STUFF))
  
-        self.Turtle_14 = Button (self, text="Turtle", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
+        self.Turtle_14 = Button (self, text="Turtle", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_turtle_IZQUIERDA, Frame_turtle_DERECHA, Frame_turtle_STUFF))
 
-        self.Armor_15 = Button (self, text="Armor", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
+        self.Armor_15 = Button (self, text="Armor", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_armor_IZQUIERDA, Frame_armor_DERECHA, Frame_armor_STUFF))
 
-        self.Asate_16 = Button (self, text="A.Sate", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
+        self.Asate_16 = Button (self, text="A.Sate", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_asate_IZQUIERDA, Frame_asate_DERECHA, Frame_asate_STUFF))
 
-        self.Raon_17 = Button (self, text="Raon", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
+        self.Raon_17 = Button (self, text="Raon", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_raon_IZQUIERDA, Frame_raon_DERECHA, Frame_raon_STUFF))
  
-        self.Trico_18 = Button (self, text="Trico", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
+        self.Trico_18 = Button (self, text="Trico", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_trico_IZQUIERDA, Frame_trico_DERECHA, Frame_trico_STUFF))
 
-        self.Nak_19 = Button (self, text="Nak", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
+        self.Nak_19 = Button (self, text="Nak", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_nak_IZQUIERDA, Frame_nak_DERECHA, Frame_nak_STUFF))
  
-        self.Big_20 = Button (self, text="Big", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= self.master.master.abrir_toplevel)
+        self.Big_20 = Button (self, text="Big", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_big_IZQUIERDA, Frame_big_DERECHA, Frame_big_STUFF))
  
-        self.Dragon1_21 = Button (self, text="Dragon 1", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= self.master.master.abrir_toplevel)
+        self.Dragon1_21 = Button (self, text="Dragon 1", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_dragon1_IZQUIERDA, Frame_dragon1_DERECHA, Frame_dragon1_STUFF))
  
-        self.Dragon2_22 = Button (self, text="Dragon 2", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= self.master.master.abrir_toplevel)
+        self.Dragon2_22 = Button (self, text="Dragon 2", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_dragon2_IZQUIERDA, Frame_dragon2_DERECHA, Frame_dragon2_STUFF))
 
         self.Frog_1 . grid (column= 1, row= 1, pady=3, padx=(5,0))
         self.Fox_2. grid (column= 2, row= 1, pady=3, padx=(0,0))
@@ -519,12 +442,12 @@ class Frame_fox_STUFF (Frame):  #-------------------------------- REGLA: GAME ST
 
 class Frame_boomer_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
 
-    def __init__(self, master):
-        Frame.__init__(self, master)
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)      
 
         self.lbl_DELAY = Label(self, image= self.master.master.Imagenes [8], bd=0)
         self.lbl_DELAY . grid(column=0, row=0)
-        self.lbl_DELAY . grid_propagate(0)
+        self.lbl_DELAY . grid_propagate(0) 
 
         self.lbl_MEDIR = Label(self, image= self.master.master.Imagenes [9], bd=0)       
         #self.lbl_MEDIR . grid(column=0, row=0, sticky="n")
@@ -532,12 +455,12 @@ class Frame_boomer_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA
         self.lbl_guia = Label(self.lbl_DELAY, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
         self.lbl_guia . bind("<Button-1>", self.ocultar)
         self.lbl_guia . grid(column=0, row=0, padx=2, pady=61)
-        self.lbl_guia . grid_propagate (0)
+        #self.lbl_guia . grid_propagate (0)
         
     def ocultar (self, event=None): 
 
-        if self.lbl_MEDIR . grid_info() == {}:  # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.lbl_MEDIR . grid(column=0, row=0, sticky="n")      # Metodo para ocultar # Este metodo devuelve {} si es 
+        if self.lbl_MEDIR . grid_info() == {}:                      # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.lbl_MEDIR . grid(column=0, row=0, sticky="n")      
         else:
             self.lbl_MEDIR . grid_forget()
 
@@ -545,11 +468,14 @@ class Frame_boomer_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA
 
 class Frame_boomer_DERECHA (Frame):  #------------------------------- DERECHA :  BASE  /  77
 
-    def __init__(self, master):
-        Frame.__init__(self, master)
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)
+
+        self.pack_propagate(1)
 
         self.lbl_BASE = Label(self, image= self.master.master.Imagenes [10], bd=0)
-        self.lbl_BASE . grid(column=0, row=0)
+        self.lbl_BASE . bind("<Button-1>", self.ocultar)
+        self.lbl_BASE . grid(column=0, row=0, sticky="ne")
         self.lbl_BASE . grid_propagate(0)
 
         self.lbl_77 = Label(self, image= self.master.master.Imagenes [11], bd=0)       
@@ -558,24 +484,42 @@ class Frame_boomer_DERECHA (Frame):  #------------------------------- DERECHA : 
         self.lbl_FLECHA = Label(self, image= self.master.master.Imagenes [108], bd=0)       
         self.lbl_FLECHA . grid(column=0, row=0, sticky="se")
      
-        self.lbl_quitar_columna77 = Label(self.lbl_BASE, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
-        self.lbl_quitar_columna77 . bind("<Button-1>", self.ocultar)
-        self.lbl_quitar_columna77 . grid(column=0, row=0, padx=2, pady=61)
-        self.lbl_quitar_columna77 . grid_propagate (0)
-        
+#___________________esto editar desde aqui
+    def widgets_toplevel(self, name):
+
+        self.label0 = name
+        self.label0 = Label (self, image = self.master.Imagenes [0])
+        self.label0. bind ('<Configure>', self.resize_image)
+        self.label0. pack (fill=BOTH, expand = YES)
+
+    def resize_image(self, event):
+
+        new_width = event.width
+        new_height = event.height
+
+        var1 = self.master.Imagenes_copia [0].resize((new_width, new_height))
+        var2 = ImageTk.PhotoImage(var1)
+
+        self.label0 . config (image = var2)     # Configurando el " Label
+        self.label0 . image = var2 
+#______________________________ hasta aqui
+
+
     def ocultar (self, event=None): 
 
-        if self.lbl_77 . grid_info() == {} and self.lbl_FLECHA . grid_info() == {} :  # Metodo de info de un widget
+        x, y = event.x, event.y
+        print(x, y)
+    
+        if x >=115 :
 
-            self.lbl_77 . grid(column=0, row=0, sticky="ne")
-            self.lbl_FLECHA . grid(column=0, row=0, sticky="se")        
-     
-        else:
-            self.lbl_77 . grid_forget()
-            self.lbl_FLECHA . grid_forget()
+            if self.lbl_77 . grid_info() == {} and self.lbl_FLECHA . grid_info() == {} :  # Metodo de info de un widget
 
-
-       
+                self.lbl_77 . grid(column=0, row=0, sticky="ne")
+                self.lbl_FLECHA . grid(column=0, row=0, sticky="se")        
+        
+            else:
+                self.lbl_77 . grid_forget()
+                self.lbl_FLECHA . grid_forget()
 
 
 
@@ -714,8 +658,8 @@ class Frame_jd_STUFF (Frame):  #-------------------------------- REGLA: GAME STU
 
 
 def main (): #--------------------------------------------------------------------NO TOCAR 
-
     app_1 = Interfaz ()    
+    app_1 . mainloop ()
 
 if __name__=="__main__":  #-------------------------------------------------------NO TOCAR 
     main ()

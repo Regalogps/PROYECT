@@ -8,10 +8,10 @@ root.geometry("600x600")
 root.configure(bg="black")
 
 class Example(Frame):
-    def __init__(self , master, *pargs):
-        Frame. __init__ (self , master, *pargs)
+    def __init__(self ,  *pargs, **kwargs):
+        Frame. __init__ (self ,  *pargs, **kwargs)
 
-        self. image= Image.open("1Trico.jpg")
+        self. image= Image.open("33__Knight.jpg")
         self. img_copy= self.image.copy()
 
         self. background_image = ImageTk.PhotoImage(self.image)
@@ -29,7 +29,7 @@ class Example(Frame):
         self.background_image = ImageTk.PhotoImage(self.image)
         self.background.configure(image= self.background_image)
 
-e = Example(root)
+e = Example(root,bd=0)
 e.pack(fill= BOTH, expand= YES) 
 
 root.mainloop()
