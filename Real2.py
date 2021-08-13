@@ -64,6 +64,8 @@ class Interfaz (Tk):
                 #print (ruta_completa)
 
                 abrir = cv2.imread (ruta_completa)
+                if abrir is None:
+                    continue
                 RGB = cv2.cvtColor (abrir, cv2.COLOR_BGR2RGB)
                 objeto = Image.fromarray (RGB)
 
@@ -78,6 +80,8 @@ class Interfaz (Tk):
                 ruta_completa = path + "/" + i
 
                 abrir = cv2.imread (ruta_completa)
+                if abrir is None:
+                    continue
                 RGB = cv2.cvtColor (abrir, cv2.COLOR_BGR2RGB)
                 objeto = Image.fromarray (RGB)
                 photo = ImageTk.PhotoImage(objeto)
