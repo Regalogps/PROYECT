@@ -23,6 +23,9 @@ class Interfaz (Tk):
         self.path_1 = "E:/1-RICHI/MovilesDB"      # Ruta de la carpeta de imagenes
         self.Imagenes = self.leer_folder(self.path_1, "total")  # Llama al Metodo y guarda en una varible las imagenes
         self.Imagenes_copia = self.leer_folder(self.path_1, "parcial")  # Llama al Metodo y guarda en una varible las imagenes
+        #print(len(self.Imagenes))
+
+        print("este print esta en interfaz",self.Imagenes_copia[0])
 
         # Llamando a las Metodos de Configuracion 
         self. configurar_interfaz()          
@@ -58,35 +61,35 @@ class Interfaz (Tk):
 
         if lista == "parcial" :
             for i in imagenes:
-                if i . split(".")[-1] not is ["jpeg", "png"]:
-                    continue
-                ruta_completa = path + "/" + i               
-                #print (ruta_completa)
+                if ".jpg" in i or ".png" in i:        
 
-                abrir = cv2.imread (ruta_completa)
-                if abrir is None:
-                    continue
-                RGB = cv2.cvtColor (abrir, cv2.COLOR_BGR2RGB)
-                objeto = Image.fromarray (RGB)
+                    ruta_completa = path + "/" + i               
 
-                self.lista_parcial. append (objeto)
+                    abrir = cv2.imread (ruta_completa)
+                    if abrir is None:                                     
+                        continue
+                    RGB = cv2.cvtColor (abrir, cv2.COLOR_BGR2RGB)
+                    objeto = Image.fromarray (RGB)
+
+                    self.lista_parcial. append (objeto)
 
             return self.lista_parcial
 
         if lista == "total" :
             for i in imagenes:
-                if i . split(".")[-1] not is ["jpeg", "png"]:
-                    continue
-                ruta_completa = path + "/" + i
+                if ".jpg" in i or ".png" in i:        # VER SI ES NECESARIO SACAR DE LA LISTA A RUEDA Y AL LOGO
 
-                abrir = cv2.imread (ruta_completa)
-                if abrir is None:
-                    continue
-                RGB = cv2.cvtColor (abrir, cv2.COLOR_BGR2RGB)
-                objeto = Image.fromarray (RGB)
-                photo = ImageTk.PhotoImage(objeto)
+                    ruta_completa = path + "/" + i
+                    #print(ruta_completa)
 
-                self.lista_total. append (photo)
+                    abrir = cv2.imread (ruta_completa)
+                    if abrir is None:                 #  if por si hay conflicto de algun tipo (observar)
+                        continue
+                    RGB = cv2.cvtColor (abrir, cv2.COLOR_BGR2RGB)
+                    objeto = Image.fromarray (RGB)
+                    photo = ImageTk.PhotoImage(objeto)
+
+                    self.lista_total. append (photo)
 
             return self.lista_total
         
@@ -254,13 +257,13 @@ class Create_Frame (Frame):
         self.img_config . grid (column=0, row= 1)
        
     def btn_moviles(self):  # Metodo que crea -22- Botones (moviles)  #command = lambda:images(1))
-
+        '''
         self.Frog_1 = Button (self, text="Frog", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_frog_IZQUIERDA, Frame_frog_DERECHA, Frame_frog_STUFF)) 
 
         self.Fox_2 = Button (self, text="Fox", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_fox_IZQUIERDA, Frame_fox_DERECHA, Frame_fox_STUFF)) 
-
+        '''
         self.Boomer_3 = Button (self, text="Boomer", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_boomer_IZQUIERDA, Frame_boomer_DERECHA, Frame_boomer_STUFF))     
-
+        '''
         self.Ice_4 = Button (self, text="Ice", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_ice_IZQUIERDA, Frame_ice_DERECHA, Frame_ice_STUFF))
 
         self.JD_5 = Button (self, text="J.D", font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_jd_IZQUIERDA, Frame_jd_DERECHA, Frame_jd_STUFF))
@@ -299,10 +302,13 @@ class Create_Frame (Frame):
         self.Dragon1_21 = Button (self, text="Dragon 1", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_dragon1_IZQUIERDA, Frame_dragon1_DERECHA, Frame_dragon1_STUFF))
  
         self.Dragon2_22 = Button (self, text="Dragon 2", font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= lambda: self.master.master.ventanas_123 (Frame_dragon2_IZQUIERDA, Frame_dragon2_DERECHA, Frame_dragon2_STUFF))
-
+        '''
+        '''
         self.Frog_1 . grid (column= 1, row= 1, pady=3, padx=(5,0))
         self.Fox_2. grid (column= 2, row= 1, pady=3, padx=(0,0))
-        self.Boomer_3. grid (column= 3, row= 1, pady=3, padx=(0,0))      
+        '''
+        self.Boomer_3. grid (column= 3, row= 1, pady=3, padx=(0,0))   
+        '''   
         self.Ice_4. grid (column= 4, row= 1, pady=3, padx=(0,0))
         self.JD_5. grid (column= 5, row= 1, pady=3, padx=(0,0))
         self.Grub_6. grid (column= 6, row= 1, pady=3, padx=(0,0))
@@ -323,7 +329,7 @@ class Create_Frame (Frame):
         self.Big_20. grid (column= 9, row= 2, pady=2, padx=(0,0))
         self.Dragon1_21. grid (column= 10, row= 2, pady=2, padx=(0,0))
         self.Dragon2_22. grid (column= 11, row= 2, pady=2, padx=(0,5))
-
+        '''
 
 ################################            EL             ################################ 
 ################################          INICIO           ################################ 
@@ -449,6 +455,8 @@ class Frame_fox_STUFF (Frame):  #-------------------------------- REGLA: GAME ST
 ################################   F R A M E  " B O O M E R "  ################################ 
 
 class Frame_boomer_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+    pass
+    '''
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)      
@@ -471,14 +479,71 @@ class Frame_boomer_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA
             self.lbl_MEDIR . grid(column=0, row=0, sticky="n")      
         else:
             self.lbl_MEDIR . grid_forget()
+    '''
 
 
-
-class Frame_boomer_DERECHA (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Frame_boomer_DERECHA (Frame, Interfaz):  #------------------------------- DERECHA :  BASE  /  77
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)
 
+        leer_metodo = self.leer_labels()
+
+        #print (leer_metodo) # lee NONE
+
+
+    def leer_labels(self):
+        self.lista_label = []
+    
+
+        for i in self.master.master.Imagenes:
+
+            #print(i)  # si lee asi ejempl : pyimage94
+
+        
+            img = Label(self, image = i)
+            img . bind('<Configure>',self.resize)
+            img . pack(fill=BOTH, expand=YES)
+            
+            self.lista_label . append (img)
+
+           #print(self.lista_label)
+        #print(self.lista_label)
+        #print(len(self.lista_label))
+     
+    def resize(self,event):
+
+        self.lista_2 = []
+        new_width = event.width
+        new_height = event.height
+
+        #print(self.master.master.Imagenes_copia[1])
+
+        for iterador in self.master.master.Imagenes_copia:
+            ImageTk.PhotoImage( iterador .resize((new_width, new_height)))   
+            print (iterador)
+        
+
+            #self.lista_2.append(oro)
+            #for ee in self.lista_label.config(image=oro):
+       #     for ee in self.lista_label:
+       #         tmr =  ee . config(image=oro)
+       #         
+       #         self.lista_2.append(tmr)
+
+      #  print(self.lista_2)
+           
+
+
+       # self.label0 . config (image = var2)     # Configurando el " Label
+        #self.label0 . image = var2 
+
+
+
+
+
+
+'''       
         self.pack_propagate(1)
 
         self.lbl_BASE = Label(self, image= self.master.master.Imagenes [10], bd=0)
@@ -491,27 +556,7 @@ class Frame_boomer_DERECHA (Frame):  #------------------------------- DERECHA : 
 
         self.lbl_FLECHA = Label(self, image= self.master.master.Imagenes [108], bd=0)       
         self.lbl_FLECHA . grid(column=0, row=0, sticky="se")
-     
-#___________________esto editar desde aqui
-    def widgets_toplevel(self, name):
-
-        self.label0 = name
-        self.label0 = Label (self, image = self.master.Imagenes [0])
-        self.label0. bind ('<Configure>', self.resize_image)
-        self.label0. pack (fill=BOTH, expand = YES)
-
-    def resize_image(self, event):
-
-        new_width = event.width
-        new_height = event.height
-
-        var1 = self.master.Imagenes_copia [0].resize((new_width, new_height))
-        var2 = ImageTk.PhotoImage(var1)
-
-        self.label0 . config (image = var2)     # Configurando el " Label
-        self.label0 . image = var2 
-#______________________________ hasta aqui
-
+        
 
     def ocultar (self, event=None): 
 
@@ -529,6 +574,9 @@ class Frame_boomer_DERECHA (Frame):  #------------------------------- DERECHA : 
                 self.lbl_77 . grid_forget()
                 self.lbl_FLECHA . grid_forget()
 
+
+
+'''
 
 
 class Frame_boomer_STUFF (Frame):  #-------------------------------- REGLA: GAME STUFF
@@ -651,9 +699,6 @@ class Frame_jd_DERECHA (Frame):  #------------------------------- DERECHA :  BAS
         else:
             self.lbl_77 . grid_forget()
             self.lbl_FLECHA . grid_forget()
-
-
-       
 
 
 

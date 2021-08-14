@@ -50,3 +50,44 @@ def abrir_toplevel (self,boton):    #
             
 
             self.Ventana_stuff . configurar_toplevel("stuf","700x190")
+
+
+def leer_folder (self, path, lista):  # Metodo para leer todas las imageneS ------NO TOCAR
+
+        imagenes = os.listdir(path)
+        self.lista_parcial = [] 
+        self.lista_total = [] 
+
+        if lista == "parcial" :
+            for i in imagenes:
+                if i . split(".")[-1] not is ["jpeg", "png"]:
+                    continue
+                ruta_completa = path + "/" + i               
+                #print (ruta_completa)
+
+                abrir = cv2.imread (ruta_completa)
+                if abrir is None:
+                    continue
+                RGB = cv2.cvtColor (abrir, cv2.COLOR_BGR2RGB)
+                objeto = Image.fromarray (RGB)
+
+                self.lista_parcial. append (objeto)
+
+            return self.lista_parcial
+
+        if lista == "total" :
+            for i in imagenes:
+                if i . split(".")[-1] not is ["jpeg", "png"]:
+                    continue
+                ruta_completa = path + "/" + i
+
+                abrir = cv2.imread (ruta_completa)
+                if abrir is None:
+                    continue
+                RGB = cv2.cvtColor (abrir, cv2.COLOR_BGR2RGB)
+                objeto = Image.fromarray (RGB)
+                photo = ImageTk.PhotoImage(objeto)
+
+                self.lista_total. append (photo)
+
+            return self.lista_total
