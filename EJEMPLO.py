@@ -1,97 +1,48 @@
-from tkinter import *
-from PIL import ImageTk, Image
-import cv2
-import os 
-import imutils
+from PIL import Image, ImageTk
+from tkinter import Tk, Frame, Label
 
 
+class Example(Frame):
+    def __init__(self, master, path, *args):
+        Frame.__init__(self, master, *args)
 
-class Applications(Tk):
+        self.image = Image.open(path)
+        self.img_copy = self.image.copy()
 
-    def __init__(self): 
-        Tk. __init__(self)   
-        self.title("PRINCIPAL")
+        self.background_image = ImageTk.PhotoImage(self.image)
 
-        self.path="E:/1-RICHI/MovilesDB"  
-           
-        self.Images_init=self.files(self.path, "ever")   # list one
-        self.Images_copy_init=self.files(self.path, "partial")  # list two
-       # self._toplevel()
-        #self.frame=Creator(self)
-        #self.frame .pack()
+        self.background = Label(self, image=self.background_image)
+        self.background.pack(fill='both', expand=True)
+        self.background.bind('<Configure>', self._resize_image)
 
-        
+    def _resize_image(self, event):
+        new_width = event.width
+        new_height = event.height
 
-    def files(self, path, option): 
+        self.image = self.img_copy.resize((new_width, new_height))
 
-        images=os.listdir(path)
-        self.list_partial=[] 
-        self.list_ever=[]  
-        
-        if option == "ever":
-            for i in images:
-                if ".jpg" in i:       
-
-                    route=path + "/" + i
-                    open=cv2.imread (route)
-                    if open is None:                 
-                        continue
-                    RGB=cv2.cvtColor(open, cv2.COLOR_BGR2RGB)
-                    objet=Image.fromarray(RGB)
-                    photo=ImageTk.PhotoImage(objet)
-
-                    self.list_ever.append(photo)
-
-            return self.list_ever
-
-        if option == "partial" :
-            for i in images:
-                if ".jpg" in i:        
-
-                    route=path + "/" + i               
-
-                    open=cv2.imread(route)
-                    if open is None:                                     
-                        continue
-                    RGB=cv2.cvtColor(open, cv2.COLOR_BGR2RGB)
-                    objet=Image.fromarray(RGB)
-
-                    self.list_partial.append(objet)
-
-            return self.list_partial
-
-   # def _toplevel(self):
-      #  self.top1=Toplevel(self)
-      #  self.top1.title("segundaria")
-      #  self.frame=Creator()
-      #  self.frame.pack()
-
-        
-
-        
+        self.background_image = ImageTk.PhotoImage(self.image)
+        self.background.configure(image=self.background_image)
 
 
-class Creator(Frame):
-    def __init__(self,*args, **kwargs): 
-        Frame.__init__(self,*args, **kwargs)
+def change_images(index):
+    if index >= len(img_lst):
+        index = 0
+    img_lst[index].lift()
+    root.after(1000, change_images, index + 1)
+    
 
-        self.LIST=[]          # label list
-        for index, i in enumerate(self.master.Images_init):
-            img=Label(self, image= i)
-            img.bind('<Configure>', lambda e, lbl=img, index=index: self.resize(e, lbl, index))
-            img.pack(fill=BOTH, expand=YES)
-            self.LIST.append(img)
-        print(len(self.LIST))
 
-    def resize(self,event, label, index):
+path_lst = ['pause_btn.png', 'play_btn.png', 'space.jpg']  # change/add paths here
+img_lst = []
 
-        new_width =event.width
-        new_height=event.height
-        img = self.master.Images_copy_init[index].resize((new_width, new_height))
-        photo = ImageTk.PhotoImage(img)
-        label.config(image=photo)
-            
+root = Tk()
 
-if __name__=="__main__":  
-    app_1 =Applications()    
-    app_1.mainloop()
+for path in path_lst:
+    e = Example(root, path)
+    e.place(x=0, y=0, relwidth=1, relheight=1)
+    img_lst.append(e)
+
+change_images(0)
+
+root.mainloop()
