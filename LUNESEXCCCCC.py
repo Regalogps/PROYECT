@@ -18,18 +18,23 @@ class Example(Frame):
         self.background.bind('<Configure>', self._resize_image)
 
     def _resize_image(self, event):
-        new_width = event.width
-        new_height = event.height
+        x=int(self.master.winfo_screenwidth()*0.7)
+        y=int(self.master.winfo_screenheight()*0.7)
+        z = str(x) +'x'+str(y)
+        self.master.geometry(z)
 
         self.image = self.img_copy.resize((new_width, new_height))
 
         self.background_image = ImageTk.PhotoImage(self.image)
         self.background.configure(image=self.background_image)
 
+        #print(self.background)
+
 
 class Applications(Tk):  
-    def __init__(self):
-        Tk. __init__(self)  
+    def __init__(self, master):
+        Tk. __init__(self, master)  
+        self.master = master
         self.title("11111")
         self.geometry("195x690")
         self.path = "E:/1-RICHI/MovilesDB"      
@@ -38,7 +43,7 @@ class Applications(Tk):
 
         self.creator = Creator(self)
         self.creator.pack()
-        #print(self.Images)  #AQUI HAY ERROR CON TOPLEVEL Y ABRE LENTO
+        #print(self.Images) 
         #self._toplevel()
 
     def _toplevel(self):
