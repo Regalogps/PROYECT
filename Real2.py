@@ -251,50 +251,50 @@ class Create_Frame (Frame):
        
     def img_moviles(self):   # Metodo que crea -22- Botones (moviles)  #command = lambda:images(1))
         '''
-        self.Frog_1 = Button (self, text='Frog', font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_frog_IZQUIERDA, Frame_frog_DERECHA, Frame_frog_STUFF)) 
+        self.Frog_1 = Button (self, text='Frog', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_frog_IZQUIERDA, Frame_frog_DERECHA, Frame_frog_STUFF)) 
 
-        self.Fox_2 = Button (self, text='Fox', font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_fox_IZQUIERDA, Frame_fox_DERECHA, Frame_fox_STUFF)) 
+        self.Fox_2 = Button (self, text='Fox', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_fox_IZQUIERDA, Frame_fox_DERECHA, Frame_fox_STUFF)) 
         '''
-        self.Boomer_3 = Button (self, text='Boomer', font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_boomer_IZQUIERDA, Frame_boomer_DERECHA, Frame_boomer_STUFF))     
+        self.Boomer_3 = Button (self, text='Boomer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_boomer_IZQUIERDA, Frame_boomer_DERECHA, Frame_boomer_STUFF))     
         '''
-        self.Ice_4 = Button (self, text='Ice', font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_ice_IZQUIERDA, Frame_ice_DERECHA, Frame_ice_STUFF))
+        self.Ice_4 = Button (self, text='Ice', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_ice_IZQUIERDA, Frame_ice_DERECHA, Frame_ice_STUFF))
 
-        self.JD_5 = Button (self, text='J.D', font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_jd_IZQUIERDA, Frame_jd_DERECHA, Frame_jd_STUFF))
+        self.JD_5 = Button (self, text='J.D', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_jd_IZQUIERDA, Frame_jd_DERECHA, Frame_jd_STUFF))
 
-        self.Grub_6 = Button (self, text='Grub', font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_grub_IZQUIERDA, Frame_grub_DERECHA, Frame_grub_STUFF))   
+        self.Grub_6 = Button (self, text='Grub', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_grub_IZQUIERDA, Frame_grub_DERECHA, Frame_grub_STUFF))   
 
-        self.Light_7 = Button (self, text='Light', font=("Calibri",9,"bold"), bg="#11161d", fg="white", width=10, bd=0, command= lambda: self.master.master.windows_123 (Frame_light_IZQUIERDA, Frame_light_DERECHA, Frame_light_STUFF))       
+        self.Light_7 = Button (self, text='Light', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width=10, bd=0, command= lambda: self.master.master.windows_123 (Frame_light_IZQUIERDA, Frame_light_DERECHA, Frame_light_STUFF))       
 
-        self.Aduka_8 = Button (self, text='Aduka', font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_aduka_IZQUIERDA, Frame_aduka_DERECHA, Frame_aduka_STUFF))      
+        self.Aduka_8 = Button (self, text='Aduka', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_aduka_IZQUIERDA, Frame_aduka_DERECHA, Frame_aduka_STUFF))      
 
-        self.Knight_9 = Button (self, text='Knight', font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_knight_IZQUIERDA, Frame_knight_DERECHA, Frame_knight_STUFF))     
+        self.Knight_9 = Button (self, text='Knight', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_knight_IZQUIERDA, Frame_knight_DERECHA, Frame_knight_STUFF))     
 
-        self.Calziddon_10 = Button (self, text='Kalsiddon', font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_kalsiddon_IZQUIERDA, Frame_kalsiddon_DERECHA, Frame_kalsiddon_STUFF))
+        self.Calziddon_10 = Button (self, text='Kalsiddon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_kalsiddon_IZQUIERDA, Frame_kalsiddon_DERECHA, Frame_kalsiddon_STUFF))
 
-        self.Mage_11 = Button (self, text='Mage', font=('Calibri',9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_mage_IZQUIERDA, Frame_mage_DERECHA, Frame_mage_STUFF))  
+        self.Mage_11 = Button (self, text='Mage', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_mage_IZQUIERDA, Frame_mage_DERECHA, Frame_mage_STUFF))  
    
 
-        self.Randomizer_12 = Button (self, text='Randomizer', font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_randomizer_IZQUIERDA, Frame_randomizer_DERECHA, Frame_randomizer_STUFF))
+        self.Randomizer_12 = Button (self, text='Randomizer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_randomizer_IZQUIERDA, Frame_randomizer_DERECHA, Frame_randomizer_STUFF))
  
-        self.Jolteon_13 = Button (self, text='Jolteon', font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_jolteon_IZQUIERDA, Frame_jolteon_DERECHA, Frame_jolteon_STUFF))
+        self.Jolteon_13 = Button (self, text='Jolteon', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_jolteon_IZQUIERDA, Frame_jolteon_DERECHA, Frame_jolteon_STUFF))
  
-        self.Turtle_14 = Button (self, text='Turtle', font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_turtle_IZQUIERDA, Frame_turtle_DERECHA, Frame_turtle_STUFF))
+        self.Turtle_14 = Button (self, text='Turtle', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_turtle_IZQUIERDA, Frame_turtle_DERECHA, Frame_turtle_STUFF))
 
-        self.Armor_15 = Button (self, text='Armor', font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_armor_IZQUIERDA, Frame_armor_DERECHA, Frame_armor_STUFF))
+        self.Armor_15 = Button (self, text='Armor', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_armor_IZQUIERDA, Frame_armor_DERECHA, Frame_armor_STUFF))
 
-        self.Asate_16 = Button (self, text='A.Sate', font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_asate_IZQUIERDA, Frame_asate_DERECHA, Frame_asate_STUFF))
+        self.Asate_16 = Button (self, text='A.Sate', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_asate_IZQUIERDA, Frame_asate_DERECHA, Frame_asate_STUFF))
 
-        self.Raon_17 = Button (self, text='Raon', font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_raon_IZQUIERDA, Frame_raon_DERECHA, Frame_raon_STUFF))
+        self.Raon_17 = Button (self, text='Raon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_raon_IZQUIERDA, Frame_raon_DERECHA, Frame_raon_STUFF))
  
-        self.Trico_18 = Button (self, text='Trico', font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_trico_IZQUIERDA, Frame_trico_DERECHA, Frame_trico_STUFF))
+        self.Trico_18 = Button (self, text='Trico', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_trico_IZQUIERDA, Frame_trico_DERECHA, Frame_trico_STUFF))
 
-        self.Nak_19 = Button (self, text='Nak', font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_nak_IZQUIERDA, Frame_nak_DERECHA, Frame_nak_STUFF))
+        self.Nak_19 = Button (self, text='Nak', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_nak_IZQUIERDA, Frame_nak_DERECHA, Frame_nak_STUFF))
  
-        self.Big_20 = Button (self, text='Big', font=("Calibri",9,"bold"), bg="#11161d", fg="white", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_big_IZQUIERDA, Frame_big_DERECHA, Frame_big_STUFF))
+        self.Big_20 = Button (self, text='Big', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_big_IZQUIERDA, Frame_big_DERECHA, Frame_big_STUFF))
  
-        self.Dragon1_21 = Button (self, text='Dragon 1', font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_dragon1_IZQUIERDA, Frame_dragon1_DERECHA, Frame_dragon1_STUFF))
+        self.Dragon1_21 = Button (self, text='Dragon 1', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_dragon1_IZQUIERDA, Frame_dragon1_DERECHA, Frame_dragon1_STUFF))
  
-        self.Dragon2_22 = Button (self, text'"Dragon 2', font=("Calibri",9,"bold"), bg="#11161d", fg="yellow", width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_dragon2_IZQUIERDA, Frame_dragon2_DERECHA, Frame_dragon2_STUFF))
+        self.Dragon2_22 = Button (self, text'"Dragon 2', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_dragon2_IZQUIERDA, Frame_dragon2_DERECHA, Frame_dragon2_STUFF))
         '''
         '''
         self.Frog_1 . grid (column= 1, row= 1, pady=3, padx=(5,0))
