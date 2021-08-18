@@ -294,34 +294,34 @@ class Create_Frame (Frame):
  
         self.Dragon1_21 = Button (self, text='Dragon 1', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_dragon1_IZQUIERDA, Frame_dragon1_DERECHA, Frame_dragon1_STUFF))
  
-        self.Dragon2_22 = Button (self, text'"Dragon 2', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_dragon2_IZQUIERDA, Frame_dragon2_DERECHA, Frame_dragon2_STUFF))
+        self.Dragon2_22 = Button (self, text='Dragon 2', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_dragon2_IZQUIERDA, Frame_dragon2_DERECHA, Frame_dragon2_STUFF))
         '''
         '''
-        self.Frog_1 . grid (column= 1, row= 1, pady=3, padx=(5,0))
-        self.Fox_2. grid (column= 2, row= 1, pady=3, padx=(0,0))
+        self.Frog_1 .grid (column= 1, row= 1, pady= 3, padx= (5,0))
+        self.Fox_2 .grid (column= 2, row= 1, pady= 3, padx= (0,0))
         '''
-        self.Boomer_3. grid (column= 3, row= 1, pady=3, padx=(0,0))   
+        self.Boomer_3 .grid (column= 3, row= 1, pady= 3, padx= (0,0))   
         '''   
-        self.Ice_4. grid (column= 4, row= 1, pady=3, padx=(0,0))
-        self.JD_5. grid (column= 5, row= 1, pady=3, padx=(0,0))
-        self.Grub_6. grid (column= 6, row= 1, pady=3, padx=(0,0))
-        self.Light_7. grid (column= 7, row= 1, pady=3, padx=(0,0))
-        self.Aduka_8. grid (column= 8, row= 1, pady=3, padx=(0,0))
-        self.Knight_9. grid (column= 9, row= 1, pady=3, padx=(0,0))
-        self.Calziddon_10. grid (column= 10, row= 1, pady=3, padx=(0,0))
-        self.Mage_11. grid (column= 11, row= 1, pady=3, padx=(0,5))
-        self.Randomizer_12. grid (column= 1, row= 2, pady=2, padx=(5,0))
+        self.Ice_4 .grid (column= 4, row= 1, pady= 3, padx= (0,0))
+        self.JD_5 .grid (column= 5, row= 1, pady= 3, padx= (0,0))
+        self.Grub_6 .grid (column= 6, row= 1, pady= 3, padx= (0,0))
+        self.Light_7 .grid (column= 7, row= 1, pady= 3, padx= (0,0))
+        self.Aduka_8 .grid (column= 8, row= 1, pady= 3, padx= (0,0))
+        self.Knight_9 .grid (column= 9, row= 1, pady= 3, padx= (0,0))
+        self.Calziddon_10 .grid (column= 10, row= 1, pady= 3, padx= (0,0))
+        self.Mage_11 .grid (column= 11, row= 1, pady= 3, padx= (0,5))
 
-        self.Jolteon_13. grid (column= 2, row= 2, pady=2, padx=(0,0))
-        self.Turtle_14. grid (column= 3, row= 2, pady=2, padx=(0,0))
-        self.Armor_15. grid (column= 4, row= 2, pady=2, padx=(0,0))
-        self.Asate_16. grid (column= 5, row= 2, pady=2, padx=(0,0))
-        self.Raon_17. grid (column= 6, row= 2, pady=2, padx=(0,0))
-        self.Trico_18. grid (column= 7, row= 2, pady=2, padx=(0,0))
-        self.Nak_19. grid (column= 8, row= 2, pady=2, padx=(0,0))
-        self.Big_20. grid (column= 9, row= 2, pady=2, padx=(0,0))
-        self.Dragon1_21. grid (column= 10, row= 2, pady=2, padx=(0,0))
-        self.Dragon2_22. grid (column= 11, row= 2, pady=2, padx=(0,5))
+        self.Randomizer_12 .grid (column= 1, row= 2, pady= 2, padx= (5,0))
+        self.Jolteon_13 .grid (column= 2, row= 2, pady= 2, padx= (0,0))
+        self.Turtle_14 .grid (column= 3, row= 2, pady= 2, padx= (0,0))
+        self.Armor_15 .grid (column= 4, row= 2, pady= 2, padx= (0,0))
+        self.Asate_16 .grid (column= 5, row= 2, pady= 2, padx= (0,0))
+        self.Raon_17 .grid (column= 6, row= 2, pady= 2, padx= (0,0))
+        self.Trico_18 .grid (column= 7, row= 2, pady= 2, padx= (0,0))
+        self.Nak_19 .grid (column= 8, row= 2, pady= 2, padx= (0,0))
+        self.Big_20 .grid (column= 9, row= 2, pady= 2, padx= (0,0))
+        self.Dragon1_21 .grid (column= 10, row= 2, pady= 2, padx= (0,0))
+        self.Dragon2_22 .grid (column= 11, row= 2, pady= 2, padx= (0,5))
         '''
 
 ################################            EL             ################################ 
