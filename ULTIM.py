@@ -18,13 +18,12 @@ class Example(Frame):
         self.background.bind('<Configure>', self._resize_image)
 
     def _resize_image(self, event):
-        new_width = event.width
-        new_height = event.height
 
-        self.image = self.img_copy.resize((new_width, new_height))
+        self.image = self.img_copy.resize((self.master.winfo_width(),self.master.winfo_height()))
 
         self.background_image = ImageTk.PhotoImage(self.image)
-        self.background.configure(image=self.background_image)
+        self.background.config(image=self.background_image)
+        self.background.image = self.background_image
 
 
 class Applications(Tk):  
