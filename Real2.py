@@ -21,8 +21,12 @@ class Interface(Tk):
         Tk. __init__(self)                                                 # Llamando a Tk ()
 
         path = 'E:/1-RICHI/MovilesDB'                                      # Ruta de la carpeta
-        self.Imagenes = self.create_list (path, 'full')  
+        self.Imageness = self.create_list (path, 'full') 
+              
         self.Imagenes_copia = self.create_list (path, 'partial') 
+
+
+        self.Imagenes = self.create_list (path, 'tres')
         #print(len(self.Imagenes))
         #print("este print esta en interfaz",self.Imagenes_copia[0])
         # Llamando a las Metodos de Configuracion 
@@ -57,7 +61,47 @@ class Interface(Tk):
         self.list_1 = [] 
         self.list_2 = [] 
 
+
+
+
+        self.list_3 = []
+
+
+
+
         if option == 'full':
+            for i in pictures:
+                if '.jpg' in i or '.png' in i:                         # VER SI ES NECESARIO SACAR DE LA LISTA A RUEDA Y AL LOGO
+
+                    full = file + '/' + i
+                    #print(ruta_completa)
+
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    #arrayy = Image.fromarray (RGB)
+                    #img = ImageTk.PhotoImage (array)
+
+                    self.list_1 .append (RGB)
+            return self.list_1
+        
+        if option == "partial" :
+            for i in pictures:
+                if ".jpg" in i or ".png" in i:        
+
+                    full = file + '/' + i
+                    #print(ruta_completa)
+
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    array = Image.fromarray (RGB)
+                    img = ImageTk.PhotoImage (array)
+
+                    self.list_2 .append (img)
+            return self.list_2
+
+
+
+        if option == 'tres':
             for i in pictures:
                 if '.jpg' in i or '.png' in i:                         # VER SI ES NECESARIO SACAR DE LA LISTA A RUEDA Y AL LOGO
 
@@ -69,22 +113,9 @@ class Interface(Tk):
                     array = Image.fromarray (RGB)
                     img = ImageTk.PhotoImage (array)
 
-                    self.list_1 .append (img)
-            return self.list_1
-        '''
-        if option == "partial" :
-            for i in imagenes:
-                if ".jpg" in i or ".png" in i:        
-
-                    ruta_completa = path + "/" + i               
-
-                    abrir = cv2.imread (ruta_completa)
-                    RGB = cv2.cvtColor (abrir, cv2.COLOR_BGR2RGB)
-                    objeto = Image.fromarray (RGB)
-
-                    self.list_2. append (objeto)
-            return self.list_2
-        '''
+                    self.list_3 .append (img)
+            return self.list_3
+        
         
     def widgets(self):  # widgets de la ventana Principal ----------------------------NO TOCAR  EDITAR DESPUES A CLASE BOTON O LABEL
 
@@ -241,12 +272,12 @@ class Create_Frame (Frame):
 
     def img_ash(self):   # Metodo que crea -1- Boton (logo) -------------------NO TOCAR (despues)
         
-        self.btn_ash = Button (self, image= self.master.Imagenes [107], bg= '#11161d', bd= 0, activebackground= '#11161d' , command= self.master.remove_frame)
+        self.btn_ash = Button (self, image= self.master.Imagenes_copia [107], bg= '#11161d', bd= 0, activebackground= '#11161d' , command= self.master.remove_frame)
         self.btn_ash .grid (column= 0, row= 0, padx= 3, pady= 1)
           
     def img_gear(self):   # Metodo que crea -1- Boton (rueda)-----------------NO TOCAR (despues)
 
-        self.btn_gear = Button (self, image= self.master.Imagenes [110], bg= '#11161d', bd= 0, activebackground= '#11161d', command= self.master.configure_height)
+        self.btn_gear = Button (self, image= self.master.Imagenes_copia [110], bg= '#11161d', bd= 0, activebackground= '#11161d', command= self.master.configure_height)
         self.btn_gear .grid (column= 0, row= 1)
        
     def img_moviles(self):   # Metodo que crea -22- Botones (moviles)  #command = lambda:images(1))
@@ -255,7 +286,7 @@ class Create_Frame (Frame):
 
         self.Fox_2 = Button (self, text='Fox', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_fox_IZQUIERDA, Frame_fox_DERECHA, Frame_fox_STUFF)) 
         '''
-        self.Boomer_3 = Button (self, text='Boomer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_boomer_IZQUIERDA, Frame_boomer_DERECHA, Frame_boomer_STUFF))     
+        self.Boomer_3 = Button (self, text='Boomer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (_Frame_boomer_IZQUIERDA, _Frame_boomer_DERECHA, _Frame_boomer_STUFF))     
         '''
         self.Ice_4 = Button (self, text='Ice', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_ice_IZQUIERDA, Frame_ice_DERECHA, Frame_ice_STUFF))
 
@@ -323,6 +354,32 @@ class Create_Frame (Frame):
         self.Dragon1_21 .grid (column= 10, row= 2, pady= 2, padx= (0,0))
         self.Dragon2_22 .grid (column= 11, row= 2, pady= 2, padx= (0,5))
         '''
+
+
+class Example(Frame):
+    def __init__(self, master, indice, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+        #self.master = master
+        self.image = Image.fromarray(indice)
+        self.img_copy = self.image.copy()
+
+        self.background_image = ImageTk.PhotoImage(self.image)
+
+        self.background = Label(self, image=self.background_image)
+        self.background.pack(fill='both', expand=True)
+        self.background.bind('<Configure>', self._resize_image)
+
+
+
+    def _resize_image(self, event):
+
+        self.image = self.img_copy.resize((self.master.winfo_width(), self.master.winfo_height()))
+
+        self.background_image = ImageTk.PhotoImage(self.image)
+        self.background.config(image=self.background_image)
+        self.background.image = self.background_image
+
+
 
 ################################            EL             ################################ 
 ################################          INICIO           ################################ 
@@ -447,6 +504,88 @@ class Frame_fox_STUFF (Frame):  #-------------------------------- REGLA: GAME ST
 
 ################################   F R A M E  " B O O M E R "  ################################ 
 
+class _Frame_boomer_IZQUIERDA (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
+
+        self.frame_img_DELAY = Example (self, self.master.master.Imageness [8], bd=0)
+        self.frame_img_DELAY .pack()
+        #self.frame_img_DELAY .pack_propagate
+
+        self.frame_img_SIMULADOR = Example (self, self.master.master.Imageness [9], bd=0)  
+        self.frame_img_SIMULADOR .pack()
+        self.frame_img_SIMULADOR .pack_propagate
+
+        #self.frame_guia = Label (self.frame_img_DELAY, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
+        #self.frame_guia . bind("<Button-1>", self.ocultar)
+        #self.frame_guia . grid(padx= 2, pady= 61)
+
+
+        #self.lbl_DELAY = Label(self, image= self.master.master.Imagenes [8], bd=0)
+        #self.lbl_DELAY . grid(column=0, row=0)
+        #self.lbl_DELAY . grid_propagate(0) 
+
+        #self.lbl_MEDIR = Label(self, image= self.master.master.Imagenes [9], bd=0)       
+        #self.lbl_MEDIR . grid(column=0, row=0, sticky="n")
+        
+        #self.lbl_guia = Label(self.lbl_DELAY, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
+        #self.lbl_guia . bind("<Button-1>", self.ocultar)
+        #self.lbl_guia . grid(column=0, row=0, padx=2, pady=61)
+        #self.lbl_guia . grid_propagate (0)
+        
+    def ocultar (self, event=None): 
+
+        if self.frame_img_SIMULADOR .pack_info() == {}:                      # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.frame_img_SIMULADOR .pack()  
+        else:
+            self.frame_img_SIMULADOR .pack_forget()
+    
+class _Frame_boomer_DERECHA (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)
+        pass
+        '''
+        self.pack_propagate(1)
+
+        self.lbl_BASE = Label(self, image= self.master.master.Imagenes [10], bd=0)
+        self.lbl_BASE . bind("<Button-1>", self.ocultar)
+        self.lbl_BASE . grid(column=0, row=0, sticky="ne")
+        self.lbl_BASE . grid_propagate(0)
+
+        self.lbl_77 = Label(self, image= self.master.master.Imagenes [11], bd=0)       
+        self.lbl_77 . grid(column=0, row=0, sticky="ne")
+
+        self.lbl_FLECHA = Label(self, image= self.master.master.Imagenes [108], bd=0)       
+        self.lbl_FLECHA . grid(column=0, row=0, sticky="se")
+        
+
+    def ocultar (self, event=None): 
+
+        x, y = event.x, event.y
+        print(x, y)
+    
+        if x >=115 :
+
+            if self.lbl_77 . grid_info() == {} and self.lbl_FLECHA . grid_info() == {} :  # Metodo de info de un widget
+
+                self.lbl_77 . grid(column=0, row=0, sticky="ne")
+                self.lbl_FLECHA . grid(column=0, row=0, sticky="se")        
+        
+            else:
+                self.lbl_77 . grid_forget()
+                self.lbl_FLECHA . grid_forget()
+        
+        '''
+
+class _Frame_boomer_STUFF (Frame):  #-------------------------------- REGLA: GAME STUFF
+     pass
+
+
+
+
+
 class Frame_boomer_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
     pass
     
@@ -456,14 +595,16 @@ class Frame_boomer_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA
 
         self.lbl_DELAY = Label(self, image= self.master.master.Imagenes [8], bd=0)
         self.lbl_DELAY . grid(column=0, row=0)
-        self.lbl_DELAY . grid_propagate(0) 
+
+      
+        #self.lbl_DELAY . grid_propagate(0) 
 
         self.lbl_MEDIR = Label(self, image= self.master.master.Imagenes [9], bd=0)       
-        #self.lbl_MEDIR . grid(column=0, row=0, sticky="n")
+        self.lbl_MEDIR . grid(column=0, row=0, sticky="n")
         
-        self.lbl_guia = Label(self.lbl_DELAY, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
-        self.lbl_guia . bind("<Button-1>", self.ocultar)
-        self.lbl_guia . grid(column=0, row=0, padx=2, pady=61)
+        #self.lbl_guia = Label(self.lbl_DELAY, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
+       # self.lbl_guia . bind("<Button-1>", self.ocultar)
+        #self.lbl_guia . grid(column=0, row=0, padx=2, pady=61)
         #self.lbl_guia . grid_propagate (0)
         
     def ocultar (self, event=None): 
@@ -473,8 +614,6 @@ class Frame_boomer_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA
         else:
             self.lbl_MEDIR . grid_forget()
     
-
-
 class Frame_boomer_DERECHA (Frame):  #------------------------------- DERECHA :  BASE  /  77
 
     def __init__(self, *args, **kwargs):
@@ -510,18 +649,12 @@ class Frame_boomer_DERECHA (Frame):  #------------------------------- DERECHA : 
                 self.lbl_77 . grid_forget()
                 self.lbl_FLECHA . grid_forget()
 
-
-
-
-
-
 class Frame_boomer_STUFF (Frame):  #-------------------------------- REGLA: GAME STUFF
      pass
 
-
 ################################  F R A M E  " I C E "  ################################
 
-class Frame_ice_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Frame_ice_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR#
 
     def __init__(self, master):
         Frame.__init__(self, master)
