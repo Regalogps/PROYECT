@@ -359,6 +359,8 @@ class Create_Frame (Frame):
 class Example(Frame):
     def __init__(self, master, indice, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
+
+    def img (self, indice):
         #self.master = master
         self.image = Image.fromarray(indice)
         self.img_copy = self.image.copy()
