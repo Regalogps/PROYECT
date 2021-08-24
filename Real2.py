@@ -56,21 +56,15 @@ class Interface(Tk):
         #root.attributes("-alpha", 0.5 )   
 
     def create_list (self, file, option):   # Metodo para leer todas las imageneS ------NO TOCAR
-    
-        pictures = os.listdir (file)
-        self.list_1 = [] 
-        self.list_2 = [] 
+   
+        dir = os.listdir (file)
 
-
-
-
-        self.list_3 = []
-
-
-
+        list_1 = [] 
+        list_2 = [] 
+        list_3 = []
 
         if option == 'full':
-            for i in pictures:
+            for i in dir:
                 if '.jpg' in i or '.png' in i:                         # VER SI ES NECESARIO SACAR DE LA LISTA A RUEDA Y AL LOGO
 
                     full = file + '/' + i
@@ -81,11 +75,11 @@ class Interface(Tk):
                     #arrayy = Image.fromarray (RGB)
                     #img = ImageTk.PhotoImage (array)
 
-                    self.list_1 .append (RGB)
-            return self.list_1
+                    list_1 .append (RGB)
+            return list_1
         
         if option == "partial" :
-            for i in pictures:
+            for i in dir:
                 if ".jpg" in i or ".png" in i:        
 
                     full = file + '/' + i
@@ -96,13 +90,13 @@ class Interface(Tk):
                     array = Image.fromarray (RGB)
                     img = ImageTk.PhotoImage (array)
 
-                    self.list_2 .append (img)
-            return self.list_2
+                    list_2 .append (img)
+            return list_2
 
 
 
         if option == 'tres':
-            for i in pictures:
+            for i in dir:
                 if '.jpg' in i or '.png' in i:                         # VER SI ES NECESARIO SACAR DE LA LISTA A RUEDA Y AL LOGO
 
                     full = file + '/' + i
@@ -113,8 +107,8 @@ class Interface(Tk):
                     array = Image.fromarray (RGB)
                     img = ImageTk.PhotoImage (array)
 
-                    self.list_3 .append (img)
-            return self.list_3
+                    list_3 .append (img)
+            return list_3
         
         
     def widgets(self):  # widgets de la ventana Principal ----------------------------NO TOCAR  EDITAR DESPUES A CLASE BOTON O LABEL
