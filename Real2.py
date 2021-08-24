@@ -352,29 +352,25 @@ class Create_Frame (Frame):
 
 
 class Example(Frame):
-    def __init__(self, master, indice, *args, **kwargs):
-        Frame.__init__(self, master, *args, **kwargs)
+    def __init__(self, master, indice, *args):
+        Frame.__init__(self, master, *args)
 
-    #def img (self, indice):
-        #self.master = master
-        self.image = Image.fromarray(indice)
-        self.img_copy = self.image.copy()
+        self.image = Image.fromarray (indice)
+        self.image_copy = self.image .copy()
 
-        self.background_image = ImageTk.PhotoImage(self.image)
+        self.background = ImageTk.PhotoImage (self.image)
 
-        self.background = Label(self, image=self.background_image)
-        self.background.pack(fill='both', expand=True)
-        self.background.bind('<Configure>', self._resize_image)
+        self.img = Label (self, image= self.background)
+        self.img .pack (fill= 'both', expand= True)
+        self.img .bind ('<Configure>', self.resize)
 
+    def resize(self, event):
 
+        self.image = self.image_copy .resize ((self.master .winfo_width(), self.master .winfo_height()))
 
-    def _resize_image(self, event):
-
-        self.image = self.img_copy.resize((self.master.winfo_width(), self.master.winfo_height()))
-
-        self.background_image = ImageTk.PhotoImage(self.image)
-        self.background.config(image=self.background_image)
-        self.background.image = self.background_image
+        self.background = ImageTk.PhotoImage (self.image)
+        self.img .config (image= self.background)
+        self.img .image = self.background
 
 
 
