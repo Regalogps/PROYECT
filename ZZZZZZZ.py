@@ -28,36 +28,40 @@ class Principal(Tk):
 
         #frame = Example(self) 
         #frame .pack()
-        #self.lista = self.fotos()
+        self.fotos()
         #print(len(self.lista))
+        #self.lista
        
         
         #self.lista[1].pack(fill=BOTH, expand=YES)
+        
+    def fotos(self):    #print(self.imgs)
         self.imgs = []
-        #print(self.imgs)
+
         for image in self.images:        
             # Crear la imagen, reescalarla, etc.
-            self.l1 = Label(self, image= image)
+            self.l1 = Label(self, image=image)
             self.l1 .bind('<Configure>',self.resize)
             self.l1 .pack(fill=BOTH, expand=YES)
             # Y añadir el resultado a la lista
             self.imgs.append(self.l1)
-            #return self.imgs
+            
+        return self.imgs
 
-        self.imgs[4]
-        self.imgs[4].pack(fill=BOTH, expand=YES)
+        #self.imgs[4]
+        #self.imgs[4].pack(fill=BOTH, expand=YES)
     
     def resize(self,event):
         pass
         
-        width = self.winfo_width()
+        """ width = self.winfo_width()
         height = self.winfo_height()
     
         for ind in range(110):
             v = self.imgs_copy[ind] .resize((width, height))
             va = ImageTk.PhotoImage(v)
             self.imgs[ind] .config(image= va)
-            self.imgs[ind] .image = va
+            self.imgs[ind] .image = va """
 
 
 

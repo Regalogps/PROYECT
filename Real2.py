@@ -35,7 +35,7 @@ class Interface(Tk):
 
 #_______V A R I A B L E S  de  C O N T R O L  para las :  V E N T A N A S , izquierda; derecha; stuff
  
-        self.__frame_1 = None
+        self._frame_1 = None
         self.__frame_2 = None
         self.__frame_3 = None
 
@@ -161,10 +161,11 @@ class Interface(Tk):
                                 
         container_frame_left = var_1 (self.toplevel_LEFT)  #  var_1 es un frame
 
-        if self.__frame_1 is not None:  
-            self.__frame_1 .destroy()
-        self.__frame_1 = container_frame_left
-        self.__frame_1 .pack()
+        if self._frame_1 is not None:  
+            self._frame_1 .destroy()
+        self._frame_1 = container_frame_left
+        self._frame_1 .pack()
+        
         
         self.toplevel_LEFT .protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(1))
 
@@ -360,7 +361,7 @@ class Example(Frame):
     def __init__(self, master, indice, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
-    def img (self, indice):
+    #def img (self, indice):
         #self.master = master
         self.image = Image.fromarray(indice)
         self.img_copy = self.image.copy()
@@ -504,66 +505,91 @@ class Frame_fox_STUFF (Frame):  #-------------------------------- REGLA: GAME ST
 
 
 
+
+
+
+
+
+
+
+
+
+
 ################################   F R A M E  " B O O M E R "  ################################ 
 
 class _Frame_boomer_IZQUIERDA (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
+        #self.grid()
 
         self.frame_img_DELAY = Example (self, self.master.master.Imageness [8], bd=0)
-        self.frame_img_DELAY .pack()
-        #self.frame_img_DELAY .pack_propagate
+        self.frame_img_DELAY .grid(column=0,row=0)
+        #self.frame_img_DELAY .grid_propagate (0)
 
         self.frame_img_SIMULADOR = Example (self, self.master.master.Imageness [9], bd=0)  
-        self.frame_img_SIMULADOR .pack()
-        self.frame_img_SIMULADOR .pack_propagate
+        #self.frame_img_SIMULADOR .grid(column=0, row=0, sticky="n")
+        #self.frame_img_SIMULADOR .pack_propagate
 
-        #self.frame_guia = Label (self.frame_img_DELAY, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
-        #self.frame_guia . bind("<Button-1>", self.ocultar)
-        #self.frame_guia . grid(padx= 2, pady= 61)
+        self.frame_guia = Label (self, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  
+        self.frame_guia . bind("<Button-1>", self.ocultar)
+        self.frame_guia . place(x=2, y=61)    
+       #self.lbl_guia . grid(column=0, row=0, padx=2, pady=61)
+ 
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
 
-
-        #self.lbl_DELAY = Label(self, image= self.master.master.Imagenes [8], bd=0)
-        #self.lbl_DELAY . grid(column=0, row=0)
-        #self.lbl_DELAY . grid_propagate(0) 
-
-        #self.lbl_MEDIR = Label(self, image= self.master.master.Imagenes [9], bd=0)       
-        #self.lbl_MEDIR . grid(column=0, row=0, sticky="n")
-        
-        #self.lbl_guia = Label(self.lbl_DELAY, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
-        #self.lbl_guia . bind("<Button-1>", self.ocultar)
-        #self.lbl_guia . grid(column=0, row=0, padx=2, pady=61)
-        #self.lbl_guia . grid_propagate (0)
-        
     def ocultar (self, event=None): 
 
-        if self.frame_img_SIMULADOR .pack_info() == {}:                      # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.frame_img_SIMULADOR .pack()  
+        if self.frame_img_SIMULADOR .grid_info() == {}:                      # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.frame_img_SIMULADOR .grid(column=0,row=0)
         else:
-            self.frame_img_SIMULADOR .pack_forget()
+            self.frame_img_SIMULADOR .grid_forget()
+
+
+
+
+
     
 class _Frame_boomer_DERECHA (Frame):  #------------------------------- DERECHA :  BASE  /  77
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)
         pass
-        '''
-        self.pack_propagate(1)
+        
+        #self.pack_propagate(1)
 
-        self.lbl_BASE = Label(self, image= self.master.master.Imagenes [10], bd=0)
-        self.lbl_BASE . bind("<Button-1>", self.ocultar)
-        self.lbl_BASE . grid(column=0, row=0, sticky="ne")
+        self.lbl_BASE = Example (self, self.master.master.Imageness [10], bd=0)
+        self.lbl_BASE . bind ("<Button-1>", self.ocultar)
+        self.lbl_BASE . grid (column=0, row=0)
         self.lbl_BASE . grid_propagate(0)
 
-        self.lbl_77 = Label(self, image= self.master.master.Imagenes [11], bd=0)       
-        self.lbl_77 . grid(column=0, row=0, sticky="ne")
+        self.lbl_77 = Example (self, self.master.master.Imageness [11], bd=0)       
+        #self.lbl_77 . grid (column=0, row=0)
 
-        self.lbl_FLECHA = Label(self, image= self.master.master.Imagenes [108], bd=0)       
-        self.lbl_FLECHA . grid(column=0, row=0, sticky="se")
+        #self.lbl_FLECHA = Example (self, image= self.master.master.Imagenes [108], bd=0)       
+        #self.lbl_FLECHA . grid (column=0, row=0, sticky="se")
         
 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
     def ocultar (self, event=None): 
+
+        x, y = event.x, event.y
+        print(x, y)
+    
+        if x >=115 :
+
+            if self.lbl_77 . grid_info() == {}:
+
+                self.lbl_77 . grid(column=0, row=0)
+                             
+            else:
+                self.lbl_77 . grid_forget()
+
+
+    """ def ocultar (self, event=None): 
 
         x, y = event.x, event.y
         print(x, y)
@@ -577,12 +603,29 @@ class _Frame_boomer_DERECHA (Frame):  #------------------------------- DERECHA :
         
             else:
                 self.lbl_77 . grid_forget()
-                self.lbl_FLECHA . grid_forget()
+                self.lbl_FLECHA . grid_forget() """
         
-        '''
+        
 
 class _Frame_boomer_STUFF (Frame):  #-------------------------------- REGLA: GAME STUFF
      pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -79,10 +79,11 @@ class Example(Frame):
 
 
 
-    def _resize_image(self, event):
+    def _resize_image(self, event= None):
+        width = self.master.winfo_width()
+        height = self.master.winfo_height()
 
-
-        self.image = self.img_copy.resize((self.master.winfo_width(), self.master.winfo_height()))
+        self.image = self.img_copy.resize((width, height))
 
         self.background_image = ImageTk.PhotoImage(self.image)
         self.background.config(image=self.background_image)
