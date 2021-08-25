@@ -21,13 +21,10 @@ class Interface(Tk):
         Tk. __init__(self)                                                 # Llamando a Tk ()
 
         path = 'E:/1-RICHI/MovilesDB'                                      # Ruta de la carpeta
-        self.Imageness = self.create_list (path, 'full') 
-              
-        self.Imagenes_copia = self.create_list (path, 'partial') 
-
-
+        self.Images = self.create_list (path, 'Full')              
+        
         self.Imagenes = self.create_list (path, 'tres')
-        #print(len(self.Imagenes))
+        self.Sub_images = self.create_list (path, 'Sub') 
         #print("este print esta en interfaz",self.Imagenes_copia[0])
         # Llamando a las Metodos de Configuracion 
         self. configure_interface()          
@@ -55,44 +52,20 @@ class Interface(Tk):
         self.wm_attributes ('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
         #root.attributes("-alpha", 0.5 )   
 
-    def create_list (self, file, option):   # Metodo para leer todas las imageneS ------NO TOCAR
-   
+    def create_list (self, file, option):   # Metodo para leer todas las imageneS ------NO TOCAR 
         dir = os.listdir (file)
 
-        list_1 = [] 
-        list_2 = [] 
-        list_3 = []
-
-        if option == 'full':
+        list = [] 
+        if option == 'Full':
             for i in dir:
                 if '.jpg' in i or '.png' in i:                         # VER SI ES NECESARIO SACAR DE LA LISTA A RUEDA Y AL LOGO
 
                     full = file + '/' + i
-                    #print(ruta_completa)
-
                     open = cv2.imread (full)
                     RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
-                    #arrayy = Image.fromarray (RGB)
-                    #img = ImageTk.PhotoImage (array)
 
-                    list_1 .append (RGB)
-            return list_1
-        
-        if option == "partial" :
-            for i in dir:
-                if ".jpg" in i or ".png" in i:        
-
-                    full = file + '/' + i
-                    #print(ruta_completa)
-
-                    open = cv2.imread (full)
-                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
-                    array = Image.fromarray (RGB)
-                    img = ImageTk.PhotoImage (array)
-
-                    list_2 .append (img)
-            return list_2
-
+                    list. append (RGB)
+            return list
 
 
         if option == 'tres':
@@ -107,9 +80,22 @@ class Interface(Tk):
                     array = Image.fromarray (RGB)
                     img = ImageTk.PhotoImage (array)
 
-                    list_3 .append (img)
-            return list_3
+                    list. append (img)
+            return list
+
         
+        if option == 'Sub':
+            for i in dir:
+                if i.split('.')[0] in ['__SubList__00','__SubList__01'] :       
+
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    array = Image.fromarray (RGB)
+                    img = ImageTk.PhotoImage (array)
+
+                    list. append (img)
+            return list       
         
     def widgets(self):  # widgets de la ventana Principal ----------------------------NO TOCAR  EDITAR DESPUES A CLASE BOTON O LABEL
 
@@ -267,67 +253,65 @@ class Create_Frame (Frame):
 
     def img_ash(self):   # Metodo que crea -1- Boton (logo) -------------------NO TOCAR (despues)
         
-        self.btn_ash = Button (self, image= self.master.Imagenes_copia [107], bg= '#11161d', bd= 0, activebackground= '#11161d' , command= self.master.remove_frame)
+        self.btn_ash = Button (self, image= self.master.Sub_images [0], bg= '#11161d', bd= 0, activebackground= '#11161d' , command= self.master.remove_frame)
         self.btn_ash .grid (column= 0, row= 0, padx= 3, pady= 1)
           
     def img_gear(self):   # Metodo que crea -1- Boton (rueda)-----------------NO TOCAR (despues)
 
-        self.btn_gear = Button (self, image= self.master.Imagenes_copia [110], bg= '#11161d', bd= 0, activebackground= '#11161d', command= self.master.configure_height)
+        self.btn_gear = Button (self, image= self.master.Sub_images [1], bg= '#11161d', bd= 0, activebackground= '#11161d', command= self.master.configure_height)
         self.btn_gear .grid (column= 0, row= 1)
        
     def img_moviles(self):   # Metodo que crea -22- Botones (moviles)  #command = lambda:images(1))
-        '''
-        self.Frog_1 = Button (self, text='Frog', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_frog_IZQUIERDA, Frame_frog_DERECHA, Frame_frog_STUFF)) 
+        
+        self.Frog_1 = Button (self, text='Frog', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_frog_left, Fr_frog_right, Fr_frog_stuf)) 
 
-        self.Fox_2 = Button (self, text='Fox', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_fox_IZQUIERDA, Frame_fox_DERECHA, Frame_fox_STUFF)) 
-        '''
-        self.Boomer_3 = Button (self, text='Boomer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (_Frame_boomer_IZQUIERDA, _Frame_boomer_DERECHA, _Frame_boomer_STUFF))     
-        '''
-        self.Ice_4 = Button (self, text='Ice', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_ice_IZQUIERDA, Frame_ice_DERECHA, Frame_ice_STUFF))
+        self.Fox_2 = Button (self, text='Fox', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_fox_left, Fr_fox_right, Fr_fox_stuf)) 
+        
+        self.Boomer_3 = Button (self, text='Boomer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_boomer_left, Fr_boomer_right, Fr_boomer_stuf))     
+        
+        self.Ice_4 = Button (self, text='Ice', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_ice_left, Fr_ice_right, Fr_ice_stuf))
 
-        self.JD_5 = Button (self, text='J.D', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_jd_IZQUIERDA, Frame_jd_DERECHA, Frame_jd_STUFF))
+        self.JD_5 = Button (self, text='J.D', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_jd_left, Fr_jd_right, Fr_jd_stuf))
 
-        self.Grub_6 = Button (self, text='Grub', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_grub_IZQUIERDA, Frame_grub_DERECHA, Frame_grub_STUFF))   
+        self.Grub_6 = Button (self, text='Grub', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_grub_left, Fr_grub_right, Fr_grub_stuf))   
 
-        self.Light_7 = Button (self, text='Light', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width=10, bd=0, command= lambda: self.master.master.windows_123 (Frame_light_IZQUIERDA, Frame_light_DERECHA, Frame_light_STUFF))       
+        self.Light_7 = Button (self, text='Light', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width=10, bd=0, command= lambda: self.master.master.windows_123 (Fr_light_left, Fr_light_right, Fr_light_stuf))       
 
-        self.Aduka_8 = Button (self, text='Aduka', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_aduka_IZQUIERDA, Frame_aduka_DERECHA, Frame_aduka_STUFF))      
+        self.Aduka_8 = Button (self, text='Aduka', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_aduka_left, Fr_aduka_right, Fr_aduka_stuf))      
 
-        self.Knight_9 = Button (self, text='Knight', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_knight_IZQUIERDA, Frame_knight_DERECHA, Frame_knight_STUFF))     
+        self.Knight_9 = Button (self, text='Knight', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_knight_left, Fr_knight_right, Fr_knight_stuf))     
 
-        self.Calziddon_10 = Button (self, text='Kalsiddon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_kalsiddon_IZQUIERDA, Frame_kalsiddon_DERECHA, Frame_kalsiddon_STUFF))
+        self.Calziddon_10 = Button (self, text='Kalsiddon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_calziddon_left, Fr_calziddon_right, Fr_calziddon_stuf))
 
-        self.Mage_11 = Button (self, text='Mage', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_mage_IZQUIERDA, Frame_mage_DERECHA, Frame_mage_STUFF))  
+        self.Mage_11 = Button (self, text='Mage', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_mage_left, Fr_mage_right, Fr_mage_stuf))  
    
 
-        self.Randomizer_12 = Button (self, text='Randomizer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_randomizer_IZQUIERDA, Frame_randomizer_DERECHA, Frame_randomizer_STUFF))
+        self.Randomizer_12 = Button (self, text='Randomizer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_randomizer_left, Fr_randomizer_right, Fr_randomizer_stuf))
  
-        self.Jolteon_13 = Button (self, text='Jolteon', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_jolteon_IZQUIERDA, Frame_jolteon_DERECHA, Frame_jolteon_STUFF))
+        self.Jolteon_13 = Button (self, text='Jolteon', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_jolteon_left, Fr_jolteon_right, Fr_jolteon_stuf))
  
-        self.Turtle_14 = Button (self, text='Turtle', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_turtle_IZQUIERDA, Frame_turtle_DERECHA, Frame_turtle_STUFF))
+        self.Turtle_14 = Button (self, text='Turtle', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_turtle_left, Fr_turtle_right, Fr_turtle_stuf))
 
-        self.Armor_15 = Button (self, text='Armor', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_armor_IZQUIERDA, Frame_armor_DERECHA, Frame_armor_STUFF))
+        self.Armor_15 = Button (self, text='Armor', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_armor_left, Fr_armor_right, Fr_armor_stuf))
 
-        self.Asate_16 = Button (self, text='A.Sate', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_asate_IZQUIERDA, Frame_asate_DERECHA, Frame_asate_STUFF))
+        self.Asate_16 = Button (self, text='A.Sate', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_asate_left, Fr_asate_right, Fr_asate_stuf))
 
-        self.Raon_17 = Button (self, text='Raon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_raon_IZQUIERDA, Frame_raon_DERECHA, Frame_raon_STUFF))
+        self.Raon_17 = Button (self, text='Raon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_raon_left, Fr_raon_right, Fr_raon_stuf))
  
-        self.Trico_18 = Button (self, text='Trico', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_trico_IZQUIERDA, Frame_trico_DERECHA, Frame_trico_STUFF))
+        self.Trico_18 = Button (self, text='Trico', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_trico_left, Fr_trico_right, Fr_trico_stuf))
 
-        self.Nak_19 = Button (self, text='Nak', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_nak_IZQUIERDA, Frame_nak_DERECHA, Frame_nak_STUFF))
+        self.Nak_19 = Button (self, text='Nak', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_nak_left, Fr_nak_right, Fr_nak_stuf))
  
-        self.Big_20 = Button (self, text='Big', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_big_IZQUIERDA, Frame_big_DERECHA, Frame_big_STUFF))
+        self.Big_20 = Button (self, text='Big', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_big_left, Fr_big_right, Fr_big_stuf))
  
-        self.Dragon1_21 = Button (self, text='Dragon 1', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_dragon1_IZQUIERDA, Frame_dragon1_DERECHA, Frame_dragon1_STUFF))
+        self.Dragon1_21 = Button (self, text='Dragon 1', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_dragon1_left, Fr_dragon1_right, Fr_dragon1_stuf))
  
-        self.Dragon2_22 = Button (self, text='Dragon 2', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frame_dragon2_IZQUIERDA, Frame_dragon2_DERECHA, Frame_dragon2_STUFF))
-        '''
-        '''
+        self.Dragon2_22 = Button (self, text='Dragon 2', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_dragon2_left, Fr_dragon2_right, Fr_dragon2_stuf))
+        
+        
         self.Frog_1 .grid (column= 1, row= 1, pady= 3, padx= (5,0))
-        self.Fox_2 .grid (column= 2, row= 1, pady= 3, padx= (0,0))
-        '''
-        self.Boomer_3 .grid (column= 3, row= 1, pady= 3, padx= (0,0))   
-        '''   
+        self.Fox_2 .grid (column= 2, row= 1, pady= 3, padx= (0,0))       
+        self.Boomer_3 .grid (column= 3, row= 1, pady= 3, padx= (0,0))           
         self.Ice_4 .grid (column= 4, row= 1, pady= 3, padx= (0,0))
         self.JD_5 .grid (column= 5, row= 1, pady= 3, padx= (0,0))
         self.Grub_6 .grid (column= 6, row= 1, pady= 3, padx= (0,0))
@@ -348,14 +332,14 @@ class Create_Frame (Frame):
         self.Big_20 .grid (column= 9, row= 2, pady= 2, padx= (0,0))
         self.Dragon1_21 .grid (column= 10, row= 2, pady= 2, padx= (0,0))
         self.Dragon2_22 .grid (column= 11, row= 2, pady= 2, padx= (0,5))
-        '''
+        
 
 
 class Example(Frame):
-    def __init__(self, master, indice, *args, **kwargs):
+    def __init__(self, master, index, *args, **kwargs):
         Frame.__init__(self, master, *args, kwargs)
 
-        self.image = Image.fromarray (indice)
+        self.image = Image.fromarray (index)
         self.image_copy = self.image .copy()
 
         self.background = ImageTk.PhotoImage (self.image)
@@ -366,453 +350,1354 @@ class Example(Frame):
 
     def resize(self, event):
 
-        self.image = self.image_copy .resize ((self.master .winfo_width(), self.master .winfo_height()))
+        self.image2 = self.image_copy .resize ((self.master .winfo_width(), self.master .winfo_height()))
 
-        self.background = ImageTk.PhotoImage (self.image)
-        self.img .config (image= self.background)
-        self.img .image = self.background
+        self.background2 = ImageTk.PhotoImage (self.image2)
+        self.img .config (image= self.background2)
+        #self.img .image = self.backgroundd
 
 
-
+################################                           ################################
 ################################            EL             ################################ 
 ################################          INICIO           ################################ 
 ################################   F R A M E  " F R O G "  ################################  
 
-class Frame_frog_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
 
-    def __init__(self, master):
-        Frame.__init__(self, master)
-
-        self.lbl_DELAY = Label(self, image= self.master.master.Imagenes [0], bd=0)
-        self.lbl_DELAY . grid(column=0, row=0)
-        self.lbl_DELAY . grid_propagate(0)
-
-        self.lbl_MEDIR = Label(self, image= self.master.master.Imagenes [1], bd=0)       
-        self.lbl_MEDIR . grid(column=0, row=0, sticky="n")
-        
-        self.lbl_guia = Label(self.lbl_DELAY, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
-        self.lbl_guia . bind("<Button-1>", self.ocultar)
-        self.lbl_guia . grid(column=0, row=0, padx=2, pady=61)
-        self.lbl_guia . grid_propagate (0)
-        
-    def ocultar_med (self, event=None): 
-
-        if self.lbl_MEDIR . grid_info() == {}:  # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.lbl_MEDIR . grid(column=0, row=0, sticky="n")      # Metodo para ocultar # Este metodo devuelve {} si es 
-        else:
-            self.lbl_MEDIR . grid_forget()
-
-
-
-class Frame_frog_DERECHA (Frame):  #------------------------------- DERECHA :  BASE  /  77
-
-    def __init__(self, master):
-        Frame.__init__(self, master)
-
-        self.lbl_BASE = Label(self, image= self.master.master.Imagenes [2], bd=0)
-        self.lbl_BASE . grid(column=0, row=0)
-        self.lbl_BASE . grid_propagate(0)
-
-        self.lbl_77 = Label(self, image= self.master.master.Imagenes [3], bd=0)       
-        self.lbl_77 . grid(column=0, row=0, sticky="n")
-        
-        self.lbl_guia = Label(self.lbl_BASE, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
-        self.lbl_guia . bind("<Button-1>", self.ocultar)
-        self.lbl_guia . grid(column=0, row=0, padx=2, pady=61)
-        self.lbl_guia . grid_propagate (0)
-        
-    def ocultar_med (self, event=None): 
-
-        if self.lbl_77 . grid_info() == {}:  # Metodo de info de un widget
-            self.lbl_77 . grid(column=0, row=0, sticky="n")      
-        else:
-            self.lbl_77 . grid_forget()
-
-
-
-class Frame_frog_STUFF (Frame):  #-------------------------------- REGLA: GAME STUFF
-     pass           
-
-
-
-################################   F R A M E  " F O X "  ################################
-
-class Frame_fox_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
-
-    def __init__(self, master):
-        Frame.__init__(self, master)
-
-        self.lbl_DELAY = Label(self, image= self.master.master.Imagenes [4], bd=0)
-        self.lbl_DELAY . grid(column=0, row=0)
-        self.lbl_DELAY . grid_propagate(0)
-
-        self.lbl_MEDIR = Label(self, image= self.master.master.Imagenes [5], bd=0)       
-        self.lbl_MEDIR . grid(column=0, row=0, sticky="n")
-        
-        self.lbl_guia = Label(self.lbl_DELAY, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
-        self.lbl_guia . bind("<Button-1>", self.ocultar)
-        self.lbl_guia . grid(column=0, row=0, padx=2, pady=61)
-        self.lbl_guia . grid_propagate (0)
-        
-    def ocultar_med (self, event=None): 
-
-        if self.lbl_MEDIR . grid_info() == {}:  # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.lbl_MEDIR . grid(column=0, row=0, sticky="n")      # Metodo para ocultar # Este metodo devuelve {} si es 
-        else:
-            self.lbl_MEDIR . grid_forget()
-
-
-
-class Frame_fox_DERECHA (Frame):  #------------------------------- DERECHA :  BASE  /  77
-
-    def __init__(self, master):
-        Frame.__init__(self, master)
-
-        self.lbl_BASE = Label(self, image= self.master.master.Imagenes [6], bd=0)
-        self.lbl_BASE . grid(column=0, row=0)
-        self.lbl_BASE . grid_propagate(0)
-
-        self.lbl_77 = Label(self, image= self.master.master.Imagenes [7], bd=0)       
-        self.lbl_77 . grid(column=0, row=0, sticky="n")
-        
-        self.lbl_guia = Label(self.lbl_BASE, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
-        self.lbl_guia . bind("<Button-1>", self.ocultar)
-        self.lbl_guia . grid(column=0, row=0, padx=2, pady=61)
-        self.lbl_guia . grid_propagate (0)
-        
-    def ocultar_med (self, event=None): 
-
-        if self.lbl_77 . grid_info() == {}:  # Metodo de info de un widget
-            self.lbl_77 . grid(column=0, row=0, sticky="n")      
-        else:
-            self.lbl_77 . grid_forget()
-
-
-
-class Frame_fox_STUFF (Frame):  #-------------------------------- REGLA: GAME STUFF
-     pass           
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-################################   F R A M E  " B O O M E R "  ################################ 
-
-class _Frame_boomer_IZQUIERDA (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_frog_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
-        #self.grid()
 
-        self.frame_img_DELAY = Example (self, self.master.master.Imageness [8], bd=0)
-        self.frame_img_DELAY .grid(column=0,row=0)
-        #self.frame_img_DELAY .grid_propagate (0)
+        self.fr_img_delay = Example (self, self.master.master.Images [0], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
 
-        self.frame_img_SIMULADOR = Example (self, self.master.master.Imageness [9], bd=0)  
-        #self.frame_img_SIMULADOR .grid(column=0, row=0, sticky="n")
-        #self.frame_img_SIMULADOR .pack_propagate
+        self.fr_img_movil= Example (self, self.master.master.Images [1], bd=0)  
 
-        self.frame_guia = Label (self, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  
-        self.frame_guia . bind("<Button-1>", self.ocultar)
-        self.frame_guia . place(x=2, y=61)    
-       #self.lbl_guia . grid(column=0, row=0, padx=2, pady=61)
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
  
+
         self.grid_columnconfigure(0,weight=1)
         self.grid_rowconfigure(0,weight=1)
 
-    def ocultar (self, event=None): 
+    def position_img(self, event): 
 
-        if self.frame_img_SIMULADOR .grid_info() == {}:                      # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.frame_img_SIMULADOR .grid(column=0,row=0)
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
         else:
-            self.frame_img_SIMULADOR .grid_forget()
-
-
-
-
+            self.fr_img_movil .grid_forget()
 
     
-class _Frame_boomer_DERECHA (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_frog_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
 
-    def __init__(self, *args, **kwargs):
-        Frame.__init__(self, *args, **kwargs)
-        pass
-        
-        #self.pack_propagate(1)
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
 
-        self.lbl_BASE = Example (self, self.master.master.Imageness [10], bd=0)
-        self.lbl_BASE . bind ("<Button-1>", self.ocultar)
-        self.lbl_BASE . grid (column=0, row=0)
-        self.lbl_BASE . grid_propagate(0)
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [2], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
 
-        self.lbl_77 = Example (self, self.master.master.Imageness [11], bd=0)       
-        #self.lbl_77 . grid (column=0, row=0)
-
-        #self.lbl_FLECHA = Example (self, image= self.master.master.Imagenes [108], bd=0)       
-        #self.lbl_FLECHA . grid (column=0, row=0, sticky="se")
-        
-
+        self.fr_img_77 = Example (self, self.master.master.Images [3], bd=0)       
+ 
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
 
-    def ocultar (self, event=None): 
+    def position_img(self, event): 
 
-        x, y = event.x, event.y
-        print(x, y)
+        width, height = event.x, event.y
     
-        if x >=115 :
-
-            if self.lbl_77 . grid_info() == {}:
-
-                self.lbl_77 . grid(column=0, row=0)
-                             
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
             else:
-                self.lbl_77 . grid_forget()
+                self.fr_img_77 . grid_forget()
 
 
-    """ def ocultar (self, event=None): 
-
-        x, y = event.x, event.y
-        print(x, y)
-    
-        if x >=115 :
-
-            if self.lbl_77 . grid_info() == {} and self.lbl_FLECHA . grid_info() == {} :  # Metodo de info de un widget
-
-                self.lbl_77 . grid(column=0, row=0, sticky="ne")
-                self.lbl_FLECHA . grid(column=0, row=0, sticky="se")        
-        
-            else:
-                self.lbl_77 . grid_forget()
-                self.lbl_FLECHA . grid_forget() """
-        
-        
-
-class _Frame_boomer_STUFF (Frame):  #-------------------------------- REGLA: GAME STUFF
+class Fr_frog_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
      pass
 
+################################   F R A M E  " F O X "  ################################
+################################   F R A M E  " F O X "  ################################
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class Frame_boomer_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
-    pass
-    
+class Fr_fox_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
 
     def __init__(self, *args, **kwargs):
-        Frame.__init__(self, *args, **kwargs)      
+        Frame.__init__(self, *args, **kwargs)   
 
-        self.lbl_DELAY = Label(self, image= self.master.master.Imagenes [8], bd=0)
-        self.lbl_DELAY . grid(column=0, row=0)
+        self.fr_img_delay = Example (self, self.master.master.Images [4], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
 
-      
-        #self.lbl_DELAY . grid_propagate(0) 
+        self.fr_img_movil= Example (self, self.master.master.Images [5], bd=0)  
 
-        self.lbl_MEDIR = Label(self, image= self.master.master.Imagenes [9], bd=0)       
-        self.lbl_MEDIR . grid(column=0, row=0, sticky="n")
-        
-        #self.lbl_guia = Label(self.lbl_DELAY, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
-       # self.lbl_guia . bind("<Button-1>", self.ocultar)
-        #self.lbl_guia . grid(column=0, row=0, padx=2, pady=61)
-        #self.lbl_guia . grid_propagate (0)
-        
-    def ocultar (self, event=None): 
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
 
-        if self.lbl_MEDIR . grid_info() == {}:                      # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.lbl_MEDIR . grid(column=0, row=0, sticky="n")      
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
         else:
-            self.lbl_MEDIR . grid_forget()
+            self.fr_img_movil .grid_forget()
+
+ 
+class Fr_fox_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [6], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [7], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
     
-class Frame_boomer_DERECHA (Frame):  #------------------------------- DERECHA :  BASE  /  77
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
+
+
+class Fr_fox_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+     pass
+
+################################   F R A M E  " B O O M E R "  ################################
+################################   F R A M E  " B O O M E R "  ################################ 
+
+
+class Fr_boomer_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
 
     def __init__(self, *args, **kwargs):
-        Frame.__init__(self, *args, **kwargs)
-      
-        self.pack_propagate(1)
+        Frame.__init__(self, *args, **kwargs)   
 
-        self.lbl_BASE = Label(self, image= self.master.master.Imagenes [10], bd=0)
-        self.lbl_BASE . bind("<Button-1>", self.ocultar)
-        self.lbl_BASE . grid(column=0, row=0, sticky="ne")
-        self.lbl_BASE . grid_propagate(0)
+        self.fr_img_delay = Example (self, self.master.master.Images [8], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
 
-        self.lbl_77 = Label(self, image= self.master.master.Imagenes [11], bd=0)       
-        self.lbl_77 . grid(column=0, row=0, sticky="ne")
+        self.fr_img_movil= Example (self, self.master.master.Images [9], bd=0)  
 
-        self.lbl_FLECHA = Label(self, image= self.master.master.Imagenes [108], bd=0)       
-        self.lbl_FLECHA . grid(column=0, row=0, sticky="se")
-        
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
 
-    def ocultar (self, event=None): 
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
 
-        x, y = event.x, event.y
-        print(x, y)
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
+        else:
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [10], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [11], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
     
-        if x >=115 :
-
-            if self.lbl_77 . grid_info() == {} and self.lbl_FLECHA . grid_info() == {} :  # Metodo de info de un widget
-
-                self.lbl_77 . grid(column=0, row=0, sticky="ne")
-                self.lbl_FLECHA . grid(column=0, row=0, sticky="se")        
-        
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
             else:
-                self.lbl_77 . grid_forget()
-                self.lbl_FLECHA . grid_forget()
+                self.fr_img_77 . grid_forget()
 
-class Frame_boomer_STUFF (Frame):  #-------------------------------- REGLA: GAME STUFF
+
+class Fr_boomer_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
      pass
 
 ################################  F R A M E  " I C E "  ################################
+################################  F R A M E  " I C E "  ################################
 
-class Frame_ice_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR#
 
-    def __init__(self, master):
-        Frame.__init__(self, master)
+class Fr_ice_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
 
-        self.lbl_DELAY = Label(self, image= self.master.master.Imagenes [12], bd=0)
-        self.lbl_DELAY . grid(column=0, row=0)
-        self.lbl_DELAY . grid_propagate(0)
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
 
-        self.lbl_MEDIR = Label(self, image= self.master.master.Imagenes [13], bd=0)       
-        self.lbl_MEDIR . grid(column=0, row=0, sticky="n")
-        
-        self.lbl_guia = Label(self.lbl_DELAY, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
-        self.lbl_guia . bind("<Button-1>", self.ocultar)
-        self.lbl_guia . grid(column=0, row=0, padx=2, pady=61)
-        self.lbl_guia . grid_propagate (0)
-        
-    def ocultar(self, event=None): 
+        self.fr_img_delay = Example (self, self.master.master.Images [12], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
 
-        if self.lbl_MEDIR . grid_info() == {}:  # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.lbl_MEDIR . grid(column=0, row=0, sticky="n")      # Metodo para ocultar # Este metodo devuelve {} si es 
+        self.fr_img_movil= Example (self, self.master.master.Images [13], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
         else:
-            self.lbl_MEDIR . grid_forget()
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_ice_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [14], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [15], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
 
 
+class Fr_ice_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+     pass
 
-class Frame_ice_DERECHA (Frame):  #------------------------------- DERECHA :  BASE  /  77
+################################  F R A M E  " J D "  ################################
+################################  F R A M E  " J D "  ################################
 
-    def __init__(self, master):
-        Frame.__init__(self, master)
 
-        self.lbl_BASE = Label(self, image= self.master.master.Imagenes [14], bd=0)
-        self.lbl_BASE . grid(column=0, row=0)
-        self.lbl_BASE . grid_propagate(0)
+class Fr_jd_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
 
-        self.lbl_77 = Label(self, image= self.master.master.Imagenes [15], bd=0)       
-        self.lbl_77 . grid(column=0, row=0, sticky="ne")
-        
-        self.lbl_guia = Label(self.lbl_BASE, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
-        self.lbl_guia . bind("<Button-1>", self.ocultar)
-        self.lbl_guia . grid(column=0, row=0, padx=2, pady=61)
-        self.lbl_guia . grid_propagate (0)
-        
-    def ocultar (self, event=None): 
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
 
-        if self.lbl_77 . grid_info() == {}:  # Metodo de info de un widget
-            self.lbl_77 . grid(column=0, row=0, sticky="n")      
+        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
+
+        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
         else:
-            self.lbl_77 . grid_forget()
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_jd_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
 
 
-
-class Frame_ice_STUFF (Frame):  #-------------------------------- REGLA: GAME STUFF
+class Fr_jd_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
      pass
 
 
-################################  F R A M E  " J D "  ################################
+################################  F R A M E  " G R U B "  ################################
+################################  F R A M E  " G R U B "  ################################
 
-class Frame_jd_IZQUIERDA (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
 
-    def __init__(self, master):
-        Frame.__init__(self, master)
+class Fr_grub_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
 
-        self.lbl_DELAY = Label(self, image= self.master.master.Imagenes [16], bd=0)
-        self.lbl_DELAY . grid(column=0, row=0)
-        self.lbl_DELAY . grid_propagate(0)
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
 
-        self.lbl_MEDIR = Label(self, image= self.master.master.Imagenes [17], bd=0)       
-        #self.lbl_MEDIR . grid(column=0, row=0, sticky="n")
-        
-        self.lbl_guia = Label(self.lbl_DELAY, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
-        self.lbl_guia . bind("<Button-1>", self.ocultar)
-        self.lbl_guia . grid(column=0, row=0, padx=2, pady=61)
-        self.lbl_guia . grid_propagate (0)
-        
-    def ocultar (self, event=None): 
+        self.fr_img_delay = Example (self, self.master.master.Images [20], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
 
-        if self.lbl_MEDIR . grid_info() == {}:  # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.lbl_MEDIR . grid(column=0, row=0, sticky="n")      # Metodo para ocultar # Este metodo devuelve {} si es 
+        self.fr_img_movil= Example (self, self.master.master.Images [21], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
         else:
-            self.lbl_MEDIR . grid_forget()
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_grub_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)gi
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
 
 
+class Fr_grub_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+     pass
 
-class Frame_jd_DERECHA (Frame):  #------------------------------- DERECHA :  BASE  /  77
 
-    def __init__(self, master):
-        Frame.__init__(self, master)
+################################  F R A M E  " L I G H T "  ################################
+################################  F R A M E  " L I G H T "  ################################
 
-        self.lbl_BASE = Label(self, image= self.master.master.Imagenes [18], bd=0)
-        self.lbl_BASE . grid(column=0, row=0)
-        self.lbl_BASE . grid_propagate(0)
 
-        self.lbl_77 = Label(self, image= self.master.master.Imagenes [19], bd=0)       
-        self.lbl_77 . grid(column=0, row=0, sticky="ne")
+class Fr_light_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
 
-        self.lbl_FLECHA = Label(self, image= self.master.master.Imagenes [108], bd=0)       
-        self.lbl_FLECHA . grid(column=0, row=0, sticky="se")
-     
-        self.lbl_quitar_columna77 = Label(self.lbl_BASE, text="Guia", font=("Calibri",8,"bold"), bg="black" , fg="white", bd=0)  # Desaparece al presionarse error
-        self.lbl_quitar_columna77 . bind("<Button-1>", self.ocultar)
-        self.lbl_quitar_columna77 . grid(column=0, row=0, padx=2, pady=61)
-        self.lbl_quitar_columna77 . grid_propagate (0)
-        
-    def ocultar (self, event=None): 
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
 
-        if self.lbl_77 . grid_info() == {} and self.lbl_FLECHA . grid_info() == {} :  # Metodo de info de un widget
+        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
 
-            self.lbl_77 . grid(column=0, row=0, sticky="ne")
-            self.lbl_FLECHA . grid(column=0, row=0, sticky="se")        
-     
+        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
         else:
-            self.lbl_77 . grid_forget()
-            self.lbl_FLECHA . grid_forget()
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_light_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
 
 
+class Fr_light_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+     pass
 
-class Frame_jd_STUFF (Frame):  #-------------------------------- REGLA: GAME STUFF
+
+################################  F R A M E  " A D U K A "  ################################
+################################  F R A M E  " A D U K A "  ################################
+
+
+class Fr_aduka_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
+
+        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
+
+        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
+        else:
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_aduka_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
+
+
+class Fr_aduka_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+     pass
+
+
+################################  F R A M E  " K N I G H T "  ################################
+################################  F R A M E  " K N I G H T "  ################################
+
+
+class Fr_knight_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
+
+        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
+
+        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
+        else:
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_knight_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
+
+
+class Fr_knight_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+     pass
+
+
+################################  F R A M E  " C A L Z I D D O N "  ################################
+################################  F R A M E  " C A L Z I D D O N "  ################################
+
+
+class Fr_calziddon_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
+
+        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
+
+        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
+        else:
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_calziddon_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
+
+
+class Fr_calziddon_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+     pass
+
+
+################################  F R A M E  " M A G E "  ################################
+################################  F R A M E  " M A G E "  ################################
+
+
+class Fr_mage_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
+
+        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
+
+        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
+        else:
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_mage_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
+
+
+class Fr_mage_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+     pass
+
+
+################################  F R A M E  " R A N D O M I Z E R "  ################################
+################################  F R A M E  " R A N D O M I Z E R "  ################################
+
+
+class Fr_randomizer_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
+
+        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
+
+        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
+        else:
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_randomizer_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
+
+
+class Fr_randomizer_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+     pass
+
+
+################################  F R A M E  " J O L T E O N "  ################################
+################################  F R A M E  " J O L T E O N "  ################################
+
+
+class Fr_jolteon_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
+
+        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
+
+        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
+        else:
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_jolteon_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
+
+
+class Fr_jolteon_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+     pass
+
+
+################################  F R A M E  " T U R T L E "  ################################
+################################  F R A M E  " T U R T L E "  ################################
+
+class Fr_turtle_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
+
+        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
+
+        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
+        else:
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_turtle_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
+
+
+class Fr_turtle_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+     pass
+
+
+################################  F R A M E  " A R M O R "  ################################
+################################  F R A M E  " A R M O R "  ################################
+
+
+class Fr_armor_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
+
+        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
+
+        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
+        else:
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_armor_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
+
+
+class Fr_armor_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+     pass
+
+
+################################  F R A M E  " A S A T E "  ################################
+################################  F R A M E  " A S A T E "  ################################
+
+
+class Fr_asate_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
+
+        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
+
+        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
+        else:
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_asate_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
+
+
+class Fr_asate_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+     pass
+
+
+################################  F R A M E  " R A O N "  ################################
+################################  F R A M E  " R A O N "  ################################
+
+
+class Fr_raon_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
+
+        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
+
+        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
+        else:
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_raon_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
+
+
+class Fr_raon_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+     pass
+
+
+################################  F R A M E  " T R I C O "  ################################
+################################  F R A M E  " T R I C O "  ################################
+
+
+class Fr_trico_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
+
+        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
+
+        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
+        else:
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_trico_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
+
+
+class Fr_trico_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+     pass
+
+
+################################  F R A M E  " N A K "  ################################
+################################  F R A M E  " N A K "  ################################
+
+
+class Fr_nak_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
+
+        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
+
+        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
+        else:
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_nak_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
+
+
+class Fr_nak_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+     pass
+
+
+################################  F R A M E  " B I G "  ################################
+################################  F R A M E  " B I G "  ################################
+
+
+class Fr_big_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
+
+        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
+
+        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
+        else:
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_big_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
+
+
+class Fr_big_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+     pass
+
+
+################################  F R A M E  " D R A G O N '1' "  ################################
+################################  F R A M E  " D R A G O N '1' "  ################################
+
+
+class Fr_dragon1_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
+
+        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
+
+        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
+        else:
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_dragon1_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
+
+
+class Fr_dragon1_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+     pass
+
+
+################################  F R A M E  " D R A G O N '2' "  ################################
+################################  F R A M E  " D R A G O N '2' "  ################################
+
+
+class Fr_dragon2_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)   
+
+        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
+
+        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
+        else:
+            self.fr_img_movil .grid_forget()
+
+  
+class Fr_dragon2_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event): 
+
+        width, height = event.x, event.y
+    
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
+
+
+class Fr_dragon2_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
      pass
 
 
 ################################            EL             ################################ 
 ################################            FIN            ################################
-
 
 def main (): #--------------------------------------------------------------------NO TOCAR 
     app = Interface()    
