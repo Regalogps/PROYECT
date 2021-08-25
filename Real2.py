@@ -70,15 +70,12 @@ class Interface(Tk):
 
         if option == 'tres':
             for i in dir:
-                if '.jpg' in i or '.png' in i:                         # VER SI ES NECESARIO SACAR DE LA LISTA A RUEDA Y AL LOGO
+                if 'AA' in i:                         # VER SI ES NECESARIO SACAR DE LA LISTA A RUEDA Y AL LOGO
 
                     full = file + '/' + i
                     #print(ruta_completa)
-
                     open = cv2.imread (full)
-                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
-                    array = Image.fromarray (RGB)
-                    img = ImageTk.PhotoImage (array)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)            img = ImageTk.PhotoImage (array)
 
                     list. append (img)
             return list
