@@ -701,7 +701,7 @@ class Fr_grub_right (Frame):  #------------------------------- DERECHA :  BASE  
         self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
-        self.grid_rowconfigure (0,weight=1)gi
+        self.grid_rowconfigure (0,weight=1)
 
     def position_img(self, event): 
 
