@@ -357,12 +357,12 @@ class Create_Frame (Frame):
 
     def img_ash(self):   # Metodo que crea -1- Boton (logo) -------------------NO TOCAR (despues)
         
-        self.btn_ash = Button (self, image= self.master.Sub_images [0], bg= '#11161d', bd= 0, activebackground= '#11161d' , command= self.master.remove_frame)
+        self.btn_ash = Button (self, image= self.master.Images_0 [0], bg= '#11161d', bd= 0, activebackground= '#11161d' , command= self.master.remove_frame)
         self.btn_ash .grid (column= 0, row= 0, padx= 3, pady= 1)
           
     def img_gear(self):   # Metodo que crea -1- Boton (rueda)-----------------NO TOCAR (despues)
 
-        self.btn_gear = Button (self, image= self.master.Sub_images [1], bg= '#11161d', bd= 0, activebackground= '#11161d', command= self.master.configure_height)
+        self.btn_gear = Button (self, image= self.master.Images_0 [1], bg= '#11161d', bd= 0, activebackground= '#11161d', command= self.master.configure_height)
         self.btn_gear .grid (column= 0, row= 1)
        
     def img_moviles(self):   # Metodo que crea -22- Botones (moviles)  #command = lambda:images(1))
