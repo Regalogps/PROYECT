@@ -22,11 +22,12 @@ class Interface(Tk):
 
         path = 'E:/1-RICHI/MovilesDB'                                      # Ruta de la carpeta
         self.Images = self.create_list (path, 'Full')              
-        
-        self.Imagenes = self.create_list (path, 'tres')
         self.Sub_images = self.create_list (path, 'Sub') 
         #print("este print esta en interfaz",self.Imagenes_copia[0])
         # Llamando a las Metodos de Configuracion 
+        self.Images_1 = self.create_list (path, 'One')
+        #print(len(self.Imagenes))
+
         self. configure_interface()          
         self. widgets()   
 
@@ -53,36 +54,162 @@ class Interface(Tk):
         #root.attributes("-alpha", 0.5 )   
 
     def create_list (self, file, option):   # Metodo para leer todas las imageneS ------NO TOCAR 
-        dir = os.listdir (file)
 
-        list = [] 
-        if option == 'Full':
-            for i in dir:
+        ouput = os.listdir (file)
+        lst = [] 
+        
+        _lst = [[] for x in range(22)] 
+
+        if option == 'One':  #  Esta lista genera la lista principal si funciona
+            for i in ouput:
+                if 'Frog' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
+                    _lst[0].append(RGB)     
+
+                if 'Fox' in i:
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
+                    _lst[1].append(RGB)     
+
+                if 'Boomer' in i:
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)                        
+                    _lst[2].append(RGB)  
+
+                if 'Ice' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[3].append(RGB)
+
+                if 'JD' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[4].append(RGB)
+
+                if 'Grub' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[5].append(RGB)
+
+                if 'Light' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)                        
+                    _lst[6].append(RGB)
+
+                if 'Aduka' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[7].append(RGB)
+
+                if 'Knight' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[8].append(RGB)
+
+                if 'Kalsiddon' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[9].append(RGB)
+
+                if 'Mage' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[10].append(RGB)
+
+                if 'Randomizer' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[11].append(RGB)
+
+                if 'Jolteon' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[12].append(RGB)
+
+                if 'Turtle' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[13].append(RGB)
+
+                if 'Armor' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[14].append(RGB)
+
+                if 'Asate' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[15].append(RGB)
+
+                if 'Raon' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[16].append(RGB)
+
+                if 'Trico' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[17].append(RGB)
+
+                if 'Nak' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[18].append(RGB)
+
+                if 'Big' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[19].append(RGB)
+
+                if 'Dragon1' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[20].append(RGB)
+                    
+                if 'Dragon2' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[21].append(RGB)            
+                    
+            return _lst
+       
+
+        if option == 'Full':  #  Lista
+            for i in ouput:
                 if '.jpg' in i or '.png' in i:                         # VER SI ES NECESARIO SACAR DE LA LISTA A RUEDA Y AL LOGO
 
                     full = file + '/' + i
                     open = cv2.imread (full)
                     RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
 
-                    list. append (RGB)
-            return list
-
-
-        if option == 'tres':
-            for i in dir:
-                if 'AA' in i:                         # VER SI ES NECESARIO SACAR DE LA LISTA A RUEDA Y AL LOGO
-
-                    full = file + '/' + i
-                    #print(ruta_completa)
-                    open = cv2.imread (full)
-                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)            img = ImageTk.PhotoImage (array)
-
-                    list. append (img)
-            return list
-
+                    lst. append (RGB)
+            return lst
         
         if option == 'Sub':
-            for i in dir:
+            for i in ouput:
                 if i.split('.')[0] in ['__SubList__00','__SubList__01'] :       
 
                     full = file + '/' + i
@@ -91,8 +218,8 @@ class Interface(Tk):
                     array = Image.fromarray (RGB)
                     img = ImageTk.PhotoImage (array)
 
-                    list. append (img)
-            return list       
+                    lst. append (img)
+            return lst       
         
     def widgets(self):  # widgets de la ventana Principal ----------------------------NO TOCAR  EDITAR DESPUES A CLASE BOTON O LABEL
 
@@ -278,7 +405,7 @@ class Create_Frame (Frame):
 
         self.Knight_9 = Button (self, text='Knight', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_knight_left, Fr_knight_right, Fr_knight_stuf))     
 
-        self.Calziddon_10 = Button (self, text='Kalsiddon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_calziddon_left, Fr_calziddon_right, Fr_calziddon_stuf))
+        self.Kalsiddon_10 = Button (self, text='Kalsiddon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_calziddon_left, Fr_calziddon_right, Fr_calziddon_stuf))
 
         self.Mage_11 = Button (self, text='Mage', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_mage_left, Fr_mage_right, Fr_mage_stuf))  
    
@@ -315,7 +442,7 @@ class Create_Frame (Frame):
         self.Light_7 .grid (column= 7, row= 1, pady= 3, padx= (0,0))
         self.Aduka_8 .grid (column= 8, row= 1, pady= 3, padx= (0,0))
         self.Knight_9 .grid (column= 9, row= 1, pady= 3, padx= (0,0))
-        self.Calziddon_10 .grid (column= 10, row= 1, pady= 3, padx= (0,0))
+        self.Kalsiddon_10 .grid (column= 10, row= 1, pady= 3, padx= (0,0))
         self.Mage_11 .grid (column= 11, row= 1, pady= 3, padx= (0,5))
 
         self.Randomizer_12 .grid (column= 1, row= 2, pady= 2, padx= (5,0))
@@ -354,21 +481,22 @@ class Example(Frame):
         #self.img .image = self.backgroundd
 
 
+
 ################################                           ################################
 ################################            EL             ################################ 
 ################################          INICIO           ################################ 
 ################################   F R A M E  " F R O G "  ################################  
 
 
-class Fr_frog_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_frog_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [0] 
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [0], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [0][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [1], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [0][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -386,18 +514,18 @@ class Fr_frog_left (Frame, Interface):  #------------------------------ IZQUIERD
             self.fr_img_movil .grid_forget()
 
     
-class Fr_frog_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_frog_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [0] 
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [2], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [0][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [3], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [0][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -413,22 +541,22 @@ class Fr_frog_right (Frame):  #------------------------------- DERECHA :  BASE  
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_frog_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_frog_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [0]
      pass
 
 ################################   F R A M E  " F O X "  ################################
 ################################   F R A M E  " F O X "  ################################
 
 
-class Fr_fox_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_fox_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [1]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [4], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [1][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [5], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [1][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -446,18 +574,18 @@ class Fr_fox_left (Frame, Interface):  #------------------------------ IZQUIERDA
             self.fr_img_movil .grid_forget()
 
  
-class Fr_fox_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_fox_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [1]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [6], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [1][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [7], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [1][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -473,22 +601,22 @@ class Fr_fox_right (Frame):  #------------------------------- DERECHA :  BASE  /
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_fox_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_fox_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [1]
      pass
 
 ################################   F R A M E  " B O O M E R "  ################################
 ################################   F R A M E  " B O O M E R "  ################################ 
 
 
-class Fr_boomer_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_boomer_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [2]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [8], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [2][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [9], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [2][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -506,18 +634,18 @@ class Fr_boomer_left (Frame, Interface):  #------------------------------ IZQUIE
             self.fr_img_movil .grid_forget()
 
   
-class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [2]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [10], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [2][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [11], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [2][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -533,22 +661,22 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_boomer_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_boomer_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [2]
      pass
 
 ################################  F R A M E  " I C E "  ################################
 ################################  F R A M E  " I C E "  ################################
 
 
-class Fr_ice_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_ice_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [3]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [12], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [3][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [13], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [3][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -566,18 +694,18 @@ class Fr_ice_left (Frame, Interface):  #------------------------------ IZQUIERDA
             self.fr_img_movil .grid_forget()
 
   
-class Fr_ice_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_ice_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [3]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [14], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [3][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [15], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [3][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -593,22 +721,22 @@ class Fr_ice_right (Frame):  #------------------------------- DERECHA :  BASE  /
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_ice_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_ice_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [3]
      pass
 
 ################################  F R A M E  " J D "  ################################
 ################################  F R A M E  " J D "  ################################
 
 
-class Fr_jd_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_jd_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [4]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [4][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [4][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -626,18 +754,18 @@ class Fr_jd_left (Frame, Interface):  #------------------------------ IZQUIERDA 
             self.fr_img_movil .grid_forget()
 
   
-class Fr_jd_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_jd_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [4]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [4][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [4][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -653,7 +781,7 @@ class Fr_jd_right (Frame):  #------------------------------- DERECHA :  BASE  / 
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_jd_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_jd_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [4]
      pass
 
 
@@ -661,15 +789,15 @@ class Fr_jd_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
 ################################  F R A M E  " G R U B "  ################################
 
 
-class Fr_grub_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_grub_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [5]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [20], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [5][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [21], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [5][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -687,18 +815,18 @@ class Fr_grub_left (Frame, Interface):  #------------------------------ IZQUIERD
             self.fr_img_movil .grid_forget()
 
   
-class Fr_grub_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_grub_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [5]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [5][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [5][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -714,7 +842,7 @@ class Fr_grub_right (Frame):  #------------------------------- DERECHA :  BASE  
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_grub_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_grub_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [5]
      pass
 
 
@@ -722,15 +850,15 @@ class Fr_grub_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
 ################################  F R A M E  " L I G H T "  ################################
 
 
-class Fr_light_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_light_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [6]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [6][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [6][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -748,18 +876,18 @@ class Fr_light_left (Frame, Interface):  #------------------------------ IZQUIER
             self.fr_img_movil .grid_forget()
 
   
-class Fr_light_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_light_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [6]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [6][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [6][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -775,7 +903,7 @@ class Fr_light_right (Frame):  #------------------------------- DERECHA :  BASE 
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_light_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_light_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [6]
      pass
 
 
@@ -783,15 +911,15 @@ class Fr_light_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
 ################################  F R A M E  " A D U K A "  ################################
 
 
-class Fr_aduka_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_aduka_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [7]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [7][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [7][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -809,18 +937,18 @@ class Fr_aduka_left (Frame, Interface):  #------------------------------ IZQUIER
             self.fr_img_movil .grid_forget()
 
   
-class Fr_aduka_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_aduka_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [7]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [7][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [7][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -836,7 +964,7 @@ class Fr_aduka_right (Frame):  #------------------------------- DERECHA :  BASE 
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_aduka_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_aduka_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [7]
      pass
 
 
@@ -844,15 +972,15 @@ class Fr_aduka_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
 ################################  F R A M E  " K N I G H T "  ################################
 
 
-class Fr_knight_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_knight_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [8]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [8][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [8][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -870,18 +998,18 @@ class Fr_knight_left (Frame, Interface):  #------------------------------ IZQUIE
             self.fr_img_movil .grid_forget()
 
   
-class Fr_knight_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_knight_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [8]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [8][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [8][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -897,7 +1025,7 @@ class Fr_knight_right (Frame):  #------------------------------- DERECHA :  BASE
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_knight_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_knight_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [8]
      pass
 
 
@@ -905,15 +1033,15 @@ class Fr_knight_stuf (Frame):  #-------------------------------- REGLA: GAME STU
 ################################  F R A M E  " C A L Z I D D O N "  ################################
 
 
-class Fr_calziddon_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_calziddon_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [9]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [9][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [9][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -931,18 +1059,18 @@ class Fr_calziddon_left (Frame, Interface):  #------------------------------ IZQ
             self.fr_img_movil .grid_forget()
 
   
-class Fr_calziddon_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_calziddon_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [9]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [9][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [9][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -958,7 +1086,7 @@ class Fr_calziddon_right (Frame):  #------------------------------- DERECHA :  B
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_calziddon_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_calziddon_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [9]
      pass
 
 
@@ -966,15 +1094,15 @@ class Fr_calziddon_stuf (Frame):  #-------------------------------- REGLA: GAME 
 ################################  F R A M E  " M A G E "  ################################
 
 
-class Fr_mage_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_mage_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [10]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [10][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [10][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -992,18 +1120,18 @@ class Fr_mage_left (Frame, Interface):  #------------------------------ IZQUIERD
             self.fr_img_movil .grid_forget()
 
   
-class Fr_mage_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_mage_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [10]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [10][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [10][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1019,7 +1147,7 @@ class Fr_mage_right (Frame):  #------------------------------- DERECHA :  BASE  
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_mage_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_mage_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [10]
      pass
 
 
@@ -1027,15 +1155,15 @@ class Fr_mage_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
 ################################  F R A M E  " R A N D O M I Z E R "  ################################
 
 
-class Fr_randomizer_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_randomizer_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [11]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [11][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [11][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1053,18 +1181,18 @@ class Fr_randomizer_left (Frame, Interface):  #------------------------------ IZ
             self.fr_img_movil .grid_forget()
 
   
-class Fr_randomizer_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_randomizer_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [11]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [11][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [11][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1080,7 +1208,7 @@ class Fr_randomizer_right (Frame):  #------------------------------- DERECHA :  
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_randomizer_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_randomizer_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [11]
      pass
 
 
@@ -1088,15 +1216,15 @@ class Fr_randomizer_stuf (Frame):  #-------------------------------- REGLA: GAME
 ################################  F R A M E  " J O L T E O N "  ################################
 
 
-class Fr_jolteon_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_jolteon_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [12]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [12][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [12][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1114,18 +1242,18 @@ class Fr_jolteon_left (Frame, Interface):  #------------------------------ IZQUI
             self.fr_img_movil .grid_forget()
 
   
-class Fr_jolteon_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_jolteon_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [12]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [12][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [12][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1141,22 +1269,22 @@ class Fr_jolteon_right (Frame):  #------------------------------- DERECHA :  BAS
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_jolteon_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_jolteon_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [12]
      pass
 
 
 ################################  F R A M E  " T U R T L E "  ################################
 ################################  F R A M E  " T U R T L E "  ################################
 
-class Fr_turtle_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_turtle_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [13]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [13][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [13][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1174,18 +1302,18 @@ class Fr_turtle_left (Frame, Interface):  #------------------------------ IZQUIE
             self.fr_img_movil .grid_forget()
 
   
-class Fr_turtle_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_turtle_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [13]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [13][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [13][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1201,7 +1329,7 @@ class Fr_turtle_right (Frame):  #------------------------------- DERECHA :  BASE
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_turtle_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_turtle_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [13]
      pass
 
 
@@ -1209,15 +1337,15 @@ class Fr_turtle_stuf (Frame):  #-------------------------------- REGLA: GAME STU
 ################################  F R A M E  " A R M O R "  ################################
 
 
-class Fr_armor_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_armor_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [14]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [14][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [14][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1235,18 +1363,18 @@ class Fr_armor_left (Frame, Interface):  #------------------------------ IZQUIER
             self.fr_img_movil .grid_forget()
 
   
-class Fr_armor_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_armor_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [14]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [14][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [14][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1262,7 +1390,7 @@ class Fr_armor_right (Frame):  #------------------------------- DERECHA :  BASE 
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_armor_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_armor_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [14]
      pass
 
 
@@ -1270,15 +1398,15 @@ class Fr_armor_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
 ################################  F R A M E  " A S A T E "  ################################
 
 
-class Fr_asate_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_asate_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [15]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [15][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [15][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1296,18 +1424,18 @@ class Fr_asate_left (Frame, Interface):  #------------------------------ IZQUIER
             self.fr_img_movil .grid_forget()
 
   
-class Fr_asate_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_asate_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [15]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [15][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [15][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1323,7 +1451,7 @@ class Fr_asate_right (Frame):  #------------------------------- DERECHA :  BASE 
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_asate_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_asate_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [15]
      pass
 
 
@@ -1331,15 +1459,15 @@ class Fr_asate_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
 ################################  F R A M E  " R A O N "  ################################
 
 
-class Fr_raon_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_raon_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [16]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [16][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [16][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1357,18 +1485,18 @@ class Fr_raon_left (Frame, Interface):  #------------------------------ IZQUIERD
             self.fr_img_movil .grid_forget()
 
   
-class Fr_raon_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_raon_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [16]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [16][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [16][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1384,7 +1512,7 @@ class Fr_raon_right (Frame):  #------------------------------- DERECHA :  BASE  
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_raon_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_raon_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [16]
      pass
 
 
@@ -1392,15 +1520,15 @@ class Fr_raon_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
 ################################  F R A M E  " T R I C O "  ################################
 
 
-class Fr_trico_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_trico_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [17]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [17][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [17][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1418,18 +1546,18 @@ class Fr_trico_left (Frame, Interface):  #------------------------------ IZQUIER
             self.fr_img_movil .grid_forget()
 
   
-class Fr_trico_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_trico_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [17]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [17][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [17][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1445,7 +1573,7 @@ class Fr_trico_right (Frame):  #------------------------------- DERECHA :  BASE 
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_trico_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_trico_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [17]
      pass
 
 
@@ -1453,15 +1581,15 @@ class Fr_trico_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
 ################################  F R A M E  " N A K "  ################################
 
 
-class Fr_nak_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_nak_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [18]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [18][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [18][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1479,18 +1607,18 @@ class Fr_nak_left (Frame, Interface):  #------------------------------ IZQUIERDA
             self.fr_img_movil .grid_forget()
 
   
-class Fr_nak_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_nak_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [18]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [18][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [18][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1506,7 +1634,7 @@ class Fr_nak_right (Frame):  #------------------------------- DERECHA :  BASE  /
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_nak_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_nak_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [18]
      pass
 
 
@@ -1514,15 +1642,15 @@ class Fr_nak_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
 ################################  F R A M E  " B I G "  ################################
 
 
-class Fr_big_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_big_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [19]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [19][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [19][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1540,18 +1668,18 @@ class Fr_big_left (Frame, Interface):  #------------------------------ IZQUIERDA
             self.fr_img_movil .grid_forget()
 
   
-class Fr_big_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_big_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [19]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [19][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [19][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1567,7 +1695,7 @@ class Fr_big_right (Frame):  #------------------------------- DERECHA :  BASE  /
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_big_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_big_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [19]
      pass
 
 
@@ -1575,15 +1703,15 @@ class Fr_big_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
 ################################  F R A M E  " D R A G O N '1' "  ################################
 
 
-class Fr_dragon1_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_dragon1_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [20]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [20][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [20][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1601,18 +1729,18 @@ class Fr_dragon1_left (Frame, Interface):  #------------------------------ IZQUI
             self.fr_img_movil .grid_forget()
 
   
-class Fr_dragon1_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_dragon1_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [20]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [20][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [20][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1628,7 +1756,7 @@ class Fr_dragon1_right (Frame):  #------------------------------- DERECHA :  BAS
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_dragon1_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_dragon1_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [20]
      pass
 
 
@@ -1636,15 +1764,15 @@ class Fr_dragon1_stuf (Frame):  #-------------------------------- REGLA: GAME ST
 ################################  F R A M E  " D R A G O N '2' "  ################################
 
 
-class Fr_dragon2_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR
+class Fr_dragon2_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [21]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images [16], bd=0)
+        self.fr_img_delay = Example (self, self.master.master.Images_1 [21][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images [17], bd=0)  
+        self.fr_img_movil= Example (self, self.master.master.Images_1 [21][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1662,18 +1790,18 @@ class Fr_dragon2_left (Frame, Interface):  #------------------------------ IZQUI
             self.fr_img_movil .grid_forget()
 
   
-class Fr_dragon2_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
+class Fr_dragon2_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [21]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images [18], bd=0)
+        self.fr_img_base = Example (self, self.master.master.Images_1 [21][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images [19], bd=0)       
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [21][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1689,7 +1817,7 @@ class Fr_dragon2_right (Frame):  #------------------------------- DERECHA :  BAS
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_dragon2_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
+class Fr_dragon2_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [21]
      pass
 
 
