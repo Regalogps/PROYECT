@@ -60,6 +60,7 @@ class Interface(Tk):
                         open = cv2.imread (full)
                         RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
                         _lst[index].append(RGB)
+                    return _lst
                 """
 
                 if 'frog' in i: 
