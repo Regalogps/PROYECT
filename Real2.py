@@ -9,16 +9,10 @@ import numpy as np
 import os 
 import sys
 
-#global is_on
-#is_on = True
-
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_DESDE AQUI EMPIEZA EL CODIGO-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-
-
 class Interface(Tk):
 
     def __init__(self): #-------------------------------------------------------------NO TOCAR     
-        Tk. __init__(self)                                                 # Llamando a Tk ()
+        super().__init__()                                                 # Llamando a Tk ()
 
         path = 'E:/1-RICHI/MovilesDB'                                      # Ruta de la carpeta
         self.Images = self.create_list (path, 'Full')              
@@ -31,11 +25,11 @@ class Interface(Tk):
         self. configure_interface()          
         self. widgets()   
 
-#_______V A R I A B L E S  de  C O N T R O L  para las :  V E N T A N A S , izquierda; derecha; stuff
+#_______V A R I A B L E S  de  C O N T R O L  para las  V E N T A N A S : (left, right, stuf)
  
         self._frame_1 = None
-        self.__frame_2 = None
-        self.__frame_3 = None
+        self._frame_2 = None
+        self._frame_3 = None
 
         self.open_1 = True  
         self.open_2 = True  
@@ -283,10 +277,10 @@ class Interface(Tk):
 
         container_frame_right = var_2 (self.toplevel_RIGHT)  # ES UN FRAME POSICIONADO EN TOPLEVEL
 
-        if self.__frame_2 is not None:
-            self.__frame_2 .destroy()
-        self.__frame_2 = container_frame_right
-        self.__frame_2 .pack()
+        if self._frame_2 is not None:
+            self._frame_2 .destroy()
+        self._frame_2 = container_frame_right
+        self._frame_2 .pack()
 
 
         self.toplevel_RIGHT.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(2))
@@ -299,12 +293,12 @@ class Interface(Tk):
 
         self.open_3 = False
 
-        container_frame_stuff = var_3 (self.toplevel_STUF)  # ES UN FRAME POSICIONADO EN TOPLEVEL
+        container_frame_stuf = var_3 (self.toplevel_STUF)  # ES UN FRAME POSICIONADO EN TOPLEVEL
 
-        if self.__frame_3 is not None:
-            self.__frame_3 .destroy()
-        self.__frame_3 = container_frame_stuff
-        self.__frame_3 .pack()
+        if self._frame_3 is not None:
+            self._frame_3 .destroy()
+        self._frame_3 = container_frame_stuf
+        self._frame_3 .pack()
 
 
         self.toplevel_STUF.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(3))
