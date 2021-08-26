@@ -16,8 +16,8 @@ class Interface(Tk):
 
         path = 'E:/1-RICHI/MovilesDB'
  #______Lista de Imágenes         
-        self.Images_0 = self.generate_list (path, 'u')                 # Lista de imgs para la ventana: Interface
-        self.Images_1 = self.generate_list (path, 'a')                   # Lista de imgs para las ventanas: 1 y 2
+        self.Images_0 = self.generate_list (path, 'u')                     # Lista de imgs para la ventana: Interface
+        self.Images_1 = self.generate_list (path, 'a')                     # Lista de imgs para las ventanas: 1 y 2
  #______Métodos de Configuración y Posicionamiento de Widget: [Interface]
         self. configure_interface()          
         self. widgets()   
