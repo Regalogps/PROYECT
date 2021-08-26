@@ -15,9 +15,9 @@ class Interface(Tk):
         super().__init__()                                                 # Llamando a Tk ()
 
         path = 'E:/1-RICHI/MovilesDB'                                      # Ruta de la carpeta
-        self.Images = self.create_list (path, 'Full')              
-        self.Sub_images = self.create_list (path, 'Sub') 
-        self.Images_1 = self.create_list (path, 'One')  #  Lista 111+
+        self.Images = self.generate_list (path, 'Full')              
+        self.Sub_images = self.generate_list (path, 'Sub') 
+        self.Images_1 = self.generate_list (path, 'One')  #  Lista 111+
  #______Métodos de Configuración y Posicionamiento de Widget: [Interface]
         self. configure_interface()          
         self. widgets()   
@@ -44,7 +44,7 @@ class Interface(Tk):
         self.wm_attributes ('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
         #root.attributes("-alpha", 0.5 )   
 
-    def create_list (self, file, option):   # Metodo para leer todas las imageneS ------NO TOCAR 
+    def generate_list (self, file, option):   # Metodo para leer todas las imageneS ------NO TOCAR 
 
         ouput = os.listdir (file)
         lst = [] 
