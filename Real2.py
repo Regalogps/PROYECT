@@ -17,16 +17,13 @@ class Interface(Tk):
         path = 'E:/1-RICHI/MovilesDB'                                      # Ruta de la carpeta
         self.Images = self.create_list (path, 'Full')              
         self.Sub_images = self.create_list (path, 'Sub') 
-        #print("este print esta en interfaz",self.Imagenes_copia[0])
-        # Llamando a las Metodos de Configuracion 
-        self.Images_1 = self.create_list (path, 'One')
-        #print(len(self.Imagenes))
-
+        self.Images_1 = self.create_list (path, 'One')  #  Lista 111+
+ #______Métodos de Configuración y Posicionamiento de Widget: [Interface]
         self. configure_interface()          
         self. widgets()   
 
-#_______V A R I A B L E S  de  C O N T R O L  para las  V E N T A N A S : (left, right, stuf)
- 
+ #______V A R I A B L E S  de  C O N T R O L  para las  V E N T A N A S   S U P E R I O R E S
+
         self._frame_1 = None
         self._frame_2 = None
         self._frame_3 = None
