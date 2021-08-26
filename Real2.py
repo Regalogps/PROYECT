@@ -14,15 +14,15 @@ class Interface(Tk):
     def __init__(self): #-------------------------------------------------------------NO TOCAR     
         super().__init__()                                                 # Llamando a Tk ()
 
-        path = 'E:/1-RICHI/MovilesDB'                                      # Ruta de la carpeta
-        self.Images = self.generate_list (path, 'Full')              
-        self.Sub_images = self.generate_list (path, 'Sub') 
-        self.Images_1 = self.generate_list (path, 'One')  #  Lista 111+
+        path = 'E:/1-RICHI/MovilesDB'
+ #______Lista de Imágenes         
+        self.Images_0 = self.generate_list (path, 'u')                 # Lista de imgs para la ventana: Interface
+        self.Images_1 = self.generate_list (path, 'a')                   # Lista de imgs para las ventanas: 1 y 2
  #______Métodos de Configuración y Posicionamiento de Widget: [Interface]
         self. configure_interface()          
         self. widgets()   
 
- #______V A R I A B L E S  de  C O N T R O L  para las  V E N T A N A S   S U P E R I O R E S
+ #______V A R I A B L E S  de  C O N T R O L  para las  V E N T A N A S   S U P E R I O R E S :  [1, 2, 3]
 
         self._frame_1 = None
         self._frame_2 = None
@@ -47,11 +47,11 @@ class Interface(Tk):
     def generate_list (self, file, option):   # Metodo para leer todas las imageneS ------NO TOCAR 
 
         ouput = os.listdir (file)
-        lst = [] 
-        
+        empty = [] 
+       
         _lst = [[] for x in range(22)] 
 
-        if option == 'One':  #  Esta lista genera la lista principal si funciona
+        if option == 'a':  #  Esta lista genera la lista principal si funciona
             for i in ouput:
                 if 'Frog' in i: 
                     full = file + '/' + i
@@ -186,20 +186,9 @@ class Interface(Tk):
                     _lst[21].append(RGB)            
                     
             return _lst
-       
-
-        if option == 'Full':  #  Lista
-            for i in ouput:
-                if '.jpg' in i or '.png' in i:                         # VER SI ES NECESARIO SACAR DE LA LISTA A RUEDA Y AL LOGO
-
-                    full = file + '/' + i
-                    open = cv2.imread (full)
-                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
-
-                    lst. append (RGB)
-            return lst
+ 
         
-        if option == 'Sub':
+        if option == 'u':
             for i in ouput:
                 if i.split('.')[0] in ['__SubList__00','__SubList__01'] :       
 
@@ -209,8 +198,8 @@ class Interface(Tk):
                     array = Image.fromarray (RGB)
                     img = ImageTk.PhotoImage (array)
 
-                    lst. append (img)
-            return lst       
+                    empty. append (img)
+            return empty       
         
     def widgets(self):  # widgets de la ventana Principal ----------------------------NO TOCAR  EDITAR DESPUES A CLASE BOTON O LABEL
 
