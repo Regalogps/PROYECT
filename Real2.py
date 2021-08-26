@@ -50,7 +50,7 @@ class Interface(Tk):
         empty = [] 
        
         _lst = [[] for x in range(22)] 
-        #strs = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Cal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Dr1','Dr2']
+        #_str = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Cal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Dr1','Dr2']
         if option == 'a':  #  Esta lista foza la lista principal si funciona
             for i in ouput:
                 """
@@ -60,7 +60,7 @@ class Interface(Tk):
                         open = cv2.imread (full)
                         RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
                         _lst[index].append(RGB)
-                    return _lst
+                return _lst
                 """
 
                 if 'frog' in i: 
