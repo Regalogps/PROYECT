@@ -51,12 +51,21 @@ class Interface(Tk):
        
         _lst = [[] for x in range(22)] 
         #strs = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Cal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Dr1','Dr2']
-        if option == 'a':  #  Esta lista genera la lista principal si funciona
+        if option == 'a':  #  Esta lista foza la lista principal si funciona
             for i in ouput:
-                if 'Frog' in i: 
+                """
+                for index,iter in enumerate(_str):
+                    if iter in i: 
+                        full = file + '/' + i
+                        open = cv2.imread (full)
+                        rgb = cv2.cvtcolor (open, cv2.color_bgr2rgb) 
+                        _lst[index].append(RGB)
+                """
+
+                if 'frog' in i: 
                     full = file + '/' + i
                     open = cv2.imread (full)
-                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
+                    rgb = cv2.cvtcolor (open, cv2.color_bgr2rgb) 
                     _lst[0].append(RGB)     
 
                 if 'Fox' in i:
