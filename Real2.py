@@ -50,7 +50,7 @@ class Interface(Tk):
         empty = [] 
        
         _lst = [[] for x in range(22)] 
-        #strs = ['Frog','Fox','Boomer','Ice','JD','Grub','Light','Aduka','Knight','Calziddon',
+        #strs = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Cal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Dr1','Dr2']
         if option == 'a':  #  Esta lista genera la lista principal si funciona
             for i in ouput:
                 if 'Frog' in i: 
