@@ -58,14 +58,14 @@ class Interface(Tk):
                     if iter in i: 
                         full = file + '/' + i
                         open = cv2.imread (full)
-                        rgb = cv2.cvtcolor (open, cv2.color_bgr2rgb) 
+                        RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
                         _lst[index].append(RGB)
                 """
 
                 if 'frog' in i: 
                     full = file + '/' + i
                     open = cv2.imread (full)
-                    rgb = cv2.cvtcolor (open, cv2.color_bgr2rgb) 
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
                     _lst[0].append(RGB)     
 
                 if 'Fox' in i:
