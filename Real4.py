@@ -15,14 +15,14 @@ class Interface(Tk):
         super().__init__()                                                 # Llamando a Tk ()
 
         path = 'E:/1-RICHI/MovilesDB'
-        #______Lista de Imágenes         
+ #______Lista de Imágenes         
         self.Images_0 = self.generate_list (path, 'u')                     # Lista de imgs para la ventana: Interface
         self.Images_1 = self.generate_list (path, 'a')                     # Lista de imgs para las ventanas: 1 y 2
-        #______Métodos de Configuración y Posicionamiento de Widget: [Interface]
+ #______Métodos de Configuración y Posicionamiento de Widget: [Interface]
         self. configure_interface()          
         self. widgets()   
 
-        #______V A R I A B L E S  de  C O N T R O L  para las  V E N T A N A S   S U P E R I O R E S :  [1, 2, 3]
+ #______V A R I A B L E S  de  C O N T R O L  para las  V E N T A N A S   S U P E R I O R E S :  [1, 2, 3]
 
         self._frame_1 = None
         self._frame_2 = None
@@ -45,21 +45,159 @@ class Interface(Tk):
         #root.attributes("-alpha", 0.5 )   
 
     def generate_list (self, file, option):   # Metodo para leer todas las imageneS ------NO TOCAR 
+
         ouput = os.listdir (file)
         empty = [] 
-                     
-        if option == 'a': 
-            _lst = [[] for x in range(22)]
-            _str = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Kal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Dr1','Dr2']
-            for i in ouput:               
+       
+        _lst = [[] for x in range(22)] 
+        
+        #_str = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Cal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Dr1','Dr2']
+        if option == 'a':  #  Esta lista foza la lista principal si funciona
+            for i in ouput:
+                """
                 for index,iter in enumerate(_str):
                     if iter in i: 
                         full = file + '/' + i
                         open = cv2.imread (full)
                         RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
-                        _lst[index].append(RGB)               
-            return _lst        
-   
+                        _lst[index].append(RGB)
+                return _lst
+                """
+
+                if 'Fro' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
+                    _lst[0].append(RGB)     
+
+                if 'Fox' in i:
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
+                    _lst[1].append(RGB)     
+
+                if 'Boo' in i:
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)                        
+                    _lst[2].append(RGB)  
+
+                if 'Ice' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[3].append(RGB)
+
+                if 'JD' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[4].append(RGB)
+
+                if 'Gru' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[5].append(RGB)
+
+                if 'Lig' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)                        
+                    _lst[6].append(RGB)
+
+                if 'Adu' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[7].append(RGB)
+
+                if 'Kni' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[8].append(RGB)
+
+                if 'Kal' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[9].append(RGB)
+
+                if 'Mag' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[10].append(RGB)
+
+                if 'Ran' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[11].append(RGB)
+
+                if 'Jol' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[12].append(RGB)
+
+                if 'Tur' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[13].append(RGB)
+
+                if 'Arm' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[14].append(RGB)
+
+                if 'Asa' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[15].append(RGB)
+
+                if 'Rao' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[16].append(RGB)
+
+                if 'Tri' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[17].append(RGB)
+
+                if 'Nak' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[18].append(RGB)
+
+                if 'Big' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[19].append(RGB)
+
+                if 'Dr1' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[20].append(RGB)
+                    
+                if 'Dr2' in i: 
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    _lst[21].append(RGB)            
+                    
+            return _lst
+ 
         
         if option == 'u':
             for i in ouput:
@@ -199,8 +337,26 @@ class _Toplevel (Toplevel):
         self.config (bg = 'magenta2')
         self.wm_attributes ('-transparentcolor', 'magenta2')
 
-    def widgets_toplevel(self):
-        pass
+#   desde ahy que editar...
+
+    def widgets_toplevel(self, name):
+
+        self.label0 = name
+        self.label0 = Label (self, image = self.master.Imagenes [0])
+        self.label0. bind ('<Configure>', self.resize_image)
+        self.label0. pack (fill=BOTH, expand = YES)
+
+    def resize_image(self, event):
+
+        new_width = event.width
+        new_height = event.height
+
+        var1 = self.master.Imagenes_copia [0].resize((new_width, new_height))
+        var2 = ImageTk.PhotoImage(var1)
+
+        self.label0 . config (image = var2) 
+        self.label0 . image = var2 
+
 
 #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
 #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
@@ -223,29 +379,51 @@ class Create_Frame (Frame):
     def img_moviles(self):   # Metodo que crea -22- Botones (moviles)  #command = lambda:images(1))
         
         self.Frog_1 = Button (self, text='Frog', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_frog_left, Fr_frog_right, Fr_frog_stuf)) 
-        self.Fox_2 = Button (self, text='Fox', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_fox_left, Fr_fox_right, Fr_fox_stuf))         
-        self.Boomer_3 = Button (self, text='Boomer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_boomer_left, Fr_boomer_right, Fr_boomer_stuf))             
-        self.Ice_4 = Button (self, text='Ice', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_ice_left, Fr_ice_right, Fr_ice_stuf))
-        self.JD_5 = Button (self, text='J.D', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_jd_left, Fr_jd_right, Fr_jd_stuf))
-        self.Grub_6 = Button (self, text='Grub', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_grub_left, Fr_grub_right, Fr_grub_stuf))   
-        self.Light_7 = Button (self, text='Light', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width=10, bd=0, command= lambda: self.master.master.windows_123 (Fr_light_left, Fr_light_right, Fr_light_stuf))       
-        self.Aduka_8 = Button (self, text='Aduka', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_aduka_left, Fr_aduka_right, Fr_aduka_stuf))      
-        self.Knight_9 = Button (self, text='Knight', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_knight_left, Fr_knight_right, Fr_knight_stuf))     
-        self.Kalsiddon_10 = Button (self, text='Kalsiddon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_calziddon_left, Fr_calziddon_right, Fr_calziddon_stuf))
-        self.Mage_11 = Button (self, text='Mage', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_mage_left, Fr_mage_right, Fr_mage_stuf))     
 
-        self.Randomizer_12 = Button (self, text='Randomizer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_randomizer_left, Fr_randomizer_right, Fr_randomizer_stuf)) 
-        self.Jolteon_13 = Button (self, text='Jolteon', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_jolteon_left, Fr_jolteon_right, Fr_jolteon_stuf)) 
+        self.Fox_2 = Button (self, text='Fox', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_fox_left, Fr_fox_right, Fr_fox_stuf)) 
+        
+        self.Boomer_3 = Button (self, text='Boomer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_boomer_left, Fr_boomer_right, Fr_boomer_stuf))     
+        
+        self.Ice_4 = Button (self, text='Ice', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_ice_left, Fr_ice_right, Fr_ice_stuf))
+
+        self.JD_5 = Button (self, text='J.D', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_jd_left, Fr_jd_right, Fr_jd_stuf))
+
+        self.Grub_6 = Button (self, text='Grub', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_grub_left, Fr_grub_right, Fr_grub_stuf))   
+
+        self.Light_7 = Button (self, text='Light', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width=10, bd=0, command= lambda: self.master.master.windows_123 (Fr_light_left, Fr_light_right, Fr_light_stuf))       
+
+        self.Aduka_8 = Button (self, text='Aduka', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_aduka_left, Fr_aduka_right, Fr_aduka_stuf))      
+
+        self.Knight_9 = Button (self, text='Knight', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_knight_left, Fr_knight_right, Fr_knight_stuf))     
+
+        self.Kalsiddon_10 = Button (self, text='Kalsiddon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_calziddon_left, Fr_calziddon_right, Fr_calziddon_stuf))
+
+        self.Mage_11 = Button (self, text='Mage', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_mage_left, Fr_mage_right, Fr_mage_stuf))  
+   
+
+        self.Randomizer_12 = Button (self, text='Randomizer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_randomizer_left, Fr_randomizer_right, Fr_randomizer_stuf))
+ 
+        self.Jolteon_13 = Button (self, text='Jolteon', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_jolteon_left, Fr_jolteon_right, Fr_jolteon_stuf))
+ 
         self.Turtle_14 = Button (self, text='Turtle', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_turtle_left, Fr_turtle_right, Fr_turtle_stuf))
+
         self.Armor_15 = Button (self, text='Armor', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_armor_left, Fr_armor_right, Fr_armor_stuf))
+
         self.Asate_16 = Button (self, text='A.Sate', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_asate_left, Fr_asate_right, Fr_asate_stuf))
-        self.Raon_17 = Button (self, text='Raon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_raon_left, Fr_raon_right, Fr_raon_stuf)) 
+
+        self.Raon_17 = Button (self, text='Raon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_raon_left, Fr_raon_right, Fr_raon_stuf))
+ 
         self.Trico_18 = Button (self, text='Trico', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_trico_left, Fr_trico_right, Fr_trico_stuf))
-        self.Nak_19 = Button (self, text='Nak', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_nak_left, Fr_nak_right, Fr_nak_stuf)) 
-        self.Big_20 = Button (self, text='Big', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_big_left, Fr_big_right, Fr_big_stuf)) 
-        self.Dragon1_21 = Button (self, text='Dragon 1', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_dragon1_left, Fr_dragon1_right, Fr_dragon1_stuf)) 
+
+        self.Nak_19 = Button (self, text='Nak', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_nak_left, Fr_nak_right, Fr_nak_stuf))
+ 
+        self.Big_20 = Button (self, text='Big', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_big_left, Fr_big_right, Fr_big_stuf))
+ 
+        self.Dragon1_21 = Button (self, text='Dragon 1', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_dragon1_left, Fr_dragon1_right, Fr_dragon1_stuf))
+ 
         self.Dragon2_22 = Button (self, text='Dragon 2', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_dragon2_left, Fr_dragon2_right, Fr_dragon2_stuf))
-                
+        
+        
         self.Frog_1 .grid (column= 1, row= 1, pady= 3, padx= (5,0))
         self.Fox_2 .grid (column= 2, row= 1, pady= 3, padx= (0,0))       
         self.Boomer_3 .grid (column= 3, row= 1, pady= 3, padx= (0,0))           
@@ -343,19 +521,16 @@ class Fr_frog_right (Frame):  #------------------------------- DERECHA :  BASE  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
 
-    def position_img(self, event):
+    def position_img(self, event): 
 
-        winfo_x, winfo_y = self.master.winfo_width(), self.master.winfo_height() 
-        event_x, event_y = event.x, event.y
-        h = event_x / winfo_x * 100 
-        v = event_y / winfo_y * 100
+        width, height = event.x, event.y
     
-        if int(h) >=0 and int(v) >=68 :  
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
             if self.fr_img_77 . grid_info() == {}:
                 self.fr_img_77 . grid(column=0, row=0)                            
             else:
                 self.fr_img_77 . grid_forget()
-    
+
 
 class Fr_frog_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [0]
      pass
@@ -408,12 +583,9 @@ class Fr_fox_right (Frame):  #------------------------------- DERECHA :  BASE  /
 
     def position_img(self, event): 
 
-        winfo_x, winfo_y = self.master.winfo_width(), self.master.winfo_height() 
-        event_x, event_y = event.x, event.y
-        h = event_x / winfo_x * 100 
-        v = event_y / winfo_y * 100
+        width, height = event.x, event.y
     
-        if int(h) >=0 and int(v) >=68 :  
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
             if self.fr_img_77 . grid_info() == {}:
                 self.fr_img_77 . grid(column=0, row=0)                            
             else:
@@ -471,12 +643,9 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
 
     def position_img(self, event): 
 
-        winfo_x, winfo_y = self.master.winfo_width(), self.master.winfo_height() 
-        event_x, event_y = event.x, event.y
-        h = event_x / winfo_x * 100   #  event_x: numerador,  winfo_x: denomirador , estos multiplicados por 100 para encontrar que % ocupa event_x (float)
-        v = event_y / winfo_y * 100
+        width, height = event.x, event.y
     
-        if int(h) >=0 and int(v) >=68 :  
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
             if self.fr_img_77 . grid_info() == {}:
                 self.fr_img_77 . grid(column=0, row=0)                            
             else:
@@ -534,12 +703,9 @@ class Fr_ice_right (Frame):  #------------------------------- DERECHA :  BASE  /
 
     def position_img(self, event): 
 
-        winfo_x, winfo_y = self.master.winfo_width(), self.master.winfo_height() 
-        event_x, event_y = event.x, event.y
-        h = event_x / winfo_x * 100 
-        v = event_y / winfo_y * 100
+        width, height = event.x, event.y
     
-        if int(h) >=0 and int(v) >=68 :  
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
             if self.fr_img_77 . grid_info() == {}:
                 self.fr_img_77 . grid(column=0, row=0)                            
             else:
@@ -597,12 +763,9 @@ class Fr_jd_right (Frame):  #------------------------------- DERECHA :  BASE  / 
 
     def position_img(self, event): 
 
-        winfo_x, winfo_y = self.master.winfo_width(), self.master.winfo_height() 
-        event_x, event_y = event.x, event.y
-        h = event_x / winfo_x * 100 
-        v = event_y / winfo_y * 100
+        width, height = event.x, event.y
     
-        if int(h) >=0 and int(v) >=68 :  
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
             if self.fr_img_77 . grid_info() == {}:
                 self.fr_img_77 . grid(column=0, row=0)                            
             else:
@@ -661,12 +824,9 @@ class Fr_grub_right (Frame):  #------------------------------- DERECHA :  BASE  
 
     def position_img(self, event): 
 
-        winfo_x, winfo_y = self.master.winfo_width(), self.master.winfo_height() 
-        event_x, event_y = event.x, event.y
-        h = event_x / winfo_x * 100 
-        v = event_y / winfo_y * 100
+        width, height = event.x, event.y
     
-        if int(h) >=0 and int(v) >=68 :  
+        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
             if self.fr_img_77 . grid_info() == {}:
                 self.fr_img_77 . grid(column=0, row=0)                            
             else:
