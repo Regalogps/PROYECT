@@ -32,6 +32,8 @@ class Interface(Tk):
         self.open_2 = True  
         self.open_3 = True
 
+        self.variable = StringVar('')
+
     def configure_interface(self):   # Configuracion de la ventana -------------------NO TOCAR (despues)
       
         #ventana.overrideredirect(1)
@@ -272,10 +274,10 @@ class Create_Frame (Frame):
         
 
 
-class Example(Frame):
+class Example(Frame, Interface):
     def __init__(self, master, index, *args, **kwargs):
         Frame.__init__(self, master, *args, kwargs)
-
+        
         self.image = Image.fromarray (index)
         self.image_copy = self.image .copy()
 
@@ -286,9 +288,10 @@ class Example(Frame):
         self.img .bind ('<Configure>', self.resize)
 
     def resize(self, event):
-
+        #self.xx, self.yy = self.
+        
         self.image2 = self.image_copy .resize ((self.master .winfo_width(), self.master .winfo_height()))
-
+        
         self.background2 = ImageTk.PhotoImage (self.image2)
         self.img .config (image= self.background2)
         #self.img .image = self.backgroundd
@@ -458,29 +461,65 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
-        self.master.bind("<Button-1>", self.position_img)
+
+            #self.variable = DoubleVar('')
+            #print('valor incial de variable',self.variable.get())
+            
+            #self.master.bind("<Button-1>", self.master_button1)
  
         self.fr_img_base = Example (self, self.master.master.Images_1 [2][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [2][3], bd=0)       
- 
+        self.fr_imagen_77 = Example (self, self.master.master.Images_1 [2][3], bd=0)  
+            #________aqui se esta trabajando
+            #self.lbl_77 = Label(self, text= 'Mostrar\n77', font=('Calibri',8,'bold'), bg= '#2f3337', fg='green2', width=6, height=36)
+        
+        #________hasta aqui
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
 
-    def position_img(self, event): 
+        #________aqui se esta trabajando
+        self.master.bind('<Motion>',self.mouse)
+            #self.master.bind('<Leave>',self.inmouse)
+            #________hasta aqui
+            #______Estos de abajo iban dentro de master_button1
+            #self.variable.set(self.h)
+            #print('este es el valor de variable',self.variable.get())
 
-        winfo_x, winfo_y = self.master.winfo_width(), self.master.winfo_height() 
-        event_x, event_y = event.x, event.y
-        h = event_x / winfo_x * 100   #  event_x: numerador,  winfo_x: denomirador , estos multiplicados por 100 para encontrar que % ocupa event_x (float)
-        v = event_y / winfo_y * 100
-    
-        if int(h) >=0 and int(v) >=68 :  
-            if self.fr_img_77 . grid_info() == {}:
-                self.fr_img_77 . grid(column=0, row=0)                            
-            else:
-                self.fr_img_77 . grid_forget()
+        def master_button1(self, event): 
+            pass
+        """
+            self.h = event.x / self.master.winfo_width() * 100
+            self.v = event.y / self.master.winfo_height() * 100
+
+            if self.h >=0 and self.v >=68 :  
+                    
+                    if self.fr_img_77 . grid_info() == {}:
+                    self.fr_img_77 . grid(column=0, row=0)                            
+                else:
+                    self.fr_img_77 . grid_forget() """
+
+    def mouse(self, event): 
+
+        self.hh = event.x / self.master.winfo_width() * 100
+        self.vv = event.y / self.master.winfo_height() * 100
+
+        x1, x2 = 10, 90
+        y1, y2 = 68, 90
+        print(self.hh)
+
+        if x1 < int(self.hh) < x2  and  y1 < int(self.vv) < y2:         
+            self.fr_imagen_77 . grid(column=0, row=0)
+        else:
+            self.fr_imagen_77 .grid_forget()
+
+    #def inmouse(self, event):
+       # self.fr_imagen_77 . grid_forget()
+
+    #________hasta aqui
+
+
 
 
 class Fr_boomer_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [2]

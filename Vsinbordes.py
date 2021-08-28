@@ -57,7 +57,7 @@ class VentanaSinBordes(tk.Toplevel):
 
 class WindRoot(tk.Tk):
     def __init__(self, *args, **kwargs):
-        super(WindRoot, self).__init__(*args, **kwargs)
+        super(WindRoot).__init__(*args, **kwargs)
         self.resizable(False, False)
         self.geometry('0x0')
         self._title = tk.StringVar(self.title())
