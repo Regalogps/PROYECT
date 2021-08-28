@@ -500,25 +500,57 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
                 else:
                     self.fr_img_77 . grid_forget() """
 
-    def mouse(self, event): 
+        self.varia= DoubleVar('')
+
+    def mouse(self, event):
+
+        
+
+        """ if not self.hh == None:
+            self.hh = 0
+            print(self.hh)
+        else: """
 
         self.hh = event.x / self.master.winfo_width() * 100
         self.vv = event.y / self.master.winfo_height() * 100
-
         x1, x2 = 10, 90
         y1, y2 = 68, 90
-        print(self.hh)
 
-        if x1 < int(self.hh) < x2  and  y1 < int(self.vv) < y2:         
+        self.s_h = self.hh
+        self.s_v = self.vv
+
+        self.varia.set(self.s_h)
+        print('varia:', self.varia.get())
+
+        
+
+        if x1 < self.varia.get() < x2  and  y1 < int(self.vv) < y2:         
             self.fr_imagen_77 . grid(column=0, row=0)
+            
+            #self.leave()
+            #self.after(3000, self.t)
         else:
             self.fr_imagen_77 .grid_forget()
+           # self.after(3000, self.t)
+  
+        #self.after(3000, self.t)
+        self.master.master.bind('<Enter>',self.enter)
+        self.master.master.bind('<Leave>',self.leave)
 
-    #def inmouse(self, event):
-       # self.fr_imagen_77 . grid_forget()
 
-    #________hasta aqui
+    def t (self):
+        self.varia.set(0.0)
+        self.fr_imagen_77 .grid_forget()
+        
+        print ('ya se ejecuto varia',self.varia.get())
 
+    def enter (self, event):
+        self.fr_imagen_77 . grid(column=0, row=0)
+
+    def leave (self, event):
+        self.fr_imagen_77 .grid_forget()
+        
+            
 
 
 
