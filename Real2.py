@@ -456,16 +456,24 @@ class Fr_boomer_left (Frame, Interface):  #------------------------------ IZQUIE
             self.fr_img_movil .grid_forget()
 
   
+
+
+
+
+
+
+  
 class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [2]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
-
+        """ self.desac = StringVar()
+        self.desac.set('self.button1')
+        print(self.desac.get()) """
             #self.variable = DoubleVar('')
             #print('valor incial de variable',self.variable.get())
             
-            #self.master.bind("<Button-1>", self.master_button1)
  
         self.fr_img_base = Example (self, self.master.master.Images_1 [2][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
@@ -480,37 +488,47 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
         self.grid_rowconfigure (0,weight=1)
 
         #________aqui se esta trabajando
-        self.master.bind('<Motion>',self.mouse)
-            #self.master.bind('<Leave>',self.inmouse)
+        self.master.bind("<Button-1>", self.button1)
+
+        self.bind_motion = self.master.bind('<Motion>',self.motion)
+        self.bind_leave = self.bind('<Leave>', lambda e: self.fr_imagen_77 .grid_forget())
             #________hasta aqui
             #______Estos de abajo iban dentro de master_button1
             #self.variable.set(self.h)
             #print('este es el valor de variable',self.variable.get())
-
-        def master_button1(self, event): 
-            pass
-        """
-            self.h = event.x / self.master.winfo_width() * 100
-            self.v = event.y / self.master.winfo_height() * 100
-
-            if self.h >=0 and self.v >=68 :  
-                    
-                    if self.fr_img_77 . grid_info() == {}:
-                    self.fr_img_77 . grid(column=0, row=0)                            
-                else:
-                    self.fr_img_77 . grid_forget() """
-
         self.varia= DoubleVar('')
 
-    def mouse(self, event):
 
-        
 
-        """ if not self.hh == None:
-            self.hh = 0
-            print(self.hh)
-        else: """
+        self.detec = StringVar()
+        self.detec.set('A')
+        print(self.detec.get())
 
+
+#_______M E T O D O   < B U T T O N - 1 >
+    def button1(self, event): 
+
+        self.pointer_x = event.x / self.master.winfo_width() * 100
+        self.pointer_y = event.y / self.master.winfo_height() * 100
+        x1, x2 = 10, 90
+        y1, y2 = 68, 90  
+                
+        if x1 < (self.pointer_x) < x2  and  y1 < (self.pointer_y) < y2: 
+            if self.fr_imagen_77 .grid_info() == {}:   # == {} (no mapeado) ---- / ///// /  ---- != {} ( mapeado)  
+               # print('IF-IF')    
+                self.fr_imagen_77 . grid(column=0, row=0)    
+
+            else:
+                print('lo boorre')  
+                self.fr_imagen_77 .grid_forget()
+
+        self.detec.set('B')
+        #self.master.unbind('<Motion>',self.bind_id)
+
+
+#_______M E T O D O   < M O T I O N >
+    def motion(self, event):      
+ 
         self.hh = event.x / self.master.winfo_width() * 100
         self.vv = event.y / self.master.winfo_height() * 100
         x1, x2 = 10, 90
@@ -520,37 +538,56 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
         self.s_v = self.vv
 
         self.varia.set(self.s_h)
-        print('varia:', self.varia.get())
+        #print('varia:', self.varia.get())
 
         
 
-        if x1 < self.varia.get() < x2  and  y1 < int(self.vv) < y2:         
-            self.fr_imagen_77 . grid(column=0, row=0)
-            
-            #self.leave()
-            #self.after(3000, self.t)
-        else:
-            self.fr_imagen_77 .grid_forget()
-           # self.after(3000, self.t)
-  
-        #self.after(3000, self.t)
-        self.master.master.bind('<Enter>',self.enter)
-        self.master.master.bind('<Leave>',self.leave)
+        if x1 < self.varia.get() < x2  and  y1 < int(self.vv) < y2:   
+            if self.fr_imagen_77 .grid_info() == {}:   # no esta mapeado   
+                self.fr_imagen_77 . grid(column=0, row=0)
+                        #self.master.unbind('<Motion>',self.bind_motion)
+                        #self.unbind('<Leave>', self.bind_leave)
+
+                        #self.master.after(0, self.Dnuevo)
+                        
+                        #self.leave()
+                        #self.after(3000, self.t)
+            else:
+                #if self.fr_imagen_77 .grid_info() != {}:    # SI ESTA MAPEADOy
+                if self.detec.get() =='A':
+                    print('se cambio detec a: BBB')
+                    self.master.unbind('<Motion>',self.bind_motion)
+                else:
+
+                    self.fr_imagen_77 .grid_forget() 
+                    self.master.unbind('<Motion>',self.bind_motion)
+                    self.unbind('<Leave>', self.bind_leave)
+        if self.detec.get() =='B':
+            self.unbind('<Leave>', self.bind_leave)
+                
+                
+
+#_______
+    def Dnuevo(self):
+        self.bind_id = self.master.bind('<Motion>',self.motion)
+        self.bind_leave = self.bind('<Leave>', lambda e: self.fr_imagen_77 .grid_forget())
 
 
-    def t (self):
-        self.varia.set(0.0)
-        self.fr_imagen_77 .grid_forget()
-        
-        print ('ya se ejecuto varia',self.varia.get())
 
-    def enter (self, event):
-        self.fr_imagen_77 . grid(column=0, row=0)
 
-    def leave (self, event):
-        self.fr_imagen_77 .grid_forget()
-        
-            
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
