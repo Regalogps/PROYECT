@@ -496,7 +496,7 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
             #______Estos de abajo iban dentro de master_button1
             #self.variable.set(self.h)
             #print('este es el valor de variable',self.variable.get())
-        self.varia= DoubleVar('')
+      
 
 
 
@@ -529,18 +529,10 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
 #_______M E T O D O   < M O T I O N >
     def motion(self, event):      
  
-        self.hh = event.x / self.master.winfo_width() * 100
-        self.vv = event.y / self.master.winfo_height() * 100
+        self.pointX = event.x / self.master.winfo_width() * 100
+        self.pointY = event.y / self.master.winfo_height() * 100
         x1, x2 = 10, 90
         y1, y2 = 68, 90
-
-        self.s_h = self.hh
-        self.s_v = self.vv
-
-        self.varia.set(self.s_h)
-        #print('varia:', self.varia.get())
-
-        
 
         if x1 < (self.pointX) < x2  and  y1 < (self.pointY) < y2:   
             if self.fr_imagen_77 .grid_info() == {}:   # no esta mapeado   
