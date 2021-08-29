@@ -552,9 +552,8 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
                         #self.leave()
                         #self.after(3000, self.t)
             else:
-                #if self.fr_imagen_77 .grid_info() != {}:    # SI ESTA MAPEADOy
-                if self.a =='A':
-                    self.fr_imagen_77 .grid_forget()
+                #if self.fr_imagen_77 .grid_info() != {}:    # SI ESTA MAPEADO
+                self.fr_imagen_77 .grid_forget()
                     """ print('se cambio detec a: BBB')
                     self.master.unbind('<Motion>',self.bind_motion) """
                 """ else:
