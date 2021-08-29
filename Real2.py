@@ -498,7 +498,10 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
             #print('este es el valor de variable',self.variable.get())
       
 
-        self.a= 'A'
+        self.var = StringVar()
+        self.var.set('on')
+        self.var2 = StringVar()
+        self.var2.set('1')
 
         """ self.detec = StringVar()
         self.detec.set('A')
@@ -513,14 +516,15 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
         x1, x2 = 10, 90
         y1, y2 = 68, 90  
                 
-        if x1 < (self.pointer_x) < x2  and  y1 < (self.pointer_y) < y2: 
-            if self.fr_imagen_77 .grid_info() == {}:   # == {} (no mapeado) ---- / ///// /  ---- != {} ( mapeado)  
-               # print('IF-IF')    
-                self.fr_imagen_77 . grid(column=0, row=0)    
+        if x1 < (self.pointer_x) < x2  and  y1 < (self.pointer_y) < y2 and (self.var2.get()) == '1': 
+            self.fr_imagen_77 . grid(column=0, row=0)   # == {} (no mapeado) 
+            self.var.set('of')
+            self.var2.set('0')
+        else:
+            self.fr_imagen_77 .grid_forget()
+            self.var.set('on')
+            self.var2.set('1')
 
-            else:
-                #print('lo boorre')  
-                self.fr_imagen_77 .grid_forget()
 
         self.a = 'B'
         print('self.a es B AHORA')
@@ -535,8 +539,8 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
         self.pointY = event.y / self.master.winfo_height() * 100
         x1, x2 = 10, 90
         y1, y2 = 68, 90
-
-        if x1 < (self.pointX) < x2  and  y1 < (self.pointY) < y2:   
+      
+        if x1 < (self.pointX) < x2  and  y1 < (self.pointY) < y2 and (self.var.get()) == 'on':   
             if self.fr_imagen_77 .grid_info() == {} and self.a == 'A':   # no esta mapeado   
                 self.fr_imagen_77 . grid(column=0, row=0)
                 print('yo lo hago')
