@@ -487,7 +487,7 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
 
-        #________aqui se esta trabajando
+#________aqui se esta trabajando
         self.master.bind("<Button-1>", self.button1)
 
         self.bind_motion = self.master.bind('<Motion>',self.motion)
