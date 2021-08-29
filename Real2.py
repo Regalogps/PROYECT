@@ -491,18 +491,18 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
         self.master.bind("<Button-1>", self.button1)
 
         self.bind_motion = self.master.bind('<Motion>',self.motion)
-        self.bind_leave = self.bind('<Leave>', lambda e: self.fr_imagen_77 .grid_forget())
+        #self.bind_leave = self.bind('<Leave>', lambda e: self.fr_imagen_77 .grid_forget())
             #________hasta aqui
             #______Estos de abajo iban dentro de master_button1
             #self.variable.set(self.h)
             #print('este es el valor de variable',self.variable.get())
       
 
+        self.a= 'A'
 
-
-        self.detec = StringVar()
+        """ self.detec = StringVar()
         self.detec.set('A')
-        print(self.detec.get())
+        print(self.detec.get()) """
 
 
 #_______M E T O D O   < B U T T O N - 1 >
@@ -519,10 +519,12 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
                 self.fr_imagen_77 . grid(column=0, row=0)    
 
             else:
-                print('lo boorre')  
+                #print('lo boorre')  
                 self.fr_imagen_77 .grid_forget()
 
-        self.detec.set('B')
+        self.a = 'B'
+        print('self.a es B AHORA')
+        #self.detec.set('B')
         #self.master.unbind('<Motion>',self.bind_id)
 
 
@@ -535,8 +537,9 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
         y1, y2 = 68, 90
 
         if x1 < (self.pointX) < x2  and  y1 < (self.pointY) < y2:   
-            if self.fr_imagen_77 .grid_info() == {}:   # no esta mapeado   
+            if self.fr_imagen_77 .grid_info() == {} and self.a == 'A':   # no esta mapeado   
                 self.fr_imagen_77 . grid(column=0, row=0)
+                print('yo lo hago')
                         #self.master.unbind('<Motion>',self.bind_motion)
                         #self.unbind('<Leave>', self.bind_leave)
 
@@ -546,16 +549,18 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
                         #self.after(3000, self.t)
             else:
                 #if self.fr_imagen_77 .grid_info() != {}:    # SI ESTA MAPEADOy
-                if self.detec.get() =='A':
-                    print('se cambio detec a: BBB')
-                    self.master.unbind('<Motion>',self.bind_motion)
-                else:
+                if self.a =='A':
+                    self.fr_imagen_77 .grid_forget()
+                    """ print('se cambio detec a: BBB')
+                    self.master.unbind('<Motion>',self.bind_motion) """
+                """ else:
 
                     self.fr_imagen_77 .grid_forget() 
                     self.master.unbind('<Motion>',self.bind_motion)
-                    self.unbind('<Leave>', self.bind_leave)
-        if self.detec.get() =='B':
-            self.unbind('<Leave>', self.bind_leave)
+                    self.unbind('<Leave>', self.bind_leave) """
+
+        """ if self.detec.get() =='B':
+            self.unbind('<Leave>', self.bind_leave) """
                 
                 
 
