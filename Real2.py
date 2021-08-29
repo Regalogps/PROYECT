@@ -542,7 +542,7 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
 
         
 
-        if x1 < self.varia.get() < x2  and  y1 < int(self.vv) < y2:   
+        if x1 < (self.pointX) < x2  and  y1 < (self.pointY) < y2:   
             if self.fr_imagen_77 .grid_info() == {}:   # no esta mapeado   
                 self.fr_imagen_77 . grid(column=0, row=0)
                         #self.master.unbind('<Motion>',self.bind_motion)
