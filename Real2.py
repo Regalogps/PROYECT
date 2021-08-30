@@ -32,8 +32,6 @@ class Interface(Tk):
         self.open_2 = True  
         self.open_3 = True
 
-        self.variable = StringVar('')
-
     def configure_interface(self):   # Configuracion de la ventana -------------------NO TOCAR (despues)
       
         #ventana.overrideredirect(1)
@@ -430,23 +428,33 @@ class Fr_fox_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  
 ################################   F R A M E  " B O O M E R "  ################################ 
 
 
+
+
+
+
+
+
+
+
+
 class Fr_boomer_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [2]
 
     def __init__(self, *args, **kwargs):
-        Frame.__init__(self, *args, **kwargs)   
+        Frame.__init__(self, *args, **kwargs) 
 
+        self.bind ('<Configure>', self.a)    # Ver si cambiar a self.master.bind
+                
         self.fr_img_delay = Example (self, self.master.master.Images_1 [2][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
         self.fr_img_movil= Example (self, self.master.master.Images_1 [2][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
-        self.lbl_guia . bind('<Button-1>', self.position_img)
-        self.lbl_guia . place(x= 2, y= 48)    
- 
+        self.lbl_guia . bind('<Button-1>', self.position_img)   #self.lbl_guia . place(x= 2, y= 48)  
 
         self.grid_columnconfigure(0,weight=1)
         self.grid_rowconfigure(0,weight=1)
+
 
     def position_img(self, event): 
 
@@ -454,8 +462,25 @@ class Fr_boomer_left (Frame, Interface):  #------------------------------ IZQUIE
             self.fr_img_movil .grid (column= 0, row= 0)
         else:
             self.fr_img_movil .grid_forget()
+    
+    def a(self, event):
 
-  
+        var_x = IntVar()  # Aqui lo puedo camvbiar a IntVar para que no  de un cero de mas 23.0 54.0 
+        var_y = IntVar()
+        width = self.master.winfo_width() / 35
+        height = self.master.winfo_height() / 14
+        w = int(width)
+        h = int(height)
+ 
+        var_x .set(w)    # aqui hay el 10% del ancho total
+        getx = var_x .get()
+
+        var_y .set(h)
+        gety = var_y .get()       
+        
+        self.lbl_guia.place(x= getx, y= gety)
+                
+
 
 
 
@@ -468,129 +493,76 @@ class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
-        """ self.desac = StringVar()
-        self.desac.set('self.button1')
-        print(self.desac.get()) """
-            #self.variable = DoubleVar('')
-            #print('valor incial de variable',self.variable.get())
-            
- 
         self.fr_img_base = Example (self, self.master.master.Images_1 [2][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_imagen_77 = Example (self, self.master.master.Images_1 [2][3], bd=0)  
-            #________aqui se esta trabajando
-            #self.lbl_77 = Label(self, text= 'Mostrar\n77', font=('Calibri',8,'bold'), bg= '#2f3337', fg='green2', width=6, height=36)
+        self.fr_img_77 = Example (self, self.master.master.Images_1 [2][3], bd=0)  
+ 
+        self.flecha = Label (self, text= '↑', font=('Calibri',30,'bold'), bg=  '#2f3337',fg='green2', width=1, height=1)
+        self.alert_77 = Label (self, text= "Haga ' Click ' para mostrar:\nAngulo ' 77 '", font=('Bickham Script Pro',8  ,'bold'), bg=  '#2f3337',fg='white', width=50, height=2)
         
-        #________hasta aqui
+ 
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
 
-#________aqui se esta trabajando
+
         self.master.bind("<Button-1>", self.button1)
-
         self.bind_motion = self.master.bind('<Motion>',self.motion)
-        #self.bind_leave = self.bind('<Leave>', lambda e: self.fr_imagen_77 .grid_forget())
-            #________hasta aqui
-            #______Estos de abajo iban dentro de master_button1
-            #self.variable.set(self.h)
-            #print('este es el valor de variable',self.variable.get())
-      
+        self.bind_leave = self.bind('<Leave>', lambda e: self.alert_77 .grid_forget())
 
-        self.var = StringVar()
-        self.var.set('on')
-        self.var2 = StringVar()
-        self.var2.set('1')
+        #______V A R I A B L E S  de  C O N T R O L  para los B I N D
+        self.test = 'closed'
+        self.motion = StringVar()
+        self.motion.set('on')
+        
 
-        """ self.detec = StringVar()
-        self.detec.set('A')
-        print(self.detec.get()) """
-
-
-#_______M E T O D O   < B U T T O N - 1 >
+    #_______M E T O D O   < B U T T O N - 1 >
     def button1(self, event): 
 
-        self.pointer_x = event.x / self.master.winfo_width() * 100
-        self.pointer_y = event.y / self.master.winfo_height() * 100
-        x1, x2 = 10, 90
-        y1, y2 = 68, 90  
+        self.pointer_width = event.x / self.master.winfo_width() * 100
+        self.pointer_height = event.y / self.master.winfo_height() * 100
+        x1, x2 = 0, 100
+        y1, y2 = 68, 100  
                 
-        if x1 < (self.pointer_x) < x2  and  y1 < (self.pointer_y) < y2 and (self.var2.get()) == '1': 
-            self.fr_imagen_77 . grid(column=0, row=0)   # == {} (no mapeado) 
-            self.var.set('of')
-            self.var2.set('0')
-        else:
-            self.fr_imagen_77 .grid_forget()
-            self.var.set('on')
-            self.var2.set('1')
+        if x1 < (self.pointer_width) < x2  and  y1 < (self.pointer_height) < y2: 
+            if self.test == 'closed':               
+                self.fr_img_77 . grid(column=0, row=0)   # == {} (no mapeado)               
+                self.test = 'open'
+                self.motion.set('of')
+                #print('se cambio de --ON-- a --OF-- ')
+                
+                self.flecha .grid(column=0, row=0, sticky=SE, ipadx=5) # VER SI ACEPTA VARIABLES
+                
+            else:
+                self.fr_img_77 .grid_forget()
+                self.test = 'closed'
+                self.after(0, lambda e = self.motion: self.motion.set('on'))
+                #print('se cambio de --OF-- a --ON-- ')
+                
+                self.flecha.grid_forget()
 
 
-        self.a = 'B'
-        print('self.a es B AHORA')
-        #self.detec.set('B')
-        #self.master.unbind('<Motion>',self.bind_id)
-
-
-#_______M E T O D O   < M O T I O N >
+    #_______M E T O D O   < M O T I O N >
     def motion(self, event):      
  
-        self.pointX = event.x / self.master.winfo_width() * 100
-        self.pointY = event.y / self.master.winfo_height() * 100
-        x1, x2 = 10, 90
-        y1, y2 = 68, 90
-      
-        if x1 < (self.pointX) < x2  and  y1 < (self.pointY) < y2 and (self.var.get()) == 'on':   
-            if self.fr_imagen_77 .grid_info() == {}:   # no esta mapeado   
-                self.fr_imagen_77 . grid(column=0, row=0)
-                print('yo lo hago')
-                        #self.master.unbind('<Motion>',self.bind_motion)
-                        #self.unbind('<Leave>', self.bind_leave)
+        self.pointer_width_2 = event.x / self.master.winfo_width() * 100
+        self.pointer_height_2 = event.y / self.master.winfo_height() * 100
+        x1, x2 = 0, 100
+        y1, y2 = 68, 100
+        if self.motion.get()=='on':    
+            if x1 < (self.pointer_width_2) < x2  and  y1 < (self.pointer_height_2) < y2:        
+                self.alert_77 .grid (column=0, row=0, sticky=N, ipadx=5, ipady=5)
+                #print(self.pointer_width_2)
 
-                        #self.master.after(0, self.Dnuevo)
-                        
-                        #self.leave()
-                        #self.after(3000, self.t)
             else:
-                #if self.fr_imagen_77 .grid_info() != {}:    # SI ESTA MAPEADO
-                self.fr_imagen_77 .grid_forget()
-                    """ print('se cambio detec a: BBB')
-                    self.master.unbind('<Motion>',self.bind_motion) """
-                """ else:
+                self.alert_77 .grid_forget() 
+                #print('entre ala sala motion') 
 
-                    self.fr_imagen_77 .grid_forget() 
-                    self.master.unbind('<Motion>',self.bind_motion)
-                    self.unbind('<Leave>', self.bind_leave) """
+        if self.fr_img_77 . grid_info() != {}:
+            self.alert_77 .grid_forget() 
 
-        """ if self.detec.get() =='B':
-            self.unbind('<Leave>', self.bind_leave) """
-                
-                
-
-#_______
-    def Dnuevo(self):
-        self.bind_id = self.master.bind('<Motion>',self.motion)
-        self.bind_leave = self.bind('<Leave>', lambda e: self.fr_imagen_77 .grid_forget())
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 class Fr_boomer_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [2]
      pass
 

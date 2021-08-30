@@ -24,3 +24,5 @@ root.geometry('500x500')
 frame = Right(root)
 frame.pack(fill='both', expand=True)
 root.mainloop()
+
+  
