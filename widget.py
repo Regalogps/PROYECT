@@ -1,6 +1,6 @@
 
-sbx = Spinbox(, value=('Frox', 'Fox', 'Boomer', 'Ice', 'JD',
+sbx = Spinbox(, value=('Frox', 'Fox', 'Boomer', 'Ice', 'J.D',
                        'Grub', 'Light', 'Aduka', 'Knight', 'Kalsiddon',
                        'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor',
-                       'Asate', 'Raon', 'Trico', 'Nak', 'Big',
-                       'Dragon1', 'Dragon2')
+                       'A.sate', 'Raon', 'Trico', 'Nak', 'Big',
+                       'Dragon 1', 'Dragon 2')
