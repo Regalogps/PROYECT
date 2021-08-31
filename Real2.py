@@ -40,7 +40,7 @@ class Interface(Tk):
         self.geometry ('1000x150')                                 # TAMANIO DE LA VENTANA
         self.resizable (1,1)                                       # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
         self.config (bg='magenta2')                                # CONFIGURA EL FONDO DE LA VENTANA, etc
-        self.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
+        #self.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
         self.wm_attributes ('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
         #root.attributes("-alpha", 0.5 )   
 
@@ -95,14 +95,15 @@ class Interface(Tk):
         self.frm_plomo .grid_propagate(False)
 
     #____________________________________MODO 2 CONFIGURADO_____________
-        self.frm_plomo2 = Frame (self, bg='#31343a', width=756, height=65)
-        self.lbl_opcion1 = Label(self.frm_plomo2, text= "Activar modo On:" , font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.frm_plomo2 = Frame (self, bg='#31343a', width=545, height=65)
+
+        self.lbl_opcion1 = Label(self.frm_plomo2, text= "Activar aimbot :" , font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
         self.lbl_opcion2 = Label(self.frm_plomo2, text= 'Activar aimbot: ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
         self.lbl_opcion3 = Label(self.frm_plomo2, text= 'Activar ddd ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_opcion4 = Label(self.frm_plomo2, text= 'Activar ddd ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_opcion5 = Label(self.frm_plomo2, text= 'Activar ddd', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_opcion6 = Label(self.frm_plomo2, text= 'Activar guía', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_opcion7 = Label(self.frm_plomo2, text= 'Recordar configuracion', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_opcion4 = Label(self.frm_plomo2, text= 'Activar modo lista :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_opcion5 = Label(self.frm_plomo2, text= 'Activar modo On :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_opcion6 = Label(self.frm_plomo2, text= 'Activar modo guía :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_opcion7 = Label(self.frm_plomo2, text= 'Recordar configuracion :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
 
         self.chek1 = Checkbutton(self.frm_plomo2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
         self.chek2 = Checkbutton(self.frm_plomo2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
@@ -112,13 +113,13 @@ class Interface(Tk):
         self.chek6 = Checkbutton(self.frm_plomo2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
         self.chek7 = Checkbutton(self.frm_plomo2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
 
-        self.lbl_opcion1 .grid(column=0, row=0, padx= (30,10), pady=(3,0), sticky=W)
-        self.lbl_opcion2 .grid(column=0, row=1, padx= (30,10), pady=(2,0), sticky=W)
-        self.lbl_opcion3 .grid(column=0, row=2, padx= (30,10), pady=(2,0), sticky=W)
-        self.lbl_opcion4 .grid(column=2, row=0, padx= (40,10), pady=(6,0), sticky=W)
-        self.lbl_opcion5 .grid(column=2, row=1, padx= (40,10), pady=(2,0), sticky=W)
-        self.lbl_opcion6 .grid(column=2, row=2, padx= (40,10), pady=(2,0), sticky=W)   
-        self.lbl_opcion7 .grid(column=4, row=0, padx= (40,10), pady=(2,0), sticky=W)
+        self.lbl_opcion1 .grid(column=0, row=0, padx= (40,10), pady=(0,0), sticky=W)
+        self.lbl_opcion2 .grid(column=0, row=1, padx= (40,10), pady=(0,0), sticky=W)
+        self.lbl_opcion3 .grid(column=0, row=2, padx= (40,10), pady=(0,0), sticky=W)
+        self.lbl_opcion4 .grid(column=2, row=0, padx= (30,10), pady=(0,0), sticky=W)
+        self.lbl_opcion5 .grid(column=2, row=1, padx= (30,10), pady=(0,0), sticky=W)
+        self.lbl_opcion6 .grid(column=2, row=2, padx= (30,10), pady=(0,0), sticky=W)   
+        self.lbl_opcion7 .grid(column=4, row=0, padx= (30,10), pady=(0,0), sticky=W)
         
 
         self.chek1 .grid(column=1, row=0)
