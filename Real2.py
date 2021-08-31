@@ -76,12 +76,13 @@ class Interface(Tk):
             return empty       
         
     def widgets(self):  # widgets de la ventana Principal ----------------------------NO TOCAR  EDITAR DESPUES A CLASE BOTON O LABEL
-        #______Instancias creadas:
+
+        #______I N S T A N C I A S   M A P E A D O S  por  D E F E C T O :
         self.frm_A1 = Create_Frame (self, bg='#11161d', width=60, height=65)   #Color: azul marino --- Frame Contenedor del logo y la rueda            
         self.frm_B1 = Frame (self, bg='#31343a', width=756, height=65)           #Color: Plomo       --- Frame Contenedor del Contenedor de los Botones
         self.frm_b1 = Create_Frame (self.frm_B1, bg = '#11161d',)    #Color: azul marino --- Frame Contenedor de los Botones
 
-        #______Posicionamiento:
+#______________Posicionamiento:
         self.frm_A1 .grid (column= 0, row= 0, padx=(0,0), pady=(0,0))    # Instancia
         self.frm_B1 .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')  # Frame 
         self.frm_b1 .grid (padx = (10,10), pady = (6,6))          # Instancia
@@ -95,9 +96,12 @@ class Interface(Tk):
         self.frm_A1 .grid_propagate (False)
         self.frm_B1 .grid_propagate(False)
 
-    #____________________________________MODO 2 CONFIGURADO_____________
-        self.frm_B2 = Frame (self, bg='#31343a', width=545, height=65)
+#______________C O N F I G U R A C I O N  V I S U A L  de la  I N T E R F A Z :
 
+        self.frm_B2 = Frame (self, bg='#31343a', width=545, height=65)
+        self.frm_B2 .grid_propagate(False)
+
+        #______Widget Internos de -----> self.frm_B2 :
         self.lbl_option1 = Label(self.frm_B2, text= "Activar aimbot :" , font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
         self.lbl_option2 = Label(self.frm_B2, text= 'Activar aimbot: ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
         self.lbl_option3 = Label(self.frm_B2, text= 'Activar ddd ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
@@ -114,6 +118,7 @@ class Interface(Tk):
         self.chek6 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
         self.chek7 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
 
+#______________Posicionamiento:
         self.lbl_option1 .grid(column=0, row=0, padx= (40,10), pady=(0,0), sticky=W)
         self.lbl_option2 .grid(column=0, row=1, padx= (40,10), pady=(0,0), sticky=W)
         self.lbl_option3 .grid(column=0, row=2, padx= (40,10), pady=(0,0), sticky=W)
@@ -130,8 +135,7 @@ class Interface(Tk):
         self.chek6 .grid(column=3, row=2)
         self.chek7 .grid(column=5, row=0)
      
-
-        self.frm_B2 .grid_propagate(False)
+#_____________
 
     def modo2(self):
         
