@@ -77,22 +77,22 @@ class Interface(Tk):
         
     def widgets(self):  # widgets de la ventana Principal ----------------------------NO TOCAR  EDITAR DESPUES A CLASE BOTON O LABEL
  
-        self.frm_initial = Create_Frame (self, bg='#11161d', width=60, height=65)   #Color: azul marino --- Frame Contenedor del logo y la rueda            
-        self.frm_plomo = Frame (self, bg='#31343a', width=756, height=65)           #Color: Plomo       --- Frame Contenedor del Contenedor de los Botones
-        self.frm_container_btns = Create_Frame (self.frm_plomo, bg = '#11161d',)    #Color: azul marino --- Frame Contenedor de los Botones
+        self.frm_A1 = Create_Frame (self, bg='#11161d', width=60, height=65)   #Color: azul marino --- Frame Contenedor del logo y la rueda            
+        self.frm_B1 = Frame (self, bg='#31343a', width=756, height=65)           #Color: Plomo       --- Frame Contenedor del Contenedor de los Botones
+        self.frm_BB1 = Create_Frame (self.frm_B1, bg = '#11161d',)    #Color: azul marino --- Frame Contenedor de los Botones
 
         #______Metodos Llamados:
-        self.frm_initial .img_gear()                                                # Metodo de la clase segundaria                                              
-        self.frm_initial .img_ash()
-        self.frm_container_btns .img_moviles()  
+        self.frm_A1 .img_gear()                                                # Metodo de la clase segundaria                                              
+        self.frm_A1 .img_ash()
+        self.frm_BB1 .img_moviles()  
 
         #______Posicionamiento:
-        self.frm_initial .grid (column= 0, row= 0, padx=(0,0), pady=(0,0))    # Instancia
-        self.frm_plomo .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')  # Frame 
-        self.frm_container_btns .grid (padx = (10,10), pady = (6,6))          # Instancia
+        self.frm_A1 .grid (column= 0, row= 0, padx=(0,0), pady=(0,0))    # Instancia
+        self.frm_B1 .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')  # Frame 
+        self.frm_BB1 .grid (padx = (10,10), pady = (6,6))          # Instancia
 
-        self.frm_initial .grid_propagate (False)
-        self.frm_plomo .grid_propagate(False)
+        self.frm_A1 .grid_propagate (False)
+        self.frm_B1 .grid_propagate(False)
 
     #____________________________________MODO 2 CONFIGURADO_____________
         self.frm_plomo2 = Frame (self, bg='#31343a', width=545, height=65)
@@ -136,33 +136,33 @@ class Interface(Tk):
 
     def modo2(self):
         
-        if self.frm_plomo .grid_info() != {}: # posicionado SI
-            self.frm_plomo.grid_remove()
+        if self.frm_B1 .grid_info() != {}: # posicionado SI
+            self.frm_B1 .grid_remove()
 
             self.frm_plomo2 .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')
            
 
 
         else:  # NO POSICIONADO
-            self.frm_plomo .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')
+            self.frm_B1 .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')
             
             self.frm_plomo2.grid_remove()
             
-        #self.frm_plomo = Frame (self, bg='#31343a', width=756, height=65)
+        #self.frm_B1 = Frame (self, bg='#31343a', width=756, height=65)
 
     def configure_height(self):  # Metodo para configurar Frame ---------------------NO TOCAR
               
-        if self.frm_initial .winfo_reqheight() == 65:
-            self.frm_initial .config (width=60, height=165)   
+        if self.frm_A1 .winfo_reqheight() == 65:
+            self.frm_A1 .config (width=60, height=165)   
         else:
-            self.frm_initial .config (width=60, height=65)
+            self.frm_A1 .config (width=60, height=65)
 
     def remove_frame(self):  # Metodo para Remover Frame ----------------------------NO TOCAR
 
-        if self.frm_plomo .winfo_ismapped():      
-            self.frm_plomo .grid_remove()   
+        if self.frm_B1 .winfo_ismapped():      
+            self.frm_B1 .grid_remove()   
         else:
-            self.frm_plomo .grid() 
+            self.frm_B1 .grid() 
 
         if self.frm_plomo2 .winfo_ismapped():      
             self.frm_plomo2 .grid_remove()   
