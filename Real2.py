@@ -76,21 +76,22 @@ class Interface(Tk):
             return empty       
         
     def widgets(self):  # widgets de la ventana Principal ----------------------------NO TOCAR  EDITAR DESPUES A CLASE BOTON O LABEL
- 
+        #______Instancias creadas:
         self.frm_A1 = Create_Frame (self, bg='#11161d', width=60, height=65)   #Color: azul marino --- Frame Contenedor del logo y la rueda            
         self.frm_B1 = Frame (self, bg='#31343a', width=756, height=65)           #Color: Plomo       --- Frame Contenedor del Contenedor de los Botones
         self.frm_BB1 = Create_Frame (self.frm_B1, bg = '#11161d',)    #Color: azul marino --- Frame Contenedor de los Botones
-
-        #______Metodos Llamados:
-        self.frm_A1 .img_gear()                                                # Metodo de la clase segundaria                                              
-        self.frm_A1 .img_ash()
-        self.frm_BB1 .img_moviles()  
 
         #______Posicionamiento:
         self.frm_A1 .grid (column= 0, row= 0, padx=(0,0), pady=(0,0))    # Instancia
         self.frm_B1 .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')  # Frame 
         self.frm_BB1 .grid (padx = (10,10), pady = (6,6))          # Instancia
 
+        #______Metodos Llamados:
+        self.frm_A1 .img_gear()                                                # Metodo de la clase segundaria                                              
+        self.frm_A1 .img_ash()
+        self.frm_BB1 .img_moviles()
+
+        #______Propagación:
         self.frm_A1 .grid_propagate (False)
         self.frm_B1 .grid_propagate(False)
 
