@@ -12,12 +12,12 @@ import sys
 class Interface(Tk):
 
     def __init__(self): #-------------------------------------------------------------NO TOCAR     
-        super().__init__()                                                 # Llamando a Tk ()
+        super().__init__()                                                      # Llamando a Tk ()
 
         path = 'E:/1-RICHI/MovilesDB'
         #______Lista de Imágenes         
-        self.Images_0 = self.generate_list (path, 'u')                     # Lista de imgs para la ventana: Interface
-        self.Images_1 = self.generate_list (path, 'a')                     # Lista de imgs para las ventanas: 1 y 2
+        self.Images_1 = self.generate_list (path, 'a')                          # Lista de imgs para las ventanas: 1 y 2
+        self.Images_sublist= self.generate_list (path, 's')                     # Lista de imgs para la ventana: Interface
         #______Métodos de Configuración y Posicionamiento de Widget: [Interface]
         self. configure_interface()          
         self. widgets()   
@@ -61,9 +61,10 @@ class Interface(Tk):
             return _lst        
    
         
-        if option == 'u':
+        if option == 's':
             for i in ouput:
-                if i.split('.')[0] in ['__SubList__00','__SubList__01'] :       
+                #if i.split('.')[0] in ['SubList__00','SubList__01'] :  
+                if 'SubList' in i :      
 
                     full = file + '/' + i
                     open = cv2.imread (full)
@@ -75,36 +76,97 @@ class Interface(Tk):
             return empty       
         
     def widgets(self):  # widgets de la ventana Principal ----------------------------NO TOCAR  EDITAR DESPUES A CLASE BOTON O LABEL
+ 
+        self.frm_initial = Create_Frame (self, bg='#11161d', width=60, height=65)   #Color: azul marino --- Frame Contenedor del logo y la rueda            
+        self.frm_plomo = Frame (self, bg='#31343a', width=756, height=65)           #Color: Plomo       --- Frame Contenedor del Contenedor de los Botones
+        self.frm_container_btns = Create_Frame (self.frm_plomo, bg = '#11161d',)    #Color: azul marino --- Frame Contenedor de los Botones
 
-        self.frame_initial = Create_Frame (self, bg='#11161d', width=60, height=65)    # Frame Contenedor del logo y la rueda     
-        self.frame_initial .img_gear()                                                # Metodo de la clase segundaria                                              
-        self.frame_initial .img_ash()                                                 # Metodo de la clase segundaria
-        self.frame_initial .grid (column= 0, row= 0, padx=(0,0), pady=(0,0))
-        self.frame_initial .grid_propagate (0)
+        #______Metodos Llamados:
+        self.frm_initial .img_gear()                                                # Metodo de la clase segundaria                                              
+        self.frm_initial .img_ash()
+        self.frm_container_btns .img_moviles()  
 
-        self.frame_plomo = Create_Frame (self, bg='#31343a', width=756, height=65)     # Frame Contenedor del Contenedor de los Botones
-        self.frame_plomo .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')
-        self.frame_plomo .grid_propagate (0)
+        #______Posicionamiento:
+        self.frm_initial .grid (column= 0, row= 0, padx=(0,0), pady=(0,0))    # Instancia
+        self.frm_plomo .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')  # Frame 
+        self.frm_container_btns .grid (padx = (10,10), pady = (6,6))          # Instancia
 
-        self.button_container = Create_Frame (self.frame_plomo, bg = '#11161d',)       # Frame Contenedor de los Botones
-        self.button_container .img_moviles()                                          # Metodo de la clase segundaria                                             
-        self.button_container .grid (padx = (10,0), pady = (6,0))  
-     
+        self.frm_initial .grid_propagate (False)
+        self.frm_plomo .grid_propagate(False)
+
+    #____________________________________MODO 2 CONFIGURADO_____________
+        self.frm_plomo2 = Frame (self, bg='#31343a', width=756, height=65)
+        self.lbl_opcion1 = Label(self.frm_plomo2, text= "Activar modo On:" , font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_opcion2 = Label(self.frm_plomo2, text= 'Activar aimbot: ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_opcion3 = Label(self.frm_plomo2, text= 'Activar ddd ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_opcion4 = Label(self.frm_plomo2, text= 'Activar ddd ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_opcion5 = Label(self.frm_plomo2, text= 'Activar ddd', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_opcion6 = Label(self.frm_plomo2, text= 'Activar guía', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_opcion7 = Label(self.frm_plomo2, text= 'Recordar configuracion', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+
+        self.chek1 = Checkbutton(self.frm_plomo2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
+        self.chek2 = Checkbutton(self.frm_plomo2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
+        self.chek3 = Checkbutton(self.frm_plomo2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
+        self.chek4 = Checkbutton(self.frm_plomo2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
+        self.chek5 = Checkbutton(self.frm_plomo2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
+        self.chek6 = Checkbutton(self.frm_plomo2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
+        self.chek7 = Checkbutton(self.frm_plomo2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
+
+        self.lbl_opcion1 .grid(column=0, row=0, padx= (30,10), pady=(3,0), sticky=W)
+        self.lbl_opcion2 .grid(column=0, row=1, padx= (30,10), pady=(2,0), sticky=W)
+        self.lbl_opcion3 .grid(column=0, row=2, padx= (30,10), pady=(2,0), sticky=W)
+        self.lbl_opcion4 .grid(column=2, row=0, padx= (40,10), pady=(6,0), sticky=W)
+        self.lbl_opcion5 .grid(column=2, row=1, padx= (40,10), pady=(2,0), sticky=W)
+        self.lbl_opcion6 .grid(column=2, row=2, padx= (40,10), pady=(2,0), sticky=W)   
+        self.lbl_opcion7 .grid(column=4, row=0, padx= (40,10), pady=(2,0), sticky=W)
+        
+
+        self.chek1 .grid(column=1, row=0)
+        self.chek2 .grid(column=1, row=1)
+        self.chek3 .grid(column=1, row=2)
+        self.chek4 .grid(column=3, row=0)
+        self.chek5 .grid(column=3, row=1)
+        self.chek6 .grid(column=3, row=2)
+        self.chek7 .grid(column=5, row=0)
+
+        
+
+        self.frm_plomo2 .grid_propagate(False)
+
+    def modo2(self):
+        
+        if self.frm_plomo .grid_info() != {}: # posicionado SI
+            self.frm_plomo.grid_remove()
+
+            self.frm_plomo2 .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')
+           
+
+
+        else:  # NO POSICIONADO
+            self.frm_plomo .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')
+            
+            self.frm_plomo2.grid_remove()
+            
+        #self.frm_plomo = Frame (self, bg='#31343a', width=756, height=65)
+
     def configure_height(self):  # Metodo para configurar Frame ---------------------NO TOCAR
-
-        self.winfo = self.frame_initial .winfo_reqheight()
-         
-        if self.winfo == 65:
-            self.frame_initial .config (width=60, height=165)   
+              
+        if self.frm_initial .winfo_reqheight() == 65:
+            self.frm_initial .config (width=60, height=165)   
         else:
-            self.frame_initial .config (width=60, height=65)
+            self.frm_initial .config (width=60, height=65)
 
     def remove_frame(self):  # Metodo para Remover Frame ----------------------------NO TOCAR
 
-        if self.frame_plomo .winfo_ismapped():      
-            self.frame_plomo .grid_remove()   
+        if self.frm_plomo .winfo_ismapped():      
+            self.frm_plomo .grid_remove()   
         else:
-            self.frame_plomo .grid()  
+            self.frm_plomo .grid() 
+
+        if self.frm_plomo2 .winfo_ismapped():      
+            self.frm_plomo2 .grid_remove()   
+        else:
+            self.frm_plomo2 .grid()  
 
 ############   M E T O D O S   P A R A   G E S T I O N A R   L A S   V E N T A N A S   S U P E R I O R E S   ############ 
 
@@ -212,12 +274,12 @@ class Create_Frame (Frame):
 
     def img_ash(self):   # Metodo que crea -1- Boton (logo) -------------------NO TOCAR (despues)
         
-        self.btn_ash = Button (self, image= self.master.Images_0 [0], bg= '#11161d', bd= 0, activebackground= '#11161d' , command= self.master.remove_frame)
-        self.btn_ash .grid (column= 0, row= 0, padx= 3, pady= 1)
+        self.btn_ash = Button (self, image= self.master.Images_sublist [3], bg= '#11161d', bd= 0, activebackground= '#11161d' , command= self.master.remove_frame)
+        self.btn_ash .grid (column= 0, row= 0, padx= (6,6), pady= 0)
           
     def img_gear(self):   # Metodo que crea -1- Boton (rueda)-----------------NO TOCAR (despues)
 
-        self.btn_gear = Button (self, image= self.master.Images_0 [1], bg= '#11161d', bd= 0, activebackground= '#11161d', command= self.master.configure_height)
+        self.btn_gear = Button (self, image= self.master.Images_sublist [1], bg= '#11161d', bd= 0, activebackground= '#11161d', command= self.master.modo2)  # akl era  command= self.master.configure_height
         self.btn_gear .grid (column= 0, row= 1)
        
     def img_moviles(self):   # Metodo que crea -22- Botones (moviles)  #command = lambda:images(1))
@@ -242,7 +304,7 @@ class Create_Frame (Frame):
         self.Raon_17 = Button (self, text='Raon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_raon_left, Fr_raon_right, Fr_raon_stuf)) 
         self.Trico_18 = Button (self, text='Trico', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_trico_left, Fr_trico_right, Fr_trico_stuf))
         self.Nak_19 = Button (self, text='Nak', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_nak_left, Fr_nak_right, Fr_nak_stuf)) 
-        self.Big_20 = Button (self, text='Big', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_big_left, Fr_big_right, Fr_big_stuf)) 
+        self.Big_20 = Button (self, text='Big foot', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_big_left, Fr_big_right, Fr_big_stuf)) 
         self.Dragon1_21 = Button (self, text='Dragon 1', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_dragon1_left, Fr_dragon1_right, Fr_dragon1_stuf)) 
         self.Dragon2_22 = Button (self, text='Dragon 2', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_dragon2_left, Fr_dragon2_right, Fr_dragon2_stuf))
                 
