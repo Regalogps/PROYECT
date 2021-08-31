@@ -96,33 +96,32 @@ class Interface(Tk):
         self.frm_B1 .grid_propagate(False)
 
     #____________________________________MODO 2 CONFIGURADO_____________
-        self.frm_plomo2 = Frame (self, bg='#31343a', width=545, height=65)
+        self.frm_B2 = Frame (self, bg='#31343a', width=545, height=65)
 
-        self.lbl_opcion1 = Label(self.frm_plomo2, text= "Activar aimbot :" , font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_opcion2 = Label(self.frm_plomo2, text= 'Activar aimbot: ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_opcion3 = Label(self.frm_plomo2, text= 'Activar ddd ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_opcion4 = Label(self.frm_plomo2, text= 'Activar modo lista :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_opcion5 = Label(self.frm_plomo2, text= 'Activar modo On :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_opcion6 = Label(self.frm_plomo2, text= 'Activar modo guía :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_opcion7 = Label(self.frm_plomo2, text= 'Recordar configuracion :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_option1 = Label(self.frm_B2, text= "Activar aimbot :" , font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_option2 = Label(self.frm_B2, text= 'Activar aimbot: ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_option3 = Label(self.frm_B2, text= 'Activar ddd ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_option4 = Label(self.frm_B2, text= 'Activar modo lista :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_option5 = Label(self.frm_B2, text= 'Activar modo On :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_option6 = Label(self.frm_B2, text= 'Activar modo guía :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_option7 = Label(self.frm_B2, text= 'Recordar configuracion :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
 
-        self.chek1 = Checkbutton(self.frm_plomo2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
-        self.chek2 = Checkbutton(self.frm_plomo2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
-        self.chek3 = Checkbutton(self.frm_plomo2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
-        self.chek4 = Checkbutton(self.frm_plomo2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
-        self.chek5 = Checkbutton(self.frm_plomo2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
-        self.chek6 = Checkbutton(self.frm_plomo2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
-        self.chek7 = Checkbutton(self.frm_plomo2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
+        self.chek1 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
+        self.chek2 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
+        self.chek3 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
+        self.chek4 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
+        self.chek5 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
+        self.chek6 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
+        self.chek7 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
 
-        self.lbl_opcion1 .grid(column=0, row=0, padx= (40,10), pady=(0,0), sticky=W)
-        self.lbl_opcion2 .grid(column=0, row=1, padx= (40,10), pady=(0,0), sticky=W)
-        self.lbl_opcion3 .grid(column=0, row=2, padx= (40,10), pady=(0,0), sticky=W)
-        self.lbl_opcion4 .grid(column=2, row=0, padx= (30,10), pady=(0,0), sticky=W)
-        self.lbl_opcion5 .grid(column=2, row=1, padx= (30,10), pady=(0,0), sticky=W)
-        self.lbl_opcion6 .grid(column=2, row=2, padx= (30,10), pady=(0,0), sticky=W)   
-        self.lbl_opcion7 .grid(column=4, row=0, padx= (30,10), pady=(0,0), sticky=W)
+        self.lbl_option1 .grid(column=0, row=0, padx= (40,10), pady=(0,0), sticky=W)
+        self.lbl_option2 .grid(column=0, row=1, padx= (40,10), pady=(0,0), sticky=W)
+        self.lbl_option3 .grid(column=0, row=2, padx= (40,10), pady=(0,0), sticky=W)
+        self.lbl_option4 .grid(column=2, row=0, padx= (30,10), pady=(0,0), sticky=W)
+        self.lbl_option5 .grid(column=2, row=1, padx= (30,10), pady=(0,0), sticky=W)
+        self.lbl_option6 .grid(column=2, row=2, padx= (30,10), pady=(0,0), sticky=W)   
+        self.lbl_option7 .grid(column=4, row=0, padx= (30,10), pady=(0,0), sticky=W)
         
-
         self.chek1 .grid(column=1, row=0)
         self.chek2 .grid(column=1, row=1)
         self.chek3 .grid(column=1, row=2)
@@ -130,24 +129,23 @@ class Interface(Tk):
         self.chek5 .grid(column=3, row=1)
         self.chek6 .grid(column=3, row=2)
         self.chek7 .grid(column=5, row=0)
+     
 
-        
-
-        self.frm_plomo2 .grid_propagate(False)
+        self.frm_B2 .grid_propagate(False)
 
     def modo2(self):
         
         if self.frm_B1 .grid_info() != {}: # posicionado SI
             self.frm_B1 .grid_remove()
 
-            self.frm_plomo2 .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')
+            self.frm_B2 .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')
            
 
 
         else:  # NO POSICIONADO
             self.frm_B1 .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')
             
-            self.frm_plomo2.grid_remove()
+            self.frm_B2.grid_remove()
             
         #self.frm_B1 = Frame (self, bg='#31343a', width=756, height=65)
 
