@@ -86,7 +86,7 @@ class Interface(Tk):
         self.frm_B1 .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')  # Frame 
         self.frm_BB1 .grid (padx = (10,10), pady = (6,6))          # Instancia
 
-        #______Metodos Llamados:
+        #______Metodos de Instancias:
         self.frm_A1 .img_gear()                                                # Metodo de la clase segundaria                                              
         self.frm_A1 .img_ash()
         self.frm_BB1 .img_moviles()
