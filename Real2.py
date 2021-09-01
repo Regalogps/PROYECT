@@ -432,7 +432,7 @@ class Example(Frame):
 ################################   F R A M E  " F R O G "  ################################  
 
 
-class Frm_frog_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [0] 
+class Frog_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [0] 
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -458,7 +458,7 @@ class Frm_frog_left (Frame):  #------------------------------ IZQUIERDA :  DELAY
             self.fr_img_movil .grid_forget()
 
     
-class Frm_frog_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [0] 
+class Frog_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [0] 
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
@@ -488,14 +488,14 @@ class Frm_frog_right (Frame):  #------------------------------- DERECHA :  BASE 
                 self.fr_img_77 . grid_forget()
     
 
-class Frm_frog_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [0]
+class Frog_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [0]
      pass
 
 ################################   F R A M E  " F O X "  ################################
 ################################   F R A M E  " F O X "  ################################
 
 
-class Frm_fox_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [1]
+class Fox_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [1]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -521,7 +521,7 @@ class Frm_fox_left (Frame):  #------------------------------ IZQUIERDA :  DELAY 
             self.fr_img_movil .grid_forget()
 
  
-class Frm_fox_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [1]
+class Fox_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [1]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
@@ -551,7 +551,7 @@ class Frm_fox_right (Frame):  #------------------------------- DERECHA :  BASE  
                 self.fr_img_77 . grid_forget()
 
 
-class Frm_fox_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [1]
+class Fox_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [1]
      pass
 
 ################################   F R A M E  " B O O M E R "  ################################
@@ -561,7 +561,7 @@ class Frm_fox_stuf (Frame):  #-------------------------------- REGLA: GAME STUF 
 
 
 
-class Frm_boomer_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [2]
+class Boomer_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [2]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs) 
@@ -605,7 +605,7 @@ class Frm_boomer_left (Frame):  #------------------------------ IZQUIERDA :  DEL
         self.lbl_guia.place(x= getx, y= gety)
                 
   
-class Frm_boomer_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [2]
+class Boomer_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [2]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
@@ -680,14 +680,14 @@ class Frm_boomer_right (Frame):  #------------------------------- DERECHA :  BAS
             self.alert_77 .grid_forget() 
 
  
-class Fr_boomer_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [2]
+class Boomer_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [2]
      pass
 
 ################################  F R A M E  " I C E "  ################################
 ################################  F R A M E  " I C E "  ################################
 
 
-class Fr_ice_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [3]
+class Ice_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [3]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -713,7 +713,7 @@ class Fr_ice_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  
             self.fr_img_movil .grid_forget()
 
   
-class Fr_ice_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [3]
+class Ice_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [3]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
@@ -743,14 +743,14 @@ class Fr_ice_right (Frame):  #------------------------------- DERECHA :  BASE  /
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_ice_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [3]
+class Ice_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [3]
      pass
 
 ################################  F R A M E  " J D "  ################################
 ################################  F R A M E  " J D "  ################################
 
 
-class Fr_jd_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [4]
+class Jd_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [4]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -776,7 +776,7 @@ class Fr_jd_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /
             self.fr_img_movil .grid_forget()
 
   
-class Fr_jd_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [4]
+class Jd_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [4]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
@@ -806,7 +806,7 @@ class Fr_jd_right (Frame):  #------------------------------- DERECHA :  BASE  / 
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_jd_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [4]
+class Jd_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [4]
      pass
 
 
@@ -814,7 +814,7 @@ class Fr_jd_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _
 ################################  F R A M E  " G R U B "  ################################
 
 
-class Fr_grub_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [5]
+class Grub_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [5]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -840,7 +840,7 @@ class Fr_grub_left (Frame):  #------------------------------ IZQUIERDA :  DELAY 
             self.fr_img_movil .grid_forget()
 
   
-class Fr_grub_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [5]
+class Grub_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [5]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
@@ -870,7 +870,7 @@ class Fr_grub_right (Frame):  #------------------------------- DERECHA :  BASE  
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_grub_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [5]
+class Grub_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [5]
      pass
 
 
@@ -878,7 +878,7 @@ class Fr_grub_stuf (Frame):  #-------------------------------- REGLA: GAME STUF 
 ################################  F R A M E  " L I G H T "  ################################
 
 
-class Fr_light_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [6]
+class Lightning_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [6]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -904,7 +904,7 @@ class Fr_light_left (Frame):  #------------------------------ IZQUIERDA :  DELAY
             self.fr_img_movil .grid_forget()
 
   
-class Fr_light_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [6]
+class Lightning_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [6]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
@@ -931,7 +931,7 @@ class Fr_light_right (Frame):  #------------------------------- DERECHA :  BASE 
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_light_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [6]
+class Lightning_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [6]
      pass
 
 
@@ -939,7 +939,7 @@ class Fr_light_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
 ################################  F R A M E  " A D U K A "  ################################
 
 
-class Fr_aduka_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [7]
+class Aduka_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [7]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -965,7 +965,7 @@ class Fr_aduka_left (Frame):  #------------------------------ IZQUIERDA :  DELAY
             self.fr_img_movil .grid_forget()
 
   
-class Fr_aduka_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [7]
+class Aduka_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [7]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
@@ -992,7 +992,7 @@ class Fr_aduka_right (Frame):  #------------------------------- DERECHA :  BASE 
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_aduka_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [7]
+class Aduka_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [7]
      pass
 
 
@@ -1000,7 +1000,7 @@ class Fr_aduka_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
 ################################  F R A M E  " K N I G H T "  ################################
 
 
-class Fr_knight_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [8]
+class Knight_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [8]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -1026,7 +1026,7 @@ class Fr_knight_left (Frame):  #------------------------------ IZQUIERDA :  DELA
             self.fr_img_movil .grid_forget()
 
   
-class Fr_knight_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [8]
+class Knight_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [8]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
@@ -1053,7 +1053,7 @@ class Fr_knight_right (Frame):  #------------------------------- DERECHA :  BASE
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_knight_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [8]
+class Knight_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [8]
      pass
 
 
@@ -1061,7 +1061,7 @@ class Fr_knight_stuf (Frame):  #-------------------------------- REGLA: GAME STU
 ################################  F R A M E  " C A L Z I D D O N "  ################################
 
 
-class Fr_calziddon_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [9]
+class Kalsiddon_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [9]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
