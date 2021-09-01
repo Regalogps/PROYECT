@@ -1122,7 +1122,7 @@ class Kalsiddon_stuf (Frame):  #-------------------------------- REGLA: GAME STU
 ################################  F R A M E  " M A G E "  ################################
 
 
-class Mage_left_ogg (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [10]
+class Mage_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [10]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
