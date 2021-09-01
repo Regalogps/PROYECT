@@ -158,16 +158,17 @@ class Interface(Tk):
         self.frm_option5 .grid_propagate(False)
 
         #_______Widgets de :  self.frm_option5
-        self.lbl_selected = Label (self.frm_option5, text= 'Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.spinbox1 = Spinbox(self.frm_option5, values=('Frog', 'Fox', 'Boomer', 'Ice', 'J.D', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.Sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Dragon 1', 'Dragon 2'),
-                                textvariable= self.select_mobil, width=13)
-        self.btn_prueba = Button (self.frm_option5, text= 'Obtener', command= self.quetiene)
-        self.btn_prueba .grid(column= 1, row=2)
+        self.values5 = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.D', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.Sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Dragon 1', 'Dragon 2']
+        lbl_selected = Label (self.frm_option5, text= 'Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.spinbox1 = Spinbox(self.frm_option5, values=(self.values5), width=13)
+
+        btn_prueba = Button (self.frm_option5, text= 'Obtener', command= self.quetiene)
+        btn_prueba .grid(column= 1, row=2)
 
         
 
         
-        self.lbl_selected .grid(column= 0, row=0, padx=10, pady=(10,5), sticky= W)
+        lbl_selected .grid(column= 0, row=0, padx=10, pady=(10,5), sticky= W)
         self.spinbox1 .grid(column= 0, row=2, padx=10, pady=(0,6), sticky= W)
 #___
 
@@ -189,24 +190,16 @@ class Interface(Tk):
             
 
     def quetiene(self):
-        pass
-        mobil = ['Frog','Fox','Boomer','Ice','J.D','Grub','Lightning','Aduka','Knight','Kalsiddon','Mage','Randomizer','Jolteon','Turtle','Armor','A.Sate','Raon','Trico','Nak','Bigfoot','Dragon 1','Dragon 2']
-        #_list2 = ['frog','fox','boomer','ice','jd','grub','light','aduka','knight','calsiddon','mage','randomizer','jolteon','turtle','armor','asate','raon','trico','nak','bigfoot','dragon1','dragon2']
-        arg= [Frog_left_off, Frog_right, Frog_stuf]
-        for i in mobil:
-            if self.select_mobil.get() == i:
-                self.windows_123(arg[0],arg[1],arg[2])
+        
+        left = [Frog_left_off, Fox_left_off, Boomer_left_off, Ice_left_off, Jd_left_off, Grub_left_off, Lightning_left_off, Aduka_left_off, Knight_left_off, Kalsiddon_left_off, Mage_left_off, Randomizer_left_off, Jolteon_left_off, Turtle_left_off, Armor_left_off, Asate_left_off, Raon_left_off, Trico_left_off, Nak_left_off, Bigfoot_left_off, Dragon1_left_off, Dragon2_left_off,]
+        right = [Frog_right, Fox_right, Boomer_right, Ice_right, Jd_right, Grub_right, Lightning_right, Aduka_right, Knight_right, Kalsiddon_right, Mage_right, Randomizer_right, Jolteon_right, Turtle_right, Armor_right, Asate_right, Raon_right, Trico_right, Nak_right, Bigfoot_right, Dragon1_right, Dragon2_right]
+        stuf = [Frog_stuf, Fox_stuf, Boomer_stuf, Ice_stuf, Jd_stuf, Grub_stuf, Lightning_stuf, Aduka_stuf, Knight_stuf, Kalsiddon_stuf, Mage_stuf, Randomizer_stuf, Jolteon_stuf, Turtle_stuf, Armor_stuf, Asate_stuf, Raon_stuf, Trico_stuf, Nak_stuf, Bigfoot_stuf, Dragon1_stuf, Dragon2_stuf]
+        
+        for index, i in enumerate(self.values5):
+            if self.spinbox1.get() == i:
+                self.windows_123(left[index], right[index], stuf[index])
 
-        """ for i, v in zip(_list, _list2):
-            a = 'Fr_'+v+'_left'
-            b = 'Fr_'+v+'_right'
-            c = 'Fr_'+v+'_stuf'
-            #print()
-
-            if self.select_mobil.get() == i:
-                print(i)
-                
-                self.windows_123(a,b,c) """   
+ 
                                 
             
                     
@@ -228,11 +221,6 @@ class Interface(Tk):
 
         else:
             self.frm_B1 .grid()  """
-
-
-
-
-
 
 
 
