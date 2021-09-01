@@ -191,11 +191,11 @@ class Interface(Tk):
     def quetiene(self):
         pass
         mobil = ['Frog','Fox','Boomer','Ice','J.D','Grub','Lightning','Aduka','Knight','Kalsiddon','Mage','Randomizer','Jolteon','Turtle','Armor','A.Sate','Raon','Trico','Nak','Bigfoot','Dragon 1','Dragon 2']
-        _list2 = ['frog','fox','boomer','ice','jd','grub','light','aduka','knight','calsiddon','mage','randomizer','jolteon','turtle','armor','asate','raon','trico','nak','bigfoot','dragon1','dragon2']
-        arg= [[Fr_frog_left, Fr_frog_right, Fr_frog_stuf]]
+        #_list2 = ['frog','fox','boomer','ice','jd','grub','light','aduka','knight','calsiddon','mage','randomizer','jolteon','turtle','armor','asate','raon','trico','nak','bigfoot','dragon1','dragon2']
+        arg= [Frog_left_off, Frog_right, Frog_stuf]
         for i in mobil:
             if self.select_mobil.get() == i:
-                self.windows_123(listt[0],)
+                self.windows_123(arg[0],arg[1],arg[2])
 
         """ for i, v in zip(_list, _list2):
             a = 'Fr_'+v+'_left'
