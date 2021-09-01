@@ -18,7 +18,19 @@ class Interface(Tk):
         #______Lista de Imágenes         
         self.Images_1 = self.generate_list (path, 'a')                          # Lista de imgs para las ventanas: 1 y 2
         self.Images_sublist= self.generate_list (path, 's')                     # Lista de imgs para la ventana: Interface
+
         #______Métodos de Configuración y Posicionamiento de Widget: [Interface]
+
+        self.var_chek1 = IntVar()
+        self.var_chek2 = IntVar()
+        self.var_chek3 = IntVar()
+        self.var_chek4 = IntVar()
+        self.var_chek5 = IntVar()
+        self.var_chek6 = IntVar()
+        self.var_chek7 = IntVar()
+
+
+
         self. configure_interface()          
         self. widgets()   
 
@@ -32,6 +44,9 @@ class Interface(Tk):
         self.open_2 = True  
         self.open_3 = True
 
+        self.count = 1
+        
+
     def configure_interface(self):   # Configuracion de la ventana -------------------NO TOCAR (despues)
       
         #ventana.overrideredirect(1)
@@ -40,7 +55,7 @@ class Interface(Tk):
         self.geometry ('1000x150')                                 # TAMANIO DE LA VENTANA
         self.resizable (1,1)                                       # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
         self.config (bg='magenta2')                                # CONFIGURA EL FONDO DE LA VENTANA, etc
-        #self.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
+        self.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
         self.wm_attributes ('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
         #root.attributes("-alpha", 0.5 )   
 
@@ -76,7 +91,7 @@ class Interface(Tk):
             return empty       
         
     def widgets(self):  # widgets de la ventana Principal ----------------------------NO TOCAR  EDITAR DESPUES A CLASE BOTON O LABEL
-
+        self.select_mobil = StringVar(self)
         #______I N S T A N C I A S   M A P E A D O S  por  D E F E C T O :
         self.frm_A1 = Create_Frame (self, bg='#11161d', width=60, height=65)   #Color: azul marino --- Frame Contenedor del logo y la rueda            
         self.frm_B1 = Frame (self, bg='#31343a', width=756, height=65)           #Color: Plomo       --- Frame Contenedor del Contenedor de los Botones
@@ -94,85 +109,132 @@ class Interface(Tk):
 
         #______Propagación:
         self.frm_A1 .grid_propagate (False)
-        self.frm_B1 .grid_propagate(False)
+        self.frm_B1 .grid_propagate (False)
 
 #______________C O N F I G U R A C I O N  V I S U A L  de la  I N T E R F A Z :
 
-        self.frm_B2 = Frame (self, bg='#31343a', width=545, height=65)
-        self.frm_B2 .grid_propagate(False)
+        self.frm_B2 = Frame (self, bg='#31343a', width=756, height=65)
+        self.frm_B2 .grid (column= 1, row= 0, padx=0, pady=0, sticky= N)
+        self.frm_B2 .grid_propagate (False)
+        self.frm_B2 .lower (self.frm_B1)
 
         #______Widget Internos de -----> self.frm_B2 :
-        self.lbl_option1 = Label(self.frm_B2, text= "Activar aimbot :" , font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_option2 = Label(self.frm_B2, text= 'Activar aimbot: ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_option1 = Label(self.frm_B2, text= 'Activar Aimbot :' , font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_option2 = Label(self.frm_B2, text= 'Activar aimbot :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
         self.lbl_option3 = Label(self.frm_B2, text= 'Activar ddd ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_option4 = Label(self.frm_B2, text= 'Activar modo lista :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_option5 = Label(self.frm_B2, text= 'Activar modo On :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_option6 = Label(self.frm_B2, text= 'Activar modo guía :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_option7 = Label(self.frm_B2, text= 'Recordar configuracion :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_option4 = Label(self.frm_B2, text= 'Activar Modo On :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_option5 = Label(self.frm_B2, text= 'Activar Modo Lista :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_option6 = Label(self.frm_B2, text= 'Activar Modo Guía :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.lbl_option7 = Label(self.frm_B2, text= 'Recordar Configuracion :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
 
-        self.chek1 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
-        self.chek2 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
-        self.chek3 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
-        self.chek4 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
-        self.chek5 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
-        self.chek6 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
-        self.chek7 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a',)
+        self.chek2 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a')
+        self.chek1 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a')
+        self.chek3 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a')
+        self.chek4 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a')
+        self.chek5 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a', variable= self.var_chek5)
+        self.chek6 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a')
+        self.chek7 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a')
 
 #______________Posicionamiento:
-        self.lbl_option1 .grid(column=0, row=0, padx= (40,10), pady=(0,0), sticky=W)
-        self.lbl_option2 .grid(column=0, row=1, padx= (40,10), pady=(0,0), sticky=W)
-        self.lbl_option3 .grid(column=0, row=2, padx= (40,10), pady=(0,0), sticky=W)
-        self.lbl_option4 .grid(column=2, row=0, padx= (30,10), pady=(0,0), sticky=W)
-        self.lbl_option5 .grid(column=2, row=1, padx= (30,10), pady=(0,0), sticky=W)
-        self.lbl_option6 .grid(column=2, row=2, padx= (30,10), pady=(0,0), sticky=W)   
-        self.lbl_option7 .grid(column=4, row=0, padx= (30,10), pady=(0,0), sticky=W)
+        self.lbl_option1 .grid(column=0, row=0, padx= (30,10), pady=(10,0), sticky=W)
+        self.lbl_option2 .grid(column=0, row=1, padx= (30,10), pady=(0,0), sticky=W)
+        self.lbl_option3 .grid(column=2, row=0, padx= (30,10), pady=(10,0), sticky=W)
+        self.lbl_option4 .grid(column=2, row=1, padx= (30,10), pady=(0,0), sticky=W)
+        self.lbl_option5 .grid(column=4, row=0, padx= (30,10), pady=(10,0), sticky=W)
+        self.lbl_option6 .grid(column=4, row=1, padx= (30,10), pady=(0,0), sticky=W)   
+        self.lbl_option7 .grid(column=6, row=0, padx= (30,10), pady=(10,0), sticky=W)
         
-        self.chek1 .grid(column=1, row=0)
-        self.chek2 .grid(column=1, row=1)
-        self.chek3 .grid(column=1, row=2)
-        self.chek4 .grid(column=3, row=0)
-        self.chek5 .grid(column=3, row=1)
-        self.chek6 .grid(column=3, row=2)
-        self.chek7 .grid(column=5, row=0)
+        self.chek1 .grid(column=1, row=0, pady=(10,0))
+        self.chek2 .grid(column=1, row=1, pady=(0,0))
+        self.chek3 .grid(column=3, row=0, pady=(10,0))
+        self.chek4 .grid(column=3, row=1, pady=(0,0))
+        self.chek5 .grid(column=5, row=0, pady=(10,0))
+        self.chek6 .grid(column=5, row=1, pady=(0,0))
+        self.chek7 .grid(column=7, row=0, pady=(10,0))
      
-#_____________
+#_____________M O D O  L I S T A : self.lbl_option5
+
+        self.frm_option5 = Frame(self, bg='#31343a', width=756, height=65)
+        self.frm_option5 .grid_propagate(False)
+
+        #_______Widgets de :  self.frm_option5
+        self.lbl_selected = Label (self.frm_option5, text= 'Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.spinbox1 = Spinbox(self.frm_option5, values=('Frog', 'Fox', 'Boomer', 'Ice', 'J.D','Grub', 'Light', 'Aduka', 'Knight', 'Kalsiddon','Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Dragon 1', 'Dragon 2'),
+                                textvariable= self.select_mobil, width=13)
+        self.btn_prueba = Button (self.frm_option5, text= 'Obtener', command= self.quetiene)
+        self.btn_prueba .grid(column= 1, row=2)
+
+        
+
+        
+        self.lbl_selected .grid(column= 0, row=0, padx=10, pady=(10,5), sticky= W)
+        self.spinbox1 .grid(column= 0, row=2, padx=10, pady=(0,6), sticky= W)
+#___
 
     def modo2(self):
-        
-        if self.frm_B1 .grid_info() != {}: # posicionado SI
-            self.frm_B1 .grid_remove()
+  
+        if  self.count == 1:
+            self.frm_B2 .lift()
+            self.count = 0     
+        else:
+            self.frm_B2 .lower()
+            self.count = 1
 
-            self.frm_B2 .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')
-           
 
 
-        else:  # NO POSICIONADO
-            self.frm_B1 .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')
+        if self.var_chek5.get() == 1:
+            self.frm_option5 .grid (column= 1, row= 0, padx=0, pady=0, sticky= N) 
+        else:
+            self.frm_option5 .grid_remove()
             
-            self.frm_B2.grid_remove()
-            
-        #self.frm_B1 = Frame (self, bg='#31343a', width=756, height=65)
 
-    def configure_height(self):  # Metodo para configurar Frame ---------------------NO TOCAR
+    def quetiene(self):
+        pass
+        _list = ['Frog','Fox','Boomer','Ice','J.D','Grub','Light','Aduka','Knight','Kalsiddon','Mage','Randomizer','Jolteon','Turtle','Armor','A.Sate','Raon','Trico','Nak','Bigfoot','Dragon 1','Dragon 2']
+        _list2 = ['frog','fox','boomer','ice','jd','grub','light','aduka','knight','calsiddon','mage','randomizer','jolteon','turtle','armor','asate','raon','trico','nak','bigfoot','dragon1','dragon2']
+        listt= [[Fr_frog_left, Fr_frog_right, Fr_frog_stuf]]
+        for i in _list:
+            if self.select_mobil.get() == i:
+                self.windows_123(listt[0])
+
+        """ for i, v in zip(_list, _list2):
+            a = 'Fr_'+v+'_left'
+            b = 'Fr_'+v+'_right'
+            c = 'Fr_'+v+'_stuf'
+            #print()
+
+            if self.select_mobil.get() == i:
+                print(i)
+                
+                self.windows_123(a,b,c) """   
+                                
+            
+                    
+
+    def configure_height(self):  # Metodo DESABILITADO
               
         if self.frm_A1 .winfo_reqheight() == 65:
             self.frm_A1 .config (width=60, height=165)   
         else:
             self.frm_A1 .config (width=60, height=65)
 
-    def remove_frame(self):  # Metodo para Remover Frame ----------------------------NO TOCAR
+    def remove_frame(self):  # Metodo LOGO
 
-        if self.frm_B1 .winfo_ismapped() == True or self.frm.B2 .winfo_ismapped():   
+        """ if self.frm_B1 .winfo_ismapped() == True or self.frm.B2 .winfo_ismapped()== True or self.frm_C1 .winfo_ismapped():   
             self.frm_B1 .grid_remove()   
             self.frm_B2 .grid_remove()
 
-        else:
-            self.frm_B1 .grid() 
+            self.frm_C1 .grid_remove()
 
-        if self.frm_plomo2 .winfo_ismapped():      
-            self.frm_plomo2 .grid_remove()   
         else:
-            self.frm_plomo2 .grid()  
+            self.frm_B1 .grid()  """
+
+
+
+
+
+
+
 
 ############   M E T O D O S   P A R A   G E S T I O N A R   L A S   V E N T A N A S   S U P E R I O R E S   ############ 
 
@@ -310,7 +372,7 @@ class Create_Frame (Frame):
         self.Raon_17 = Button (self, text='Raon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_raon_left, Fr_raon_right, Fr_raon_stuf)) 
         self.Trico_18 = Button (self, text='Trico', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_trico_left, Fr_trico_right, Fr_trico_stuf))
         self.Nak_19 = Button (self, text='Nak', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_nak_left, Fr_nak_right, Fr_nak_stuf)) 
-        self.Big_20 = Button (self, text='Big foot', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_big_left, Fr_big_right, Fr_big_stuf)) 
+        self.Big_20 = Button (self, text='Bigfoot', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_big_left, Fr_big_right, Fr_big_stuf)) 
         self.Dragon1_21 = Button (self, text='Dragon 1', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_dragon1_left, Fr_dragon1_right, Fr_dragon1_stuf)) 
         self.Dragon2_22 = Button (self, text='Dragon 2', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_dragon2_left, Fr_dragon2_right, Fr_dragon2_stuf))
                 
@@ -370,7 +432,7 @@ class Example(Frame, Interface):
 ################################   F R A M E  " F R O G "  ################################  
 
 
-class Fr_frog_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [0] 
+class Fr_frog_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [0] 
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -433,7 +495,7 @@ class Fr_frog_stuf (Frame):  #-------------------------------- REGLA: GAME STUF 
 ################################   F R A M E  " F O X "  ################################
 
 
-class Fr_fox_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [1]
+class Fr_fox_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [1]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -499,13 +561,7 @@ class Fr_fox_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  
 
 
 
-
-
-
-
-
-
-class Fr_boomer_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [2]
+class Fr_boomer_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [2]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs) 
@@ -548,13 +604,6 @@ class Fr_boomer_left (Frame, Interface):  #------------------------------ IZQUIE
         
         self.lbl_guia.place(x= getx, y= gety)
                 
-
-
-
-
-
-
-
   
 class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [2]
 
@@ -638,7 +687,7 @@ class Fr_boomer_stuf (Frame):  #-------------------------------- REGLA: GAME STU
 ################################  F R A M E  " I C E "  ################################
 
 
-class Fr_ice_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [3]
+class Fr_ice_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [3]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -701,7 +750,7 @@ class Fr_ice_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  
 ################################  F R A M E  " J D "  ################################
 
 
-class Fr_jd_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [4]
+class Fr_jd_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [4]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -765,7 +814,7 @@ class Fr_jd_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _
 ################################  F R A M E  " G R U B "  ################################
 
 
-class Fr_grub_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [5]
+class Fr_grub_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [5]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -829,7 +878,7 @@ class Fr_grub_stuf (Frame):  #-------------------------------- REGLA: GAME STUF 
 ################################  F R A M E  " L I G H T "  ################################
 
 
-class Fr_light_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [6]
+class Fr_light_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [6]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -890,7 +939,7 @@ class Fr_light_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
 ################################  F R A M E  " A D U K A "  ################################
 
 
-class Fr_aduka_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [7]
+class Fr_aduka_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [7]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -951,7 +1000,7 @@ class Fr_aduka_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
 ################################  F R A M E  " K N I G H T "  ################################
 
 
-class Fr_knight_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [8]
+class Fr_knight_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [8]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -1012,7 +1061,7 @@ class Fr_knight_stuf (Frame):  #-------------------------------- REGLA: GAME STU
 ################################  F R A M E  " C A L Z I D D O N "  ################################
 
 
-class Fr_calziddon_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [9]
+class Fr_calziddon_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [9]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -1073,7 +1122,7 @@ class Fr_calziddon_stuf (Frame):  #-------------------------------- REGLA: GAME 
 ################################  F R A M E  " M A G E "  ################################
 
 
-class Fr_mage_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [10]
+class Fr_mage_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [10]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -1134,7 +1183,7 @@ class Fr_mage_stuf (Frame):  #-------------------------------- REGLA: GAME STUF 
 ################################  F R A M E  " R A N D O M I Z E R "  ################################
 
 
-class Fr_randomizer_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [11]
+class Fr_randomizer_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [11]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -1195,7 +1244,7 @@ class Fr_randomizer_stuf (Frame):  #-------------------------------- REGLA: GAME
 ################################  F R A M E  " J O L T E O N "  ################################
 
 
-class Fr_jolteon_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [12]
+class Fr_jolteon_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [12]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -1255,7 +1304,7 @@ class Fr_jolteon_stuf (Frame):  #-------------------------------- REGLA: GAME ST
 ################################  F R A M E  " T U R T L E "  ################################
 ################################  F R A M E  " T U R T L E "  ################################
 
-class Fr_turtle_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [13]
+class Fr_turtle_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [13]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -1316,7 +1365,7 @@ class Fr_turtle_stuf (Frame):  #-------------------------------- REGLA: GAME STU
 ################################  F R A M E  " A R M O R "  ################################
 
 
-class Fr_armor_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [14]
+class Fr_armor_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [14]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -1377,7 +1426,7 @@ class Fr_armor_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
 ################################  F R A M E  " A S A T E "  ################################
 
 
-class Fr_asate_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [15]
+class Fr_asate_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [15]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -1438,7 +1487,7 @@ class Fr_asate_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
 ################################  F R A M E  " R A O N "  ################################
 
 
-class Fr_raon_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [16]
+class Fr_raon_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [16]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -1499,7 +1548,7 @@ class Fr_raon_stuf (Frame):  #-------------------------------- REGLA: GAME STUF 
 ################################  F R A M E  " T R I C O "  ################################
 
 
-class Fr_trico_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [17]
+class Fr_trico_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [17]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -1560,7 +1609,7 @@ class Fr_trico_stuf (Frame):  #-------------------------------- REGLA: GAME STUF
 ################################  F R A M E  " N A K "  ################################
 
 
-class Fr_nak_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [18]
+class Fr_nak_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [18]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -1621,7 +1670,7 @@ class Fr_nak_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  
 ################################  F R A M E  " B I G "  ################################
 
 
-class Fr_big_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [19]
+class Fr_big_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [19]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -1682,7 +1731,7 @@ class Fr_big_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  
 ################################  F R A M E  " D R A G O N '1' "  ################################
 
 
-class Fr_dragon1_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [20]
+class Fr_dragon1_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [20]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -1743,7 +1792,7 @@ class Fr_dragon1_stuf (Frame):  #-------------------------------- REGLA: GAME ST
 ################################  F R A M E  " D R A G O N '2' "  ################################
 
 
-class Fr_dragon2_left (Frame, Interface):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [21]
+class Fr_dragon2_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [21]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
