@@ -159,7 +159,7 @@ class Interface(Tk):
 
         #_______Widgets de :  self.frm_option5
         self.lbl_selected = Label (self.frm_option5, text= 'Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.spinbox1 = Spinbox(self.frm_option5, values=('Frog', 'Fox', 'Boomer', 'Ice', 'J.D','Grub', 'Light', 'Aduka', 'Knight', 'Kalsiddon','Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Dragon 1', 'Dragon 2'),
+        self.spinbox1 = Spinbox(self.frm_option5, values=('Frog', 'Fox', 'Boomer', 'Ice', 'J.D', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.Sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Dragon 1', 'Dragon 2'),
                                 textvariable= self.select_mobil, width=13)
         self.btn_prueba = Button (self.frm_option5, text= 'Obtener', command= self.quetiene)
         self.btn_prueba .grid(column= 1, row=2)
