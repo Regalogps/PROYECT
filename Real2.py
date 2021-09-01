@@ -358,7 +358,7 @@ class Create_Frame (Frame):
         self.Ice_4 = Button (self, text='Ice', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_ice_left, Fr_ice_right, Fr_ice_stuf))
         self.JD_5 = Button (self, text='J.D', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_jd_left, Fr_jd_right, Fr_jd_stuf))
         self.Grub_6 = Button (self, text='Grub', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_grub_left, Fr_grub_right, Fr_grub_stuf))   
-        self.Light_7 = Button (self, text='Light', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width=10, bd=0, command= lambda: self.master.master.windows_123 (Fr_light_left, Fr_light_right, Fr_light_stuf))       
+        self.Lightning_7 = Button (self, text='Lightning', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width=10, bd=0, command= lambda: self.master.master.windows_123 (Fr_light_left, Fr_light_right, Fr_light_stuf))       
         self.Aduka_8 = Button (self, text='Aduka', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_aduka_left, Fr_aduka_right, Fr_aduka_stuf))      
         self.Knight_9 = Button (self, text='Knight', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_knight_left, Fr_knight_right, Fr_knight_stuf))     
         self.Kalsiddon_10 = Button (self, text='Kalsiddon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_calziddon_left, Fr_calziddon_right, Fr_calziddon_stuf))
@@ -372,7 +372,7 @@ class Create_Frame (Frame):
         self.Raon_17 = Button (self, text='Raon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_raon_left, Fr_raon_right, Fr_raon_stuf)) 
         self.Trico_18 = Button (self, text='Trico', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_trico_left, Fr_trico_right, Fr_trico_stuf))
         self.Nak_19 = Button (self, text='Nak', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_nak_left, Fr_nak_right, Fr_nak_stuf)) 
-        self.Big_20 = Button (self, text='Bigfoot', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_big_left, Fr_big_right, Fr_big_stuf)) 
+        self.Bigfoot_20 = Button (self, text='Bigfoot', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_big_left, Fr_big_right, Fr_big_stuf)) 
         self.Dragon1_21 = Button (self, text='Dragon 1', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_dragon1_left, Fr_dragon1_right, Fr_dragon1_stuf)) 
         self.Dragon2_22 = Button (self, text='Dragon 2', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fr_dragon2_left, Fr_dragon2_right, Fr_dragon2_stuf))
                 
@@ -382,7 +382,7 @@ class Create_Frame (Frame):
         self.Ice_4 .grid (column= 4, row= 1, pady= 3, padx= (0,0))
         self.JD_5 .grid (column= 5, row= 1, pady= 3, padx= (0,0))
         self.Grub_6 .grid (column= 6, row= 1, pady= 3, padx= (0,0))
-        self.Light_7 .grid (column= 7, row= 1, pady= 3, padx= (0,0))
+        self.Lightning_7 .grid (column= 7, row= 1, pady= 3, padx= (0,0))
         self.Aduka_8 .grid (column= 8, row= 1, pady= 3, padx= (0,0))
         self.Knight_9 .grid (column= 9, row= 1, pady= 3, padx= (0,0))
         self.Kalsiddon_10 .grid (column= 10, row= 1, pady= 3, padx= (0,0))
@@ -396,13 +396,13 @@ class Create_Frame (Frame):
         self.Raon_17 .grid (column= 6, row= 2, pady= 2, padx= (0,0))
         self.Trico_18 .grid (column= 7, row= 2, pady= 2, padx= (0,0))
         self.Nak_19 .grid (column= 8, row= 2, pady= 2, padx= (0,0))
-        self.Big_20 .grid (column= 9, row= 2, pady= 2, padx= (0,0))
+        self.Bigfoot_20 .grid (column= 9, row= 2, pady= 2, padx= (0,0))
         self.Dragon1_21 .grid (column= 10, row= 2, pady= 2, padx= (0,0))
         self.Dragon2_22 .grid (column= 11, row= 2, pady= 2, padx= (0,5))
         
 
 
-class Example(Frame, Interface):
+class Example(Frame):
     def __init__(self, master, index, *args, **kwargs):
         Frame.__init__(self, master, *args, kwargs)
         
@@ -432,7 +432,7 @@ class Example(Frame, Interface):
 ################################   F R A M E  " F R O G "  ################################  
 
 
-class Fr_frog_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [0] 
+class Frm_frog_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [0] 
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -458,7 +458,7 @@ class Fr_frog_left (Frame):  #------------------------------ IZQUIERDA :  DELAY 
             self.fr_img_movil .grid_forget()
 
     
-class Fr_frog_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [0] 
+class Frm_frog_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [0] 
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
@@ -488,14 +488,14 @@ class Fr_frog_right (Frame):  #------------------------------- DERECHA :  BASE  
                 self.fr_img_77 . grid_forget()
     
 
-class Fr_frog_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [0]
+class Frm_frog_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [0]
      pass
 
 ################################   F R A M E  " F O X "  ################################
 ################################   F R A M E  " F O X "  ################################
 
 
-class Fr_fox_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [1]
+class Frm_fox_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [1]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -521,7 +521,7 @@ class Fr_fox_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  
             self.fr_img_movil .grid_forget()
 
  
-class Fr_fox_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [1]
+class Frm_fox_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [1]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
@@ -551,7 +551,7 @@ class Fr_fox_right (Frame):  #------------------------------- DERECHA :  BASE  /
                 self.fr_img_77 . grid_forget()
 
 
-class Fr_fox_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [1]
+class Frm_fox_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [1]
      pass
 
 ################################   F R A M E  " B O O M E R "  ################################
@@ -561,7 +561,7 @@ class Fr_fox_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  
 
 
 
-class Fr_boomer_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [2]
+class Frm_boomer_left (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [2]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs) 
@@ -605,7 +605,7 @@ class Fr_boomer_left (Frame):  #------------------------------ IZQUIERDA :  DELA
         self.lbl_guia.place(x= getx, y= gety)
                 
   
-class Fr_boomer_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [2]
+class Frm_boomer_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [2]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
