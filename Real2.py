@@ -175,7 +175,7 @@ class Interface(Tk):
         lbl_selected .grid(column= 0, row=0, padx=10, pady=(10,5), sticky= W)
         self.spinbox .grid(column= 0, row=2, padx=10, pady=(0,6), sticky= W)
 
-    def frm_A1_focus(self):                # Metodo de frm_A1:   Se activa cuando se da clik en la rueda de configuracion
+    def gear_stacking(self):                # Metodo de frm_A1:   Se activa cuando se da clik en la rueda de configuracion
   
         if  self.var_focus == 1:           # Valor predeterminado 1
             self.frm_B2 .lift()            # encima
@@ -191,7 +191,7 @@ class Interface(Tk):
             self.frm_B3 .grid_remove()
             self.frm_B1 .focus()
 
-    def event_option5 (self, event):
+    def event_spinbox (self, event):
         
         left = [Frog_left_off, Fox_left_off, Boomer_left_off, Ice_left_off, Jd_left_off, Grub_left_off, Lightning_left_off, Aduka_left_off, Knight_left_off, Kalsiddon_left_off, Mage_left_off, Randomizer_left_off, Jolteon_left_off, Turtle_left_off, Armor_left_off, Asate_left_off, Raon_left_off, Trico_left_off, Nak_left_off, Bigfoot_left_off, Dragon1_left_off, Dragon2_left_off,]
         right = [Frog_right, Fox_right, Boomer_right, Ice_right, Jd_right, Grub_right, Lightning_right, Aduka_right, Knight_right, Kalsiddon_right, Mage_right, Randomizer_right, Jolteon_right, Turtle_right, Armor_right, Asate_right, Raon_right, Trico_right, Nak_right, Bigfoot_right, Dragon1_right, Dragon2_right]
@@ -334,7 +334,7 @@ class Create_Frame (Frame):
           
     def img_gear(self):   # Metodo que crea -1- Boton (rueda)-----------------NO TOCAR (despues)
 
-        self.btn_gear = Button (self, image= self.master.Images_sublist [1], bg= '#11161d', bd= 0, activebackground= '#11161d', command= self.master.frm_A1_focus)  # akl era  command= self.master.configure_height
+        self.btn_gear = Button (self, image= self.master.Images_sublist [1], bg= '#11161d', bd= 0, activebackground= '#11161d', command= self.master.gear_stacking)        # akl era  command= self.master.configure_height
         self.btn_gear .grid (column= 0, row= 1)
        
     def img_moviles(self):   # Metodo que crea -22- Botones (moviles)  #command = lambda:images(1))
