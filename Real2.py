@@ -171,15 +171,15 @@ class Interface(Tk):
         self.spinbox1 = Spinbox(self.frm_option5, values=(self.values5), width=13)      
         self.spinbox1 .bind('<Return>', self.event_option5)
         
-        #______Posicionamiento:
+        #______Posicionamiento:ed69137
         lbl_selected .grid(column= 0, row=0, padx=10, pady=(10,5), sticky= W)
         self.spinbox1 .grid(column= 0, row=2, padx=10, pady=(0,6), sticky= W)
 
     def frm_A1_focus(self):                # Metodo de frm_A1:   Se activa cuando se da clik en la rueda de configuracion
   
-        if  self.var_focus == 1:           # Valor predeterminado 1
+        if  self.var_focus == 1:           # Valor predeterminado 1sdfsfsfsfs
             self.frm_B2 .lift()            # encima
-            self.var_focus = 0             # variable de control : off
+            self.var_focus = 0             # variable de control : offsfsfsf
         else:
             self.frm_B2 .lower()           # debajo
             self.var_focus = 1             # variable de control : on
