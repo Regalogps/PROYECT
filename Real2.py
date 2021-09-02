@@ -243,7 +243,7 @@ class Interface(Tk):
         
         self.toplevel_LEFT .protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(1))
 
-#_______
+    #_______
 
         if self.open_2 == True:
             self.toplevel_RIGHT = _Toplevel()  #############################################################   VENTANA TOPLEVEL DERECHA
@@ -261,7 +261,7 @@ class Interface(Tk):
 
         self.toplevel_RIGHT.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(2))
 
-#_______ desde aqui falta completar este if
+    #_______ desde aqui falta completar este if
         
         if self.open_3 == True:
             self.toplevel_STUF = _Toplevel()  #############################################################   VENTANA TOPLEVEL STUFF
