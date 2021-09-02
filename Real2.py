@@ -168,12 +168,12 @@ class Interface(Tk):
         lbl_selected = Label (self.frm_option5, text= 'Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
 
         #______W I D G E T :    S P I N B O X
-        self.spinbox1 = Spinbox(self.frm_option5, values=(self.values5), width=13)      
-        self.spinbox1 .bind('<Return>', self.event_option5)
+        self.spinbox = Spinbox(self.frm_option5, values=(self.values5), width=13)      
+        self.spinbox .bind('<Return>', self.event_option5)
         
         #______Posicionamiento:
         lbl_selected .grid(column= 0, row=0, padx=10, pady=(10,5), sticky= W)
-        self.spinbox1 .grid(column= 0, row=2, padx=10, pady=(0,6), sticky= W)
+        self.spinbox .grid(column= 0, row=2, padx=10, pady=(0,6), sticky= W)
 
     def frm_A1_focus(self):                # Metodo de frm_A1:   Se activa cuando se da clik en la rueda de configuracion
   
@@ -186,7 +186,7 @@ class Interface(Tk):
 
         if self.var_chek5 .get() == 1:                                             # VALOR DE LA CASILLA ES: 1 CUANDO ESTA MARCADA 
             self.frm_option5 .grid (column= 1, row= 0, padx=0, pady=0, sticky= N)  # POSICIONA
-            self.spinbox1 .focus()                                                 # LE DA EL FOCO A SU WIDGER INTERNO
+            self.spinbox .focus()                                                 # LE DA EL FOCO A SU WIDGER INTERNO
         else:
             self.frm_option5 .grid_remove()
             self.frm_B1 .focus()
@@ -198,7 +198,7 @@ class Interface(Tk):
         stuf = [Frog_stuf, Fox_stuf, Boomer_stuf, Ice_stuf, Jd_stuf, Grub_stuf, Lightning_stuf, Aduka_stuf, Knight_stuf, Kalsiddon_stuf, Mage_stuf, Randomizer_stuf, Jolteon_stuf, Turtle_stuf, Armor_stuf, Asate_stuf, Raon_stuf, Trico_stuf, Nak_stuf, Bigfoot_stuf, Dragon1_stuf, Dragon2_stuf]
         
         for index, i in enumerate(self.values5):
-            if self.spinbox1.get() == i:
+            if self.spinbox.get() == i:
                 self.windows_123(left[index], right[index], stuf[index])  
 
 
