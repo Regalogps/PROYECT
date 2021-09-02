@@ -1,5 +1,13 @@
-a ='fox'
+import tkinter as tk
 
-aa ='el'+a+'ttt'
+def keypress(event): 
+    if event.keysym == 'Escape':
+        mainRoot.destroy() 
+        keyPressed = event.char 
+        print ("You pressed: ") + keyPressed
 
-print(aa)
+mainRoot = tk.Tk()
+print ("Press a key (Escape key to exit):" )
+mainRoot.bind_all('', keypress) 
+mainRoot.withdraw() 
+mainRoot.mainloop()

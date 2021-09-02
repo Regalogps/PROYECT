@@ -13,27 +13,14 @@ class Interface(Tk):
 
     def __init__(self): #-------------------------------------------------------------NO TOCAR     
         super().__init__()                                                      # Llamando a Tk ()
-
+        
         path = 'E:/1-RICHI/MovilesDB'
         #______Lista de Imágenes         
         self.Images_1 = self.generate_list (path, 'a')                          # Lista de imgs para las ventanas: 1 y 2
         self.Images_sublist= self.generate_list (path, 's')                     # Lista de imgs para la ventana: Interface
-
         #______Métodos de Configuración y Posicionamiento de Widget: [Interface]
-
-        self.var_chek1 = IntVar()
-        self.var_chek2 = IntVar()
-        self.var_chek3 = IntVar()
-        self.var_chek4 = IntVar()
-        self.var_chek5 = IntVar()
-        self.var_chek6 = IntVar()
-        self.var_chek7 = IntVar()
-
-
-
         self. configure_interface()          
         self. widgets()   
-
         #______V A R I A B L E S  de  C O N T R O L  para las  V E N T A N A S   S U P E R I O R E S :  [1, 2, 3]
 
         self._frame_1 = None
@@ -44,7 +31,8 @@ class Interface(Tk):
         self.open_2 = True  
         self.open_3 = True
 
-        self.count = 1
+        #______V A R I A B L E S  de  C O N T R O L  S E G U N D A R I A S
+        self.var_focus = 1
         
 
     def configure_interface(self):   # Configuracion de la ventana -------------------NO TOCAR (despues)
@@ -91,105 +79,119 @@ class Interface(Tk):
             return empty       
         
     def widgets(self):  # widgets de la ventana Principal ----------------------------NO TOCAR  EDITAR DESPUES A CLASE BOTON O LABEL
-        self.select_mobil = StringVar(self)
-        #______I N S T A N C I A S   M A P E A D O S  por  D E F E C T O :
-        self.frm_A1 = Create_Frame (self, bg='#11161d', width=60, height=65)   #Color: azul marino --- Frame Contenedor del logo y la rueda            
-        self.frm_B1 = Frame (self, bg='#31343a', width=756, height=65)           #Color: Plomo       --- Frame Contenedor del Contenedor de los Botones
-        self.frm_b1 = Create_Frame (self.frm_B1, bg = '#11161d',)    #Color: azul marino --- Frame Contenedor de los Botones
+               
+#______________I N S T A N C I A S   M A P E A D O S  por  D E F E C T O :
 
-#______________Posicionamiento:
-        self.frm_A1 .grid (column= 0, row= 0, padx=(0,0), pady=(0,0))    # Instancia
-        self.frm_B1 .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')  # Frame 
-        self.frm_b1 .grid (padx = (10,10), pady = (6,6))          # Instancia
+        self.frm_A1 = Create_Frame (self, bg='#11161d', width=60, height=65)   # Color: Azul        --- Frame Contenedor del logo y la rueda            
+        self.frm_B1 = Frame (self, bg='#31343a', width=756, height=65)         # Color: Plomo       --- Frame Contenedor del Contenedor de los Botones
+        self.frm_b1 = Create_Frame (self.frm_B1, bg = '#11161d',)              # Color: Azul        --- Frame Contenedor de los Botones
+
+        #______Posicionamiento:
+
+        self.frm_A1 .grid (column= 0, row= 0, padx=(0,0), pady=(0,0))          # Instancia
+        self.frm_B1 .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')      # Frame 
+        self.frm_b1 .grid (padx = (10,10), pady = (6,6))                       # Instancia
 
         #______Metodos de Instancias:
-        self.frm_A1 .img_gear()                                                # Metodo de la clase segundaria                                              
+
         self.frm_A1 .img_ash()
+        self.frm_A1 .img_gear() 
         self.frm_b1 .img_moviles()
 
         #______Propagación:
+
         self.frm_A1 .grid_propagate (False)
         self.frm_B1 .grid_propagate (False)
 
-#______________C O N F I G U R A C I O N  V I S U A L  de la  I N T E R F A Z :
+#______________C O N F I G U R A C I O N  V I S U A L :
 
+        #______W I D G E T :   P A D R E
         self.frm_B2 = Frame (self, bg='#31343a', width=756, height=65)
         self.frm_B2 .grid (column= 1, row= 0, padx=0, pady=0, sticky= N)
         self.frm_B2 .grid_propagate (False)
         self.frm_B2 .lower (self.frm_B1)
 
-        #______Widget Internos de -----> self.frm_B2 :
-        self.lbl_option1 = Label(self.frm_B2, text= 'Activar Aimbot :' , font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_option2 = Label(self.frm_B2, text= 'Activar aimbot :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_option3 = Label(self.frm_B2, text= 'Activar ddd ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_option4 = Label(self.frm_B2, text= 'Activar Modo On :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_option5 = Label(self.frm_B2, text= 'Activar Modo Lista :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_option6 = Label(self.frm_B2, text= 'Activar Modo Guía :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.lbl_option7 = Label(self.frm_B2, text= 'Recordar Configuracion :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        #______W I D G E T :   I N T V A R
+        self.var_chek1 = IntVar()
+        self.var_chek2 = IntVar()
+        self.var_chek3 = IntVar()       
+        self.var_chek4 = IntVar()
+        self.var_chek5 = IntVar()
+        self.var_chek6 = IntVar()
+        self.var_chek7 = IntVar()
 
-        self.chek2 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a')
-        self.chek1 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a')
-        self.chek3 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a')
-        self.chek4 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a')
-        self.chek5 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a', variable= self.var_chek5)
-        self.chek6 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a')
-        self.chek7 = Checkbutton(self.frm_B2, bd=0, borderwidth=0, bg='#31343a', activebackground= '#31343a')
+        #______W I D G E T :   L A B E L 
+        lbl_option1 = Label (self.frm_B2, text= 'Activar Aimbot :' , font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        lbl_option2 = Label (self.frm_B2, text= 'Activar aimbot :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        lbl_option3 = Label (self.frm_B2, text= 'Activar ddd ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        lbl_option4 = Label (self.frm_B2, text= 'Activar Modo On :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        lbl_option5 = Label (self.frm_B2, text= 'Activar Modo Lista :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        lbl_option6 = Label (self.frm_B2, text= 'Activar Modo Guía :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        lbl_option7 = Label (self.frm_B2, text= 'Recordar Configuracion :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
 
-#______________Posicionamiento:
-        self.lbl_option1 .grid(column=0, row=0, padx= (30,10), pady=(10,0), sticky=W)
-        self.lbl_option2 .grid(column=0, row=1, padx= (30,10), pady=(0,0), sticky=W)
-        self.lbl_option3 .grid(column=2, row=0, padx= (30,10), pady=(10,0), sticky=W)
-        self.lbl_option4 .grid(column=2, row=1, padx= (30,10), pady=(0,0), sticky=W)
-        self.lbl_option5 .grid(column=4, row=0, padx= (30,10), pady=(10,0), sticky=W)
-        self.lbl_option6 .grid(column=4, row=1, padx= (30,10), pady=(0,0), sticky=W)   
-        self.lbl_option7 .grid(column=6, row=0, padx= (30,10), pady=(10,0), sticky=W)
+        #______W I D G E T :   C H E C K B U T T O N
+        chek2 = Checkbutton (self.frm_B2,  bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        chek1 = Checkbutton (self.frm_B2,  bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        chek3 = Checkbutton (self.frm_B2,  bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        chek4 = Checkbutton (self.frm_B2,  bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        chek5 = Checkbutton (self.frm_B2,  bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0, variable= self.var_chek5)
+        chek6 = Checkbutton (self.frm_B2,  bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        chek7 = Checkbutton (self.frm_B2,  bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+
+        #______Posicionamiento:
+        lbl_option1 .grid (column=0, row=0, padx= (30,10), pady=(10,0), sticky=W)
+        lbl_option2 .grid (column=0, row=1, padx= (30,10), pady=(0,0), sticky=W)
+        lbl_option3 .grid (column=2, row=0, padx= (30,10), pady=(10,0), sticky=W)
+        lbl_option4 .grid (column=2, row=1, padx= (30,10), pady=(0,0), sticky=W)
+        lbl_option5 .grid (column=4, row=0, padx= (30,10), pady=(10,0), sticky=W)
+        lbl_option6 .grid (column=4, row=1, padx= (30,10), pady=(0,0), sticky=W)   
+        lbl_option7 .grid (column=6, row=0, padx= (30,10), pady=(10,0), sticky=W)
         
-        self.chek1 .grid(column=1, row=0, pady=(10,0))
-        self.chek2 .grid(column=1, row=1, pady=(0,0))
-        self.chek3 .grid(column=3, row=0, pady=(10,0))
-        self.chek4 .grid(column=3, row=1, pady=(0,0))
-        self.chek5 .grid(column=5, row=0, pady=(10,0))
-        self.chek6 .grid(column=5, row=1, pady=(0,0))
-        self.chek7 .grid(column=7, row=0, pady=(10,0))
+        chek1 .grid (column=1, row=0, pady=(10,0))
+        chek2 .grid (column=1, row=1, pady=(0,0))
+        chek3 .grid (column=3, row=0, pady=(10,0))
+        chek4 .grid (column=3, row=1, pady=(0,0))
+        chek5 .grid (column=5, row=0, pady=(10,0))
+        chek6 .grid (column=5, row=1, pady=(0,0))
+        chek7 .grid (column=7, row=0, pady=(10,0))
      
-#_____________M O D O  L I S T A : self.lbl_option5
+#______________C O N F I G U R A C I O N  V I S U A L :      M O D O  L I S T A :      O P T I O N ----> N° 5
 
+        #______W I D G E T :   P A D R E
         self.frm_option5 = Frame(self, bg='#31343a', width=756, height=65)
         self.frm_option5 .grid_propagate(False)
 
-        #_______Widgets de :  self.frm_option5
+        #______V A R I A B L E S    DE   C O N T R O L :
         self.values5 = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.D', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.Sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Dragon 1', 'Dragon 2']
+
+        #______W I D G E T :    L A B E L
         lbl_selected = Label (self.frm_option5, text= 'Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.spinbox1 = Spinbox(self.frm_option5, values=(self.values5), width=13)
 
-        btn_prueba = Button (self.frm_option5, text= 'Obtener', command= self.quetiene)
-        btn_prueba .grid(column= 1, row=2)
-
+        #______W I D G E T :    S P I N B O X
+        self.spinbox1 = Spinbox(self.frm_option5, values=(self.values5), width=13)      
+        self.spinbox1 .bind('<Return>', self.event_option5)
         
-
-        
+        #______Posicionamiento:
         lbl_selected .grid(column= 0, row=0, padx=10, pady=(10,5), sticky= W)
         self.spinbox1 .grid(column= 0, row=2, padx=10, pady=(0,6), sticky= W)
-#___
 
-    def modo2(self):
+    def frm_A1_focus(self):                # Metodo de frm_A1:   Se activa cuando se da clik en la rueda de configuracion
   
-        if  self.count == 1:
-            self.frm_B2 .lift()
-            self.count = 0     
+        if  self.var_focus == 1:           # Valor predeterminado 1
+            self.frm_B2 .lift()            # encima
+            self.var_focus = 0             # variable de control : off
         else:
-            self.frm_B2 .lower()
-            self.count = 1
+            self.frm_B2 .lower()           # debajo
+            self.var_focus = 1             # variable de control : on
 
-
-
-        if self.var_chek5.get() == 1:
-            self.frm_option5 .grid (column= 1, row= 0, padx=0, pady=0, sticky= N) 
+        if self.var_chek5 .get() == 1:                                             # VALOR DE LA CASILLA ES: 1 CUANDO ESTA MARCADA 
+            self.frm_option5 .grid (column= 1, row= 0, padx=0, pady=0, sticky= N)  # POSICIONA
+            self.spinbox1 .focus()                                                 # LE DA EL FOCO A SU WIDGER INTERNO
         else:
             self.frm_option5 .grid_remove()
-            
+            self.frm_B1 .focus()
 
-    def quetiene(self):
+    def event_option5 (self, event):
         
         left = [Frog_left_off, Fox_left_off, Boomer_left_off, Ice_left_off, Jd_left_off, Grub_left_off, Lightning_left_off, Aduka_left_off, Knight_left_off, Kalsiddon_left_off, Mage_left_off, Randomizer_left_off, Jolteon_left_off, Turtle_left_off, Armor_left_off, Asate_left_off, Raon_left_off, Trico_left_off, Nak_left_off, Bigfoot_left_off, Dragon1_left_off, Dragon2_left_off,]
         right = [Frog_right, Fox_right, Boomer_right, Ice_right, Jd_right, Grub_right, Lightning_right, Aduka_right, Knight_right, Kalsiddon_right, Mage_right, Randomizer_right, Jolteon_right, Turtle_right, Armor_right, Asate_right, Raon_right, Trico_right, Nak_right, Bigfoot_right, Dragon1_right, Dragon2_right]
@@ -197,21 +199,18 @@ class Interface(Tk):
         
         for index, i in enumerate(self.values5):
             if self.spinbox1.get() == i:
-                self.windows_123(left[index], right[index], stuf[index])
+                self.windows_123(left[index], right[index], stuf[index])  
 
- 
-                                
-            
-                    
 
-    def configure_height(self):  # Metodo DESABILITADO
+
+    def configure_height (self):  # Metodo DESABILITADO
               
         if self.frm_A1 .winfo_reqheight() == 65:
             self.frm_A1 .config (width=60, height=165)   
         else:
             self.frm_A1 .config (width=60, height=65)
 
-    def remove_frame(self):  # Metodo LOGO
+    def remove_frame (self):  # Metodo LOGO
 
         """ if self.frm_B1 .winfo_ismapped() == True or self.frm.B2 .winfo_ismapped()== True or self.frm_C1 .winfo_ismapped():   
             self.frm_B1 .grid_remove()   
@@ -226,7 +225,7 @@ class Interface(Tk):
 
 ############   M E T O D O S   P A R A   G E S T I O N A R   L A S   V E N T A N A S   S U P E R I O R E S   ############ 
 
-    def windows_123(self, var_1, var_2, var_3):
+    def windows_123 (self, var_1, var_2, var_3):
 
         if self.open_1 == True: 
             self.toplevel_LEFT = _Toplevel()  #############################################################   VENTANA TOPLEVEL IZQUIERDA
@@ -335,7 +334,7 @@ class Create_Frame (Frame):
           
     def img_gear(self):   # Metodo que crea -1- Boton (rueda)-----------------NO TOCAR (despues)
 
-        self.btn_gear = Button (self, image= self.master.Images_sublist [1], bg= '#11161d', bd= 0, activebackground= '#11161d', command= self.master.modo2)  # akl era  command= self.master.configure_height
+        self.btn_gear = Button (self, image= self.master.Images_sublist [1], bg= '#11161d', bd= 0, activebackground= '#11161d', command= self.master.frm_A1_focus)  # akl era  command= self.master.configure_height
         self.btn_gear .grid (column= 0, row= 1)
        
     def img_moviles(self):   # Metodo que crea -22- Botones (moviles)  #command = lambda:images(1))
