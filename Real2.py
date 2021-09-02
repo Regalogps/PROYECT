@@ -158,18 +158,18 @@ class Interface(Tk):
 #______________C O N F I G U R A C I O N  V I S U A L :      M O D O  L I S T A :      O P T I O N ----> N° 5
 
         #______W I D G E T :   P A D R E
-        self.frm_option5 = Frame(self, bg='#31343a', width=756, height=65)
-        self.frm_option5 .grid_propagate(False)
+        self.frm_B3 = Frame(self, bg='#31343a', width=756, height=65)
+        self.frm_B3 .grid_propagate(False)
 
         #______V A R I A B L E S    DE   C O N T R O L :
         self.values5 = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.D', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.Sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Dragon 1', 'Dragon 2']
 
         #______W I D G E T :    L A B E L
-        lbl_selected = Label (self.frm_option5, text= 'Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        lbl_selected = Label (self.frm_B3, text= 'Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
 
         #______W I D G E T :    S P I N B O X
-        self.spinbox = Spinbox(self.frm_option5, values=(self.values5), width=13)      
-        self.spinbox .bind('<Return>', self.event_option5)
+        self.spinbox = Spinbox(self.frm_B3, values=(self.values5), width=13)      
+        self.spinbox .bind('<Return>', self.event_spinbox)
         
         #______Posicionamiento:
         lbl_selected .grid(column= 0, row=0, padx=10, pady=(10,5), sticky= W)
@@ -185,10 +185,10 @@ class Interface(Tk):
             self.var_focus = 1             # variable de control : on
 
         if self.var_chek5 .get() == 1:                                             # VALOR DE LA CASILLA ES: 1 CUANDO ESTA MARCADA 
-            self.frm_option5 .grid (column= 1, row= 0, padx=0, pady=0, sticky= N)  # POSICIONA
+            self.frm_B3 .grid (column= 1, row= 0, padx=0, pady=0, sticky= N)  # POSICIONA
             self.spinbox .focus()                                                 # LE DA EL FOCO A SU WIDGER INTERNO
         else:
-            self.frm_option5 .grid_remove()
+            self.frm_B3 .grid_remove()
             self.frm_B1 .focus()
 
     def event_option5 (self, event):
