@@ -18,9 +18,6 @@ class Interface(Tk):
         #______Lista de Imágenes         
         self.Images_1 = self.generate_list (path, 'a')                          # Lista de imgs para las ventanas: 1 y 2
         self.Images_sublist= self.generate_list (path, 's')                     # Lista de imgs para la ventana: Interface
-        #______Métodos de Configuración y Posicionamiento de Widget: [Interface]
-        self. configure_interface()          
-        self. widgets()   
         #______V A R I A B L E S  de  C O N T R O L  para las  V E N T A N A S   S U P E R I O R E S :  [1, 2, 3]
 
         self._frame_1 = None
@@ -32,8 +29,13 @@ class Interface(Tk):
         self.open_3 = True
 
         #______V A R I A B L E S  de  C O N T R O L  S E G U N D A R I A S
-        self.var_focus = 1
+
+        self.ctrl_gear = 'off'
+
         
+        #______Métodos de Configuración y Posicionamiento de Widget: [Interface]
+        self. configure_interface()          
+        self. widgets()
 
     def configure_interface(self):   # Configuracion de la ventana -------------------NO TOCAR (despues)
       
@@ -177,12 +179,12 @@ class Interface(Tk):
 
     def gear_stacking(self):                # Metodo de frm_A1:   Se activa cuando se da clik en la rueda de configuracion
   
-        if  self.var_focus == 1:           # Valor predeterminado 1
+        if  self.ctrl_gear == 'off':           # Valor predeterminado 1
             self.frm_B2 .lift()            # encima
-            self.var_focus = 0             # variable de control : off
+            self.ctrl_gear = 'on'             # variable de control : off
         else:
             self.frm_B2 .lower()           # debajo
-            self.var_focus = 1             # variable de control : on
+            self.ctrl_gear = 'off'             # variable de control : on
 
         if self.var_chek5 .get() == 1:                                             # VALOR DE LA CASILLA ES: 1 CUANDO ESTA MARCADA 
             self.frm_B3 .grid (column= 1, row= 0, padx=0, pady=0, sticky= N)  # POSICIONA
