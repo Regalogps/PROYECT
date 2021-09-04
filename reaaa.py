@@ -173,7 +173,7 @@ class Interface(Tk):
 
         if  self.gear == True:         # PREDETERMINADO: TRUE
             self.frm_B1 .grid_remove()  # B1: BOTONES
-            self.frm_B3 .grid_remove()  # B3: LISTBOX
+            self.frm_B3 .grid_remove()  # B3: LISTBOX    ###??? necesita if?
             self.frm_C1 .grid_remove()  # C1: MINIATURA
 
             self.frm_B2 .focus_set()  ###??? ver si es necesario ya que listbox es removido líneas antes
