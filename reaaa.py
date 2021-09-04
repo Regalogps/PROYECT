@@ -178,7 +178,7 @@ class Interface(Tk):
 
         if  self.gear == 'off':         # PREDETERMINADO: OFF
             self.frm_B1 .grid_remove()  # B1: BOTONES
-            self.frm_B3 .grid_remove()  # B3: CONFIGURACION
+            self.frm_B3 .grid_remove()  # B3: LISTBOX
             self.frm_C1 .grid_remove()  # C1: MINIATURA
 
             self.frm_B2 .focus_set()
