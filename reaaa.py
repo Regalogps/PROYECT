@@ -80,15 +80,15 @@ class Interface(Tk):
                
 #______________I N S T A N C I A S   M A P E A D O S  por  D E F E C T O :
 
-        self.frm_A1 = Create_Frame (self, bg='#11161d', width=60, height=65)   # Color: Azul        --- Frame Contenedor del logo y la rueda            
-        self.frm_B1 = Frame (self, bg='#31343a', width=756, height=65)         # Color: Plomo       --- Frame Contenedor del Contenedor de los Botones
-        self.frm_b1 = Create_Frame (self.frm_B1, bg = '#11161d',)              # Color: Azul        --- Frame Contenedor de los Botones
+        self.frm_A1 = Create_Frame (self, bg='#11161d', width=60, height=65)  # Color: Azul        --- Frame Contenedor del logo y la rueda            
+        self.frm_B1 = Frame (self, bg='#31343a', width=756, height=65)        # Color: Plomo       --- Frame Contenedor del Contenedor de los Botones
+        self.frm_b1 = Create_Frame (self.frm_B1, bg = '#11161d',)             # Color: Azul        --- Frame Contenedor de los Botones
 
         #______Posicionamiento:
 
-        self.frm_A1 .grid (column= 0, row= 0, padx=(0,0), pady=(0,0))          # Instancia
-        self.frm_B1 .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')      # Frame 
-        self.frm_b1 .grid (padx = (10,10), pady = (6,6))                       # Instancia
+        self.frm_A1 .grid (column= 0, row= 0, padx=(0,0), pady=(0,0))         # Instancia
+        self.frm_B1 .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')     # Frame 
+        self.frm_b1 .grid (padx = (10,10), pady = (6,6))                      # Instancia
 
         #______Metodos de Instancias:
 
@@ -103,11 +103,9 @@ class Interface(Tk):
 
 #______________C O N F I G U R A C I O N  V I S U A L :
 
-        #______C O N T E N E D O R :  INTERFACE DE CONFIGURACION GLOBAL :  (ESTA POSICIONADO)
-        self.frm_B2 = Frame (self, bg='#31343a', width=756, height=65)
-        #self.frm_B2 .grid (column= 1, row= 0, padx=0, pady=0, sticky= N)
+        #______C O N T E N E D O R : INTERFACE DE CONFIGURACION:  (NO POSICIONADO)
+        self.frm_B2 = Frame (self, bg='#31343a', width=756, height=65)  # Color: Plomo
         self.frm_B2 .grid_propagate (False)
-        self.frm_B2 .lower (self.frm_B1)  # Debajo
 
         #______W I D G E T :   L A B E L 
         label_option1 = Label (self.frm_B2, text= 'Activar Aimbot :' , font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
@@ -146,26 +144,23 @@ class Interface(Tk):
         self.checkbutton7 .grid (column=7, row=0, pady=(10,0))
 
      
-#______________SELF.CHECKBUTTON 5 :  MODO LISTA
+#_____________SELF.CHECKBUTTON 5 :  MODO LISTA
 
-        #______C O N T E N E D O R :  (NO ESTA POSICIONADO)
-        self.frm_B3 = Frame (self, bg='#31343a', width=174, height=65)  #Color: PLOMO , 
+        #_____C O N T E N E D O R E S:  (NO POSICIONADOS)
+        self.frm_B3 = Frame (self, bg='#31343a', width=174, height=65)  # Color: Plomo
         self.frm_B3 .grid_propagate(False)
 
-        self.frm_C1 = Frame (self, bg='green2', width=60, height=65)  #Color: PLOMO , 
+        self.frm_C1 = Frame (self, bg='green2', width=60, height=65)
         self.frm_C1 .grid_propagate(False)
         
         self.spinbox_variable = StringVar()
-        # SE ACTIVA CUANDO  A SELF.SPINBOX_VARIABLE SE LE EMPIEZA A INTRODUCIR TEXTO: CAMBIA LA PRIMERA LETRA POR MAYUSCULA  #31343a
-        self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))
+        self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))  # SE ACTIVA SI INTRODUCE TEXTO: CAMBIA POR MAYUSCULA
         label_title = Label (self.frm_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-
-        self.label_change = Label (self.frm_B3, width=8, height=3 )
 
         self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Dragon 1', 'Dragon 2']
         self.spinbox = Spinbox (self.frm_B3, width=13, values= self.spinbox_values, textvariable=self.spinbox_variable, wrap= True)    
 
-        self.spinbox .bind ('<Return>', self.bind_spinbox)  # SE ACTIVA CUANDO SPINBOX TIENE FOCO Y SE PRESIONA LA TECLA ENTER: ABRE LAS VENTANAS
+        self.spinbox .bind ('<Return>', self.bind_spinbox)  # SE ACTIVA SI SPINBOX TIENE FOCO, Y SE PRESIONA LA TECLA ENTER: ABRE LAS VENTANAS
         
         #self.spinbox .icursor(END)
         #______Posicionamientos:
@@ -174,16 +169,16 @@ class Interface(Tk):
         self.spinbox .grid (column= 0, row=1, padx=10, pady=(0,6), sticky= W)
         
 
-    def gear_stacking(self):   # SE ACTIVA CON LA RUEDA DE CONFIGURACION: CAMBIA EL ORDEN DE APILAMIENTO
+    def gear_stacking(self):   # SE ACTIVA CON LA RUEDA DE CONFIGURACION
 
-        if  self.gear == 'off':         # PREDETERMINADO: OFF
+        if  self.gear == False:         # PREDETERMINADO: FALSE
             self.frm_B1 .grid_remove()  # B1: BOTONES
             self.frm_B3 .grid_remove()  # B3: LISTBOX
             self.frm_C1 .grid_remove()  # C1: MINIATURA
 
             self.frm_B2 .focus_set()  ###??? ver si es necesario ya que listbox es removido líneas antes
             self.frm_B2 .grid (column= 1, row= 0, padx=0, pady=0, sticky= N)               
-            self.gear = 'on'           
+            self.gear = True           
         else:
             self.frm_B2 .grid_remove()
             if self.checkbutton5.variable.get() == True:   
@@ -196,7 +191,7 @@ class Interface(Tk):
                 self.frm_B3 .grid_remove()
                 self.frm_C1 .grid_remove()
                 
-            self.gear = 'off'            
+            self.gear = False            
 
     def cheeck_5 (self):   # SE ACTIVA MARCANDO LA CASILLA : SELF.CHEECKBUTTON 5
         self.checkbutton5.value()
