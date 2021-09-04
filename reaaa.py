@@ -181,7 +181,7 @@ class Interface(Tk):
             self.frm_B3 .grid_remove()  # B3: LISTBOX
             self.frm_C1 .grid_remove()  # C1: MINIATURA
 
-            self.frm_B2 .focus_set()
+            self.frm_B2 .focus_set()  ###??? ver si es necesario ya que listbox es removido líneas antes
             self.frm_B2 .grid (column= 1, row= 0, padx=0, pady=0, sticky= N)               
             self.gear = 'on'           
         else:
