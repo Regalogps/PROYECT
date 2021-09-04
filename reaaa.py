@@ -48,7 +48,8 @@ class Interface(Tk):
         self.wm_attributes ('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
         #root.attributes("-alpha", 0.5 )   
 
-    def generate_list (self, file, option)   # INICIALIZA IMAGENES
+    def generate_list (self, file, option):   # INICIALIZA IMAGENES
+
         ouput = os.listdir (file)
         empty = [] 
                      
@@ -172,13 +173,14 @@ class Interface(Tk):
     def gear_stacking(self):   # SE ACTIVA CON LA RUEDA DE CONFIGURACION
 
         if  self.gear == True:         # PREDETERMINADO: TRUE
-            self.frm_B1 .grid_remove()  # B1: BOTONES
+            self.frm_B1 .grid_remove()  # B1: BOTONES          
             self.frm_B3 .grid_remove()  # B3: LISTBOX    ###??? necesita if?
             self.frm_C1 .grid_remove()  # C1: MINIATURA
 
-            self.frm_B2 .focus_set()  ###??? ver si es necesario ya que listbox es removido líneas antes
+            self.frm_B2 .focus_set()    # NECESARIO 
             self.frm_B2 .grid (column= 1, row= 0, padx=0, pady=0, sticky= N)               
-            self.gear = False          
+            self.gear = False      
+    
         else:
             self.frm_B2 .grid_remove()
             if self.checkbutton5.variable.get() == True:   
@@ -193,7 +195,7 @@ class Interface(Tk):
                 
             self.gear = True            
 
-    def cheeck_5 (self):   # SE ACTIVA MARCANDO LA CASILLA : SELF.CHEECKBUTTON 5
+    def cheeck_5 (self):   # SE ACTIVA MARCANDO LA CASILLA : SELF.CHEECKBUTTON 5  # ESTE METODO ESTA SIN USOOOOOOOOOOOOOOOOOO
         self.checkbutton5.value()
 
     def bind_spinbox (self, event):  # SE ACTIVA CUANDO SPINBOX TIENE FOCO Y SE PRESIONA LA TECLA ENTER: ABRE LAS VENTANAS
