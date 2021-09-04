@@ -29,7 +29,7 @@ class Interface(Tk):
 
         #_____V A R I A B L E S  de  C O N T R O L  S E G U N D A R I A S
 
-        self.gear = FALSE
+        self.gear = True
 
         
         #_____Métodos de Configuración y Posicionamiento de Widget: [Interface]
@@ -171,14 +171,14 @@ class Interface(Tk):
 
     def gear_stacking(self):   # SE ACTIVA CON LA RUEDA DE CONFIGURACION
 
-        if  self.gear == False:         # PREDETERMINADO: FALSE
+        if  self.gear == True:         # PREDETERMINADO: TRUE
             self.frm_B1 .grid_remove()  # B1: BOTONES
             self.frm_B3 .grid_remove()  # B3: LISTBOX
             self.frm_C1 .grid_remove()  # C1: MINIATURA
 
             self.frm_B2 .focus_set()  ###??? ver si es necesario ya que listbox es removido líneas antes
             self.frm_B2 .grid (column= 1, row= 0, padx=0, pady=0, sticky= N)               
-            self.gear = True           
+            self.gear = False          
         else:
             self.frm_B2 .grid_remove()
             if self.checkbutton5.variable.get() == True:   
@@ -191,7 +191,7 @@ class Interface(Tk):
                 self.frm_B3 .grid_remove()
                 self.frm_C1 .grid_remove()
                 
-            self.gear = False            
+            self.gear = True            
 
     def cheeck_5 (self):   # SE ACTIVA MARCANDO LA CASILLA : SELF.CHEECKBUTTON 5
         self.checkbutton5.value()
