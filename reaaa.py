@@ -15,11 +15,10 @@ class Interface(Tk):
         super().__init__()                                                      # Llamando a Tk ()
         
         path = 'E:/1-RICHI/MovilesDB'
-        #______Lista de Imágenes         
+        #_____Lista de Imágenes         
         self.Images_1 = self.generate_list (path, 'a')                          # Lista de imgs para las ventanas: 1 y 2
         self.Images_sublist= self.generate_list (path, 's')                     # Lista de imgs para la ventana: Interface
-        #______V A R I A B L E S  de  C O N T R O L  para las  V E N T A N A S   S U P E R I O R E S :  [1, 2, 3]
-        
+        #_____V A R I A B L E S  de  C O N T R O L  para las  V E N T A N A S   S U P E R I O R E S :  [1, 2, 3]      
         self._frame_1 = None
         self._frame_2 = None
         self._frame_3 = None
@@ -28,16 +27,16 @@ class Interface(Tk):
         self.open_2 = True  
         self.open_3 = True
 
-        #______V A R I A B L E S  de  C O N T R O L  S E G U N D A R I A S
+        #_____V A R I A B L E S  de  C O N T R O L  S E G U N D A R I A S
 
         self.gear = 'off'
 
         
-        #______Métodos de Configuración y Posicionamiento de Widget: [Interface]
+        #_____Métodos de Configuración y Posicionamiento de Widget: [Interface]
         self. configure_interface()          
         self. widgets()
 
-    def configure_interface(self):   # Configuracion de la ventana -------------------NO TOCAR (despues)
+    def configure_interface(self):   # CONFIGURA VENTANA PRINCIPAL
       
         #ventana.overrideredirect(1)
         #ventana.attributes("-toolwindow",-1)
@@ -49,7 +48,7 @@ class Interface(Tk):
         self.wm_attributes ('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
         #root.attributes("-alpha", 0.5 )   
 
-    def generate_list (self, file, option):   # Metodo para leer todas las imageneS ------NO TOCAR 
+    def generate_list (self, file, option)   # INICIALIZA IMAGENES
         ouput = os.listdir (file)
         empty = [] 
                      
@@ -64,23 +63,20 @@ class Interface(Tk):
                         RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
                         _lst[index].append(RGB)               
             return _lst        
-   
-        
+           
         if option == 's':
             for i in ouput:
                 #if i.split('.')[0] in ['SubList__00','SubList__01'] :  
                 if 'SubList' in i :      
-
                     full = file + '/' + i
                     open = cv2.imread (full)
                     RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
                     array = Image.fromarray (RGB)
                     img = ImageTk.PhotoImage (array)
-
                     empty. append (img)
             return empty       
         
-    def widgets(self):  # widgets de la ventana Principal ----------------------------NO TOCAR  EDITAR DESPUES A CLASE BOTON O LABEL
+    def widgets(self):  # 
                
 #______________I N S T A N C I A S   M A P E A D O S  por  D E F E C T O :
 
@@ -182,15 +178,8 @@ class Interface(Tk):
         
 
     def gear_stacking(self):   # SE ACTIVA CON LA RUEDA DE CONFIGURACION: CAMBIA EL ORDEN DE APILAMIENTO
-  
-        """ if  self.gear == 'off':      # VALOR PREDETERMINADO: 'off'
-            self.frm_B2 .lift()      # ENCIMA
-            self.gear = 'on'           
-        else:
-            self.frm_B2 .lower()     # DEBAJO
-            self.gear = 'off' """
 
-        if  self.gear == 'off':  
+        if  self.gear == 'off':         # PREDETERMINADO: OFF
             self.frm_B1 .grid_remove() 
             self.frm_B3 .grid_remove()
             self.frm_b3 .grid_remove()
