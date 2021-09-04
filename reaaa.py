@@ -217,7 +217,7 @@ class Interface(Tk):
 
         """ if self.frm_B1 .winfo_ismapped() == True or self.frm.B2 .winfo_ismapped()== True or self.frm_C1 .winfo_ismapped():   
             self.frm_B1 .grid_remove()   
-            self.frm_B2 .grid_remove()
+            self.frm_B2 .grid_remove()  ###??? ver si es necesario un if para ver.. si son visibles
             self.frm_C1 .grid_remove()
         else:
             self.frm_B1 .grid()  """
