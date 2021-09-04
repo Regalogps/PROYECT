@@ -29,7 +29,7 @@ class Interface(Tk):
 
         #_____V A R I A B L E S  de  C O N T R O L  S E G U N D A R I A S
 
-        self.gear = 'off'
+        self.gear = FALSE
 
         
         #_____Métodos de Configuración y Posicionamiento de Widget: [Interface]
