@@ -152,8 +152,8 @@ class Interface(Tk):
         self.frm_B3 = Frame (self, bg='#31343a', width=174, height=65)  #Color: PLOMO , 
         self.frm_B3 .grid_propagate(False)
 
-        self.frm_b3 = Frame (self, bg='green2', width=60, height=65)  #Color: PLOMO , 
-        self.frm_b3 .grid_propagate(False)
+        self.frm_C1 = Frame (self, bg='green2', width=60, height=65)  #Color: PLOMO , 
+        self.frm_C1 .grid_propagate(False)
         
         self.spinbox_variable = StringVar()
         # SE ACTIVA CUANDO  A SELF.SPINBOX_VARIABLE SE LE EMPIEZA A INTRODUCIR TEXTO: CAMBIA LA PRIMERA LETRA POR MAYUSCULA  #31343a
@@ -171,18 +171,15 @@ class Interface(Tk):
         #______Posicionamientos:
         label_title .grid (column= 0, row=0, padx=10, pady=(10,5), sticky= W)
 
-        #self.label_change .grid (column= 1, rowspan= 1, padx=(0,0), pady=(0,0), sticky=NE)
-        #self.label_change .grid_propagate (False)
-
         self.spinbox .grid (column= 0, row=1, padx=10, pady=(0,6), sticky= W)
         
 
     def gear_stacking(self):   # SE ACTIVA CON LA RUEDA DE CONFIGURACION: CAMBIA EL ORDEN DE APILAMIENTO
 
         if  self.gear == 'off':         # PREDETERMINADO: OFF
-            self.frm_B1 .grid_remove() 
-            self.frm_B3 .grid_remove()
-            self.frm_b3 .grid_remove()
+            self.frm_B1 .grid_remove()  # B1: BOTONES
+            self.frm_B3 .grid_remove()  # B3: CONFIGURACION
+            self.frm_C1 .grid_remove()  # C1: MINIATURA
 
             self.frm_B2 .focus_set()
             self.frm_B2 .grid (column= 1, row= 0, padx=0, pady=0, sticky= N)               
@@ -191,16 +188,14 @@ class Interface(Tk):
             self.frm_B2 .grid_remove()
             if self.checkbutton5.variable.get() == True:   
                 self.frm_B3 .grid (column= 1, row= 0, padx=0, pady=0, sticky= NW)
-                self.frm_b3 .grid (column= 1, row= 0, padx=0, pady=0, sticky= NE)
+                self.frm_C1 .grid (column= 1, row= 0, padx=0, pady=0, sticky= NE)
                 self.spinbox .focus_set()   # AKI TRABAJAR
                 #self.spinbox .icursor(END)
-
             else:
                 self.frm_B1 .grid ()
                 self.frm_B3 .grid_remove()
-                self.frm_b3 .grid_remove()
+                self.frm_C1 .grid_remove()
                 
-
             self.gear = 'off'            
 
     def cheeck_5 (self):   # SE ACTIVA MARCANDO LA CASILLA : SELF.CHEECKBUTTON 5
