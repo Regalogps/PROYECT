@@ -234,15 +234,21 @@ class Interface(Tk):
         
 
         try:
-            if self.toplevel_LEFT.winfo_ismapped():
-                self.toplevel_LEFT.iconify()
+            # TRUE: VISIBLE   /   FALSE: NO VISIBLE
+            if self.toplevel_LEFT.winfo_ismapped() == False and self.toplevel_RIGHT.winfo_ismapped() == False and self.toplevel_STUF.winfo_ismapped() == False:
+                self.toplevel_LEFT.deiconify()   # OCULTAR MODO MINIATURA
+                self.toplevel_RIGHT.deiconify()
+                self.toplevel_STUF.deiconify()
             else:
-                self.toplevel_LEFT.deiconify()
+                self.toplevel_LEFT.iconify()
+                self.toplevel_RIGHT.iconify()
+                self.toplevel_STUF.iconify()
+
         except Exception as err:
             print('error: 1')
         
 
-        try:
+        """try:
             if self.toplevel_RIGHT.winfo_ismapped():
                 self.toplevel_RIGHT.iconify()
             else:
@@ -257,7 +263,7 @@ class Interface(Tk):
             else:
                 self.toplevel_STUF.deiconify()
         except Exception as err:
-            print('error: 3')
+            print('error: 3')"""
         
 
 
