@@ -1,4 +1,6 @@
-import tkinter as    tk
+import tkinter as tk
+
+
 
 class BarraTitulo(tk.Frame):
     def __init__(self, parent=None, title=None, **kwargs):
@@ -17,8 +19,10 @@ class BarraTitulo(tk.Frame):
         self.parent.parent.destroy()
 
     def minimize(self):
-        self.parent.withdraw()
+        pass
+        #self.parent.withdraw()
         self.parent.parent.iconify()
+
 
 class VentanaSinBordes(tk.Toplevel):
     def __init__(self, parent=None, **kwargs):
@@ -57,7 +61,7 @@ class VentanaSinBordes(tk.Toplevel):
 
 class WindRoot(tk.Tk):
     def __init__(self, *args, **kwargs):
-        super(WindRoot).__init__(*args, **kwargs)
+        super(WindRoot, self).__init__(*args, **kwargs)
         self.resizable(False, False)
         self.geometry('0x0')
         self._title = tk.StringVar(self.title())

@@ -170,7 +170,7 @@ class Interface(Tk):
         self.spinbox .grid (column= 0, row=1, padx=10, pady=(0,6), sticky= W)
         
 
-    def gear_stacking(self):   # SE ACTIVA CON LA RUEDA DE CONFIGURACION
+    def gear_stacking(self):   # SE ACTIVA CON LA RUEDA DE CONFIGURACIONNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 
         if  self.gear == True:         # PREDETERMINADO: TRUE
             self.frm_B1 .grid_remove()  # B1: BOTONES          
@@ -215,15 +215,50 @@ class Interface(Tk):
         else:
             self.frm_A1 .config (width=60, height=65)
 
+
+    
+    """ def aa(self, event):
+        print('s')
+        self.toplevel_LEFT.iconify()
+        self.toplevel_RIGHT.iconify()
+        self.toplevel_STUF.iconify()
+
+    def bb(self, event):
+
+        self.toplevel_LEFT.deiconify()
+        self.toplevel_RIGHT.deiconify()
+        self.toplevel_STUF.deiconify() """
+
+
     def remove_frame (self):  # Metodo LOGO
+        
 
-        """ if self.frm_B1 .winfo_ismapped() == True or self.frm.B2 .winfo_ismapped()== True or self.frm_C1 .winfo_ismapped():   
-            self.frm_B1 .grid_remove()   
-            self.frm_B2 .grid_remove()  ###??? ver si es necesario un if para ver.. si son visibles
-            self.frm_C1 .grid_remove()
-        else:
-            self.frm_B1 .grid()  """
+        try:
+            if self.toplevel_LEFT.winfo_ismapped():
+                self.toplevel_LEFT.iconify()
+            else:
+                self.toplevel_LEFT.deiconify()
+        except Exception as err:
+            print('error: 1')
+        
 
+        try:
+            if self.toplevel_RIGHT.winfo_ismapped():
+                self.toplevel_RIGHT.iconify()
+            else:
+                self.toplevel_RIGHT.deiconify()
+        except Exception as err: 
+            print('error: 2')
+        
+
+        try:
+            if self.toplevel_STUF.winfo_ismapped():
+                self.toplevel_STUF.iconify()
+            else:
+                self.toplevel_STUF.deiconify()
+        except Exception as err:
+            print('error: 3')
+        
 
 
 ############   M E T O D O S   P A R A   G E S T I O N A R   L A S   V E N T A N A S   S U P E R I O R E S   ############ 
@@ -367,6 +402,9 @@ class Create_Frame (Frame):
         
         self.btn_ash = Button (self, image= self.master.Images_sublist [3], bg= '#11161d', bd= 0, activebackground= '#11161d' , command= self.master.remove_frame)
         self.btn_ash .grid (column= 0, row= 0, padx= (6,6), pady= 0)
+
+        """ self.btn_ash.bind('<Map>', self.master.aa)
+        self.btn_ash.bind('<Unmap>', self.master.bb) """
           
     def img_gear(self):   # Metodo que crea -1- Boton (rueda)-----------------NO TOCAR (despues)
 
