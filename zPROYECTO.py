@@ -18,6 +18,8 @@ class Interface(Tk):
         #_____Lista de Imágenes         
         self.Images_1 = self.generate_list (path, 'a')                          # Lista de imgs para las ventanas: 1 y 2
         self.Images_sublist= self.generate_list (path, 's')                     # Lista de imgs para la ventana: Interface
+        self.Miniaturas= self.generate_list (path, 'z') 
+        print(len(self.Miniaturas))
         #_____V A R I A B L E S  de  C O N T R O L  para las  V E N T A N A S   S U P E R I O R E S :  [1, 2, 3]      
         self._frame_1 = None
         self._frame_2 = None
@@ -75,7 +77,20 @@ class Interface(Tk):
                     array = Image.fromarray (RGB)
                     img = ImageTk.PhotoImage (array)
                     empty. append (img)
-            return empty       
+            return empty
+
+
+        if option == 'z':
+            for i in ouput:  
+                if 'Mini' in i :      
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    array = Image.fromarray (RGB)
+                    img = ImageTk.PhotoImage (array)
+                    empty. append (img)
+            return empty
+
         
     def widgets(self):  # 
                
@@ -151,7 +166,7 @@ class Interface(Tk):
         self.frm_B3 = Frame (self, bg='#31343a', width=174, height=65)  # Color: Plomo
         self.frm_B3 .grid_propagate(False)
 
-        self.frm_C1 = Frame (self, bg='green2', width=60, height=65)
+        self.frm_C1 = Frame (self, bg='green', width=60, height=65)   # Color: Azul  #11161d
         self.frm_C1 .grid_propagate(False)
         
         self.spinbox_variable = StringVar()
@@ -159,7 +174,7 @@ class Interface(Tk):
         label_title = Label (self.frm_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
 
         self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Dragon 1', 'Dragon 2']
-        self.spinbox = Spinbox (self.frm_B3, width=13, values= self.spinbox_values, textvariable=self.spinbox_variable, wrap= True)    
+        self.spinbox = Spinbox (self.frm_B3, width=13, values= self.spinbox_values, textvariable=self.spinbox_variable, wrap= True, command= self.mini)    
 
         self.spinbox .bind ('<Return>', self.bind_spinbox)  # SE ACTIVA SI SPINBOX TIENE FOCO, Y SE PRESIONA LA TECLA ENTER: ABRE LAS VENTANAS
         
@@ -193,7 +208,22 @@ class Interface(Tk):
                 self.frm_B3 .grid_remove()
                 self.frm_C1 .grid_remove()
                 
-            self.gear = True            
+            self.gear = True    
+
+    def mini(self):
+        pass
+        
+        if self.spinbox.get() == 'Frog':
+            print('sapo')
+            label = Label(self.frm_C1, image= self.Miniaturas[0], bd=0, )
+            label .grid(padx=3, pady=12)
+            label .grid_propagate(0)
+
+        
+
+
+
+
 
     def cheeck_5 (self):   # SE ACTIVA MARCANDO LA CASILLA : SELF.CHEECKBUTTON 5  # ESTE METODO ESTA SIN USOOOOOOOOOOOOOOOOOO
         self.checkbutton5.value()
@@ -216,25 +246,9 @@ class Interface(Tk):
             self.frm_A1 .config (width=60, height=65)
 
 
-    
-    """ def aa(self, event):
-        print('s')
-        self.toplevel_LEFT.iconify()
-        self.toplevel_RIGHT.iconify()
-        self.toplevel_STUF.iconify()
-
-    def bb(self, event):
-
-        self.toplevel_LEFT.deiconify()
-        self.toplevel_RIGHT.deiconify()
-        self.toplevel_STUF.deiconify() """
-
-
     def remove_frame (self):  # Metodo LOGO
         
-
         try:
-            # TRUE: VISIBLE   /   FALSE: NO VISIBLE
             if self.toplevel_LEFT.winfo_ismapped() == False and self.toplevel_RIGHT.winfo_ismapped() == False and self.toplevel_STUF.winfo_ismapped() == False:
                 self.toplevel_LEFT.deiconify()   # OCULTAR MODO MINIATURA
                 self.toplevel_RIGHT.deiconify()
@@ -245,26 +259,7 @@ class Interface(Tk):
                 self.toplevel_STUF.iconify()
 
         except Exception as err:
-            print('error: 1')
-        
-
-        """try:
-            if self.toplevel_RIGHT.winfo_ismapped():
-                self.toplevel_RIGHT.iconify()
-            else:
-                self.toplevel_RIGHT.deiconify()
-        except Exception as err: 
-            print('error: 2')
-        
-
-        try:
-            if self.toplevel_STUF.winfo_ismapped():
-                self.toplevel_STUF.iconify()
-            else:
-                self.toplevel_STUF.deiconify()
-        except Exception as err:
-            print('error: 3')"""
-        
+            print('Error: sin ventanas')
 
 
 ############   M E T O D O S   P A R A   G E S T I O N A R   L A S   V E N T A N A S   S U P E R I O R E S   ############ 
