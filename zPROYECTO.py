@@ -246,7 +246,7 @@ class Interface(Tk):
             self.frm_A1 .config (width=60, height=65)
 
 
-    def remove_frame (self): # Metodo LOGO 
+    def minimize_windows (self): # Metodo LOGO 
 
         if self.open_1 == True or self.open_2 == True or self.open_3 == True:
 
@@ -443,7 +443,7 @@ class Create_Frame (Frame):
 
     def img_ash(self):   # Metodo que crea -1- Boton (logo) -------------------NO TOCAR (despues)
         
-        self.btn_ash = Button (self, image= self.master.Images_sublist [3], bg= '#11161d', bd= 0, activebackground= '#11161d' , command= self.master.remove_frame)
+        self.btn_ash = Button (self, image= self.master.Images_sublist [3], bg= '#11161d', bd= 0, activebackground= '#11161d' , command= self.master.minimize_windows)
         self.btn_ash .grid (column= 0, row= 0, padx= (6,6), pady= 0)
 
         """ self.btn_ash.bind('<Map>', self.master.aa)
