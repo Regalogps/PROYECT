@@ -19,7 +19,7 @@ class Interface(Tk):
         self.Images_1 = self.generate_list (path, 'a')                          # Lista de imgs para las ventanas: 1 y 2
         self.Images_sublist= self.generate_list (path, 's')                     # Lista de imgs para la ventana: Interface
         self.Miniatures= self.generate_list (path, 'z') 
-        print(len(self.Miniaturas))
+        print(len(self.Miniatures))
         #_____V A R I A B L E S  de  C O N T R O L  para las  V E N T A N A S   S U P E R I O R E S :  [1, 2, 3]      
         self._frame_1 = None
         self._frame_2 = None
@@ -166,21 +166,21 @@ class Interface(Tk):
         self.frm_B3 = Frame (self, bg='#31343a', width=174, height=65)  # Color: Plomo
         self.frm_B3 .grid_propagate(False)
 
-        self.frm_C1 = Frame (self, bg='green', width=60, height=65)   # Color: Azul  #11161d
+        self.frm_C1 = Frame (self, bg='#11161d', width=60, height=65)   # Color: Azul  #11161d
         self.frm_C1 .grid_propagate(False)
 
-########self.label_miniature = Label (self.frm_C1, image= self.Miniatures[0], bd= 0)
-########self.label_miniature .grid (padx= 1, pady= 10)
-########self.label_miniature .grid_propagate(False)   # PROBAR SIN PONER ESTE
+        self.label_miniature = Label (self.frm_C1, image= self.Miniatures[0], bd= 0)
+        self.label_miniature .grid (padx= 2, pady= 7)
+        #self.label_miniature .grid_propagate(False)   # PROBAR SIN PONER ESTE
 
         self.spinbox_variable = StringVar()
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))  # SE ACTIVA SI INTRODUCE TEXTO: CAMBIA POR MAYUSCULA
-########self.spinbox_variable .trace_add ('write', self.change_miniature)
+        #self.spinbox_variable .trace_add ('write', self.change_miniature)
 
         label_title = Label (self.frm_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
 
         self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Dragon 1', 'Dragon 2']
-        self.spinbox = Spinbox (self.frm_B3, width=13, values= self.spinbox_values, textvariable=self.spinbox_variable, wrap= True)    
+        self.spinbox = Spinbox (self.frm_B3, width=13, values= self.spinbox_values, textvariable=self.spinbox_variable, wrap= True, command= self.change_miniature)    
        #self.spinbox = Spinbox (self.frm_B3, width=13, values= self.spinbox_values, textvariable=self.spinbox_variable, wrap= True, command= self.mini)  # ANYERIOR
 
         self.spinbox .bind ('<Return>', self.bind_spinbox)  # SE ACTIVA SI SPINBOX TIENE FOCO, Y SE PRESIONA LA TECLA ENTER: ABRE LAS VENTANAS
@@ -222,25 +222,10 @@ class Interface(Tk):
 
         for index, i in enumerate(self.spinbox_values):
             if self.spinbox_variable.get() == i:
+                print('dddd')
                 self.label_miniature .config(image= self.Miniatures[index])
                 self.spinbox.icursor(END)
 ###############################           
-
-
-    def mini(self):
-        pass
-        
-        if self.spinbox.get() == 'Frog':
-            print('sapo')
-            label = Label(self.frm_C1, image= self.Miniaturas[0], bd=0, )
-            label .grid(padx=3, pady=12)
-            label .grid_propagate(0)
-
-        
-
-
-
-
 
     def cheeck_5 (self):   # SE ACTIVA MARCANDO LA CASILLA : SELF.CHEECKBUTTON 5  # ESTE METODO ESTA SIN USOOOOOOOOOOOOOOOOOO
         self.checkbutton5.value()
