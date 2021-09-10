@@ -32,7 +32,7 @@ class Interface(Tk):
         #_____V A R I A B L E S  de  C O N T R O L  S E G U N D A R I A S
 
         self.gear = True
-        self.= None
+        self.minimize = True
         
         #_____Métodos de Configuración y Posicionamiento de Widget: [Interface]
         self. configure_interface()          
@@ -250,7 +250,7 @@ class Interface(Tk):
 
         if self.open_1 == True or self.open_2 == True or self.open_3 == True:
 
-            if self.a == 1:
+            if self.minimize == False:
                 if self.open_1 == True:
                     self.toplevel_LEFT.deiconify()   # MOSTRAR VENTANAS  MODO MINIATURA
                 if self.open_2 == True:
@@ -258,7 +258,7 @@ class Interface(Tk):
                 if self.open_3 == True:
                     self.toplevel_STUF.deiconify()
 
-                self.a = None
+                self.minimize = True
 
             else: 
                 if self.open_1 == True:
@@ -268,7 +268,7 @@ class Interface(Tk):
                 if self.open_3 == True:    
                     self.toplevel_STUF.iconify()
 
-                self.a = 1
+                self.minimize = False
 
 
 
