@@ -9,7 +9,7 @@ class classA:
 
     def windows(self):
         try:
-            self.root2.winfo_viewable()
+            self.root2.winfo_ismapped()
         except Exception as err:
             self.root2 = tk.Toplevel(self.root)
             self.root2.transient( self.root )

@@ -32,7 +32,7 @@ class Interface(Tk):
         #_____V A R I A B L E S  de  C O N T R O L  S E G U N D A R I A S
 
         self.gear = True
-
+        self.a= None
         
         #_____Métodos de Configuración y Posicionamiento de Widget: [Interface]
         self. configure_interface()          
@@ -246,20 +246,54 @@ class Interface(Tk):
             self.frm_A1 .config (width=60, height=65)
 
 
-    def remove_frame (self):  # Metodo LOGO
+    def remove_frame (self):  # Metodo LOGO    
         
-        try:
-            if self.toplevel_LEFT.winfo_ismapped() == False and self.toplevel_RIGHT.winfo_ismapped() == False and self.toplevel_STUF.winfo_ismapped() == False:
-                self.toplevel_LEFT.deiconify()   # OCULTAR MODO MINIATURA
+        if self.a== 1: 
+            print('aki')                      
+            self.toplevel_LEFT.deiconify()   # MOSTRAR VENTANAS  MODO MINIATURA
+            self.toplevel_RIGHT.deiconify()
+            self.toplevel_STUF.deiconify()
+            #print('IF---->', self.toplevel_LEFT.winfo_ismapped())sssssssssssss
+            print('completo')
+            self.a = None
+                
+        else:                         
+            print('ELSE111') 
+            try:
+                self.toplevel_LEFT.iconify()     # OCULTAR  VENTANAS   
+                self.toplevel_RIGHT.iconify()          
+                self.toplevel_STUF.iconify()
+                self.a = 1
+            except Exception as err:
+                self.toplevel_RIGHT.iconify()
+
+            #print('ELSE')
+            
+            #print('ELSE---->', self.toplevel_LEFT.winfo_ismapped())
+        
+        """ try:
+            if self.toplevel_LEFT.winfo_ismapped() == 0 and self.toplevel_RIGHT.winfo_ismapped() == 0 and self.toplevel_STUF.winfo_ismapped() == 0: 
+            #if self.a== 1  :                       
+                self.toplevel_LEFT.deiconify()   # MOSTRAR VENTANAS  MODO MINIATURA
                 self.toplevel_RIGHT.deiconify()
                 self.toplevel_STUF.deiconify()
-            else:
-                self.toplevel_LEFT.iconify()
-                self.toplevel_RIGHT.iconify()
+                #print('IF---->', self.toplevel_LEFT.winfo_ismapped())sssssssssssss
+                print('completo')
+                #self.a = None
+                
+            else:                         
+                print('ELSE111') 
+                self.toplevel_LEFT.iconify()     # OCULTAR  VENTANAS   
+                self.toplevel_RIGHT.iconify()          
                 self.toplevel_STUF.iconify()
+                #self.a = 1
+                #print('ELSE')
+                
+                #print('ELSE---->', self.toplevel_LEFT.winfo_ismapped())
+                
 
         except Exception as err:
-            print('Error: sin ventanas')
+            print('Error: sin ventanas') """
 
 
 ############   M E T O D O S   P A R A   G E S T I O N A R   L A S   V E N T A N A S   S U P E R I O R E S   ############ 
@@ -304,7 +338,7 @@ class Interface(Tk):
         
         if self.open_3 == True:
             self.toplevel_STUF = _Toplevel()  #############################################################   VENTANA TOPLEVEL STUFF
-            self.toplevel_STUF .configure_toplevel ('der', '620x190')
+            self.toplevel_STUF .configure_toplevel ('stuf', '620x190')
 
         self.open_3 = False
 
@@ -687,7 +721,9 @@ class Boomer_right (Frame):  #------------------------------- DERECHA :  BASE  /
 
 
         self.master.bind("<Button-1>", self.button1)
+        
         self.bind_motion = self.master.bind('<Motion>',self.motion)
+
         self.bind_leave = self.bind('<Leave>', lambda e: self.alert_77 .grid_forget())
 
         #______V A R I A B L E S  de  C O N T R O L  para los B I N D
