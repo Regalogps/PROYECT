@@ -170,11 +170,13 @@ class Interface(Tk):
         self.frm_C1 .grid_propagate(False)
 
 ########self.label_miniature = Label (self.frm_C1, image= self.Miniatures[0], bd= 0)
-########self.label_miniature . grid (padx= , pady= )
-     
+########self.label_miniature .grid (padx= 1, pady= 10)
+########self.label_miniature .grid_propagate(False)   # PROBAR SIN PONER ESTE
+
         self.spinbox_variable = StringVar()
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))  # SE ACTIVA SI INTRODUCE TEXTO: CAMBIA POR MAYUSCULA
 ########self.spinbox_variable .trace_add ('write', self.change_miniature)
+
         label_title = Label (self.frm_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
 
         self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Dragon 1', 'Dragon 2']
