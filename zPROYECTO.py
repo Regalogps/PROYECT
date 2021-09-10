@@ -246,26 +246,40 @@ class Interface(Tk):
             self.frm_A1 .config (width=60, height=65)
 
 
-    def remove_frame (self):  # Metodo LOGO    
-        
-        if self.a== 1: 
-            print('aki')                      
-            self.toplevel_LEFT.deiconify()   # MOSTRAR VENTANAS  MODO MINIATURA
-            self.toplevel_RIGHT.deiconify()
-            self.toplevel_STUF.deiconify()
-            #print('IF---->', self.toplevel_LEFT.winfo_ismapped())sssssssssssss
-            print('completo')
-            self.a = None
+    def remove_frame (self): # Metodo LOGO 
+
+        if self.open_1 == False or self.open_2 == False or self.open_3 == False:
+            if self.a == 1:            
+                try:
+                    self.toplevel_LEFT.deiconify()   # MOSTRAR VENTANAS  MODO MINIATURA
+                    self.toplevel_RIGHT.deiconify()
+                    self.toplevel_STUF.deiconify()
+                    self.a = None
+
+                except Exception as err:
                 
-        else:                         
-            print('ELSE111') 
-            try:
-                self.toplevel_LEFT.iconify()     # OCULTAR  VENTANAS   
-                self.toplevel_RIGHT.iconify()          
-                self.toplevel_STUF.iconify()
-                self.a = 1
-            except Exception as err:
-                self.toplevel_RIGHT.iconify()
+
+            else:                         
+                print('ELSE111') 
+                try:
+                    self.toplevel_LEFT.iconify() # OCULTAR VENTANAS 
+                    self.ico1='bien'  
+                    self.toplevel_RIGHT.iconify()
+                    self.ico2='bien'          
+                    self.toplevel_STUF.iconify()
+                    self.ico3='bien'
+                    self.a = 1
+                except Exception as err:
+                    if self.ico1 == 'mal':
+                        self.toplevel_RIGHT.iconify()
+                        self.toplevel_STUF.iconify()
+                    elif self.ico2 == 'mal':
+                        self.toplevel_STUF.iconify()
+
+
+
+
+
 
             #print('ELSE')
             
