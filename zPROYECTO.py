@@ -18,7 +18,7 @@ class Interface(Tk):
         #_____Lista de Imágenes         
         self.Images_1 = self.generate_list (path, 'a')                          # Lista de imgs para las ventanas: 1 y 2
         self.Images_sublist= self.generate_list (path, 's')                     # Lista de imgs para la ventana: Interface
-        self.Miniaturas= self.generate_list (path, 'z') 
+        self.Miniatures= self.generate_list (path, 'z') 
         print(len(self.Miniaturas))
         #_____V A R I A B L E S  de  C O N T R O L  para las  V E N T A N A S   S U P E R I O R E S :  [1, 2, 3]      
         self._frame_1 = None
@@ -168,9 +168,13 @@ class Interface(Tk):
 
         self.frm_C1 = Frame (self, bg='green', width=60, height=65)   # Color: Azul  #11161d
         self.frm_C1 .grid_propagate(False)
-        
+
+########self.label_miniature = Label (self.frm_C1, image= self.Miniatures[0], bd= 0)
+########self.label_miniature . grid (padx= , pady= )
+     
         self.spinbox_variable = StringVar()
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))  # SE ACTIVA SI INTRODUCE TEXTO: CAMBIA POR MAYUSCULA
+########self.spinbox_variable .trace_add ('write', self.change_miniature)
         label_title = Label (self.frm_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
 
         self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Dragon 1', 'Dragon 2']
@@ -209,6 +213,16 @@ class Interface(Tk):
                 self.frm_C1 .grid_remove()
                 
             self.gear = True    
+
+###############################     
+    def change_miniature(self):
+
+        for index, i in enumerate(self.spinbox_values):
+            if self.spinbox_variable.get() == i:
+                self.label_miniature .config(image= self.Miniatures[index])
+                self.spinbox.icursor(END)
+###############################           
+
 
     def mini(self):
         pass
