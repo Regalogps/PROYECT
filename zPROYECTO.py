@@ -25,14 +25,14 @@ class Interface(Tk):
         self._frame_2 = None
         self._frame_3 = None
 
-        self.open_1 = True  
-        self.open_2 = True  
-        self.open_3 = True
+        self.open_1 = False  
+        self.open_2 = False 
+        self.open_3 = False
 
         #_____V A R I A B L E S  de  C O N T R O L  S E G U N D A R I A S
 
         self.gear = True
-        self.a= None
+        self.= None
         
         #_____Métodos de Configuración y Posicionamiento de Widget: [Interface]
         self. configure_interface()          
@@ -248,24 +248,24 @@ class Interface(Tk):
 
     def remove_frame (self): # Metodo LOGO 
 
-        if self.open_1 == False or self.open_2 == False or self.open_3 == False:
+        if self.open_1 == True or self.open_2 == True or self.open_3 == True:
 
             if self.a == 1:
-                if self.open_1 == False:
+                if self.open_1 == True:
                     self.toplevel_LEFT.deiconify()   # MOSTRAR VENTANAS  MODO MINIATURA
-                if self.open_2 == False:
+                if self.open_2 == True:
                     self.toplevel_RIGHT.deiconify()
-                if self.open_3 == False:
+                if self.open_3 == True:
                     self.toplevel_STUF.deiconify()
 
                 self.a = None
 
             else: 
-                if self.open_1 == False:
+                if self.open_1 == True:
                     self.toplevel_LEFT.iconify() # OCULTAR VENTANA
-                if self.open_2 == False:
+                if self.open_2 == True:
                     self.toplevel_RIGHT.iconify() 
-                if self.open_3 == False:    
+                if self.open_3 == True:    
                     self.toplevel_STUF.iconify()
 
                 self.a = 1
@@ -308,11 +308,11 @@ class Interface(Tk):
 
     def windows_123 (self, var_1, var_2, var_3):
 
-        if self.open_1 == True: 
+        if self.open_1 == False: 
             self.toplevel_LEFT = _Toplevel()  #############################################################   VENTANA TOPLEVEL IZQUIERDA
             self.toplevel_LEFT .configure_toplevel ('izq', '220x690') #  metodo 
 
-        self.open_1 = False     
+        self.open_1 = True     
                                 
         container_frame_left = var_1 (self.toplevel_LEFT)  #  var_1 es un frame
 
@@ -326,11 +326,11 @@ class Interface(Tk):
 
 #_______
 
-        if self.open_2 == True:
+        if self.open_2 == False:
             self.toplevel_RIGHT = _Toplevel()  #############################################################   VENTANA TOPLEVEL DERECHA
             self.toplevel_RIGHT .configure_toplevel ('der', '220x690')
 
-        self.open_2 = False
+        self.open_2 = True
 
         container_frame_right = var_2 (self.toplevel_RIGHT)  # ES UN FRAME POSICIONADO EN TOPLEVEL
 
@@ -344,11 +344,11 @@ class Interface(Tk):
 
 #_______ desde aqui falta completar este if
         
-        if self.open_3 == True:
+        if self.open_3 == False:
             self.toplevel_STUF = _Toplevel()  #############################################################   VENTANA TOPLEVEL STUFF
             self.toplevel_STUF .configure_toplevel ('stuf', '620x190')
 
-        self.open_3 = False
+        self.open_3 = True
 
         container_frame_stuf = var_3 (self.toplevel_STUF)  # ES UN FRAME POSICIONADO EN TOPLEVEL
 
@@ -368,15 +368,15 @@ class Interface(Tk):
 
         if number == 1:
             self.toplevel_LEFT. destroy()
-            self.open_1 = True
+            self.open_1 = False
 
         if number == 2:
             self.toplevel_RIGHT. destroy()
-            self.open_2 = True
+            self.open_2 = False
 
         if number == 3:
             self.toplevel_STUF. destroy()
-            self.open_3 = True
+            self.open_3 = False
 
 
 #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
