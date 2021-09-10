@@ -249,32 +249,26 @@ class Interface(Tk):
     def remove_frame (self): # Metodo LOGO 
 
         if self.open_1 == False or self.open_2 == False or self.open_3 == False:
-            if self.a == 1:            
-                try:
+
+            if self.a == 1:
+                if self.open_1 == False:
                     self.toplevel_LEFT.deiconify()   # MOSTRAR VENTANAS  MODO MINIATURA
+                if self.open_2 == False:
                     self.toplevel_RIGHT.deiconify()
+                if self.open_3 == False:
                     self.toplevel_STUF.deiconify()
-                    self.a = None
 
-                except Exception as err:
-                
+                self.a = None
 
-            else:                         
-                print('ELSE111') 
-                try:
-                    self.toplevel_LEFT.iconify() # OCULTAR VENTANAS 
-                    self.ico1='bien'  
-                    self.toplevel_RIGHT.iconify()
-                    self.ico2='bien'          
+            else: 
+                if self.open_1 == False:
+                    self.toplevel_LEFT.iconify() # OCULTAR VENTANA
+                if self.open_2 == False:
+                    self.toplevel_RIGHT.iconify() 
+                if self.open_3 == False:    
                     self.toplevel_STUF.iconify()
-                    self.ico3='bien'
-                    self.a = 1
-                except Exception as err:
-                    if self.ico1 == 'mal':
-                        self.toplevel_RIGHT.iconify()
-                        self.toplevel_STUF.iconify()
-                    elif self.ico2 == 'mal':
-                        self.toplevel_STUF.iconify()
+
+                self.a = 1
 
 
 
