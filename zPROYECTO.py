@@ -266,6 +266,19 @@ class Interface(Tk):
                 self.minimize = False
 
 
+    def ash_close_windows(self, event):
+
+            self.toplevel_LEFT. destroy()  # COMPROBAR SI ES NECESARIO ESTA LINEA EN EL METODO ORIGINAL DE CIERRE
+            self.open_1 = False
+
+            self.toplevel_RIGHT. destroy()
+            self.open_2 = False
+
+            self.toplevel_STUF. destroy()
+            self.open_3 = False
+
+
+
 ############   M E T O D O S   P A R A   G E S T I O N A R   L A S   V E N T A N A S   S U P E R I O R E S   ############ 
 
     def windows_123 (self, var_1, var_2, var_3):
@@ -408,8 +421,7 @@ class Create_Frame (Frame):
         self.btn_ash = Button (self, image= self.master.Images_sublist [3], bg= '#11161d', bd= 0, activebackground= '#11161d' , command= self.master.minimize_windows)
         self.btn_ash .grid (column= 0, row= 0, padx= (6,6), pady= 0)
 
-        """ self.btn_ash.bind('<Map>', self.master.aa)
-        self.btn_ash.bind('<Unmap>', self.master.bb) """
+        self.btn_ash .bind (<'Double-Button-1'>, self.master.ash_close_windows)
           
     def img_gear(self):   # Metodo que crea -1- Boton (rueda)-----------------NO TOCAR (despues)
 
