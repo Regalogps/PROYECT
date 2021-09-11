@@ -216,7 +216,10 @@ class Interface(Tk):
             self.gear = True    
 
     
-    def change_miniature(self,*args):   # SE ACTIVA CUANDO SE PRESIONA LAS FLECHAS O EL TECLADO DEL SPINBOX
+    def change_miniature(self,*args):   # SE ACTIVA CUANDO CAMBIA EL VALOR DE LA CAJA DEL SPINBOX
+        args = ['Fr', 'Sa', 'Fo', 'Zo', 'Bo', 'I', 'Mam', 'Jd', 'J.', 'G', 'Or', 'Li', 'Lg', 'Ad', 'Kn', 'Cab', 'Ka', 'Cal', 'Mag', 'Ran', 'Cam', 'Jo', 'Po', 'Pi', 
+                'Tu', 'To', 'Ar', 'As', 'Rao', 'Tr', 'Di', 'Na', 'Bi', 'Ba', 'Dr']
+        
         #if self.spinbox.get()[:3]:
         #print(self.spinbox.get()[:3])
         for index, i in enumerate(self.spinbox_values):
