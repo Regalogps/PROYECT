@@ -217,10 +217,19 @@ class Interface(Tk):
 
     
     def change_miniature(self,*args):   # SE ACTIVA CUANDO CAMBIA EL VALOR DE LA CAJA DEL SPINBOX
+
         args = ['Fr', 'Sa', 'Fo', 'Zo', 'Bo', 'I', 'Mam', 'Jd', 'J.', 'G', 'Or', 'Li', 'Lg', 'Ad', 'Kn', 'Cab', 'Ka', 'Cal', 'Mag', 'Ran', 'Cam', 'Jo', 'Po', 'Pi', 
                 'Tu', 'To', 'Ar', 'As', 'Rao', 'Tr', 'Di', 'Na', 'Bi', 'Ba', 'Dr']
-        
-        #if self.spinbox.get()[:3]:
+        for x in args:
+            if self.spinbox.get().capitalize()[0] == 'I':
+                self.spinbox.delete(0, END)
+                self.spinbox.insert(0, 'Ice')
+             if self.spinbox.get().capitalize()[:2] == 'Fr':
+                self.spinbox.delete(0, END)
+                self.spinbox.insert(0, 'Frog')
+             
+
+        #if self.spinbox.get
         #print(self.spinbox.get()[:3])
         for index, i in enumerate(self.spinbox_values):
             if self.spinbox.get().capitalize() == i:                           
@@ -1933,7 +1942,7 @@ class Dragon2_stuf (Frame):  #-------------------------------- REGLA: GAME STUF 
 ################################            EL             ################################ 
 ################################            FIN            ################################
 
-def main (): #--------------------------------------------------------------------NO TOCAR 
+def main (): #------------------------------------------------------------NO TOCAR 
     app = Interface()    
     app .mainloop()
 
