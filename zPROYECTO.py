@@ -19,7 +19,6 @@ class Interface(Tk):
         self.Images_1 = self.generate_list (path, 'a')                          # Lista de imgs para las ventanas: 1 y 2
         self.Images_sublist= self.generate_list (path, 's')                     # Lista de imgs para la ventana: Interface
         self.Miniatures= self.generate_list (path, 'z') 
-        print(len(self.Miniatures))
         #_____V A R I A B L E S  de  C O N T R O L  para las  V E N T A N A S   S U P E R I O R E S :  [1, 2, 3]      
         self._frame_1 = None
         self._frame_2 = None
@@ -170,29 +169,28 @@ class Interface(Tk):
         self.frm_C1 .grid_propagate(False)
 
         self.label_miniature = Label (self.frm_C1, image= self.Miniatures[0], bd= 0)
-        self.label_miniature .grid (padx= 2, pady= 7)
-        #self.label_miniature .grid_propagate(False)   # PROBAR SIN PONER ESTE
+        self.label_miniature .grid (padx= 2, pady= 3)
 
         self.spinbox_variable = StringVar()
-        self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))  # SE ACTIVA SI INTRODUCE TEXTO: CAMBIA POR MAYUSCULA
-        #self.spinbox_variable .trace_add ('write', self.change_miniature)
-
+       
         label_title = Label (self.frm_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
 
         self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Dragon 1', 'Dragon 2']
-        self.spinbox = Spinbox (self.frm_B3, width=13, values= self.spinbox_values, textvariable=self.spinbox_variable, wrap= True, command= self.change_miniature)    
-       #self.spinbox = Spinbox (self.frm_B3, width=13, values= self.spinbox_values, textvariable=self.spinbox_variable, wrap= True, command= self.mini)  # ANYERIOR
+        self.spinbox = Spinbox (self.frm_B3, width=13, values= self.spinbox_values, textvariable=self.spinbox_variable, wrap= True, #command= self.change_miniature,
+                                bd= 0, justify= 'center',)    
+                                # buttoncursor= 'double_arrow'
 
         self.spinbox .bind ('<Return>', self.bind_spinbox)  # SE ACTIVA SI SPINBOX TIENE FOCO, Y SE PRESIONA LA TECLA ENTER: ABRE LAS VENTANAS
         
-        #self.spinbox .icursor(END)
         #______Posicionamientos:
-        label_title .grid (column= 0, row=0, padx=10, pady=(10,5), sticky= W)
-
+        label_title .grid (column= 0, row=0, padx= 9, pady=(10,5), sticky= W)
         self.spinbox .grid (column= 0, row=1, padx=10, pady=(0,6), sticky= W)
-        
 
-    def gear_stacking(self):   # SE ACTIVA CON LA RUEDA DE CONFIGURACIONNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
+        self.spinbox_variable .trace_add ('write', self.change_miniature)
+        # # SE ACTIVA SI INTRODUCE TEXTO: CAMBIA POR MAYUSCULA EL PRIMER ARGUMENTO
+        self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))
+
+    def gear_stacking(self):   # SE ACTIVA CON LA RUEDA DE CONFIGURACION
 
         if  self.gear == True:         # PREDETERMINADO: TRUE
             self.frm_B1 .grid_remove()  # B1: BOTONES          
@@ -209,7 +207,7 @@ class Interface(Tk):
                 self.frm_B3 .grid (column= 1, row= 0, padx=0, pady=0, sticky= NW)
                 self.frm_C1 .grid (column= 1, row= 0, padx=0, pady=0, sticky= NE)
                 self.spinbox .focus_set()   # AKI TRABAJAR
-                #self.spinbox .icursor(END)
+                self.spinbox .icursor(END)
             else:
                 self.frm_B1 .grid ()
                 self.frm_B3 .grid_remove()
@@ -217,18 +215,19 @@ class Interface(Tk):
                 
             self.gear = True    
 
-###############################     
-    def change_miniature(self):
-
+    
+    def change_miniature(self,*args):   # SE ACTIVA CUANDO SE PRESIONA LAS FLECHAS O EL TECLADO DEL SPINBOX
+        #if self.spinbox.get()[:3]:
+        #print(self.spinbox.get()[:3])
         for index, i in enumerate(self.spinbox_values):
-            if self.spinbox_variable.get() == i:
-                print('dddd')
+            if self.spinbox.get().capitalize() == i:                           
                 self.label_miniature .config(image= self.Miniatures[index])
                 self.spinbox.icursor(END)
-###############################           
+            
 
     def cheeck_5 (self):   # SE ACTIVA MARCANDO LA CASILLA : SELF.CHEECKBUTTON 5  # ESTE METODO ESTA SIN USOOOOOOOOOOOOOOOOOO
         self.checkbutton5.value()
+
 
     def bind_spinbox (self, event):  # SE ACTIVA CUANDO SPINBOX TIENE FOCO Y SE PRESIONA LA TECLA ENTER: ABRE LAS VENTANAS
         
@@ -238,23 +237,17 @@ class Interface(Tk):
 
         for index, i in enumerate(self.spinbox_values):
             if self.spinbox.get() == i:
-                self.windows_123(left[index], right[index], stuf[index])  
+                self.windows_123(left[index], right[index], stuf[index]) 
+                self.spinbox.icursor(END)  # ESTA APRUEBA SI ES TOTLAMENTE NECESARIO 
+                
 
-    def configure_height (self):  # Metodo DESABILITADO
-              
-        if self.frm_A1 .winfo_reqheight() == 65:
-            self.frm_A1 .config (width=60, height=165)   
-        else:
-            self.frm_A1 .config (width=60, height=65)
-
-
-    def minimize_windows (self): # Metodo LOGO 
+    def minimize_windows (self): # METODO LOGO -----------------> SE ACTIVA DANDO CLICK AL LOGO
 
         if self.open_1 == True or self.open_2 == True or self.open_3 == True:
 
             if self.minimize == False:
                 if self.open_1 == True:
-                    self.toplevel_LEFT.deiconify()   # MOSTRAR VENTANAS  MODO MINIATURA
+                    self.toplevel_LEFT.deiconify()   # MOSTRAR VENTANAS  
                 if self.open_2 == True:
                     self.toplevel_RIGHT.deiconify()
                 if self.open_3 == True:
@@ -264,46 +257,13 @@ class Interface(Tk):
 
             else: 
                 if self.open_1 == True:
-                    self.toplevel_LEFT.iconify() # OCULTAR VENTANA
+                    self.toplevel_LEFT.iconify()     # OCULTAR VENTANAS
                 if self.open_2 == True:
                     self.toplevel_RIGHT.iconify() 
                 if self.open_3 == True:    
                     self.toplevel_STUF.iconify()
 
                 self.minimize = False
-
-
-
-
-
-
-            #print('ELSE')
-            
-            #print('ELSE---->', self.toplevel_LEFT.winfo_ismapped())
-        
-        """ try:
-            if self.toplevel_LEFT.winfo_ismapped() == 0 and self.toplevel_RIGHT.winfo_ismapped() == 0 and self.toplevel_STUF.winfo_ismapped() == 0: 
-            #if self.a== 1  :                       
-                self.toplevel_LEFT.deiconify()   # MOSTRAR VENTANAS  MODO MINIATURA
-                self.toplevel_RIGHT.deiconify()
-                self.toplevel_STUF.deiconify()
-                #print('IF---->', self.toplevel_LEFT.winfo_ismapped())sssssssssssss
-                print('completo')
-                #self.a = None
-                
-            else:                         
-                print('ELSE111') 
-                self.toplevel_LEFT.iconify()     # OCULTAR  VENTANAS   
-                self.toplevel_RIGHT.iconify()          
-                self.toplevel_STUF.iconify()
-                #self.a = 1
-                #print('ELSE')
-                
-                #print('ELSE---->', self.toplevel_LEFT.winfo_ismapped())
-                
-
-        except Exception as err:
-            print('Error: sin ventanas') """
 
 
 ############   M E T O D O S   P A R A   G E S T I O N A R   L A S   V E N T A N A S   S U P E R I O R E S   ############ 
@@ -730,10 +690,8 @@ class Boomer_right (Frame):  #------------------------------- DERECHA :  BASE  /
         self.grid_rowconfigure (0,weight=1)
 
 
-        self.master.bind("<Button-1>", self.button1)
-        
+        self.master.bind("<Button-1>", self.button1)      
         self.bind_motion = self.master.bind('<Motion>',self.motion)
-
         self.bind_leave = self.bind('<Leave>', lambda e: self.alert_77 .grid_forget())
 
         #______V A R I A B L E S  de  C O N T R O L  para los B I N D
