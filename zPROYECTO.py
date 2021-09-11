@@ -181,6 +181,7 @@ class Interface(Tk):
                                 # buttoncursor= 'double_arrow'
 
         self.spinbox .bind ('<Return>', self.bind_spinbox)  # SE ACTIVA SI SPINBOX TIENE FOCO, Y SE PRESIONA LA TECLA ENTER: ABRE LAS VENTANAS
+        self.spinbox .bind ('<Double-Button-1>', lambda *arg: self.spinbox.delete(0,END))
         
         #______Posicionamientos:
         label_title .grid (column= 0, row=0, padx= 9, pady=(10,5), sticky= W)
