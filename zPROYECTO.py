@@ -171,6 +171,9 @@ class Interface(Tk):
         self.label_miniature = Label (self.frm_C1, image= self.Miniatures[0], bd= 0)
         self.label_miniature .grid (padx= 2, pady= 3)
 
+   ##### self.listbox = Listbox (self.frm_B3, font=('Calibri',9,'bold'), bg= 'green2', width=15, justify= 'center')
+   ##### self.listbox .grid (padx= 0, pady=2)
+
         self.spinbox_variable = StringVar()
 
         self.all_register = (self.register(self.on_validate), '%S')
@@ -203,8 +206,8 @@ class Interface(Tk):
         return True """
         
         if all(i not in "0123456789 " for i in text):        
-            return True
-        return False
+            return True  # PERMITIR
+        return False     # NO PERMITIR
                     
 
     def gear_stacking(self):   # SE ACTIVA CON LA RUEDA DE CONFIGURACION
@@ -246,10 +249,20 @@ class Interface(Tk):
             if self.spinbox.get().capitalize()[:2] == 'Fr':
                 self.spinbox.delete(0, END)
                 self.spinbox.insert(0, 'Frog') """
-             
+        
+        typed = my_entry.get()
 
-        #if self.spinbox.get
-        #print(self.spinbox.get()[:3])
+	if typed == '':
+	    data = toppings
+	else:
+	    data = []
+		for i in toppings:
+		    if typed() in i.lower():
+			data.append(item)
+	update(data)			 
+
+        value= self.spinbox.get
+
         for index, i in enumerate(self.spinbox_values):
             if self.spinbox.get().capitalize() == i:                           
                 self.label_miniature .config(image= self.Miniatures[index])
