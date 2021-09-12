@@ -173,7 +173,7 @@ class Interface(Tk):
 
    ##### self.listbox = Listbox (self.frm_B3, font=('Calibri',9,'bold'), bg= 'green2', width=15, justify= 'center')
    ##### self.listbox .grid (padx= 0, pady=2)
-   ##### self.listbox .bind ('<<SelectorSelect>>', )
+   ##### self.listbox .bind ('<<ListboxSelect>>', self.listbox_select)
 
         self.spinbox_variable = StringVar()
 
@@ -193,7 +193,7 @@ class Interface(Tk):
         self.spinbox_variable .trace_add ('write', self.change_miniature)  
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # # SE ACTIVA SI INTRODUCE TEXTO: CAMBIA POR MAYUSCULA EL PRIMER ARGUMENTO
 
-  ##### self.update(spinbox_values)
+  ##### self.update(self.spinbox_values)
 
         #______Posicionamientos:
         label_title .grid (column= 0, row=0, padx= 9, pady=(10,5), sticky= W)
@@ -250,25 +250,22 @@ class Interface(Tk):
         """ for x in args:
             if self.spinbox.get().capitalize()[0] == 'I':
                 self.spinbox.delete(0, END)
-                self.spinbox.insert(0, 'Ice')
-        """       
-        typed = my_entry.get()
+                self.spinbox.insert(0, 'Ice')"""
 
-	if typed == '':
-	    data = toppings
-	else:
-	    data = []
-		for i in toppings:
-		    if typed() in i.lower():
-			data.append(item)
-	update(data)			 
-
-        value= self.spinbox.get
-
+        var = self.spinbox.get
+        if value == '':
+	    new_list = self.spinbox_values # LISTA
+        else:
+            new_list = []
+                
         for index, i in enumerate(self.spinbox_values):
+            if value in i();
+                data.append(i)
             if self.spinbox.get().capitalize() == i:                           
                 self.label_miniature .config(image= self.Miniatures[index])
                 self.spinbox.icursor(END)
+
+        self.update(new_list)
             
 
     def cheeck_5 (self):   # SE ACTIVA MARCANDO LA CASILLA : SELF.CHEECKBUTTON 5  # ESTE METODO ESTA SIN USOOOOOOOOOOOOOOOOOO
@@ -324,12 +321,18 @@ class Interface(Tk):
         self.open_3 = False
 
     # SE AGREGO ESTE METODO
+
     def update(data):     # LISTBOX LIMPIAR Y AGREGAR
 
 	self.listbox.delete(0, END)      # CLEAR
-
 	for i in data:   
             self.listbox.insert(END, i)  # ADD
+
+    
+    def listbox_select(self,event):      # LISTBOX ENTRY
+	
+	self.spinbox.delete(0, END)
+	self.spinbox.insert(0, self.listbox.get(ANCHOR))  # ADD
 
 
 ############   M E T O D O S   P A R A   G E S T I O N A R   L A S   V E N T A N A S   S U P E R I O R E S   ############ 
