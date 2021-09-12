@@ -176,7 +176,7 @@ class Interface(Tk):
 
         self.spinbox_variable = StringVar()
 
-        self.all_register = (self.register(self.on_validate), '%S')
+        self.all_register = (self.register(self.on_validate), '%P', '%S')
 
         label_title = Label (self.frm_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
 
@@ -200,14 +200,15 @@ class Interface(Tk):
 
     def on_validate(self, text):
 
-        """ if len(text) > 14:
-            print('len')         
-            return False           
-        return True """
-        
-        if all(i not in "0123456789 " for i in text):        
-            return True  # PERMITIR
-        return False     # NO PERMITIR
+      #  if len(text) < 14:
+      #       print('len')         
+      #       return True           
+      #  return False 
+
+        if len(text) < 14:
+            if all(i not in "0123456789 " for i in text):        
+                return True  # PERMITIR
+        return False         # NO PERMITIR
                     
 
     def gear_stacking(self):   # SE ACTIVA CON LA RUEDA DE CONFIGURACION
