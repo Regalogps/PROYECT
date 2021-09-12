@@ -259,7 +259,7 @@ class Interface(Tk):
             new_list = []
                 
         for index, i in enumerate(self.spinbox_values):
-            if box.capitalize() in i():
+            if box.capitalize() in i:
                 new_list.append(i)
             if self.spinbox.get().capitalize() == i:                           
                 self.label_miniature .config(image= self.Miniatures[index])
