@@ -180,7 +180,7 @@ class Interface(Tk):
         self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']
         self.spinbox = Spinbox (self.frm_B3, width=13, bd= 0, justify= 'center', values= self.spinbox_values, wrap= True,
                                 textvariable=self.spinbox_variable,                    
-                                validate= 'key', 
+                                validate= 'key', font=('Calibri',9,'bold'),
                                 validatecommand= self.all_register)                             
 
         self.spinbox .bind ('<Return>', self.bind_spinbox)                                  # SE ACTIVA SI SPINBOX TIENE FOCO, Y SE PRESIONA LA TECLA ENTER: ABRE LAS VENTANAS
@@ -239,13 +239,13 @@ class Interface(Tk):
 
         idea = ['Fr', 'Sa', 'Fo', 'Zo', 'Bo', 'I', 'Mam', 'Jd', 'J.', 'G', 'Or', 'Li', 'Lg', 'Ad', 'Kn', 'Cab', 'Ka', 'Cal', 'Mag', 'Ran', 'Cam', 'Jo', 'Po', 'Pi', 
                 'Tu', 'To', 'Ar', 'As', 'Rao', 'Tr', 'Di', 'Na', 'Bi', 'Ba', 'Dr']
-        for x in args:
+        """ for x in args:
             if self.spinbox.get().capitalize()[0] == 'I':
                 self.spinbox.delete(0, END)
                 self.spinbox.insert(0, 'Ice')
             if self.spinbox.get().capitalize()[:2] == 'Fr':
                 self.spinbox.delete(0, END)
-                self.spinbox.insert(0, 'Frog')
+                self.spinbox.insert(0, 'Frog') """
              
 
         #if self.spinbox.get
