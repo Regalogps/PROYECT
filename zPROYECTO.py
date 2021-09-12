@@ -171,7 +171,7 @@ class Interface(Tk):
         self.label_miniature = Label (self.frm_C1, image= self.Miniatures[0], bd= 0)
         self.label_miniature .grid (padx= 2, pady= 3)
 
-   ##### self.listbox = Listbox (self.frm_B3, font=('Calibri',9,'bold'), bg= 'green2', width=15, justify= 'center')
+   ##### self.listbox = Listbox (self.frm_B3, font=('Calibri',9,'bold'), bg= 'green2', width=15, height= 1, justify= 'center')
    ##### self.listbox .grid (padx= 0, pady=2)
    ##### self.listbox .bind ('<<ListboxSelect>>', self.listbox_select)
 
