@@ -327,12 +327,15 @@ class Interface(Tk):
 	self.listbox.delete(0, END)      # CLEAR
 	for i in data:   
             self.listbox.insert(END, i)  # ADD
+        #self.after(2000, lambda : self.listbox.see(1)
+
 
     
     def listbox_select(self,event):      # LISTBOX ENTRY
 	
 	self.spinbox.delete(0, END)
 	self.spinbox.insert(0, self.listbox.get(ANCHOR))  # ADD
+        
 
 
 ############   M E T O D O S   P A R A   G E S T I O N A R   L A S   V E N T A N A S   S U P E R I O R E S   ############ 
@@ -788,7 +791,7 @@ class Boomer_right (Frame):  #------------------------------- DERECHA :  BASE  /
             else:
                 self.fr_img_77 .grid_forget()
                 self.test = 'closed'
-                self.after(0, lambda e = self.motion: self.motion.set('on'))
+                self.after(0, lambda e = self.motion: self.motion.set('on'))  ## analizae
                 #print('se cambio de --OF-- a --ON-- ')
                 
                 self.flecha.grid_forget()
