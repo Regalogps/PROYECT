@@ -42,8 +42,8 @@ class Interface(Tk):
         #ventana.overrideredirect(1)
         #ventana.attributes("-toolwindow",-1)
         self.title ('_AshmanBot_')                                 #  BORRAR
-        self.geometry ('1000x150')                                 # TAMANIO DE LA VENTANA
-        self.resizable (1,1)                                       # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
+        self.geometry ('816x65')                                 # TAMANIO DE LA VENTANA
+        self.resizable (0,0)                                       # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
         self.config (bg='magenta2')                                # CONFIGURA EL FONDO DE LA VENTANA, etc
         self.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
         self.wm_attributes ('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
@@ -172,24 +172,40 @@ class Interface(Tk):
         self.label_miniature .grid (padx= 2, pady= 3)
 
         self.spinbox_variable = StringVar()
-       
+
+        self.all_register = (self.register(self.on_validate), '%S')
+
         label_title = Label (self.frm_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
 
-        self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Dragon 1', 'Dragon 2']
-        self.spinbox = Spinbox (self.frm_B3, width=13, values= self.spinbox_values, textvariable=self.spinbox_variable, wrap= True, #command= self.change_miniature,
-                                bd= 0, justify= 'center',)    
-                                # buttoncursor= 'double_arrow'
+        self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']
+        self.spinbox = Spinbox (self.frm_B3, width=13, bd= 0, justify= 'center', values= self.spinbox_values, wrap= True,
+                                textvariable=self.spinbox_variable,                    
+                                validate= 'key', 
+                                validatecommand= self.all_register)                             
 
-        self.spinbox .bind ('<Return>', self.bind_spinbox)  # SE ACTIVA SI SPINBOX TIENE FOCO, Y SE PRESIONA LA TECLA ENTER: ABRE LAS VENTANAS
-        self.spinbox .bind ('<Double-Button-1>', lambda *arg: self.spinbox.delete(0,END))
+        self.spinbox .bind ('<Return>', self.bind_spinbox)                                  # SE ACTIVA SI SPINBOX TIENE FOCO, Y SE PRESIONA LA TECLA ENTER: ABRE LAS VENTANAS
+        self.spinbox .bind ('<Double-Button-1>', lambda *arg: self.spinbox.delete(0,END))   # ACTIVAR SI SE HACE DOBLE CLICK EN LA CAJA(spinbox): LIMPIA LA CAA
         
+        self.spinbox_variable .trace_add ('write', self.change_miniature)  
+        self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # # SE ACTIVA SI INTRODUCE TEXTO: CAMBIA POR MAYUSCULA EL PRIMER ARGUMENTO
+
         #______Posicionamientos:
         label_title .grid (column= 0, row=0, padx= 9, pady=(10,5), sticky= W)
         self.spinbox .grid (column= 0, row=1, padx=10, pady=(0,6), sticky= W)
 
-        self.spinbox_variable .trace_add ('write', self.change_miniature)
-        # # SE ACTIVA SI INTRODUCE TEXTO: CAMBIA POR MAYUSCULA EL PRIMER ARGUMENTO
-        self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))
+        
+
+    def on_validate(self, text):
+
+        """ if len(text) > 14:
+            print('len')         
+            return False           
+        return True """
+        
+        if all(i not in "0123456789 " for i in text):        
+            return True
+        return False
+                    
 
     def gear_stacking(self):   # SE ACTIVA CON LA RUEDA DE CONFIGURACION
 
@@ -200,7 +216,8 @@ class Interface(Tk):
 
             self.frm_B2 .focus_set()    # NECESARIO 
             self.frm_B2 .grid (column= 1, row= 0, padx=0, pady=0, sticky= N)               
-            self.gear = False      
+            self.gear = False
+            self.geometry ('816x65')       
     
         else:
             self.frm_B2 .grid_remove()
@@ -209,6 +226,7 @@ class Interface(Tk):
                 self.frm_C1 .grid (column= 1, row= 0, padx=0, pady=0, sticky= NE)
                 self.spinbox .focus_set()   # AKI TRABAJAR
                 self.spinbox .icursor(END)
+                self.geometry ('234x65')
             else:
                 self.frm_B1 .grid ()
                 self.frm_B3 .grid_remove()
@@ -219,13 +237,13 @@ class Interface(Tk):
     
     def change_miniature(self,*args):   # SE ACTIVA CUANDO CAMBIA EL VALOR DE LA CAJA DEL SPINBOX
 
-        args = ['Fr', 'Sa', 'Fo', 'Zo', 'Bo', 'I', 'Mam', 'Jd', 'J.', 'G', 'Or', 'Li', 'Lg', 'Ad', 'Kn', 'Cab', 'Ka', 'Cal', 'Mag', 'Ran', 'Cam', 'Jo', 'Po', 'Pi', 
+        idea = ['Fr', 'Sa', 'Fo', 'Zo', 'Bo', 'I', 'Mam', 'Jd', 'J.', 'G', 'Or', 'Li', 'Lg', 'Ad', 'Kn', 'Cab', 'Ka', 'Cal', 'Mag', 'Ran', 'Cam', 'Jo', 'Po', 'Pi', 
                 'Tu', 'To', 'Ar', 'As', 'Rao', 'Tr', 'Di', 'Na', 'Bi', 'Ba', 'Dr']
         for x in args:
             if self.spinbox.get().capitalize()[0] == 'I':
                 self.spinbox.delete(0, END)
                 self.spinbox.insert(0, 'Ice')
-             if self.spinbox.get().capitalize()[:2] == 'Fr':
+            if self.spinbox.get().capitalize()[:2] == 'Fr':
                 self.spinbox.delete(0, END)
                 self.spinbox.insert(0, 'Frog')
              
@@ -244,9 +262,9 @@ class Interface(Tk):
 
     def bind_spinbox (self, event):  # SE ACTIVA CUANDO SPINBOX TIENE FOCO Y SE PRESIONA LA TECLA ENTER: ABRE LAS VENTANAS
         
-        left = [Frog_left_off, Fox_left_off, Boomer_left_off, Ice_left_off, Jd_left_off, Grub_left_off, Lightning_left_off, Aduka_left_off, Knight_left_off, Kalsiddon_left_off, Mage_left_off, Randomizer_left_off, Jolteon_left_off, Turtle_left_off, Armor_left_off, Asate_left_off, Raon_left_off, Trico_left_off, Nak_left_off, Bigfoot_left_off, Dragon1_left_off, Dragon2_left_off,]
-        right = [Frog_right, Fox_right, Boomer_right, Ice_right, Jd_right, Grub_right, Lightning_right, Aduka_right, Knight_right, Kalsiddon_right, Mage_right, Randomizer_right, Jolteon_right, Turtle_right, Armor_right, Asate_right, Raon_right, Trico_right, Nak_right, Bigfoot_right, Dragon1_right, Dragon2_right]
-        stuf = [Frog_stuf, Fox_stuf, Boomer_stuf, Ice_stuf, Jd_stuf, Grub_stuf, Lightning_stuf, Aduka_stuf, Knight_stuf, Kalsiddon_stuf, Mage_stuf, Randomizer_stuf, Jolteon_stuf, Turtle_stuf, Armor_stuf, Asate_stuf, Raon_stuf, Trico_stuf, Nak_stuf, Bigfoot_stuf, Dragon1_stuf, Dragon2_stuf]
+        left = [Frog_left_off, Fox_left_off, Boomer_left_off, Ice_left_off, Jd_left_off, Grub_left_off, Lightning_left_off, Aduka_left_off, Knight_left_off, Kalsiddon_left_off, Mage_left_off, Randomizer_left_off, Jolteon_left_off, Turtle_left_off, Armor_left_off, Asate_left_off, Raon_left_off, Trico_left_off, Nak_left_off, Bigfoot_left_off, Barney_left_off, Dragon_left_off,]
+        right = [Frog_right, Fox_right, Boomer_right, Ice_right, Jd_right, Grub_right, Lightning_right, Aduka_right, Knight_right, Kalsiddon_right, Mage_right, Randomizer_right, Jolteon_right, Turtle_right, Armor_right, Asate_right, Raon_right, Trico_right, Nak_right, Bigfoot_right, Barney_right, Dragon_right]
+        stuf = [Frog_stuf, Fox_stuf, Boomer_stuf, Ice_stuf, Jd_stuf, Grub_stuf, Lightning_stuf, Aduka_stuf, Knight_stuf, Kalsiddon_stuf, Mage_stuf, Randomizer_stuf, Jolteon_stuf, Turtle_stuf, Armor_stuf, Asate_stuf, Raon_stuf, Trico_stuf, Nak_stuf, Bigfoot_stuf, Barney_stuf, Dragon_stuf]
 
         for index, i in enumerate(self.spinbox_values):
             if self.spinbox.get() == i:
@@ -434,7 +452,7 @@ class Create_Frame (Frame):
         self.btn_ash = Button (self, image= self.master.Images_sublist [3], bg= '#11161d', bd= 0, activebackground= '#11161d' , command= self.master.minimize_windows)
         self.btn_ash .grid (column= 0, row= 0, padx= (6,6), pady= 0)
 
-        self.btn_ash .bind ('<Double-Button-1>', self.master.ash_close_windows)
+        self.btn_ash .bind ('<Double-Button-3>', self.master.ash_close_windows)
           
     def img_gear(self):   # Metodo que crea -1- Boton (rueda)-----------------NO TOCAR (despues)
 
@@ -464,8 +482,8 @@ class Create_Frame (Frame):
         self.Trico_18 = Button (self, text='Trico', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Trico_left_off, Trico_right, Trico_stuf))
         self.Nak_19 = Button (self, text='Nak', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Nak_left_off, Nak_right, Nak_stuf)) 
         self.Bigfoot_20 = Button (self, text='Bigfoot', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Bigfoot_left_off, Bigfoot_right, Bigfoot_stuf)) 
-        self.Dragon1_21 = Button (self, text='Dragon 1', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Dragon1_left_off, Dragon1_right, Dragon1_stuf)) 
-        self.Dragon2_22 = Button (self, text='Dragon 2', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Dragon2_left_off, Dragon2_right, Dragon2_stuf))
+        self.Barney_21 = Button (self, text='Barney', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Barney_left_off, Barney_right, Barney_stuf)) 
+        self.Dragon_22 = Button (self, text='Dragon', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Dragon_left_off, Dragon_right, Dragon_stuf))
                 
         self.Frog_1 .grid (column= 1, row= 1, pady= 3, padx= (5,0))
         self.Fox_2 .grid (column= 2, row= 1, pady= 3, padx= (0,0))       
@@ -488,8 +506,8 @@ class Create_Frame (Frame):
         self.Trico_18 .grid (column= 7, row= 2, pady= 2, padx= (0,0))
         self.Nak_19 .grid (column= 8, row= 2, pady= 2, padx= (0,0))
         self.Bigfoot_20 .grid (column= 9, row= 2, pady= 2, padx= (0,0))
-        self.Dragon1_21 .grid (column= 10, row= 2, pady= 2, padx= (0,0))
-        self.Dragon2_22 .grid (column= 11, row= 2, pady= 2, padx= (0,5))
+        self.Barney_21 .grid (column= 10, row= 2, pady= 2, padx= (0,0))
+        self.Dragon_22 .grid (column= 11, row= 2, pady= 2, padx= (0,5))
         
 
 
@@ -1822,7 +1840,7 @@ class Bigfoot_stuf (Frame):  #-------------------------------- REGLA: GAME STUF 
 ################################  F R A M E  " D R A G O N '1' "  ################################
 
 
-class Dragon1_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [20]
+class Barney_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [20]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -1848,7 +1866,7 @@ class Dragon1_left_off (Frame):  #------------------------------ IZQUIERDA :  DE
             self.fr_img_movil .grid_forget()
 
   
-class Dragon1_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [20]
+class Barney_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [20]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
@@ -1875,7 +1893,7 @@ class Dragon1_right (Frame):  #------------------------------- DERECHA :  BASE  
                 self.fr_img_77 . grid_forget()
 
 
-class Dragon1_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [20]
+class Barney_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [20]
      pass
 
 
@@ -1883,7 +1901,7 @@ class Dragon1_stuf (Frame):  #-------------------------------- REGLA: GAME STUF 
 ################################  F R A M E  " D R A G O N '2' "  ################################
 
 
-class Dragon2_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [21]
+class Dragon_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [21]
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
@@ -1909,7 +1927,7 @@ class Dragon2_left_off (Frame):  #------------------------------ IZQUIERDA :  DE
             self.fr_img_movil .grid_forget()
 
   
-class Dragon2_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [21]
+class Dragon_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [21]
 
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
@@ -1936,7 +1954,7 @@ class Dragon2_right (Frame):  #------------------------------- DERECHA :  BASE  
                 self.fr_img_77 . grid_forget()
 
 
-class Dragon2_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [21]
+class Dragon_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [21]
      pass
 
 
