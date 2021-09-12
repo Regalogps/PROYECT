@@ -252,15 +252,15 @@ class Interface(Tk):
                 self.spinbox.delete(0, END)
                 self.spinbox.insert(0, 'Ice')"""
 
-        var = self.spinbox.get
-        if value == '':
+        box = self.spinbox.get
+        if box == '':
 	    new_list = self.spinbox_values # LISTA
         else:
             new_list = []
                 
         for index, i in enumerate(self.spinbox_values):
-            if value in i();
-                data.append(i)
+            if box.capitalize() in i():
+                new_list.append(i)
             if self.spinbox.get().capitalize() == i:                           
                 self.label_miniature .config(image= self.Miniatures[index])
                 self.spinbox.icursor(END)
