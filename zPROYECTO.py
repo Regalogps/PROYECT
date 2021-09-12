@@ -173,6 +173,7 @@ class Interface(Tk):
 
    ##### self.listbox = Listbox (self.frm_B3, font=('Calibri',9,'bold'), bg= 'green2', width=15, justify= 'center')
    ##### self.listbox .grid (padx= 0, pady=2)
+   ##### self.listbox .bind ('<<SelectorSelect>>', )
 
         self.spinbox_variable = StringVar()
 
@@ -192,12 +193,14 @@ class Interface(Tk):
         self.spinbox_variable .trace_add ('write', self.change_miniature)  
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # # SE ACTIVA SI INTRODUCE TEXTO: CAMBIA POR MAYUSCULA EL PRIMER ARGUMENTO
 
+  ##### self.update(spinbox_values)
+
         #______Posicionamientos:
         label_title .grid (column= 0, row=0, padx= 9, pady=(10,5), sticky= W)
         self.spinbox .grid (column= 0, row=1, padx=10, pady=(0,6), sticky= W)
 
         
-
+    # SE ALTERO ESTE METODO
     def on_validate(self, text):
 
       #  if len(text) < 14:
@@ -248,10 +251,7 @@ class Interface(Tk):
             if self.spinbox.get().capitalize()[0] == 'I':
                 self.spinbox.delete(0, END)
                 self.spinbox.insert(0, 'Ice')
-            if self.spinbox.get().capitalize()[:2] == 'Fr':
-                self.spinbox.delete(0, END)
-                self.spinbox.insert(0, 'Frog') """
-        
+        """       
         typed = my_entry.get()
 
 	if typed == '':
@@ -314,15 +314,22 @@ class Interface(Tk):
 
     def ash_close_windows(self, event):
 
-            self.toplevel_LEFT. destroy()  # COMPROBAR SI ES NECESARIO ESTA LINEA EN EL METODO ORIGINAL DE CIERRE
-            self.open_1 = False
+        self.toplevel_LEFT. destroy()  # COMPROBAR SI ES NECESARIO ESTA LINEA EN EL METODO ORIGINAL DE CIERRE
+        self.open_1 = False
 
-            self.toplevel_RIGHT. destroy()
-            self.open_2 = False
+        self.toplevel_RIGHT. destroy()
+        self.open_2 = False
 
-            self.toplevel_STUF. destroy()
-            self.open_3 = False
+        self.toplevel_STUF. destroy()
+        self.open_3 = False
 
+    # SE AGREGO ESTE METODO
+    def update(data):     # LISTBOX LIMPIAR Y AGREGAR
+
+	self.listbox.delete(0, END)      # CLEAR
+
+	for i in data:   
+            self.listbox.insert(END, i)  # ADD
 
 
 ############   M E T O D O S   P A R A   G E S T I O N A R   L A S   V E N T A N A S   S U P E R I O R E S   ############ 
