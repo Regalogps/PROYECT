@@ -206,6 +206,7 @@ class Interface(Tk):
       #  return False 
 
         if len(text) < 14:
+            return True  # PROBAR SIN ESTO DEDPUES
             if all(i not in "0123456789 " for i in text):        
                 return True  # PERMITIR
         return False         # NO PERMITIR
