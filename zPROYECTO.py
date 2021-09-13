@@ -201,8 +201,6 @@ class Interface(Tk):
 
         self.spinbox .bind ("<KeyRelease>", self.chanse)
 
-        self.listbox .bind ('<Button-1>', self.ss)
-
         # TRACE ADD:
         self.spinbox_variable .trace_add ('write', self.change_miniature)  
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # # SE ACTIVA SI INTRODUCE TEXTO: CAMBIA POR MAYUSCULA EL PRIMER ARGUMENTO
@@ -342,8 +340,9 @@ class Interface(Tk):
 
         self.listbox.delete(0, END)      
  
-        for i in data:  
+        for i in data:   # ITERANDO...
             self.listbox.insert(END, i)
+            if self.spinbox.get() == self.listbox.g #FALTA
             if self.listbox .winfo_ismapped():
                 pass
                 #self.after(4000, lambda : self.listbox.see(1))
@@ -351,21 +350,26 @@ class Interface(Tk):
                 ##self.after(12000, lambda : self.listbox.see(0)) 
             
         print('LISTBOX', data)
+
         
     def listbox_select(self,event):      # LISTBOX ENTRY
 
         self.spinbox.delete(0, END)
         self.spinbox.insert(0, self.listbox.get(ANCHOR))  # ADD
         
-        self.listbox.selection_clear(0,END)
+        self.after(100, self.return_ficus)
+
+
+        #self.listbox.selection_clear(0,END)
         #self.listbox.focus_displayof()
         #self.spinbox.icursor(END)
         #self.spinbox.focus_set()
         print(self.listbox.size())
         
-    def ss (self, event):
+    def return_focus(self, event):
 
         self.listbox.selection_clear(0,END)
+        self.listbox.delete(0, END)
         self.spinbox.focus_set()
         self.spinbox.icursor(END)
 
