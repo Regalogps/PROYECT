@@ -1,13 +1,12 @@
 from tkinter import *
-from tkinter import ttk 
-from tkinter import filedialog
-from typing import Sized
+#from tkinter import Label, Frame, Spinbox, Listbox, Checkbutton, StringVar, IntVar
+#from typing import Sized
 from PIL import ImageTk, Image
 import cv2
 import imutils
 import numpy as np
 import os 
-import sys
+#import sys
 
 class Interface(Tk):
 
@@ -43,7 +42,7 @@ class Interface(Tk):
         #ventana.attributes("-toolwindow",-1)
         self.title ('_AshmanBot_')                                 #  BORRAR
         self.geometry ('816x65')                                 # TAMANIO DE LA VENTANA
-        self.resizable (0,0)                                       # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
+        self.resizable (0,1)                                       # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
         self.config (bg='magenta2')                                # CONFIGURA EL FONDO DE LA VENTANA, etc
         self.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
         self.wm_attributes ('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
@@ -162,59 +161,84 @@ class Interface(Tk):
 #_____________SELF.CHECKBUTTON 5 :  MODO LISTA
 
         #_____C O N T E N E D O R E S:  (NO POSICIONADOS)
-        self.frm_B3 = Frame (self, bg='#31343a', width=174, height=65)  # Color: Plomo
-        self.frm_B3 .grid_propagate(False)
+        self.frm_B3 = Frame (self, bg='#31343a', width=172, height=65)   # NO POSICIONADO     # Color: Plomo       
+        self.frm_C1 = Frame (self, bg='#11161d', width=60, height=65)    # NO POSICIONADO     # Color: Azul  #11161d
+        
+        # LABEL DE TITULO : SELECCIONE MOBIL
+        label_title = Label (self.frm_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)      # POSICIONADO
 
-        self.frm_C1 = Frame (self, bg='#11161d', width=60, height=65)   # Color: Azul  #11161d
-        self.frm_C1 .grid_propagate(False)
+        # LABEL CONTENEDOR DE LAS MINIATURAS
+        self.label_miniature = Label (self.frm_C1, image= self.Miniatures[0], bd= 0)                                                  # POSICIONADO
 
-        self.label_miniature = Label (self.frm_C1, image= self.Miniatures[0], bd= 0)
-        self.label_miniature .grid (padx= 2, pady= 3)
-
-   ##### self.listbox = Listbox (self.frm_B3, font=('Calibri',9,'bold'), bg= 'green2', width=15, height= 1, justify= 'center')
-   ##### self.listbox .grid (padx= 0, pady=2)
-   ##### self.listbox .bind ('<<ListboxSelect>>', self.listbox_select)
-
+        # S T R I N G V A R
         self.spinbox_variable = StringVar()
 
-        self.all_register = (self.register(self.on_validate), '%P', '%S')
-
-        label_title = Label (self.frm_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-
+        # LISTA DE NOMBRES DE MOVIL
         self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']
-        self.spinbox = Spinbox (self.frm_B3, width=13, bd= 0, justify= 'center', values= self.spinbox_values, wrap= True,
-                                textvariable=self.spinbox_variable,                    
-                                validate= 'key', font=('Calibri',9,'bold'),
-                                validatecommand= self.all_register)                             
 
+        # FUNCION PARA HACER VALIDACIONES DE ENTRADA:  S P I N B O X
+        self.all_register = (self.register(self.validate_text), '%P', '%S')
+
+        # L I S T B O X  / POSICIONADO
+        self.listbox = Listbox (self.frm_B3, font=('Calibri',9,'bold'), bg='#11161d', fg='#ff8000', width=15, height= 1, justify='center', highlightbackground='#11161d', highlightthickness=4, borderwidth=0, bd=0, selectbackground='#11161d', highlightcolor='#11161d', selectforeground='green2', activestyle='none',
+                                takefocus=0)
+
+
+        # INSERTANDO VALORES A:  L I S T B O X
+        self.update(self.spinbox_values)
+
+                                
+        # S P I N B O X  / POSICIONADO
+        self.spinbox = Spinbox (self.frm_B3, width=13, bd=0, justify='center', wrap=True,
+                                values=self.spinbox_values,                                      # DESDE AQUI PARA ABAJO SE HACEN LLAMADAS
+                                textvariable=self.spinbox_variable, 
+                                validate='key', validatecommand= self.all_register)                             
+        # BIND:
         self.spinbox .bind ('<Return>', self.bind_spinbox)                                  # SE ACTIVA SI SPINBOX TIENE FOCO, Y SE PRESIONA LA TECLA ENTER: ABRE LAS VENTANAS
-        self.spinbox .bind ('<Double-Button-1>', lambda *arg: self.spinbox.delete(0,END))   # ACTIVAR SI SE HACE DOBLE CLICK EN LA CAJA(spinbox): LIMPIA LA CAA
-        
+        self.spinbox .bind ('<Double-Button-1>', lambda *arg: self.spinbox.delete(0, END))   # ACTIVAR SI SE HACE DOBLE CLICK EN LA CAJA(spinbox): LIMPIA LA CAA
+        self.listbox .bind ('<<ListboxSelect>>', self.listbox_select)   # SE ACTIVAR AL DAR CLICK EN EL LISTBOX
+
+
+        self.spinbox .bind ("<KeyRelease>", self.chanse)
+
+        self.listbox .bind ('<Button-1>', self.ss)
+
+        # TRACE ADD:
         self.spinbox_variable .trace_add ('write', self.change_miniature)  
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # # SE ACTIVA SI INTRODUCE TEXTO: CAMBIA POR MAYUSCULA EL PRIMER ARGUMENTO
 
-  ##### self.update(self.spinbox_values)
+        
+
+        #______Propagación:
+        self.frm_B3 .grid_propagate(False)
+        self.frm_C1 .grid_propagate(False)
 
         #______Posicionamientos:
-        label_title .grid (column= 0, row=0, padx= 9, pady=(10,5), sticky= W)
-        self.spinbox .grid (column= 0, row=1, padx=10, pady=(0,6), sticky= W)
+        label_title .grid (column= 0, row=1, padx= 10, pady=(0,0), sticky= W)
+        self.label_miniature .grid (padx= 2, pady= 3)
 
-        
-    # SE ALTERO ESTE METODO
-    def on_validate(self, text):
+        self.listbox .grid (column= 0, row= 0, padx= (0,2), pady=(0, 2), sticky= NSEW)
+        self.spinbox .grid (column= 0, row=2, padx=11, pady=(3,3), sticky= W)        
 
-      #  if len(text) < 14:
-      #       print('len')         
-      #       return True           
-      #  return False 
 
-        if len(text) < 14:
-            return True  # PROBAR SIN ESTO DEDPUES
-            if all(i not in "0123456789 " for i in text):        
-                return True  # PERMITIR
-        return False         # NO PERMITIR
+#_______ G L O S A R I O:
+        # LISTBOX:    
+        # width= 15 ---> NUMEROS DE CARACTERES PERMITIDOS
+        # height= 1 ---> NUMERO DE FILAS OBSERVABLES
+        # justify= 'center' ---> CENTRAR TEXTO INTERNO
+        # highlightbackground= '#11161d' ---> COLOR DEL BORDE SIN FOCO
+        # highlightthickness= 4 ---> TAMAÑO DEL BORDE EN PIXELES SIN FOCO
+        # selectbackground= '#11161d' ---> COLOR DE BORDE CON FOCO
+        # selectforeground= 'green2' ---> COLOR DE FONDO CON FOCO
+        # activestyle= 'none' ---> SUBRAYADO DEL TEXTO CUANDO ES SELECCIONADO DESACTIVADO:'none'
+#_______
+
+    def validate_text(self, text, arg):
+
+        if all (i not in "0123456789 " for i in text) and len(text) < 14:      # TRUE = PERMITIR, FALSE = DENEGAR   
+                return True                                                 
+        return False                                                         
                     
-
     def gear_stacking(self):   # SE ACTIVA CON LA RUEDA DE CONFIGURACION
 
         if  self.gear == True:         # PREDETERMINADO: TRUE
@@ -234,7 +258,7 @@ class Interface(Tk):
                 self.frm_C1 .grid (column= 1, row= 0, padx=0, pady=0, sticky= NE)
                 self.spinbox .focus_set()   # AKI TRABAJAR
                 self.spinbox .icursor(END)
-                self.geometry ('234x65')
+                self.geometry ('232x65')
             else:
                 self.frm_B1 .grid ()
                 self.frm_B3 .grid_remove()
@@ -244,33 +268,29 @@ class Interface(Tk):
 
     
     def change_miniature(self,*args):   # SE ACTIVA CUANDO CAMBIA EL VALOR DE LA CAJA DEL SPINBOX
-
-        idea = ['Fr', 'Sa', 'Fo', 'Zo', 'Bo', 'I', 'Mam', 'Jd', 'J.', 'G', 'Or', 'Li', 'Lg', 'Ad', 'Kn', 'Cab', 'Ka', 'Cal', 'Mag', 'Ran', 'Cam', 'Jo', 'Po', 'Pi', 
-                'Tu', 'To', 'Ar', 'As', 'Rao', 'Tr', 'Di', 'Na', 'Bi', 'Ba', 'Dr']
-        """ for x in args:
-            if self.spinbox.get().capitalize()[0] == 'I':
-                self.spinbox.delete(0, END)
-                self.spinbox.insert(0, 'Ice')"""
-
-        box = self.spinbox.get
-        if box == '':
-	    new_list = self.spinbox_values # LISTA
-        else:
-            new_list = []
-                
-        for index, i in enumerate(self.spinbox_values):
-            if box.capitalize() in i:
-                new_list.append(i)
+             
+        for index, i in enumerate(self.spinbox_values):      
             if self.spinbox.get().capitalize() == i:                           
                 self.label_miniature .config(image= self.Miniatures[index])
                 self.spinbox.icursor(END)
 
-        self.update(new_list)
             
+    def chanse (self, event):
+
+        box = self.spinbox.get()
+        if box == '':
+            print('Borraste todo')
+            #list = self.spinbox_values 
+        else:
+            list = []           
+            for i in self.spinbox_values:
+                if box in i:
+                    list .append(i)
+                    print('chanse',list)      
+            self.update(list)
 
     def cheeck_5 (self):   # SE ACTIVA MARCANDO LA CASILLA : SELF.CHEECKBUTTON 5  # ESTE METODO ESTA SIN USOOOOOOOOOOOOOOOOOO
         self.checkbutton5.value()
-
 
     def bind_spinbox (self, event):  # SE ACTIVA CUANDO SPINBOX TIENE FOCO Y SE PRESIONA LA TECLA ENTER: ABRE LAS VENTANAS
         
@@ -283,7 +303,6 @@ class Interface(Tk):
                 self.windows_123(left[index], right[index], stuf[index]) 
                 self.spinbox.icursor(END)  # ESTA APRUEBA SI ES TOTLAMENTE NECESARIO 
                 
-
     def minimize_windows (self): # METODO LOGO -----------------> SE ACTIVA DANDO CLICK AL LOGO
 
         if self.open_1 == True or self.open_2 == True or self.open_3 == True:
@@ -308,10 +327,9 @@ class Interface(Tk):
 
                 self.minimize = False
 
+    def ash_close_windows(self, event):   # SE ACTIVA DANDO DOBLE CLICK DERECHO EN EL LOGO
 
-    def ash_close_windows(self, event):
-
-        self.toplevel_LEFT. destroy()  # COMPROBAR SI ES NECESARIO ESTA LINEA EN EL METODO ORIGINAL DE CIERRE
+        self.toplevel_LEFT. destroy() 
         self.open_1 = False
 
         self.toplevel_RIGHT. destroy()
@@ -320,22 +338,37 @@ class Interface(Tk):
         self.toplevel_STUF. destroy()
         self.open_3 = False
 
-    # SE AGREGO ESTE METODO
+    def update(self, data):     # LISTBOX LIMPIAR Y AGREGAR
 
-    def update(data):     # LISTBOX LIMPIAR Y AGREGAR
-
-	self.listbox.delete(0, END)      # CLEAR
-	for i in data:   
-            self.listbox.insert(END, i)  # ADD
-        #self.after(2000, lambda : self.listbox.see(1)
-
-
-    
-    def listbox_select(self,event):      # LISTBOX ENTRY
-	
-	self.spinbox.delete(0, END)
-	self.spinbox.insert(0, self.listbox.get(ANCHOR))  # ADD
+        self.listbox.delete(0, END)      
+ 
+        for i in data:  
+            self.listbox.insert(END, i)
+            if self.listbox .winfo_ismapped():
+                pass
+                #self.after(4000, lambda : self.listbox.see(1))
+                #self.after(8000, lambda : self.listbox.see(0))
+                ##self.after(12000, lambda : self.listbox.see(0)) 
+            
+        print('LISTBOX', data)
         
+    def listbox_select(self,event):      # LISTBOX ENTRY
+
+        self.spinbox.delete(0, END)
+        self.spinbox.insert(0, self.listbox.get(ANCHOR))  # ADD
+        
+        self.listbox.selection_clear(0,END)
+        #self.listbox.focus_displayof()
+        #self.spinbox.icursor(END)
+        #self.spinbox.focus_set()
+        print(self.listbox.size())
+        
+    def ss (self, event):
+
+        self.listbox.selection_clear(0,END)
+        self.spinbox.focus_set()
+        self.spinbox.icursor(END)
+
 
 
 ############   M E T O D O S   P A R A   G E S T I O N A R   L A S   V E N T A N A S   S U P E R I O R E S   ############ 
