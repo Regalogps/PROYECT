@@ -342,7 +342,8 @@ class Interface(Tk):
  
         for i in data:   # ITERANDO...
             self.listbox.insert(END, i)
-            if self.spinbox.get() == self.listbox.g #FALTA
+            if self.spinbox.get() == self.listbox.get(): #FALTA
+                self.listbox.delete(0, END)  #VERRR ESTOS DOS 
             if self.listbox .winfo_ismapped():
                 pass
                 #self.after(4000, lambda : self.listbox.see(1))
