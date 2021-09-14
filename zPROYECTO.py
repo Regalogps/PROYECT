@@ -295,7 +295,7 @@ class Interface(Tk):
             for i in self.spinbox_values:
                 print('en else: ', value)          
                 if value in i:
-                    #self.listbox .config (state= NORMAL)#
+                    #self.listbox .config (state= NORMAL)#aaaaaaa
                     list_new .append(i)
                     print('Agregando a la lista: ', list_new) 
                     
