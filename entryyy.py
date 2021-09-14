@@ -20,6 +20,8 @@ def fillout(e):      # LISTBOX ENTRY
 
 	# Add clicked list item to entry box
 	my_entry.insert(0, my_list.get(ANCHOR))
+
+	root.after(100, my_list.delete(0, END))
  
 def check(e):        # LISTBOX
 
@@ -48,7 +50,7 @@ my_list.pack(pady=40)
 toppings = ["Pepperoni", "Peppers", "Mushrooms", "Cheese", "Onions", "Ham", "Taco"]
 
 # Add the toppings to our list
-update(toppings)
+#update(toppings)
 
 my_list.bind("<<ListboxSelect>>", fillout)
 my_entry.bind("<KeyRelease>", check)

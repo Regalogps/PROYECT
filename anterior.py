@@ -182,10 +182,10 @@ class Interface(Tk):
         # L I S T B O X  / POSICIONADO
         self.listbox = Listbox (self.frm_B3, font=('Calibri',9,'bold'), bg='#11161d', fg='#ff8000', width=15, height= 1, justify='center', highlightbackground='#11161d', highlightthickness=4, borderwidth=0, bd=0, selectbackground='#11161d', highlightcolor='#11161d', selectforeground='green2', activestyle='none',
                                 takefocus=0)
-        self.listbox.configure(takefocus=0)
+
 
         # INSERTANDO VALORES A:  L I S T B O X
-        #self.update(self.spinbox_values)
+        self.update(self.spinbox_values)
 
                                 
         # S P I N B O X  / POSICIONADO
@@ -197,10 +197,6 @@ class Interface(Tk):
         self.spinbox .bind ('<Return>', self.bind_spinbox)                                  # SE ACTIVA SI SPINBOX TIENE FOCO, Y SE PRESIONA LA TECLA ENTER: ABRE LAS VENTANAS
         self.spinbox .bind ('<Double-Button-1>', lambda *arg: self.spinbox.delete(0, END))   # ACTIVAR SI SE HACE DOBLE CLICK EN LA CAJA(spinbox): LIMPIA LA CAA
         self.listbox .bind ('<<ListboxSelect>>', self.listbox_select)   # SE ACTIVAR AL DAR CLICK EN EL LISTBOX
-
-        #self.spinbox .bind ('<Return>', self.bind_listbox) 
-
-        
 
 
         self.spinbox .bind ("<KeyRelease>", self.chanse)
@@ -235,7 +231,7 @@ class Interface(Tk):
         # activestyle= 'none' ---> SUBRAYADO DEL TEXTO CUANDO ES SELECCIONADO DESACTIVADO:'none'
 #_______
 
-    def validate_text(self, text, arg):   # SE ACTIVA SIEMPRE Y CUANDO INTENTE INGRESAR MAYUSCULAS O CADENAS SUPERIORES A 13 / LO LLAMA SPINBOX
+    def validate_text(self, text, arg):
 
         if all (i not in "0123456789 " for i in text) and len(text) < 14:      # TRUE = PERMITIR, FALSE = DENEGAR   
                 return True                                                 
@@ -243,7 +239,7 @@ class Interface(Tk):
                     
     def gear_stacking(self):   # SE ACTIVA CON LA RUEDA DE CONFIGURACION
 
-        if  self.gear == True:          # PREDETERMINADO: TRUE
+        if  self.gear == True:         # PREDETERMINADO: TRUE
             self.frm_B1 .grid_remove()  # B1: BOTONES          
             self.frm_B3 .grid_remove()  # B3: LISTBOX    ###??? necesita if?
             self.frm_C1 .grid_remove()  # C1: MINIATURA
@@ -267,41 +263,29 @@ class Interface(Tk):
                 self.frm_C1 .grid_remove()
                 
             self.gear = True    
+
     
-    def change_miniature(self,*args):   # SE ACTIVA CADA VEZ QUE MODIFICA LA CAJA DEL SPINBOX
+    def change_miniature(self,*args):   # SE ACTIVA CUANDO CAMBIA EL VALOR DE LA CAJA DEL SPINBOX
              
         for index, i in enumerate(self.spinbox_values):      
             if self.spinbox.get().capitalize() == i:                           
                 self.label_miniature .config(image= self.Miniatures[index])
                 self.spinbox.icursor(END)
-        
-    def chanse (self, event):   # SE ACTIVA CADA QUE SE SUELTA UNA TECLA
 
-        #self.listbox.config(state= NORMAL)
-        value = self.spinbox.get()
-
-        if value == '':
-            print('me ejec')                                  # 1- SI SPINBOX ESTA VACIO.  2- BORRA LA LISTA DE LISTBOX.  3- DESHABILITA LISTBOX.
-            self.listbox .delete (0, END)
             
-            self.listbox .config (state= DISABLED)#
+    def chanse (self, event):
 
-        else:                                            # 1- HABILITA LISTBOX.  2- CREA LISTA VACIA.  3- ITERANDO: 'self.spinbox_values'.
-            self.listbox .config (state= NORMAL)#        # 4- SI COINCIDE 'value' EN 'self.spinbox_values'.  5- AGREGA VALUE A LISTA.  6- SI LA LISTA NO ESTA VACIA. 
-            list_new = []                                # 10- LLAMA AL METODO: 'def update' Y PASA LA LISTA DE ARGUMENTO. 
-            print('tambien entro')                                             
-            for i in self.spinbox_values:          
-                if value in i:
-                    #self.listbox .config (state= NORMAL)#
-                    list_new .append(i)
-                    print('Agregando a la lista: ', list_new) 
-                    
-                #else:
-                  #  self.listbox .config (state= DISABLED)#
-
-            if list_new != []:
-                print('mando lista')             
-                self.update(list_new)
+        box = self.spinbox.get()
+        if box == '':
+            print('Borraste todo')
+            #list = self.spinbox_values 
+        else:
+            list = []           
+            for i in self.spinbox_values:
+                if box in i:
+                    list .append(i)
+                    print('chanse',list)      
+            self.update(list)
 
     def cheeck_5 (self):   # SE ACTIVA MARCANDO LA CASILLA : SELF.CHEECKBUTTON 5  # ESTE METODO ESTA SIN USOOOOOOOOOOOOOOOOOO
         self.checkbutton5.value()
@@ -352,59 +336,44 @@ class Interface(Tk):
         self.toplevel_STUF. destroy()
         self.open_3 = False
 
-    def update(self, list):     # LISTBOX LIMPIAR Y AGREGAR
-        print('update')
-        self.listbox .delete(0, END)                                    # 1- BORRA LA LISTA DE LISTBOX
+    def update(self, data):     # LISTBOX LIMPIAR Y AGREGAR
 
-        for i in list:                                                  # 1- ITERANDO: 'list_new'.  2- INSERTANDO ITERADOR 'i' A LISTBOX.  
-            self.listbox .insert(END, i)                                # 3- SI EL CONTENIDO QUE SE OBSERVA EN LISTBOX ES IGUAL SPINBOX.  4- BORRA LA LISTA DE LISTBOX.
-                                                                        # 5- 
-            if self.listbox .get(0) == self.spinbox_variable .get(): 
-                self.listbox .delete (0, END)            
-                #self.listbox .config (state= DISABLED)#
-
-            #else:
-               # self.listbox .config (state= NORMAL)#
-
-            if self.listbox .winfo_viewable():
+        self.listbox.delete(0, END)      
+ 
+        for i in data:   # ITERANDO...
+            self.listbox.insert(END, i)
+            if self.spinbox.get() == self.listbox.get(): #FALTA
+                self.listbox.delete(0, END)  #VERRR ESTOS DOS 
+            if self.listbox .winfo_ismapped():
                 pass
                 #self.after(4000, lambda : self.listbox.see(1))
                 #self.after(8000, lambda : self.listbox.see(0))
                 ##self.after(12000, lambda : self.listbox.see(0)) 
             
-        print('Lista procesada completa', list)
+        print('LISTBOX', data)
 
         
     def listbox_select(self,event):      # LISTBOX ENTRY
-        print('lis select')                                                               # 1- BORRA EL CONTENIDO DE SPINBOX.  2- INSERTA EL ITEM SELECCIONADO DEL LISTBOX A SPINBOX
-        #print('esss:::',self.listbox.get(0))                           
 
         self.spinbox.delete(0, END)
         self.spinbox.insert(0, self.listbox.get(ANCHOR))  # ADD
-        #self.listbox.config(state= DISABLED)
         
-        self.after(100, self.return_focus)
+        self.after(100, self.return_ficus)
 
-        #print(self.listbox.size())
+
+        #self.listbox.selection_clear(0,END)
+        #self.listbox.focus_displayof()
+        #self.spinbox.icursor(END)
+        #self.spinbox.focus_set()
+        print(self.listbox.size())
         
-    def return_focus(self):
-        print('return focues')
+    def return_focus(self, event):
+
         self.listbox.selection_clear(0,END)
         self.listbox.delete(0, END)
-
-        #self.listbox.config(state= DISABLED)
-
-        self.spinbox.focus_set()    
+        self.spinbox.focus_set()
         self.spinbox.icursor(END)
 
-    
-    """ def bind_listbox(self, event):
-        #self.listbox.get(0)
-        print('no puedo entrar tmr')
-        
-        print('igual me ejecute')
-        self.spinbox.delete(0, END)
-        self.spinbox.insert(0, self.listbox.get(0)) """
 
 
 ############   M E T O D O S   P A R A   G E S T I O N A R   L A S   V E N T A N A S   S U P E R I O R E S   ############ 
@@ -1454,613 +1423,3 @@ class Jolteon_left_off (Frame):  #------------------------------ IZQUIERDA :  DE
 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
-
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [12][0], bd=0)
-        self.fr_img_delay .grid(column=0,row=0)
-
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [12][1], bd=0)  
-
-        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
-        self.lbl_guia . bind('<Button-1>', self.position_img)
-        self.lbl_guia . place(x= 2, y= 48)    
- 
-
-        self.grid_columnconfigure(0,weight=1)
-        self.grid_rowconfigure(0,weight=1)
-
-    def position_img(self, event): 
-
-        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.fr_img_movil .grid (column= 0, row= 0)
-        else:
-            self.fr_img_movil .grid_forget()
-
-  
-class Jolteon_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [12]
-
-    def __init__(self, master, *args, **kwargs):
-        Frame.__init__(self, master, *args, **kwargs)
-
-        self.master.bind("<Button-1>", self.position_img)
- 
-        self.fr_img_base = Example (self, self.master.master.Images_1 [12][2], bd=0)
-        self.fr_img_base . grid (column=0, row=0)
-        self.fr_img_base . grid_propagate(0)
-
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [12][3], bd=0)       
- 
-        self.grid_columnconfigure (0,weight=1)
-        self.grid_rowconfigure (0,weight=1)
-
-    def position_img(self, event): 
-
-        width, height = event.x, event.y
-    
-        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
-            if self.fr_img_77 . grid_info() == {}:
-                self.fr_img_77 . grid(column=0, row=0)                            
-            else:
-                self.fr_img_77 . grid_forget()
-
-
-class Jolteon_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [12]
-     pass
-
-
-################################  F R A M E  " T U R T L E "  ################################
-################################  F R A M E  " T U R T L E "  ################################
-
-class Turtle_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [13]
-
-    def __init__(self, *args, **kwargs):
-        Frame.__init__(self, *args, **kwargs)   
-
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [13][0], bd=0)
-        self.fr_img_delay .grid(column=0,row=0)
-
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [13][1], bd=0)  
-
-        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
-        self.lbl_guia . bind('<Button-1>', self.position_img)
-        self.lbl_guia . place(x= 2, y= 48)    
- 
-
-        self.grid_columnconfigure(0,weight=1)
-        self.grid_rowconfigure(0,weight=1)
-
-    def position_img(self, event): 
-
-        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.fr_img_movil .grid (column= 0, row= 0)
-        else:
-            self.fr_img_movil .grid_forget()
-
-  
-class Turtle_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [13]
-
-    def __init__(self, master, *args, **kwargs):
-        Frame.__init__(self, master, *args, **kwargs)
-
-        self.master.bind("<Button-1>", self.position_img)
- 
-        self.fr_img_base = Example (self, self.master.master.Images_1 [13][2], bd=0)
-        self.fr_img_base . grid (column=0, row=0)
-        self.fr_img_base . grid_propagate(0)
-
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [13][3], bd=0)       
- 
-        self.grid_columnconfigure (0,weight=1)
-        self.grid_rowconfigure (0,weight=1)
-
-    def position_img(self, event): 
-
-        width, height = event.x, event.y
-    
-        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
-            if self.fr_img_77 . grid_info() == {}:
-                self.fr_img_77 . grid(column=0, row=0)                            
-            else:
-                self.fr_img_77 . grid_forget()
-
-
-class Turtle_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [13]
-     pass
-
-
-################################  F R A M E  " A R M O R "  ################################
-################################  F R A M E  " A R M O R "  ################################
-
-
-class Armor_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [14]
-
-    def __init__(self, *args, **kwargs):
-        Frame.__init__(self, *args, **kwargs)   
-
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [14][0], bd=0)
-        self.fr_img_delay .grid(column=0,row=0)
-
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [14][1], bd=0)  
-
-        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
-        self.lbl_guia . bind('<Button-1>', self.position_img)
-        self.lbl_guia . place(x= 2, y= 48)    
- 
-
-        self.grid_columnconfigure(0,weight=1)
-        self.grid_rowconfigure(0,weight=1)
-
-    def position_img(self, event): 
-
-        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.fr_img_movil .grid (column= 0, row= 0)
-        else:
-            self.fr_img_movil .grid_forget()
-
-  
-class Armor_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [14]
-
-    def __init__(self, master, *args, **kwargs):
-        Frame.__init__(self, master, *args, **kwargs)
-
-        self.master.bind("<Button-1>", self.position_img)
- 
-        self.fr_img_base = Example (self, self.master.master.Images_1 [14][2], bd=0)
-        self.fr_img_base . grid (column=0, row=0)
-        self.fr_img_base . grid_propagate(0)
-
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [14][3], bd=0)       
- 
-        self.grid_columnconfigure (0,weight=1)
-        self.grid_rowconfigure (0,weight=1)
-
-    def position_img(self, event): 
-
-        width, height = event.x, event.y
-    
-        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
-            if self.fr_img_77 . grid_info() == {}:
-                self.fr_img_77 . grid(column=0, row=0)                            
-            else:
-                self.fr_img_77 . grid_forget()
-
-
-class Armor_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [14]
-     pass
-
-
-################################  F R A M E  " A S A T E "  ################################
-################################  F R A M E  " A S A T E "  ################################
-
-
-class Asate_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [15]
-
-    def __init__(self, *args, **kwargs):
-        Frame.__init__(self, *args, **kwargs)   
-
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [15][0], bd=0)
-        self.fr_img_delay .grid(column=0,row=0)
-
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [15][1], bd=0)  
-
-        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
-        self.lbl_guia . bind('<Button-1>', self.position_img)
-        self.lbl_guia . place(x= 2, y= 48)    
- 
-
-        self.grid_columnconfigure(0,weight=1)
-        self.grid_rowconfigure(0,weight=1)
-
-    def position_img(self, event): 
-
-        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.fr_img_movil .grid (column= 0, row= 0)
-        else:
-            self.fr_img_movil .grid_forget()
-
-  
-class Asate_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [15]
-
-    def __init__(self, master, *args, **kwargs):
-        Frame.__init__(self, master, *args, **kwargs)
-
-        self.master.bind("<Button-1>", self.position_img)
- 
-        self.fr_img_base = Example (self, self.master.master.Images_1 [15][2], bd=0)
-        self.fr_img_base . grid (column=0, row=0)
-        self.fr_img_base . grid_propagate(0)
-
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [15][3], bd=0)       
- 
-        self.grid_columnconfigure (0,weight=1)
-        self.grid_rowconfigure (0,weight=1)
-
-    def position_img(self, event): 
-
-        width, height = event.x, event.y
-    
-        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
-            if self.fr_img_77 . grid_info() == {}:
-                self.fr_img_77 . grid(column=0, row=0)                            
-            else:
-                self.fr_img_77 . grid_forget()
-
-
-class Asate_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [15]
-     pass
-
-
-################################  F R A M E  " R A O N "  ################################
-################################  F R A M E  " R A O N "  ################################
-
-
-class Raon_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [16]
-
-    def __init__(self, *args, **kwargs):
-        Frame.__init__(self, *args, **kwargs)   
-
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [16][0], bd=0)
-        self.fr_img_delay .grid(column=0,row=0)
-
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [16][1], bd=0)  
-
-        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
-        self.lbl_guia . bind('<Button-1>', self.position_img)
-        self.lbl_guia . place(x= 2, y= 48)    
- 
-
-        self.grid_columnconfigure(0,weight=1)
-        self.grid_rowconfigure(0,weight=1)
-
-    def position_img(self, event): 
-
-        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.fr_img_movil .grid (column= 0, row= 0)
-        else:
-            self.fr_img_movil .grid_forget()
-
-  
-class Raon_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [16]
-
-    def __init__(self, master, *args, **kwargs):
-        Frame.__init__(self, master, *args, **kwargs)
-
-        self.master.bind("<Button-1>", self.position_img)
- 
-        self.fr_img_base = Example (self, self.master.master.Images_1 [16][2], bd=0)
-        self.fr_img_base . grid (column=0, row=0)
-        self.fr_img_base . grid_propagate(0)
-
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [16][3], bd=0)       
- 
-        self.grid_columnconfigure (0,weight=1)
-        self.grid_rowconfigure (0,weight=1)
-
-    def position_img(self, event): 
-
-        width, height = event.x, event.y
-    
-        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
-            if self.fr_img_77 . grid_info() == {}:
-                self.fr_img_77 . grid(column=0, row=0)                            
-            else:
-                self.fr_img_77 . grid_forget()
-
-
-class Raon_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [16]
-     pass
-
-
-################################  F R A M E  " T R I C O "  ################################
-################################  F R A M E  " T R I C O "  ################################
-
-
-class Trico_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [17]
-
-    def __init__(self, *args, **kwargs):
-        Frame.__init__(self, *args, **kwargs)   
-
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [17][0], bd=0)
-        self.fr_img_delay .grid(column=0,row=0)
-
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [17][1], bd=0)  
-
-        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
-        self.lbl_guia . bind('<Button-1>', self.position_img)
-        self.lbl_guia . place(x= 2, y= 48)    
- 
-
-        self.grid_columnconfigure(0,weight=1)
-        self.grid_rowconfigure(0,weight=1)
-
-    def position_img(self, event): 
-
-        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.fr_img_movil .grid (column= 0, row= 0)
-        else:
-            self.fr_img_movil .grid_forget()
-
-  
-class Trico_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [17]
-
-    def __init__(self, master, *args, **kwargs):
-        Frame.__init__(self, master, *args, **kwargs)
-
-        self.master.bind("<Button-1>", self.position_img)
- 
-        self.fr_img_base = Example (self, self.master.master.Images_1 [17][2], bd=0)
-        self.fr_img_base . grid (column=0, row=0)
-        self.fr_img_base . grid_propagate(0)
-
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [17][3], bd=0)       
- 
-        self.grid_columnconfigure (0,weight=1)
-        self.grid_rowconfigure (0,weight=1)
-
-    def position_img(self, event): 
-
-        width, height = event.x, event.y
-    
-        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
-            if self.fr_img_77 . grid_info() == {}:
-                self.fr_img_77 . grid(column=0, row=0)                            
-            else:
-                self.fr_img_77 . grid_forget()
-
-
-class Trico_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [17]
-     pass
-
-
-################################  F R A M E  " N A K "  ################################
-################################  F R A M E  " N A K "  ################################
-
-
-class Nak_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [18]
-
-    def __init__(self, *args, **kwargs):
-        Frame.__init__(self, *args, **kwargs)   
-
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [18][0], bd=0)
-        self.fr_img_delay .grid(column=0,row=0)
-
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [18][1], bd=0)  
-
-        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
-        self.lbl_guia . bind('<Button-1>', self.position_img)
-        self.lbl_guia . place(x= 2, y= 48)    
- 
-
-        self.grid_columnconfigure(0,weight=1)
-        self.grid_rowconfigure(0,weight=1)
-
-    def position_img(self, event): 
-
-        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.fr_img_movil .grid (column= 0, row= 0)
-        else:
-            self.fr_img_movil .grid_forget()
-
-  
-class Nak_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [18]
-
-    def __init__(self, master, *args, **kwargs):
-        Frame.__init__(self, master, *args, **kwargs)
-
-        self.master.bind("<Button-1>", self.position_img)
- 
-        self.fr_img_base = Example (self, self.master.master.Images_1 [18][2], bd=0)
-        self.fr_img_base . grid (column=0, row=0)
-        self.fr_img_base . grid_propagate(0)
-
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [18][3], bd=0)       
- 
-        self.grid_columnconfigure (0,weight=1)
-        self.grid_rowconfigure (0,weight=1)
-
-    def position_img(self, event): 
-
-        width, height = event.x, event.y
-    
-        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
-            if self.fr_img_77 . grid_info() == {}:
-                self.fr_img_77 . grid(column=0, row=0)                            
-            else:
-                self.fr_img_77 . grid_forget()
-
-
-class Nak_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [18]
-     pass
-
-
-################################  F R A M E  " B I G "  ################################
-################################  F R A M E  " B I G "  ################################
-
-
-class Bigfoot_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [19]
-
-    def __init__(self, *args, **kwargs):
-        Frame.__init__(self, *args, **kwargs)   
-
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [19][0], bd=0)
-        self.fr_img_delay .grid(column=0,row=0)
-
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [19][1], bd=0)  
-
-        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
-        self.lbl_guia . bind('<Button-1>', self.position_img)
-        self.lbl_guia . place(x= 2, y= 48)    
- 
-
-        self.grid_columnconfigure(0,weight=1)
-        self.grid_rowconfigure(0,weight=1)
-
-    def position_img(self, event): 
-
-        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.fr_img_movil .grid (column= 0, row= 0)
-        else:
-            self.fr_img_movil .grid_forget()
-
-  
-class Bigfoot_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [19]
-
-    def __init__(self, master, *args, **kwargs):
-        Frame.__init__(self, master, *args, **kwargs)
-
-        self.master.bind("<Button-1>", self.position_img)
- 
-        self.fr_img_base = Example (self, self.master.master.Images_1 [19][2], bd=0)
-        self.fr_img_base . grid (column=0, row=0)
-        self.fr_img_base . grid_propagate(0)
-
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [19][3], bd=0)       
- 
-        self.grid_columnconfigure (0,weight=1)
-        self.grid_rowconfigure (0,weight=1)
-
-    def position_img(self, event): 
-
-        width, height = event.x, event.y
-    
-        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
-            if self.fr_img_77 . grid_info() == {}:
-                self.fr_img_77 . grid(column=0, row=0)                            
-            else:
-                self.fr_img_77 . grid_forget()
-
-
-class Bigfoot_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [19]
-     pass
-
-
-################################  F R A M E  " D R A G O N '1' "  ################################
-################################  F R A M E  " D R A G O N '1' "  ################################
-
-
-class Barney_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [20]
-
-    def __init__(self, *args, **kwargs):
-        Frame.__init__(self, *args, **kwargs)   
-
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [20][0], bd=0)
-        self.fr_img_delay .grid(column=0,row=0)
-
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [20][1], bd=0)  
-
-        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
-        self.lbl_guia . bind('<Button-1>', self.position_img)
-        self.lbl_guia . place(x= 2, y= 48)    
- 
-
-        self.grid_columnconfigure(0,weight=1)
-        self.grid_rowconfigure(0,weight=1)
-
-    def position_img(self, event): 
-
-        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.fr_img_movil .grid (column= 0, row= 0)
-        else:
-            self.fr_img_movil .grid_forget()
-
-  
-class Barney_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [20]
-
-    def __init__(self, master, *args, **kwargs):
-        Frame.__init__(self, master, *args, **kwargs)
-
-        self.master.bind("<Button-1>", self.position_img)
- 
-        self.fr_img_base = Example (self, self.master.master.Images_1 [20][2], bd=0)
-        self.fr_img_base . grid (column=0, row=0)
-        self.fr_img_base . grid_propagate(0)
-
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [20][3], bd=0)       
- 
-        self.grid_columnconfigure (0,weight=1)
-        self.grid_rowconfigure (0,weight=1)
-
-    def position_img(self, event): 
-
-        width, height = event.x, event.y
-    
-        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
-            if self.fr_img_77 . grid_info() == {}:
-                self.fr_img_77 . grid(column=0, row=0)                            
-            else:
-                self.fr_img_77 . grid_forget()
-
-
-class Barney_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [20]
-     pass
-
-
-################################  F R A M E  " D R A G O N '2' "  ################################
-################################  F R A M E  " D R A G O N '2' "  ################################
-
-
-class Dragon_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [21]
-
-    def __init__(self, *args, **kwargs):
-        Frame.__init__(self, *args, **kwargs)   
-
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [21][0], bd=0)
-        self.fr_img_delay .grid(column=0,row=0)
-
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [21][1], bd=0)  
-
-        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
-        self.lbl_guia . bind('<Button-1>', self.position_img)
-        self.lbl_guia . place(x= 2, y= 48)    
- 
-
-        self.grid_columnconfigure(0,weight=1)
-        self.grid_rowconfigure(0,weight=1)
-
-    def position_img(self, event): 
-
-        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.fr_img_movil .grid (column= 0, row= 0)
-        else:
-            self.fr_img_movil .grid_forget()
-
-  
-class Dragon_right (Frame):  #------------------------------- DERECHA :  BASE  /  77  _____________ SUBINDICE DEL MOVIL = [21]
-
-    def __init__(self, master, *args, **kwargs):
-        Frame.__init__(self, master, *args, **kwargs)
-
-        self.master.bind("<Button-1>", self.position_img)
- 
-        self.fr_img_base = Example (self, self.master.master.Images_1 [21][2], bd=0)
-        self.fr_img_base . grid (column=0, row=0)
-        self.fr_img_base . grid_propagate(0)
-
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [21][3], bd=0)       
- 
-        self.grid_columnconfigure (0,weight=1)
-        self.grid_rowconfigure (0,weight=1)
-
-    def position_img(self, event): 
-
-        width, height = event.x, event.y
-    
-        if width >=115 :   #  Este evento se llama siempre que X sea mayor de 115
-            if self.fr_img_77 . grid_info() == {}:
-                self.fr_img_77 . grid(column=0, row=0)                            
-            else:
-                self.fr_img_77 . grid_forget()
-
-
-class Dragon_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  _____________ SUBINDICE DEL MOVIL = [21]
-     pass
-
-
-################################            EL             ################################ 
-################################            FIN            ################################
-
-def main (): #------------------------------------------------------------NO TOCAR 
-    app = Interface()    
-    app .mainloop()
-
-if __name__=="__main__":  #-------------------------------------------------------NO TOCAR 
-    main()
