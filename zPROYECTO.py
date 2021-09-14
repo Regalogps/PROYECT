@@ -290,7 +290,8 @@ class Interface(Tk):
             #self.listbox .config (state= NORMAL)#        # 4- SI COINCIDE 'value' EN 'self.spinbox_values'.  5- AGREGA VALUE A LISTA.  6- SI LA LISTA NO ESTA VACIA. 
             list_new = []                                # 10- LLAMA AL METODO: 'def update' Y PASA LA LISTA DE ARGUMENTO. 
             print('tambien entro')                                             
-            for i in self.spinbox_values:          
+            for i in self.spinbox_values:
+                print('en else: ', value)          
                 if value in i:
                     #self.listbox .config (state= NORMAL)#
                     list_new .append(i)
@@ -300,7 +301,7 @@ class Interface(Tk):
                   #  self.listbox .config (state= DISABLED)#
 
             if list_new != []:
-                print('mando lista')             
+                print('mando lista', list_new)             
                 self.update(list_new)
 
     def cheeck_5 (self):   # SE ACTIVA MARCANDO LA CASILLA : SELF.CHEECKBUTTON 5  # ESTE METODO ESTA SIN USOOOOOOOOOOOOOOOOOO
