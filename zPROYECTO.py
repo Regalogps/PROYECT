@@ -274,6 +274,8 @@ class Interface(Tk):
             if self.spinbox.get().capitalize() == i:                           
                 self.label_miniature .config(image= self.Miniatures[index])
                 self.spinbox.icursor(END)
+            else:
+                self.label_miniature .config(image= '')
         
     def chanse (self, event):   # SE ACTIVA CADA QUE SE SUELTA UNA TECLA
 
@@ -377,25 +379,19 @@ class Interface(Tk):
 
         
     def listbox_select(self,event):      # LISTBOX ENTRY
-        print('lis select')                                                               # 1- BORRA EL CONTENIDO DE SPINBOX.  2- INSERTA EL ITEM SELECCIONADO DEL LISTBOX A SPINBOX
-        #print('esss:::',self.listbox.get(0))                           
+        print('lis select')                                                               # 1- BORRA EL CONTENIDO DE SPINBOX.  2- INSERTA EL ITEM SELECCIONADO DEL LISTBOX A SPINBOX                           
         if self.listbox.get(0,END) != ():
-            print('entreeeeeeeeeeeeeeeeeee')
-            self.spinbox.delete(0, END) # no olvides comentar el de abajo
-        #self.spinbox.delete(0, END) ### Probar sin esto despues
+            self.spinbox.delete(0, END) 
         self.spinbox.insert(0, self.listbox.get(ANCHOR))  # ADD   COMO HABIA H AY SE EJECUTABA ESTO Y RETURN FOCUS
-        #self.listbox.config(state= DISABLED)
         
+        self.listbox.selection_clear(0,END)
+        self.listbox.delete(0,END)
         self.after(100, self.return_focus) ### probar sin esto
 
-        #print(self.listbox.size())
-        
+        #print(sel
     def return_focus(self):
-        print('return focues')
-        self.listbox.selection_clear(0,END)
-        self.listbox.delete(0, END)
-
-        #self.listbox.config(state= DISABLED)
+        print('afttter corriendo')
+        self.listbox.delete(0,END)
 
         self.spinbox.focus_set()    
         self.spinbox.icursor(END)
