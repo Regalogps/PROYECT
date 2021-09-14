@@ -292,7 +292,11 @@ class Interface(Tk):
             print('tambien entro')                                             
             for i in self.spinbox_values:          
                 if value in i:
+<<<<<<< HEAD
                     #self.listbox .config (state= NORMAL)#
+=======
+                    #self.listbox .config (state= NORMAL)#aaaaaaaaaaaa
+>>>>>>> edb627fd21cefc67245f62ca0b0ebc312778faea
                     list_new .append(i)
                     print('Agregando a la lista: ', list_new) 
                     
