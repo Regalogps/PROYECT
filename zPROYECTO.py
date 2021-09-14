@@ -274,6 +274,8 @@ class Interface(Tk):
             if self.spinbox.get().capitalize() == i:                           
                 self.label_miniature .config(image= self.Miniatures[index])
                 self.spinbox.icursor(END)
+            else:
+                self.label_miniature .config(image= '')
         
     def chanse (self, event):   # SE ACTIVA CADA QUE SE SUELTA UNA TECLA
 
