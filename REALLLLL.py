@@ -384,22 +384,21 @@ class Interface(Tk):
         if self.listbox.get(0,END) != ():      
             self.spinbox.delete(0, END) 
         self.spinbox.insert(0, selection)
-        #self.spinbox.delete(0, END) ### Probar sin esto despues
+        self.listbox.selection_clear(0,END)
+
         print('DESPUE SDE BORRAR',self.listbox.get(0, END)) 
  
-        self.after(100, self.return_focus)
+        self.after(100, lambda: self.spinbox.focus_set())
 
         print(self.listbox.size())
         
-    def return_focus(self):
-        print('return focues')
-        self.listbox.selection_clear(0,END)
-        self.listbox.delete(0, END)
+    #def return_focus(self):
 
-        #self.listbox.config(state= DISABLED)
+        #self.listbox.selection_clear(0,END)
+        #self.listbox.delete(0, END)
 
-        self.spinbox.focus_set()    
-        self.spinbox.icursor(END)
+        #self.spinbox.focus_set()    
+        #self.spinbox.icursor(END)
     
     """ def bind_listbox(self, event):
         #self.listbox.get(0)
