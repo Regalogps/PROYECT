@@ -227,13 +227,16 @@ class Interface(Tk):
         # activestyle= 'none' ---> SUBRAYADO DEL TEXTO CUANDO ES SELECCIONADO DESACTIVADO:'none'
 #_______
 
-    def validate_text(self, text, arg):   # SE ACTIVA SIEMPRE Y CUANDO INTENTE INGRESAR MAYUSCULAS O CADENAS SUPERIORES A 13 / LO LLAMA SPINBOX
+    def validate_text(self, text, arg):   # ACTIVA: SIEMPRE QUE INSERTE TEXTO EN SPINBOX - NO PERMITE NUMEROS,SIMBOLOS,ESPACIOS Y CONTROLA LA CANTIDAD
 
-        if all (i not in "0123456789[{!¡¿?<>(|#$%&),_-°'´}] +-*/=" for i in text) and len(text) < 14:      # TRUE = PERMITIR, FALSE = DENEGAR   
+        if all (i not in "0123456789[{!¡¿?<>(|#$%&),_-°'´}] +-*/=" for i in text) and len(text) < 14:   
                 return True                                                 
-        return False                                                         
-                    
-    def gear_stacking(self):   # SE ACTIVA CON LA RUEDA DE CONFIGURACION
+        return False   
+ 
+        # TRUE = PERMITIR
+        # FALSE = DENEGAR                                                  
+                  
+    def gear_stacking(self):   # ACTIVA: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
 
         if  self.gear == True:          # PREDETERMINADO: TRUE
             self.frm_B1 .grid_remove()  # B1: BOTONES          
@@ -241,31 +244,30 @@ class Interface(Tk):
             self.frm_C1 .grid_remove()  # C1: MINIATURA
 
             self.frm_B2 .focus_set()    # NECESARIO 
-            self.frm_B2 .grid (column= 1, row= 0, padx=0, pady=0, sticky= N)               
+            self.frm_B2 .grid (column=1, row=0, padx=0, pady=0, sticky=N)               
             self.gear = False
             self.geometry ('816x65')       
     
         else:
             self.frm_B2 .grid_remove()
-            if self.checkbutton5.variable.get() == True:   
-                self.frm_B3 .grid (column= 1, row= 0, padx=0, pady=0, sticky= NW)
-                self.frm_C1 .grid (column= 1, row= 0, padx=0, pady=0, sticky= NE)
-                self.spinbox .focus_set()   # AKI TRABAJAR
+            self.gear = True   #@@@# ESTO ESTABA AL FINAL
+            if self.checkbutton5 .variable.get() == True:   
+                self.frm_B3 .grid (column=1, row=0, padx=0, pady=0, sticky=NW)
+                self.frm_C1 .grid (column=1, row=0, padx=0, pady=0, sticky=NE)
+                self.spinbox .focus_set()
                 self.spinbox .icursor(END)
                 self.geometry ('232x65')
             else:
-                self.frm_B1 .grid ()
+                self.frm_B1 .grid()
                 self.frm_B3 .grid_remove()
                 self.frm_C1 .grid_remove()
-                
-            self.gear = True    
-    
-    def change_miniature(self,*args):   # SE ACTIVA CADA VEZ QUE MODIFICA LA CAJA DEL SPINBOX
+                            
+    def change_miniature(self, *args):   # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
 
-        value = self.spinbox.get().capitalize()
+        value = self.spinbox.get() .capitalize()
 
         if value == '':                                              # 1- SI SPINBOX ESTA VACIO.  2- BORRA LA LISTA DE LISTBOX.  3- DESHABILITA LISTBOX.
-            self.listbox .delete (0, END)
+            self.listbox .delete(0, END)
         else:                                                        # 1- HABILITA LISTBOX.  2- CREA LISTA VACIA.  3- ITERANDO: 'self.spinbox_values'.
             list_new = []                                            # 4- SI COINCIDE 'value' EN 'self.spinbox_values'.  5- AGREGA VALUE A LISTA.  6- SI LA LISTA NO ESTA VACIA.
             for i in self.spinbox_values:                            # 10- LLAMA AL METODO: 'def update' Y PASA LA LISTA DE ARGUMENTO. 
@@ -277,44 +279,15 @@ class Interface(Tk):
                 self.update(list_new)
        
         for index, i in enumerate(self.spinbox_values):      
-            if self.spinbox.get().capitalize() == i:                           
+            if self.spinbox.get() .capitalize() == i:                           
                 self.label_miniature .config(image= self.Miniatures[index])
-                self.spinbox.icursor(END)
+                self.spinbox .icursor(END)
 
   
-        
-    def chanse (self, event):   # PARA BORRAAARRRRRRRRRRRRRRRRRRR       SE ACTIVA CADA QUE SE SUELTA UNA TECLA     
-        pass
-
-        """ value = self.spinbox.get()
-
-        if value == '':
-            print('me ejec')                                  # 1- SI SPINBOX ESTA VACIO.  2- BORRA LA LISTA DE LISTBOX.  3- DESHABILITA LISTBOX.
-            self.listbox .delete (0, END)
-            
-            #self.listbox .config (state= DISABLED)#
-            print('Limpiando listbox: ', self.listbox.get(0, END)) ##### probar después (0,END)
-        else:                                            # 1- HABILITA LISTBOX.  2- CREA LISTA VACIA.  3- ITERANDO: 'self.spinbox_values'.
-            #self.listbox .config (state= NORMAL)#        # 4- SI COINCIDE 'value' EN 'self.spinbox_values'.  5- AGREGA VALUE A LISTA.  6- SI LA LISTA NO ESTA VACIA. 
-            list_new = []                                # 10- LLAMA AL METODO: 'def update' Y PASA LA LISTA DE ARGUMENTO. 
-            print('tambien entro')                                             
-            for i in self.spinbox_values:          
-                if value in i:
-                    #self.listbox .config (state= NORMAL)#
-                    list_new .append(i)
-                    print('Agregando a la lista: ', list_new) 
-                    
-                #else:
-                  #  self.listbox .config (state= DISABLED)#
-
-            if list_new != []:
-                print('mando lista')             
-                self.update(list_new) """
-
-    def cheeck_5 (self):   # SE ACTIVA MARCANDO LA CASILLA : SELF.CHEECKBUTTON 5  # ESTE METODO ESTA SIN USOOOOOOOOOOOOOOOOOO
+    def cheeck_5 (self):   # SIN USOOOOOOOOOOOOOOOOOO
         self.checkbutton5.value()
 
-    def bind_spinbox (self, event):  # SE ACTIVA CUANDO SPINBOX TIENE FOCO Y SE PRESIONA LA TECLA ENTER: ABRE LAS VENTANAS
+    def bind_spinbox(self, event):  # ACTIVA: CON TECLA ENTER SI SPINBOX TIENE FOCO - ABRE LAS VENTANAS
         
         left = [Frog_left_off, Fox_left_off, Boomer_left_off, Ice_left_off, Jd_left_off, Grub_left_off, Lightning_left_off, Aduka_left_off, Knight_left_off, Kalsiddon_left_off, Mage_left_off, Randomizer_left_off, Jolteon_left_off, Turtle_left_off, Armor_left_off, Asate_left_off, Raon_left_off, Trico_left_off, Nak_left_off, Bigfoot_left_off, Barney_left_off, Dragon_left_off,]
         right = [Frog_right, Fox_right, Boomer_right, Ice_right, Jd_right, Grub_right, Lightning_right, Aduka_right, Knight_right, Kalsiddon_right, Mage_right, Randomizer_right, Jolteon_right, Turtle_right, Armor_right, Asate_right, Raon_right, Trico_right, Nak_right, Bigfoot_right, Barney_right, Dragon_right]
@@ -323,57 +296,57 @@ class Interface(Tk):
         for index, i in enumerate(self.spinbox_values):
             if self.spinbox.get() == i:
                 self.windows_123(left[index], right[index], stuf[index]) 
-                self.spinbox.icursor(END)  # ESTA APRUEBA SI ES TOTLAMENTE NECESARIO 
+                self.spinbox .icursor(END)  # ESTA APRUEBA SI ES TOTLAMENTE NECESARIO 
                 
-    def minimize_windows (self): # METODO LOGO -----------------> SE ACTIVA DANDO CLICK AL LOGO
+    def minimize_windows (self)   # ACTIVA: CON CLICK IZQUIERDO AL LOGO - MINIMIZA LAS VENTANAS
 
         if self.open_1 == True or self.open_2 == True or self.open_3 == True:
 
             if self.minimize == False:
                 if self.open_1 == True:
-                    self.toplevel_LEFT.deiconify()   # MOSTRAR VENTANAS  
+                    self.toplevel_LEFT .deiconify()   # MOSTRAR VENTANAS  
                 if self.open_2 == True:
-                    self.toplevel_RIGHT.deiconify()
+                    self.toplevel_RIGHT .deiconify()
                 if self.open_3 == True:
-                    self.toplevel_STUF.deiconify()
+                    self.toplevel_STUF .deiconify()
 
                 self.minimize = True
 
             else: 
                 if self.open_1 == True:
-                    self.toplevel_LEFT.iconify()     # OCULTAR VENTANAS
+                    self.toplevel_LEFT .iconify()     # OCULTAR VENTANAS
                 if self.open_2 == True:
-                    self.toplevel_RIGHT.iconify() 
+                    self.toplevel_RIGHT .iconify() 
                 if self.open_3 == True:    
-                    self.toplevel_STUF.iconify()
+                    self.toplevel_STUF .iconify()
 
                 self.minimize = False
 
-    def ash_close_windows(self, event):   # SE ACTIVA DANDO DOBLE CLICK DERECHO EN EL LOGO
+    def ash_close_windows(self, event):   # ACTIVA: CON DOBLE CLICK DERECHO EN EL LOGO - CIERRA LAS VENTANAS 
 
-        self.toplevel_LEFT. destroy() 
+        self.toplevel_LEFT .destroy() 
         self.open_1 = False
 
-        self.toplevel_RIGHT. destroy()
+        self.toplevel_RIGHT .destroy()
         self.open_2 = False
 
-        self.toplevel_STUF. destroy()
+        self.toplevel_STUF .destroy()
         self.open_3 = False
 
-    def update(self, list):     # LISTBOX LIMPIAR Y AGREGAR
+    def update(self, list):  # ACTIVA: SI EL METODO CHANGE_MINIATURE LA MANDA A LLAMAR - BORRA LA LISTA DE LISTBOX EXISTENTE, AGREGA NUEVOS VALORES A LISTA Y BORRA DE NUEVO SI SE CUMPLE LA CONDICION
    
         self.listbox .delete(0, END)                                    # 1- BORRA LA LISTA DE LISTBOX
 
         for i in list:                                                  # 1- ITERANDO: 'list_new'.  2- INSERTANDO ITERADOR 'i' A LISTBOX.  
             self.listbox .insert(END, i)                                # 3- SI EL CONTENIDO QUE SE OBSERVA EN LISTBOX ES IGUAL SPINBOX.  4- BORRA LA LISTA DE LISTBOX.
                                                                         # 5- 
-            if self.listbox .get(0) == self.spinbox_variable .get(): 
-                self.listbox .delete (0, END)            
+        if self.listbox.get(0) == self.spinbox_variable.get(): #@@@# SE SACO DEL FOR
+            self.listbox .delete(0, END)            
             
-        print('Lista procesada completa', list)
+        print('Lista completa', list)
 
         
-    def listbox_select(self,event):      # LISTBOX ENTRY
+    def listbox_select(self,event):   # ACTIVA: CON CLICK IZQUIERDO EN LISTBOX - 
        
         selection = self.listbox.get(ANCHOR)                                                           # 1- BORRA EL CONTENIDO DE SPINBOX.  2- INSERTA EL ITEM SELECCIONADO DEL LISTBOX A SPINBOX                         
         
