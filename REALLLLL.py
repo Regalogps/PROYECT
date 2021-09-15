@@ -201,18 +201,18 @@ class Interface(Tk):
         self.spinbox_variable .trace_add ('write', self.change_miniature)  
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # INSERTA EL VALOR OBTENIDO EN MAYUSCULA EL PRIMER STRING
 
-        
 
-        #______Propagación:
+        #__________Posicionamientos:
+        label_title .grid (column=0, row=1, padx=10, pady=(0,0), sticky=W)
+        self.label_miniature .grid (padx=2, pady=3)
+
+        self.listbox .grid (column=0, row=0, padx=(0,2), pady=(0,2), sticky=NSEW)
+        self.spinbox .grid (column=0, row=2, padx=11, pady=(3,3), sticky=W)   
+
+        #__________Propagación:
         self.frm_B3 .grid_propagate(False)
         self.frm_C1 .grid_propagate(False)
-
-        #______Posicionamientos:
-        label_title .grid (column= 0, row=1, padx= 10, pady=(0,0), sticky= W)
-        self.label_miniature .grid (padx= 2, pady= 3)
-
-        self.listbox .grid (column= 0, row= 0, padx= (0,2), pady=(0, 2), sticky= NSEW)
-        self.spinbox .grid (column= 0, row=2, padx=11, pady=(3,3), sticky= W)        
+    
 
 
 #_______ G L O S A R I O:
