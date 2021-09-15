@@ -181,29 +181,25 @@ class Interface(Tk):
 
         #_____L I S T B O X  / POSICIONADO
         self.listbox = Listbox (self.frm_B3, font=('Calibri',9,'bold'), bg='#11161d', fg='#ff8000', width=15, height=1, justify='center', highlightbackground='#11161d', highlightthickness=4, borderwidth=0, bd=0, selectbackground='#11161d', highlightcolor='#11161d', selectforeground='#ff8000', activestyle='none',
-                                )
-        #self.listbox.configure(takefocus=0)  ####
-
-        # INSERTANDO VALORES A:  L I S T B O X
-        #self.update(self.spinbox_values)
-
-                                
-        # S P I N B O X  / POSICIONADO
+                                takefocus=0, )  #@@@@# NEW
+                           
+        #_____S P I N B O X  / POSICIONADO
         self.spinbox = Spinbox (self.frm_B3, width=13, bd=0, justify='center', wrap=True,
                                 values=self.spinbox_values,                                      # DESDE AQUI PARA ABAJO SE HACEN LLAMADAS
                                 textvariable=self.spinbox_variable, 
-                                validate='key', validatecommand= self.all_register)                             
-        # BIND:
-        self.spinbox .bind ('<Return>', self.bind_spinbox)                                  # SE ACTIVA SI SPINBOX TIENE FOCO, Y SE PRESIONA LA TECLA ENTER: ABRE LAS VENTANAS
-        self.spinbox .bind ('<Double-Button-1>', lambda *arg: self.spinbox.delete(0, END))   # ACTIVAR SI SE HACE DOBLE CLICK EN LA CAJA(spinbox): LIMPIA LA CAA
-        self.listbox .bind ('<<ListboxSelect>>', self.listbox_select)   # SE ACTIVAR AL DAR CLICK EN EL LISTBOX
-
-        #self.spinbox .bind ('<Return>', self.bind_listbox) 
-
+                                validate='key', validatecommand=self.all_register)                             
         
-        # TRACE ADD:
+        #_____B I N D - L I S T B O X - E V E N T:  1
+        self.listbox .bind ('<<ListboxSelect>>', self.listbox_select)   # ACTIVA: CON CLICK IZQUIERDO EN EL LISTBOX - SELECCIONA 1 ITEM
+
+        #_____B I N D - S P I N B O X - E V E N T:  2
+        self.spinbox .bind ('<Return>', self.bind_spinbox)  # ACTIVA: CON TECLA ENTER - ABRE LAS VENTANAS
+        self.spinbox .bind ('<Double-Button-1>', lambda *arg: self.spinbox.delete(0, END))   # ACTIVA: CON DOBLE CLICK EN SPINBOX - LIMPIA SPINBOX
+        #self.spinbox .bind ('<Return>', self.bind_listbox)  # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX
+       
+        #_____T R A C E__A D D - S P I N B O X:     ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR
         self.spinbox_variable .trace_add ('write', self.change_miniature)  
-        self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # # SE ACTIVA SI INTRODUCE TEXTO: CAMBIA POR MAYUSCULA EL PRIMER ARGUMENTO
+        self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # INSERTA EL VALOR OBTENIDO EN MAYUSCULA EL PRIMER STRING
 
         
 
