@@ -181,7 +181,7 @@ class Interface(Tk):
 
         #_____L I S T B O X  / POSICIONADO
         self.listbox = Listbox (self.frm_B3, font=('Calibri',9,'bold'), bg='#11161d', fg='#ff8000', width=15, height=1, justify='center', highlightbackground='#11161d', highlightthickness=4, borderwidth=0, bd=0, selectbackground='#11161d', highlightcolor='#11161d', selectforeground='#ff8000', activestyle='none',
-                                takefocus=0, )  #@@@@# NEW
+                                takefocus=0, selectmode=SINGLE)  #@@@@# NEW
                            
         #_____S P I N B O X  / POSICIONADO
         self.spinbox = Spinbox (self.frm_B3, width=13, bd=0, justify='center', wrap=True,
