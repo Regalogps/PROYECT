@@ -338,9 +338,17 @@ class Interface(Tk):
         self.listbox .delete(0, END)                                    # 1- BORRA LA LISTA DE LISTBOX
 
         for i in list:                                                  # 1- ITERANDO: 'list_new'.  2- INSERTANDO ITERADOR 'i' A LISTBOX.  
-            self.listbox .insert(END, i)                                # 3- SI EL CONTENIDO QUE SE OBSERVA EN LISTBOX ES IGUAL SPINBOX.  4- BORRA LA LISTA DE LISTBOX.
+            self.listbox .insert(END, i) 
+
+        save = self.spinbox_variable.get()
+        #print('111', self.spinbox_variable.get())
+        #print('222', self.spinbox_variable.get())
+        if save in 'Asate':
+            self.listbox .see(0, A.sate) 
+        elif save == 'A':
+            self.listbox .see(0, 0)                             # 3- SI EL CONTENIDO QUE SE OBSERVA EN LISTBOX ES IGUAL SPINBOX.  4- BORRA LA LISTA DE LISTBOX.
                                                                         # 5- 
-        if self.listbox.get(0) == self.spinbox_variable.get(): #@@@# SE SACO DEL FOR
+        if self.listbox.get(0) == self.spinbox_variable.get(): #@@@# SE SACO DEL FOR , PROBAR CON SPINBOX.GET()
             self.listbox .delete(0, END)            
             
         print('Lista completa', list)
@@ -348,26 +356,17 @@ class Interface(Tk):
         
     def listbox_select(self,event):   # ACTIVA: CON CLICK IZQUIERDO EN LISTBOX - 
        
-        selection = self.listbox.get(ANCHOR)                                                           # 1- BORRA EL CONTENIDO DE SPINBOX.  2- INSERTA EL ITEM SELECCIONADO DEL LISTBOX A SPINBOX                         
+        selection = self.listbox .get(ANCHOR)                                                           # 1- BORRA EL CONTENIDO DE SPINBOX.  2- INSERTA EL ITEM SELECCIONADO DEL LISTBOX A SPINBOX                         
         
         if self.listbox.get(0,END) != ():      
-            self.spinbox.delete(0, END) 
-        self.spinbox.insert(0, selection)
-        self.listbox.selection_clear(0,END)
-
-        print('DESPUE SDE BORRAR',self.listbox.get(0, END)) 
+            self.spinbox .delete(0, END) 
+        self.spinbox .insert(0, selection)
+        self.listbox .selection_clear(0,END)
  
         self.after(100, lambda: self.spinbox.focus_set())
 
         print(self.listbox.size())
         
-    #def return_focus(self):
-
-        #self.listbox.selection_clear(0,END)
-        #self.listbox.delete(0, END)
-
-        #self.spinbox.focus_set()    
-        #self.spinbox.icursor(END)
     
     """ def bind_listbox(self, event):
         #self.listbox.get(0)
