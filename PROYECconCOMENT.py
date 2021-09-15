@@ -201,6 +201,10 @@ class Interface(Tk):
         #self.spinbox .bind ('<Return>', self.bind_listbox) 
 
         
+
+
+        self.spinbox .bind ("<KeyRelease>", self.chanse)
+
         # TRACE ADD:
         self.spinbox_variable .trace_add ('write', self.change_miniature)  
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # # SE ACTIVA SI INTRODUCE TEXTO: CAMBIA POR MAYUSCULA EL PRIMER ARGUMENTO
@@ -233,7 +237,7 @@ class Interface(Tk):
 
     def validate_text(self, text, arg):   # SE ACTIVA SIEMPRE Y CUANDO INTENTE INGRESAR MAYUSCULAS O CADENAS SUPERIORES A 13 / LO LLAMA SPINBOX
 
-        if all (i not in "0123456789[{!¡¿?<>(|#$%&),_-°'´}] +-*/=" for i in text) and len(text) < 14:      # TRUE = PERMITIR, FALSE = DENEGAR   
+        if all (i not in "0123456789[{!¡¿?<>(|#$%&),._-°'´}] +-*/=" for i in text) and len(text) < 14:      # TRUE = PERMITIR, FALSE = DENEGAR   
                 return True                                                 
         return False                                                         
                     
@@ -266,54 +270,42 @@ class Interface(Tk):
     
     def change_miniature(self,*args):   # SE ACTIVA CADA VEZ QUE MODIFICA LA CAJA DEL SPINBOX
 
-        value = self.spinbox.get().capitalize()
-
-        if value == '':                                              # 1- SI SPINBOX ESTA VACIO.  2- BORRA LA LISTA DE LISTBOX.  3- DESHABILITA LISTBOX.
-            self.listbox .delete (0, END)
-        else:                                                        # 1- HABILITA LISTBOX.  2- CREA LISTA VACIA.  3- ITERANDO: 'self.spinbox_values'.
-            list_new = []                                            # 4- SI COINCIDE 'value' EN 'self.spinbox_values'.  5- AGREGA VALUE A LISTA.  6- SI LA LISTA NO ESTA VACIA.
-            for i in self.spinbox_values:                            # 10- LLAMA AL METODO: 'def update' Y PASA LA LISTA DE ARGUMENTO. 
-                if value in i:
-                    list_new .append(i)
-
-            if list_new != []: 
-                print("mando lista", list_new)          
-                self.update(list_new)
        
+             
         for index, i in enumerate(self.spinbox_values):      
             if self.spinbox.get().capitalize() == i:                           
                 self.label_miniature .config(image= self.Miniatures[index])
                 self.spinbox.icursor(END)
 
-  
         
-    def chanse (self, event):   # PARA BORRAAARRRRRRRRRRRRRRRRRRR       SE ACTIVA CADA QUE SE SUELTA UNA TECLA     
-        pass
+    def chanse (self, event):   # SE ACTIVA CADA QUE SE SUELTA UNA TECLA
+        
 
-        """ value = self.spinbox.get()
-
+        #self.listbox.config(state= NORMAL)aaaaaaaaaaaaa
+        value = self.spinbox.get()
+        print('me ejec', value) 
         if value == '':
-            print('me ejec')                                  # 1- SI SPINBOX ESTA VACIO.  2- BORRA LA LISTA DE LISTBOX.  3- DESHABILITA LISTBOX.
+            print('me ejec', value)                                  # 1- SI SPINBOX ESTA VACIO.  2- BORRA LA LISTA DE LISTBOX.  3- DESHABILITA LISTBOX.
             self.listbox .delete (0, END)
             
             #self.listbox .config (state= DISABLED)#
-            print('Limpiando listbox: ', self.listbox.get(0, END)) ##### probar después (0,END)
+            #print('Limpiando listbox: ', self.listbox.get(0, END)) ##### probar después (0,END)
         else:                                            # 1- HABILITA LISTBOX.  2- CREA LISTA VACIA.  3- ITERANDO: 'self.spinbox_values'.
             #self.listbox .config (state= NORMAL)#        # 4- SI COINCIDE 'value' EN 'self.spinbox_values'.  5- AGREGA VALUE A LISTA.  6- SI LA LISTA NO ESTA VACIA. 
             list_new = []                                # 10- LLAMA AL METODO: 'def update' Y PASA LA LISTA DE ARGUMENTO. 
-            print('tambien entro')                                             
+            #print('tambien entro')                                             
             for i in self.spinbox_values:          
                 if value in i:
                     #self.listbox .config (state= NORMAL)#
                     list_new .append(i)
-                    print('Agregando a la lista: ', list_new) 
+                   # print('Agregando a la lista: ', list_new) 
                     
                 #else:
                   #  self.listbox .config (state= DISABLED)#
 
             if list_new != []:
                 print('mando lista')             
-                self.update(list_new) """
+                self.update(list_new)
 
     def cheeck_5 (self):   # SE ACTIVA MARCANDO LA CASILLA : SELF.CHEECKBUTTON 5  # ESTE METODO ESTA SIN USOOOOOOOOOOOOOOOOOO
         self.checkbutton5.value()
@@ -365,7 +357,7 @@ class Interface(Tk):
         self.open_3 = False
 
     def update(self, list):     # LISTBOX LIMPIAR Y AGREGAR
-   
+        print('update')
         self.listbox .delete(0, END)                                    # 1- BORRA LA LISTA DE LISTBOX
 
         for i in list:                                                  # 1- ITERANDO: 'list_new'.  2- INSERTANDO ITERADOR 'i' A LISTBOX.  
@@ -373,23 +365,33 @@ class Interface(Tk):
                                                                         # 5- 
             if self.listbox .get(0) == self.spinbox_variable .get(): 
                 self.listbox .delete (0, END)            
+                #self.listbox .config (state= DISABLED)#
+
+            #else:
+               # self.listbox .config (state= NORMAL)#
+
+            if self.listbox .winfo_viewable():
+                pass
+                #self.after(4000, lambda : self.listbox.see(1))
+                #self.after(8000, lambda : self.listbox.see(0))
+                ##self.after(12000, lambda : self.listbox.see(0)) 
             
         print('Lista procesada completa', list)
 
         
     def listbox_select(self,event):      # LISTBOX ENTRY
-       
-        selection = self.listbox.get(ANCHOR)                                                           # 1- BORRA EL CONTENIDO DE SPINBOX.  2- INSERTA EL ITEM SELECCIONADO DEL LISTBOX A SPINBOX                         
-        
-        if self.listbox.get(0,END) != ():      
-            self.spinbox.delete(0, END) 
-        self.spinbox.insert(0, selection)
+        print('lis select')                                                               # 1- BORRA EL CONTENIDO DE SPINBOX.  2- INSERTA EL ITEM SELECCIONADO DEL LISTBOX A SPINBOX
+        #print('esss:::',self.listbox.get(0))                           
+        if self.listbox.get(0,END) != ():
+            print('entreeeeeeeeeeeeeeeeeee')
+            self.spinbox.delete(0, END) # no olvides comentar el de abajo
         #self.spinbox.delete(0, END) ### Probar sin esto despues
-        print('DESPUE SDE BORRAR',self.listbox.get(0, END)) 
- 
-        self.after(100, self.return_focus)
+        self.spinbox.insert(0, self.listbox.get(ANCHOR))  # ADD   COMO HABIA H AY SE EJECUTABA ESTO Y RETURN FOCUS
+        #self.listbox.config(state= DISABLED)
+        
+        self.after(100, self.return_focus) ### probar sin esto
 
-        print(self.listbox.size())
+        #print(self.listbox.size())
         
     def return_focus(self):
         print('return focues')
@@ -400,6 +402,7 @@ class Interface(Tk):
 
         self.spinbox.focus_set()    
         self.spinbox.icursor(END)
+
     
     """ def bind_listbox(self, event):
         #self.listbox.get(0)
