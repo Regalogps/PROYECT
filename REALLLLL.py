@@ -344,9 +344,9 @@ class Interface(Tk):
         #print('111', self.spinbox_variable.get())
         #print('222', self.spinbox_variable.get())
         if save in 'Asate':
-            self.listbox .see(0, A.sate) 
+            self.listbox .see(1) 
         elif save == 'A':
-            self.listbox .see(0, 0)                             # 3- SI EL CONTENIDO QUE SE OBSERVA EN LISTBOX ES IGUAL SPINBOX.  4- BORRA LA LISTA DE LISTBOX.
+            self.listbox .see(0)                             # 3- SI EL CONTENIDO QUE SE OBSERVA EN LISTBOX ES IGUAL SPINBOX.  4- BORRA LA LISTA DE LISTBOX.
                                                                         # 5- 
         if self.listbox.get(0) == self.spinbox_variable.get(): #@@@# SE SACO DEL FOR , PROBAR CON SPINBOX.GET()
             self.listbox .delete(0, END)            
