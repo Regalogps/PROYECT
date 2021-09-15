@@ -160,27 +160,27 @@ class Interface(Tk):
      
 #_____________SELF.CHECKBUTTON 5 :  MODO LISTA
 
-        #_____C O N T E N E D O R E S:  (NO POSICIONADOS)
+        #_____C O N T E N E D O R E S:
         self.frm_B3 = Frame (self, bg='#31343a', width=172, height=65)   # NO POSICIONADO     # Color: Plomo       
         self.frm_C1 = Frame (self, bg='#11161d', width=60, height=65)    # NO POSICIONADO     # Color: Azul  #11161d
         
-        # LABEL DE TITULO : SELECCIONE MOBIL
+        #_____L A B E L:  SELECCIONE MOBIL
         label_title = Label (self.frm_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)      # POSICIONADO
 
-        # LABEL CONTENEDOR DE LAS MINIATURAS
-        self.label_miniature = Label (self.frm_C1, image= self.Miniatures[0], bd= 0)                                                  # POSICIONADO
+        #_____L A B E L:  MINIATURAS
+        self.label_miniature = Label (self.frm_C1, image=self.Miniatures[0], bd= 0)                                                  # POSICIONADO
 
-        # S T R I N G V A R
+        #_____S T R I N G V A R:
         self.spinbox_variable = StringVar()
 
-        # LISTA DE NOMBRES DE MOVIL
+        #_____L I S T A:  LISTA DE SPINBOX
         self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']
 
-        # FUNCION PARA HACER VALIDACIONES DE ENTRADA:  S P I N B O X
+        #__________V A L I D A C I O N E S:  DE ENTRADA DE TEXTO DEL SPINBOX
         self.all_register = (self.register(self.validate_text), '%P', '%S')
 
-        # L I S T B O X  / POSICIONADO
-        self.listbox = Listbox (self.frm_B3, font=('Calibri',9,'bold'), bg='#11161d', fg='#ff8000', width=15, height= 1, justify='center', highlightbackground='#11161d', highlightthickness=4, borderwidth=0, bd=0, selectbackground='#11161d', highlightcolor='#11161d', selectforeground='green2', activestyle='none',
+        #_____L I S T B O X  / POSICIONADO
+        self.listbox = Listbox (self.frm_B3, font=('Calibri',9,'bold'), bg='#11161d', fg='#ff8000', width=15, height=1, justify='center', highlightbackground='#11161d', highlightthickness=4, borderwidth=0, bd=0, selectbackground='#11161d', highlightcolor='#11161d', selectforeground='#ff8000', activestyle='none',
                                 )
         #self.listbox.configure(takefocus=0)  ####
 
