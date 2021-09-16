@@ -273,41 +273,34 @@ class Interface(Tk):
                             
     def change_miniature(self, *args):   # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
 
-        value = self.spinbox.get() .capitalize()
+        spinbox = self.spinbox.get() .capitalize()
 
-        if value == '':                                              # 1- SI SPINBOX ESTA VACIO.  2- BORRA LA LISTA DE LISTBOX.  3- DESHABILITA LISTBOX.
+        if spinbox == '':                                                          # 1- SI SPINBOX ESTA VACIO.  2- BORRA LA LISTA DE LISTBOX.  3- DESHABILITA LISTBOX.
             self.listbox .delete(0, END)
-        else:                                                        # 1- HABILITA LISTBOX.  2- CREA LISTA VACIA.  3- ITERANDO: 'self.spinbox_values'.
-            list_new = []                                            # 4- SI COINCIDE 'value' EN 'self.spinbox_values'.  5- AGREGA VALUE A LISTA.  6- SI LA LISTA NO ESTA VACIA.
-            for i in self.spinbox_values:                            # 10- LLAMA AL METODO: 'def update' Y PASA LA LISTA DE ARGUMENTO. 
-                if value in i:
+        else:                                                                    # 1- HABILITA LISTBOX.  2- CREA LISTA VACIA.  3- ITERANDO: 'self.spinbox_values'.
+            list_new = []                                                        # 4- SI COINCIDE 'value' EN 'self.spinbox_values'.  5- AGREGA VALUE A LISTA.  6- SI LA LISTA NO ESTA VACIA.
+            for index, i in enumerate(self.spinbox_values):                      # 10- LLAMA AL METODO: 'def update' Y PASA LA LISTA DE ARGUMENTO.
+                if spinbox == i:                           
+                    self.label_miniature .config(image= self.Miniatures[index])
+                    self.spinbox .icursor(END)
+                if spinbox in i:
                     list_new .append(i)
 
-            print('lista: ', list_new)
-            if list_new != []: 
-                print("mando lista", list_new)          
+            if list_new != []:         
                 self.update(list_new)
 
-            if self.spinbox_variable.get() == 'As':  #|||
-                print('asss')
-                #self.listbox.see(2)
+            if self.spinbox_variable.get() == 'As':  
                 self.listbox.delete(0,1)
-       
-        for index, i in enumerate(self.spinbox_values):      
-            if self.spinbox.get() .capitalize() == i:                           
-                self.label_miniature .config(image= self.Miniatures[index])
-                self.spinbox .icursor(END)
-            
-        listbox = self.listbox.get(0)
-        spinbox = self.spinbox.get()
-        print('valor de list:', listbox)
-        print('valor de spin:', spinbox)
 
+        if self.listbox.get(0) != spinbox and self.listbox.get(0) != '' or spinbox == '': 
+            self.label_miniature .config(image= self.Miniatures[22])
+        """ if spinbox == '':
+            self.label_miniature .config(image= self.Miniatures[22]) """
 
-        if listbox != spinbox and listbox != '': 
-            self.label_miniature .config(image= self.Miniatures[22])
-        if spinbox == '':
-            self.label_miniature .config(image= self.Miniatures[22])
+        #listbox = self.listbox.get(0)
+        #spinbox = self.spinbox.get()
+        #print('valor de list:', listbox)
+        #print('valor de spin:', spinbox)
 
         # print('111', self.spinbox_variable.get()) # DEVUELVE: PRIMER CARACTER EN MAYUSCULA
         # print('222', self.spinbox.get())          # DEVUELVE: PRIMER CARACTER EN MINUSCULA
