@@ -1,4 +1,9 @@
-#_____________SELF.CHECKBUTTON 5 :  MODO LISTA
+class Spinbox_class(Spinbox)
+    def __init__(self, master, *arg)
+        súper().__init__(self, master, width=13)
+        self.spinbox_variable = StringVar() # ?poner padre?
+        self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']
+        
 
         #_____C O N T E N E D O R E S:
         self.frm_B3 = Frame (self, bg='#31343a', width=172, height=65)   # NO POSICIONADO     # Color: Plomo       
@@ -12,12 +17,6 @@
 
         #_____L A B E L:  MINIATURAS
         self.label_miniature = Label (self.frm_C1, image=self.Miniatures[0], bd= 0)                                                  # POSICIONADO
-
-        #_____S T R I N G V A R:
-        self.spinbox_variable = StringVar()
-
-        #_____L I S T A:  LISTA DE SPINBOX
-        self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']
 
         #__________V A L I D A C I O N E S:  DE ENTRADA DE TEXTO DEL SPINBOX
         self.all_register = (self.register(self.validate_text), '%P', '%S')
