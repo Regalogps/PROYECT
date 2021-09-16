@@ -283,12 +283,12 @@ class Interface(Tk):
                 if value in i:
                     list_new .append(i)
 
-            if list_new != []: 
+            if list_new != []:   ##@@@@@## PROBAR SIN IF, SI ES ELEGIBLE ''
                 print("mando lista", list_new)          
                 self.update(list_new)
 
             if self.spinbox_variable.get() == 'As':  #|||
-                self.listbox.see(2)
+                self.listbox.see(2) ##@@@@@## PROBAR SIN.SEE, YA QUE SOLO QUEDARIA ASATE 
                 self.listbox.delete(0,1)
        
         for index, i in enumerate(self.spinbox_values):      
