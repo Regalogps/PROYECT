@@ -283,14 +283,12 @@ class Interface(Tk):
                 if value in i:
                     list_new .append(i)
 
-            print('lista: ', list_new)
             if list_new != []: 
                 print("mando lista", list_new)          
                 self.update(list_new)
 
             if self.spinbox_variable.get() == 'As':  #|||
-                print('asss')
-                #self.listbox.see(2)
+                self.listbox.see(2)
                 self.listbox.delete(0,1)
        
         for index, i in enumerate(self.spinbox_values):      
@@ -362,9 +360,9 @@ class Interface(Tk):
         self.open_3 = False
 
     def update(self, list):  # ACTIVA: SI EL METODO CHANGE_MINIATURE LA MANDA A LLAMAR - BORRA LA LISTA DE LISTBOX EXISTENTE, AGREGA NUEVOS VALORES A LISTA Y BORRA DE NUEVO SI SE CUMPLE LA CONDICION
-    
+        
         self.listbox .delete(0, END)                                    # 1- BORRA LA LISTA DE LISTBOX
-        print('entre estando vacio')
+        
         for i in list:                                                  # 1- ITERANDO: 'list_new'.  2- INSERTANDO ITERADOR 'i' A LISTBOX.  
             self.listbox .insert(END, i) 
         if self.listbox.get(0) == self.spinbox_variable.get():  #|||
