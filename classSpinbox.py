@@ -1,58 +1,95 @@
-class Spinbox_class(Spinbox)
+class Listbox_class(Listbox)
     def __init__(self, master, *arg)
-        súper().__init__(self, master, width=13)
-        self.spinbox_variable = StringVar() # ?poner padre?
-        self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']
+        súper().__init__(self, master, width=13, *args)
         
+        self.config (font=('Calibri',9,'bold'), bg='#11161d', fg='#00ff00', width=11, height=1,  
+                     justify='center', highlightbackground='#11161d', highlightthickness=0, borderwidth=0, bd=0,
+                     selectbackground='#11161d', highlightcolor='#11161d', selectforeground='#ff8000', activestyle='none',                                        
+                     takefocus=0, selectmode=SINGLE)  #|||||                         
 
-        #_____C O N T E N E D O R E S:
-        self.frm_B3 = Frame (self, bg='#31343a', width=172, height=65)   # NO POSICIONADO     # Color: Plomo       
-        self.frm_C1 = Frame (self, bg='#11161d', width=60, height=65)    # NO POSICIONADO     # Color: Azul  #11161d
-
-        #_____L A B E L:  NUMERO DE FILAS EXISTENTES   #|||||
-        self.label_filas = Label (self.frm_B3, width=18, bg='#11161d', fg='#969696', bd=2, anchor= E) #|||||
-
-        #_____L A B E L:  SELECCIONE MOBIL
-        label_title = Label (self.frm_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)      # POSICIONADO
-
-        #_____L A B E L:  MINIATURAS
-        self.label_miniature = Label (self.frm_C1, image=self.Miniatures[0], bd= 0)                                                  # POSICIONADO
-
-        #__________V A L I D A C I O N E S:  DE ENTRADA DE TEXTO DEL SPINBOX
-        self.all_register = (self.register(self.validate_text), '%P', '%S')
-
-        #_____L I S T B O X  / POSICIONADO
-        self.listbox = Listbox (self.label_filas, font=('Calibri',9,'bold'), bg='#11161d', fg='#00ff00', width=11, height=1,  
-                                justify='center', highlightbackground='#11161d', highlightthickness=0, borderwidth=0, bd=0,
-                                selectbackground='#11161d', highlightcolor='#11161d', selectforeground='#ff8000', activestyle='none',                                        
-                                takefocus=0, selectmode=SINGLE)  #|||||
-                           
-        #_____S P I N B O X  / POSICIONADO
-        self.spinbox = Spinbox (self.frm_B3, width=13, bd=0, justify='center', wrap=True,
-                                values=self.spinbox_values,                                      # DESDE AQUI PARA ABAJO SE HACEN LLAMADAS
-                                textvariable=self.spinbox_variable, 
-                                validate='key', validatecommand=self.all_register)                             
-        
-        #_____B I N D - L I S T B O X - E V E N T:  1
         self.listbox .bind ('<<ListboxSelect>>', self.listbox_select)   # ACTIVA: CON CLICK IZQUIERDO EN EL LISTBOX - SELECCIONA 1 ITEM
 
-        #_____B I N D - S P I N B O X - E V E N T:  2
-        self.spinbox .bind ('<Return>', self.bind_spinbox)  # ACTIVA: CON TECLA ENTER - ABRE LAS VENTANAS
-        self.spinbox .bind ('<Double-Button-1>', lambda *arg: self.spinbox.delete(0, END))   # ACTIVA: CON DOBLE CLICK EN SPINBOX - LIMPIA SPINBOX
-        self.spinbox .bind ('<Return>', self.bind_listbox)  # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX   #||||||
+
+class Spinbox_class(Spinbox)
+    def __init__(self, master, *arg):
+        súper().__init__(self, master, width=13, *args)
+
+        self.spinbox_variable = StringVar() # ?poner padre?
+        self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']
+        self.all_register = (self.register(self.validate_text), '%P', '%S')
+
+        self.config (bd=0, justify='center', wrap=True,
+                     values= self.spinbox_values,                                      # DESDE AQUI PARA ABAJO SE HACEN LLAMADAS
+                     textvariable= self.spinbox_variable, 
+                     validate= 'key', 
+                     validatecommand= self.all_register)                             
+        
+        self.bind ('<Return>', self.bind_spinbox)  # ACTIVA: CON TECLA ENTER - ABRE LAS VENTANAS
+        self.bind ('<Double-Button-1>', lambda *arg: self.spinbox.delete(0, END))   # ACTIVA: CON DOBLE CLICK EN SPINBOX - LIMPIA SPINBOX
+        self.bind ('<Return>', self.bind_listbox)  # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX   #||||||
        
-        #_____T R A C E__A D D - S P I N B O X:     ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR
         self.spinbox_variable .trace_add ('write', self.change_miniature)  
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # INSERTA EL VALOR OBTENIDO EN MAYUSCULA EL PRIMER STRING
 
 
-        #__________Posicionamientos:
-        self.label_filas .grid (column=0, row=0, padx=(0,5), pady=(0,2), sticky=N)  #|||||
-        label_title .grid (column=0, row=1, padx=10, pady=(0,0), sticky=W)
-        self.label_miniature .grid (padx=2, pady=3)
+    def validate_text(self, text, arg): # HECHO   # ACTIVA: SIEMPRE QUE INSERTE TEXTO EN SPINBOX - NO PERMITE NUMEROS,SIMBOLOS,ESPACIOS Y CONTROLA LA CANTIDAD
 
-        self.listbox .grid ( padx=(19,0), pady=(0,5), sticky=N)
-        self.spinbox .grid (column=0, row=2, padx=11, pady=(3,3), sticky=W)   
+        if all (i not in "0123456789[{!¡¿?<>(|#$%&),_-°'´}] +-*/=" for i in text) and len(text) < 14:   
+            return True                                                 
+        return False  
+        
+        # TRUE = PERMITIR
+        # FALSE = DENEGAR
+
+
+        #_____C O N T E N E D O R E S:
+        self.frm_B3 = Frame (self, bg='#31343a', width=172, height=65)   # NO POSICIONADO     # Color: Plomo       
+        nooooself.frm_C1 = Frame (self, bg='#11161d', width=60, height=65)    # NO POSICIONADO     # Color: Azul  #11161d
+
+        noooo#_____L A B E L:  NUMERO DE FILAS EXISTENTES   #|||||
+        nooooself.label_filas = Label (self.frm_B3, width=18, bg='#11161d', fg='#969696', bd=2, anchor= E) #|||||
+
+        nooooo#_____L A B E L:  SELECCIONE MOBIL
+        nooooolabel_title = Label (self.frm_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)      # POSICIONADO
+
+        nooooo#_____L A B E L:  MINIATURAS
+        noooooself.label_miniature = Label (self.frm_C1, image=self.Miniatures[0], bd= 0)                                                  # POSICIONADO
+
+        yaaaaaa#__________V A L I D A C I O N E S:  DE ENTRADA DE TEXTO DEL SPINBOX
+        yaaaaaaself.all_register = (self.register(self.validate_text), '%P', '%S')
+
+        yaaaaaa#_____L I S T B O X  / POSICIONADO
+        yaaaaaaself.listbox = Listbox (self.label_filas, font=('Calibri',9,'bold'), bg='#11161d', fg='#00ff00', width=11, height=1,  
+                                justify='center', highlightbackground='#11161d', highlightthickness=0, borderwidth=0, bd=0,
+                                selectbackground='#11161d', highlightcolor='#11161d', selectforeground='#ff8000', activestyle='none',                                        
+                                takefocus=0, selectmode=SINGLE)  #|||||
+                           
+        yaaaaaa#_____S P I N B O X  / POSICIONADO
+        yaaaaaaself.spinbox = Spinbox (self.frm_B3, width=13, bd=0, justify='center', wrap=True,
+                                values=self.spinbox_values,                                      # DESDE AQUI PARA ABAJO SE HACEN LLAMADAS
+                                textvariable=self.spinbox_variable, 
+                                validate='key', validatecommand=self.all_register)                             
+        
+        yaaaaaa#_____B I N D - L I S T B O X - E V E N T:  1
+        yaaaaaaself.listbox .bind ('<<ListboxSelect>>', self.listbox_select)   # ACTIVA: CON CLICK IZQUIERDO EN EL LISTBOX - SELECCIONA 1 ITEM
+
+        yaaaa#_____B I N D - S P I N B O X - E V E N T:  2
+        yaaaaself.spinbox .bind ('<Return>', self.bind_spinbox)  # ACTIVA: CON TECLA ENTER - ABRE LAS VENTANAS
+        yaaaaqself.spinbox .bind ('<Double-Button-1>', lambda *arg: self.spinbox.delete(0, END))   # ACTIVA: CON DOBLE CLICK EN SPINBOX - LIMPIA SPINBOX
+        yaaaaaself.spinbox .bind ('<Return>', self.bind_listbox)  # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX   #||||||
+       
+        yaaaa#_____T R A C E__A D D - S P I N B O X:     ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR
+        yaaaaself.spinbox_variable .trace_add ('write', self.change_miniature)  
+        yaaaaself.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # INSERTA EL VALOR OBTENIDO EN MAYUSCULA EL PRIMER STRING
+
+
+        #__________Posicionamientos:
+        noooooself.label_filas .grid (column=0, row=0, padx=(0,5), pady=(0,2), sticky=N)  #|||||
+        noooooolabel_title .grid (column=0, row=1, padx=10, pady=(0,0), sticky=W)
+        nooooooself.label_miniature .grid (padx=2, pady=3)
+
+        noooooooself.listbox .grid ( padx=(19,0), pady=(0,5), sticky=N)
+        noooooooself.spinbox .grid (column=0, row=2, padx=11, pady=(3,3), sticky=W)   
 
         #__________Propagación:
         self.frm_B3 .grid_propagate(False)
@@ -73,16 +110,7 @@ class Spinbox_class(Spinbox)
         # selectforeground= 'green2' ---> COLOR DE FONDO CON FOCO
         # activestyle= 'none' ---> SUBRAYADO DEL TEXTO CUANDO ES SELECCIONADO DESACTIVADO:'none'
 #__________________
-
-    def validate_text(self, text, arg):   # ACTIVA: SIEMPRE QUE INSERTE TEXTO EN SPINBOX - NO PERMITE NUMEROS,SIMBOLOS,ESPACIOS Y CONTROLA LA CANTIDAD
-
-        if all (i not in "0123456789[{!¡¿?<>(|#$%&),_-°'´}] +-*/=" for i in text) and len(text) < 14:   
-                return True                                                 
-        return False  
-
-        
-        # TRUE = PERMITIR
-        # FALSE = DENEGAR                                                  
+                                                  
                   
     def gear_stacking(self):   # ACTIVA: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
 
