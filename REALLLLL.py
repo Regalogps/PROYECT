@@ -285,22 +285,16 @@ class Interface(Tk):
                     self.spinbox .icursor(END)
                 if spinbox in i:
                     list_new .append(i)
+                    print(list_new)
 
             if list_new != []:         
                 self.update(list_new)
 
-            if self.spinbox_variable.get() == 'As':  
+            if spinbox == 'As':  
                 self.listbox.delete(0,1)
 
         if self.listbox.get(0) != spinbox and self.listbox.get(0) != '' or spinbox == '': 
             self.label_miniature .config(image= self.Miniatures[22])
-        """ if spinbox == '':
-            self.label_miniature .config(image= self.Miniatures[22]) """
-
-        #listbox = self.listbox.get(0)
-        #spinbox = self.spinbox.get()
-        #print('valor de list:', listbox)
-        #print('valor de spin:', spinbox)
 
         # print('111', self.spinbox_variable.get()) # DEVUELVE: PRIMER CARACTER EN MAYUSCULA
         # print('222', self.spinbox.get())          # DEVUELVE: PRIMER CARACTER EN MINUSCULA
