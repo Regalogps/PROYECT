@@ -28,25 +28,52 @@ class Interface(Tk):
         self.open_3 = False
 
         #_____V A R I A B L E S  de  C O N T R O L  S E G U N D A R I A S
-
         self.gear = True
         self.minimize = True
         
         #_____Métodos de Configuración y Posicionamiento de Widget: [Interface]
-        self. configure_interface()          
+        geo = self.geometry_(816, 65)   #NEW
+        self. configure_interface(geo)     # NEW EL ARGUMENTO geo     
         self. widgets()
 
-    def configure_interface(self):   # CONFIGURA VENTANA PRINCIPAL
+        #______________________________________
+  
+        self.e = False
+  
+    def otros(self, event):
+        if self.e == False:
+            print('iff')
+            self.toplevel_LEFT.overrideredirect(0)
+            self.toplevel_RIGHT.overrideredirect(0)
+            self.toplevel_STUF.overrideredirect(0)
+            self.e = True
+        else:
+            print('iff')
+            self.toplevel_LEFT.overrideredirect(1)
+            self.toplevel_RIGHT.overrideredirect(1)
+            self.toplevel_STUF.overrideredirect(1)
+            self.e = False
+    
+    def geometry_(self, geometry_width, geometry_height ):
+
+        width_pixel = self.winfo_screenwidth() // 2 - geometry_width // 2
+        height_pixel = self.winfo_screenheight() // 2 - geometry_height // 2
+
+        position = str(geometry_width) + 'x' + str(geometry_height) + '+' + str(width_pixel) + '+' + str(height_pixel)
+        return position
+
+    def configure_interface(self, geometry):   # CONFIGURA VENTANA PRINCIPAL
       
         #ventana.overrideredirect(1)
         #ventana.attributes("-toolwindow",-1)
         self.title ('_AshmanBot_')                                 #  BORRAR
-        self.geometry ('816x65')                                 # TAMANIO DE LA VENTANA
-        self.resizable (0,1)                                       # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
+        self.geometry (geometry)                                 # TAMANIO DE LA VENTANA  ('816x65')
+        self.resizable (0,0)                                       # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
         self.config (bg='magenta2')                                # CONFIGURA EL FONDO DE LA VENTANA, etc
         self.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
         self.wm_attributes ('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
-        #root.attributes("-alpha", 0.5 )   
+        #root.attributes("-alpha", 0.5 ) 
+        #self.eval('tk::PlaceWindow . center')    ######%%%%%%%%%%%%%%%%%%%%%%%%%
 
     def generate_list (self, file, option):   # INICIALIZA IMAGENES
 
@@ -171,7 +198,7 @@ class Interface(Tk):
         label_title = Label (self.frm_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)      # POSICIONADO
 
         #_____L A B E L:  MINIATURAS
-        self.label_miniature = Label (self.frm_C1, image=self.Miniatures[0], bd= 0)                                                  # POSICIONADO
+        self.label_miniature = Label (self.frm_C1, image=self.Miniatures[0], bd= 0)                                                   # POSICIONADO
 
         #_____S T R I N G V A R:
         self.spinbox_variable = StringVar()
@@ -199,7 +226,7 @@ class Interface(Tk):
 
         #_____B I N D - S P I N B O X - E V E N T:  2
         self.spinbox .bind ('<Return>', self.bind_spinbox)  # ACTIVA: CON TECLA ENTER - ABRE LAS VENTANAS
-        self.spinbox .bind ('<Double-Button-1>', lambda *arg: self.spinbox.delete(0, END))   # ACTIVA: CON DOBLE CLICK EN SPINBOX - LIMPIA SPINBOX
+        self.spinbox .bind ('<Double-1>', lambda *arg: self.spinbox.delete(0, END))   # ACTIVA: CON DOBLE CLICK EN SPINBOX - LIMPIA SPINBOX
         self.spinbox .bind ('<Return>', self.bind_listbox)  # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX   #||||||
        
         #_____T R A C E__A D D - S P I N B O X:     ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR
@@ -369,8 +396,7 @@ class Interface(Tk):
         self.after(100, lambda: self.spinbox.focus_set())
 
         print('numero',self.listbox.size())
-        
-    
+          
     def bind_listbox(self, event):
  
         print('QUERIENDO ENTRAR A IFF BIND')
@@ -433,6 +459,7 @@ class Interface(Tk):
         if self.open_3 == False:
             self.toplevel_STUF = _Toplevel()  #############################################################   VENTANA TOPLEVEL STUFF
             self.toplevel_STUF .configure_toplevel ('stuf', '620x190')
+            
 
         self.open_3 = True
 
@@ -515,6 +542,7 @@ class _Toplevel (Toplevel):
         self.wm_attributes ('-topmost', True)
         self.config (bg = 'magenta2')
         self.wm_attributes ('-transparentcolor', 'magenta2')
+        self.overrideredirect(1)
 
     def widgets_toplevel(self):
         pass
@@ -532,12 +560,14 @@ class Create_Frame (Frame):
         self.btn_ash = Button (self, image= self.master.Images_sublist [3], bg= '#11161d', bd= 0, activebackground= '#11161d' , command= self.master.minimize_windows)
         self.btn_ash .grid (column= 0, row= 0, padx= (6,6), pady= 0)
 
-        self.btn_ash .bind ('<Double-Button-3>', self.master.ash_close_windows)
+        self.btn_ash .bind ('<Button-3>', self.master.ash_close_windows)
           
     def img_gear(self):   # Metodo que crea -1- Boton (rueda)-----------------NO TOCAR (despues)
 
         self.btn_gear = Button (self, image= self.master.Images_sublist [1], bg= '#11161d', bd= 0, activebackground= '#11161d', command= self.master.gear_stacking)        # akl era  command= self.master.configure_height
         self.btn_gear .grid (column= 0, row= 1)
+
+        self.btn_gear .bind ('<Double-3>', self.master.otros)
        
     def img_moviles(self):   # Metodo que crea -22- Botones (moviles)  #command = lambda:images(1))
         

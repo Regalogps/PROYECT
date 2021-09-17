@@ -1,6 +1,9 @@
+from tkinter import *
+from PIL import ImageTk, Image
+
 class Listbox_class(Listbox)
     def __init__(self, master, *arg)
-        súper().__init__(self, master, width=13, *args)
+        super().__init__(self, master, width=13, *args)
         
         self.config (font=('Calibri',9,'bold'), bg='#11161d', fg='#00ff00', width=11, height=1,  
                      justify='center', highlightbackground='#11161d', highlightthickness=0, borderwidth=0, bd=0,
@@ -12,7 +15,7 @@ class Listbox_class(Listbox)
 
 class Spinbox_class(Spinbox)
     def __init__(self, master, *arg):
-        súper().__init__(self, master, width=13, *args)
+        super().__init__(self, master, width=13, *args)
 
         self.spinbox_variable = StringVar() # ?poner padre?
         self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']
@@ -24,8 +27,9 @@ class Spinbox_class(Spinbox)
                      validate= 'key', 
                      validatecommand= self.all_register)                             
         
-        self.bind ('<Return>', self.bind_spinbox)  # ACTIVA: CON TECLA ENTER - ABRE LAS VENTANAS
+        
         self.bind ('<Double-Button-1>', lambda *arg: self.spinbox.delete(0, END))   # ACTIVA: CON DOBLE CLICK EN SPINBOX - LIMPIA SPINBOX
+        self.bind ('<Return>', self.bind_spinbox)  # ACTIVA: CON TECLA ENTER - ABRE LAS VENTANAS
         self.bind ('<Return>', self.bind_listbox)  # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX   #||||||
        
         self.spinbox_variable .trace_add ('write', self.change_miniature)  
@@ -41,7 +45,54 @@ class Spinbox_class(Spinbox)
         # TRUE = PERMITIR
         # FALSE = DENEGAR
 
+    def change_miniature(self, *args):   # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
 
+        spinbox = self.spinbox.get() .capitalize()
+
+        if spinbox == '':                                                          # 1- SI SPINBOX ESTA VACIO.  2- BORRA LA LISTA DE LISTBOX.  3- DESHABILITA LISTBOX.
+            self.listbox .delete(0, END)
+        else:                                                                    # 1- HABILITA LISTBOX.  2- CREA LISTA VACIA.  3- ITERANDO: 'self.spinbox_values'.
+            list_new = []                                                        # 4- SI COINCIDE 'value' EN 'self.spinbox_values'.  5- AGREGA VALUE A LISTA.  6- SI LA LISTA NO ESTA VACIA.
+            for index, i in enumerate(self.spinbox_values):                      # 10- LLAMA AL METODO: 'def update' Y PASA LA LISTA DE ARGUMENTO.
+                if spinbox == i:                           
+                    self.label_miniature .config(image= self.Miniatures[index])
+                    self.spinbox .icursor(END)
+                if spinbox in i:
+                    list_new .append(i)
+                    print(list_new)
+
+            if list_new != []:         
+                self.update(list_new)
+
+            if spinbox == 'As':  
+                self.listbox.delete(0,1)
+
+        if self.listbox.get(0) != spinbox and self.listbox.get(0) != '' or spinbox == '': 
+            self.label_miniature .config(image= self.Miniatures[22])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+        return
         #_____C O N T E N E D O R E S:
         self.frm_B3 = Frame (self, bg='#31343a', width=172, height=65)   # NO POSICIONADO     # Color: Plomo       
         nooooself.frm_C1 = Frame (self, bg='#11161d', width=60, height=65)    # NO POSICIONADO     # Color: Azul  #11161d
@@ -112,7 +163,7 @@ class Spinbox_class(Spinbox)
 #__________________
                                                   
                   
-    def gear_stacking(self):   # ACTIVA: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
+    """ def gear_stacking(self):   # ACTIVA: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
 
         if  self.gear == True:          # PREDETERMINADO: TRUE
             self.frm_B1 .grid_remove()  # B1: BOTONES          
@@ -136,46 +187,11 @@ class Spinbox_class(Spinbox)
             else:
                 self.frm_B1 .grid()
                 self.frm_B3 .grid_remove()
-                self.frm_C1 .grid_remove()
+                self.frm_C1 .grid_remove() """
                             
-    def change_miniature(self, *args):   # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
-
-        value = self.spinbox.get() .capitalize()
-
-        if value == '':                                              # 1- SI SPINBOX ESTA VACIO.  2- BORRA LA LISTA DE LISTBOX.  3- DESHABILITA LISTBOX.
-            self.listbox .delete(0, END)
-        else:                                                        # 1- HABILITA LISTBOX.  2- CREA LISTA VACIA.  3- ITERANDO: 'self.spinbox_values'.
-            list_new = []                                            # 4- SI COINCIDE 'value' EN 'self.spinbox_values'.  5- AGREGA VALUE A LISTA.  6- SI LA LISTA NO ESTA VACIA.
-            for i in self.spinbox_values:                            # 10- LLAMA AL METODO: 'def update' Y PASA LA LISTA DE ARGUMENTO. 
-                if value in i:
-                    list_new .append(i)
-
-            if list_new != []:   ##@@@@@## PROBAR SIN IF, SI ES ELEGIBLE ''
-                print("mando lista", list_new)          
-                self.update(list_new)
-
-            if self.spinbox_variable.get() == 'As':  #|||
-                self.listbox.see(2) ##@@@@@## PROBAR SIN.SEE, YA QUE SOLO QUEDARIA ASATE 
-                self.listbox.delete(0,1)
-       
-        for index, i in enumerate(self.spinbox_values):      
-            if self.spinbox.get() .capitalize() == i:                           
-                self.label_miniature .config(image= self.Miniatures[index])
-                self.spinbox .icursor(END)
-            
-        listbox = self.listbox.get(0)
-        spinbox = self.spinbox.get()
-        print('valor de list:', listbox)
-        print('valor de spin:', spinbox)
+    
 
 
-        if listbox != spinbox and listbox != '': 
-            self.label_miniature .config(image= self.Miniatures[22])
-        if spinbox == '':
-            self.label_miniature .config(image= self.Miniatures[22])
-
-        # print('111', self.spinbox_variable.get()) # DEVUELVE: PRIMER CARACTER EN MAYUSCULA
-        # print('222', self.spinbox.get())          # DEVUELVE: PRIMER CARACTER EN MINUSCULA
  
     def cheeck_5 (self):   # SIN USOOOOOOOOOOOOOOOOOO
         self.checkbutton5.value()
@@ -264,5 +280,4 @@ class Spinbox_class(Spinbox)
             
         self.bind_spinbox(event)    
 
-            
-
+ 
