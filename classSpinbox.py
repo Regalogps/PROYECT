@@ -45,11 +45,14 @@ class Spinbox_class(Spinbox)
         self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']
         self.all_register = (self.register(self.validate_text), '%P', '%S')
 
-        self.config (bd=0, justify='center', wrap=True,
-                     values= self.spinbox_values,                                      # DESDE AQUI PARA ABAJO SE HACEN LLAMADAS
-                     textvariable= self.spinbox_variable, 
-                     validate= 'key', 
-                     validatecommand= self.all_register)                             
+        self.config (values=self.spinbox_values,                                      # DESDE AQUI PARA ABAJO SE HACEN LLAMADAS
+                     textvariable=self.spinbox_variable, 
+                     validate='key', 
+                     validatecommand=self.all_register,
+                     justify='center',
+                     wrap=True,
+                     bd=0,
+                     )                             
         
         
         self.bind ('<Double-Button-1>', lambda *arg: self.spinbox.delete(0, END))   # ACTIVA: CON DOBLE CLICK EN SPINBOX - LIMPIA SPINBOX
