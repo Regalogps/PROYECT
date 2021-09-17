@@ -1,9 +1,16 @@
 from tkinter import *
 from PIL import ImageTk, Image
 
+
+class Example(Frame):
+    def __init__(self, parents, index, *args, **kwargs):
+        Frame.__init__(self, parents, *args, kwargs)
+        
+        
+
 class Listbox_class(Listbox)
     def __init__(self, master, *arg)
-        super().__init__(self, master, width=11, height=1, **kwargs)
+        Listbox.__init__(self, master, width=11, height=1, **kwargs)
         
         self.config (font=('Calibri',9,'bold'), 
                      bg='#11161d', fg='#00ff00', 
@@ -39,7 +46,7 @@ class Listbox_class(Listbox)
          
 class Spinbox_class(Spinbox)
     def __init__(self, master, *arg):
-        super().__init__(self, master, width=13, *args)
+        Spinbox.__init__(self, master, width=13, *args)
 
         self.spinbox_variable = StringVar() # ?poner padre?
         self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']
