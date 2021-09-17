@@ -2,12 +2,26 @@ from tkinter import *
 from PIL import ImageTk, Image
 
 
-class Example(Frame):
+class Frm_B3_class(Frame):
     def __init__(self, parents, index, *args, **kwargs):
         Frame.__init__(self, parents, *args, kwargs)
         
+        self.frm_B3 = Frame (self, bg='#31343a', width=172, height=65)
+        self.frm_B3 .grid (column=0, row=0, padx=0, pady=0)
+        ##self.frm_B3 .grid_propagate(False)
         
+        self.label_listbox = Label (self.frm_B3, width=18, bg='#11161d', fg='#969696', bd=0)
+        self.label_listbox .grid (column=0, row=0, padx=(0,5) pady=(0,2)
 
+        self.label_title = Label (self.frm_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0) ###falta
+        self.label_title .grid (column=0, row=0, padx=(0,5) pady=(0,2)
+
+
+        self.frm_C1 = Frame (self, bg='#11161d', width=60, height=65)
+        self.frm_C1 .grid (column=1, row=0, padx=0, pady=0)
+        ##self.frm_C1 .grid_propagate(False)
+
+        
 class Listbox_class(Listbox)
     def __init__(self, master, *arg)
         Listbox.__init__(self, master, width=11, height=1, **kwargs)
