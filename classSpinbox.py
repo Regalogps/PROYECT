@@ -120,17 +120,11 @@ class Spinbox_class(Spinbox)
                 self.listbox.delete(0,1)
 
         if self.listbox.get(0) != spinbox and self.listbox.get(0) != '' or spinbox == '': 
-            self.label_miniature .config(image= sel  def update(self, list):  # ACTIVA: SI EL METODO CHANGE_MINIATURE LA MANDA A LLAMAR - BORRA LA LISTA DE LISTBOX EXISTENTE, AGREGA NUEVOS VALORES A LISTA Y BORRA DE NUEVO SI SE CUMPLE LA CONDICION
-        
-        self.listbox .delete(0, END)                                    # 1- BORRA LA LISTA DE LISTBOX
-        
-        for i in list:                                                  # 1- ITERANDO: 'list_new'.  2- INSERTANDO ITERADOR 'i' A LISTBOX.  
-            self.listbox .insert(END, i) 
-        if self.listbox.get(0) == self.spinbox_variable.get():  #|||
-            self.listbox .delete(0, END) 
+            self.label_miniature .config(image= self.Miniatures[22])
 
-
-
+        # print('111', self.spinbox_variable.get()) # DEVUELVE: PRIMER CARACTER EN MAYUSCULA
+        # print('222', self.spinbox.get())          # DEVUELVE: PRIMER CARACTER EN MINUSCULA
+ 
 
 
 
@@ -246,12 +240,7 @@ class Spinbox_class(Spinbox)
                 self.frm_B3 .grid_remove()
                 self.frm_C1 .grid_remove() """
                             
-    
 
-
- 
-    def cheeck_5 (self):   # SIN USOOOOOOOOOOOOOOOOOO
-        self.checkbutton5.value
 
     def minimize_windows(self):   # ACTIVA: CON CLICK IZQUIERDO AL LOGO - MINIMIZA LAS VENTANAS
 
