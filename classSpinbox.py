@@ -57,7 +57,7 @@ class Spinbox_class(Spinbox)
         
         self.bind ('<Double-Button-1>', lambda *arg: self.spinbox.delete(0, END))   # ACTIVA: CON DOBLE CLICK EN SPINBOX - LIMPIA SPINBOX
         self.bind ('<Return>', self.bind_spinbox)  # ACTIVA: CON TECLA ENTER - ABRE LAS VENTANAS
-        self.bind ('<Return>', self.bind_listbox)  # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX   #||||||
+        self.bind ('<Return>', self.bind_listbox)  # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX Y LLAMA AL METODO(EVENT) DEF SELF.BIND.SPINBOX   #||||||
        
         self.spinbox_variable .trace_add ('write', self.change_miniature)  
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # INSERTA EL VALOR OBTENIDO EN MAYUSCULA EL PRIMER STRING
@@ -73,7 +73,7 @@ class Spinbox_class(Spinbox)
         # FALSE = DENEGAR
 
  
-    def bind_spinbox(self, event):  # ACTIVA: CON TECLA ENTER SI SPINBOX TIENE FOCO - ABRE LAS VENTANAS
+    def bind_spinbox(self, event): # HECHO   # ACTIVA: CON TECLA ENTER SI SPINBOX TIENE FOCO - ABRE LAS VENTANAS
         
         left = [Frog_left_off, Fox_left_off, Boomer_left_off, Ice_left_off, Jd_left_off, Grub_left_off, Lightning_left_off, Aduka_left_off, Knight_left_off, Kalsiddon_left_off, Mage_left_off, Randomizer_left_off, Jolteon_left_off, Turtle_left_off, Armor_left_off, Asate_left_off, Raon_left_off, Trico_left_off, Nak_left_off, Bigfoot_left_off, Barney_left_off, Dragon_left_off,]
         right = [Frog_right, Fox_right, Boomer_right, Ice_right, Jd_right, Grub_right, Lightning_right, Aduka_right, Knight_right, Kalsiddon_right, Mage_right, Randomizer_right, Jolteon_right, Turtle_right, Armor_right, Asate_right, Raon_right, Trico_right, Nak_right, Bigfoot_right, Barney_right, Dragon_right]
@@ -81,11 +81,11 @@ class Spinbox_class(Spinbox)
 
         for index, i in enumerate(self.spinbox_values):
             if self.spinbox.get() == i:
-                self.windows_123(left[index], right[index], stuf[index]) 
+                self.master. windows_123(left[index], right[index], stuf[index]) 
                 self.spinbox .icursor(END)  # ESTA APRUEBA SI ES TOTLAMENTE NECESARIO 
   
   
-    def bind_listbox(self, event):
+    def bind_listbox(self, event):   #ACTIVA: TECLA ENTER - SELECCIONA LISTBOX Y LLAMA A SELF.BIND.SPINBOX
  
         print('QUERIENDO ENTRAR A IFF BIND')
         listbox = self.listbox.get(0)
