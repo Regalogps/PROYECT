@@ -3,16 +3,40 @@ from PIL import ImageTk, Image
 
 class Listbox_class(Listbox)
     def __init__(self, master, *arg)
-        super().__init__(self, master, width=13, *args)
+        super().__init__(self, master, width=11, height=1, **kwargs)
         
-        self.config (font=('Calibri',9,'bold'), bg='#11161d', fg='#00ff00', width=11, height=1,  
-                     justify='center', highlightbackground='#11161d', highlightthickness=0, borderwidth=0, bd=0,
-                     selectbackground='#11161d', highlightcolor='#11161d', selectforeground='#ff8000', activestyle='none',                                        
-                     takefocus=0, selectmode=SINGLE)  #|||||                         
+        self.config (font=('Calibri',9,'bold'), 
+                     bg='#11161d', fg='#00ff00', 
+                     borderwidth=0, bd=0,
+                     highlightthickness=0,
+                     highlightbackground='#11161d',
+                     highlightcolor='#11161d',
+                     selectbackground='#11161d', 
+                     selectforeground='#ff8000', 
+                     activestyle='none',  
+                     justify='center',                                      
+                     selectmode=SINGLE,
+                     takefocus=0,
+                     )   
+ 
+        self.bind ('<<ListboxSelect>>', self.listbox_select)   # ACTIVA: CON CLICK IZQUIERDO EN EL LISTBOX - SELECCIONA 1 ITEM
+        
+    
+    def listbox_select(self,event):   # ACTIVA: CON CLICK IZQUIERDO EN LISTBOX - 
+       
+        selection = self.listbox .get(ANCHOR)                                                           # 1- BORRA EL CONTENIDO DE SPINBOX.  2- INSERTA EL ITEM SELECCIONADO DEL LISTBOX A SPINBOX                         
+        
+        if self.listbox.get(0,END) != ():      
+            self.spinbox .delete(0, END) 
+        self.spinbox .insert(0, selection)
+        self.listbox .selection_clear(0,END)
+ 
+        self.after(100, lambda: self.spinbox.focus_set())
 
-        self.listbox .bind ('<<ListboxSelect>>', self.listbox_select)   # ACTIVA: CON CLICK IZQUIERDO EN EL LISTBOX - SELECCIONA 1 ITEM
+        print('numero',self.listbox.size())
+                              
 
-
+         
 class Spinbox_class(Spinbox)
     def __init__(self, master, *arg):
         super().__init__(self, master, width=13, *args)
@@ -45,6 +69,34 @@ class Spinbox_class(Spinbox)
         # TRUE = PERMITIR
         # FALSE = DENEGAR
 
+ 
+    def bind_spinbox(self, event):  # ACTIVA: CON TECLA ENTER SI SPINBOX TIENE FOCO - ABRE LAS VENTANAS
+        
+        left = [Frog_left_off, Fox_left_off, Boomer_left_off, Ice_left_off, Jd_left_off, Grub_left_off, Lightning_left_off, Aduka_left_off, Knight_left_off, Kalsiddon_left_off, Mage_left_off, Randomizer_left_off, Jolteon_left_off, Turtle_left_off, Armor_left_off, Asate_left_off, Raon_left_off, Trico_left_off, Nak_left_off, Bigfoot_left_off, Barney_left_off, Dragon_left_off,]
+        right = [Frog_right, Fox_right, Boomer_right, Ice_right, Jd_right, Grub_right, Lightning_right, Aduka_right, Knight_right, Kalsiddon_right, Mage_right, Randomizer_right, Jolteon_right, Turtle_right, Armor_right, Asate_right, Raon_right, Trico_right, Nak_right, Bigfoot_right, Barney_right, Dragon_right]
+        stuf = [Frog_stuf, Fox_stuf, Boomer_stuf, Ice_stuf, Jd_stuf, Grub_stuf, Lightning_stuf, Aduka_stuf, Knight_stuf, Kalsiddon_stuf, Mage_stuf, Randomizer_stuf, Jolteon_stuf, Turtle_stuf, Armor_stuf, Asate_stuf, Raon_stuf, Trico_stuf, Nak_stuf, Bigfoot_stuf, Barney_stuf, Dragon_stuf]
+
+        for index, i in enumerate(self.spinbox_values):
+            if self.spinbox.get() == i:
+                self.windows_123(left[index], right[index], stuf[index]) 
+                self.spinbox .icursor(END)  # ESTA APRUEBA SI ES TOTLAMENTE NECESARIO 
+  
+  
+    def bind_listbox(self, event):
+ 
+        print('QUERIENDO ENTRAR A IFF BIND')
+        listbox = self.listbox.get(0)
+        spinbox = self.spinbox.get()
+        #print('valor de list:', listbox)
+        #print('valor de spin:', spinbox)
+
+        if listbox != spinbox and listbox != '':
+            self.spinbox.delete(0, END)
+            self.spinbox.insert(0, listbox)
+            
+        self.bind_spinbox(event)    
+         
+
     def change_miniature(self, *args):   # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
 
         spinbox = self.spinbox.get() .capitalize()
@@ -68,9 +120,14 @@ class Spinbox_class(Spinbox)
                 self.listbox.delete(0,1)
 
         if self.listbox.get(0) != spinbox and self.listbox.get(0) != '' or spinbox == '': 
-            self.label_miniature .config(image= self.Miniatures[22])
-
-
+            self.label_miniature .config(image= sel  def update(self, list):  # ACTIVA: SI EL METODO CHANGE_MINIATURE LA MANDA A LLAMAR - BORRA LA LISTA DE LISTBOX EXISTENTE, AGREGA NUEVOS VALORES A LISTA Y BORRA DE NUEVO SI SE CUMPLE LA CONDICION
+        
+        self.listbox .delete(0, END)                                    # 1- BORRA LA LISTA DE LISTBOX
+        
+        for i in list:                                                  # 1- ITERANDO: 'list_new'.  2- INSERTANDO ITERADOR 'i' A LISTBOX.  
+            self.listbox .insert(END, i) 
+        if self.listbox.get(0) == self.spinbox_variable.get():  #|||
+            self.listbox .delete(0, END) 
 
 
 
@@ -194,19 +251,8 @@ class Spinbox_class(Spinbox)
 
  
     def cheeck_5 (self):   # SIN USOOOOOOOOOOOOOOOOOO
-        self.checkbutton5.value()
+        self.checkbutton5.value
 
-    def bind_spinbox(self, event):  # ACTIVA: CON TECLA ENTER SI SPINBOX TIENE FOCO - ABRE LAS VENTANAS
-        
-        left = [Frog_left_off, Fox_left_off, Boomer_left_off, Ice_left_off, Jd_left_off, Grub_left_off, Lightning_left_off, Aduka_left_off, Knight_left_off, Kalsiddon_left_off, Mage_left_off, Randomizer_left_off, Jolteon_left_off, Turtle_left_off, Armor_left_off, Asate_left_off, Raon_left_off, Trico_left_off, Nak_left_off, Bigfoot_left_off, Barney_left_off, Dragon_left_off,]
-        right = [Frog_right, Fox_right, Boomer_right, Ice_right, Jd_right, Grub_right, Lightning_right, Aduka_right, Knight_right, Kalsiddon_right, Mage_right, Randomizer_right, Jolteon_right, Turtle_right, Armor_right, Asate_right, Raon_right, Trico_right, Nak_right, Bigfoot_right, Barney_right, Dragon_right]
-        stuf = [Frog_stuf, Fox_stuf, Boomer_stuf, Ice_stuf, Jd_stuf, Grub_stuf, Lightning_stuf, Aduka_stuf, Knight_stuf, Kalsiddon_stuf, Mage_stuf, Randomizer_stuf, Jolteon_stuf, Turtle_stuf, Armor_stuf, Asate_stuf, Raon_stuf, Trico_stuf, Nak_stuf, Bigfoot_stuf, Barney_stuf, Dragon_stuf]
-
-        for index, i in enumerate(self.spinbox_values):
-            if self.spinbox.get() == i:
-                self.windows_123(left[index], right[index], stuf[index]) 
-                self.spinbox .icursor(END)  # ESTA APRUEBA SI ES TOTLAMENTE NECESARIO 
-                
     def minimize_windows(self):   # ACTIVA: CON CLICK IZQUIERDO AL LOGO - MINIMIZA LAS VENTANAS
 
         if self.open_1 == True or self.open_2 == True or self.open_3 == True:
@@ -231,53 +277,7 @@ class Spinbox_class(Spinbox)
 
                 self.minimize = False
 
-    def ash_close_windows(self, event):   # ACTIVA: CON DOBLE CLICK DERECHO EN EL LOGO - CIERRA LAS VENTANAS 
-
-        self.toplevel_LEFT .destroy() 
-        self.open_1 = False
-
-        self.toplevel_RIGHT .destroy()
-        self.open_2 = False
-
-        self.toplevel_STUF .destroy()
-        self.open_3 = False
-
-    def update(self, list):  # ACTIVA: SI EL METODO CHANGE_MINIATURE LA MANDA A LLAMAR - BORRA LA LISTA DE LISTBOX EXISTENTE, AGREGA NUEVOS VALORES A LISTA Y BORRA DE NUEVO SI SE CUMPLE LA CONDICION
-        
-        self.listbox .delete(0, END)                                    # 1- BORRA LA LISTA DE LISTBOX
-        
-        for i in list:                                                  # 1- ITERANDO: 'list_new'.  2- INSERTANDO ITERADOR 'i' A LISTBOX.  
-            self.listbox .insert(END, i) 
-        if self.listbox.get(0) == self.spinbox_variable.get():  #|||
-            self.listbox .delete(0, END) 
-
-    def listbox_select(self,event):   # ACTIVA: CON CLICK IZQUIERDO EN LISTBOX - 
-       
-        selection = self.listbox .get(ANCHOR)                                                           # 1- BORRA EL CONTENIDO DE SPINBOX.  2- INSERTA EL ITEM SELECCIONADO DEL LISTBOX A SPINBOX                         
-        
-        if self.listbox.get(0,END) != ():      
-            self.spinbox .delete(0, END) 
-        self.spinbox .insert(0, selection)
-        self.listbox .selection_clear(0,END)
- 
-        self.after(100, lambda: self.spinbox.focus_set())
-
-        print('numero',self.listbox.size())
-        
     
-    def bind_listbox(self, event):
- 
-        print('QUERIENDO ENTRAR A IFF BIND')
-        listbox = self.listbox.get(0)
-        spinbox = self.spinbox.get()
-        #print('valor de list:', listbox)
-        #print('valor de spin:', spinbox)
 
-
-        if listbox != spinbox and listbox != '':
-            self.spinbox.delete(0, END)
-            self.spinbox.insert(0, listbox)
-            
-        self.bind_spinbox(event)    
-
+    
  
