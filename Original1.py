@@ -37,8 +37,22 @@ class Interface(Tk):
         self. widgets()
 
         #______________________________________
-        # overider
-        #self.e = False
+  
+        self.e = False
+  
+    def otros(self, event):
+        if self.e == False:
+            print('iff')
+            self.toplevel_LEFT.overrideredirect(0)
+            self.toplevel_RIGHT.overrideredirect(0)
+            self.toplevel_STUF.overrideredirect(0)
+            self.e = True
+        else:
+            print('iff')
+            self.toplevel_LEFT.overrideredirect(1)
+            self.toplevel_RIGHT.overrideredirect(1)
+            self.toplevel_STUF.overrideredirect(1)
+            self.e = False
     
     def geometry_(self, geometry_width, geometry_height ):
 
@@ -400,19 +414,7 @@ class Interface(Tk):
 
             
 
-    """ def otros(self, event):
-            if self.e == False:
-                print('iff')
-                self.toplevel_LEFT.overrideredirect(0)
-                self.toplevel_RIGHT.overrideredirect(0)
-                self.toplevel_STUF.overrideredirect(0)
-                self.e = True
-            else:
-                print('iff')
-                self.toplevel_LEFT.overrideredirect(1)
-                self.toplevel_RIGHT.overrideredirect(1)
-                self.toplevel_STUF.overrideredirect(1)
-                self.e = False """
+
 
 ############   M E T O D O S   P A R A   G E S T I O N A R   L A S   V E N T A N A S   S U P E R I O R E S   ############ 
 
