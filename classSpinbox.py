@@ -117,13 +117,18 @@ class Frm_B3_class(Frame):
  
         self.after(100, lambda: self.spinbox.focus_set())
    
-    def delete_listbox(self):
-
-        self.listbox .delete(0, END)
-
-    def insert_listbox(self, i)
+    def delete_listbox(self, number):
         
-        self.listbox .insert(END, i) # aqui
+        if number == 1:
+            self.listbox .delete(0, END)
+        if number == 2:
+            self.listbox .delete(0, 1)
+
+    def insert_listbox(self, list_new)
+        
+        self.listbox .insert(0, *list_new) # ver si necesita FOR para insertar, se cambió END por 0 , se necesita ordenar la lista?
+        if self.listbox.get(0) == self.spinbox_variable.get(): # cre: == self.spinbox .spinbox_variable.get() ## acá puede q no tenga acceso..
+            self.spinbox .delete(0, END)
 
     def config_miniatures(self, index)
        
@@ -213,10 +218,11 @@ class Spinbox_class(Spinbox, Frm_B3_class):
                     print(list_new)
 
             if list_new != []:         
-                self.update(list_new)  ##aqui
+                self.update(list_new)  
 
-            if spinbox == 'As':  
-                self.listbox.delete(0,1)
+            if spinbox == 'As':  # podría probar con la variable
+                Frm_B3_class .delete_listbox(2)
+                ###self.listbox.delete(0,1)   ####aqui
 
         if self.listbox.get(0) != spinbox and self.listbox.get(0) != '' or spinbox == '': 
             self.label_miniature .config(image= self.master.Miniatures[22])
@@ -224,7 +230,7 @@ class Spinbox_class(Spinbox, Frm_B3_class):
         # print('111', self.spinbox_variable.get()) # DEVUELVE: PRIMER CARACTER EN MAYUSCULA
         # print('222', self.spinbox.get())          # DEVUELVE: PRIMER CARACTER EN MINUSCULA
  
-    def update(self, list):  # ACTIVA: SI EL METODO CHANGE_MINIATURE LA MANDA A LLAMAR - BORRA LA LISTA DE LISTBOX EXISTENTE, AGREGA NUEVOS VALORES A LISTA Y BORRA DE NUEVO SI SE CUMPLE LA CONDICION
+    def update(self, list): # HECHO # ACTIVA: SI EL METODO CHANGE_MINIATURE LA MANDA A LLAMAR - BORRA LA LISTA DE LISTBOX EXISTENTE, AGREGA NUEVOS VALORES A LISTA Y BORRA DE NUEVO SI SE CUMPLE LA CONDICION
         
         list_new = []
         Frm_B3_class .delete_listbox() 
@@ -234,8 +240,8 @@ class Spinbox_class(Spinbox, Frm_B3_class):
             list_new .append(i)
         Frm_B3_class .insert_listbox(list_new) # ver si necesito return                                                  # 1- ITERANDO: 'list_new'.  2- INSERTANDO ITERADOR 'i' A LISTBOX.  
             ###self.listbox .insert(END, i) 
-        if self.listbox.get(0) == self.spinbox_variable.get():  #|||
-            self .delete(0, END) 
+        ###if self.listbox.get(0) == self.spinbox_variable.get():  #|||
+        ###    self .delete(0, END) 
 
 ############################################################################################################################
 ############################################################################################################################
@@ -280,7 +286,7 @@ class Listbox_class(Listbox, Frm_B3_class):    # HECHO
         # highlightbackground= '#11161d' ---> COLOR DEL BORDE SIN FOCO
         # highlightthickness= 4 ---> TAMAÑO DEL BORDE EN PIXELES SIN FOCO
         # selectbackground= '#11161d' ---> COLOR DE BORDE CON FOCO
-        # selectforeground= 'green2' ---> COLOR DE FONDO CON FOCO
+        # selectforeground= 'green2' ---> COLOR DE FONDO CON Fvariable
         # activestyle= 'none' ---> SUBRAYADO DEL TEXTO CUANDO ES SELECCIONADO DESACTIVADO:'none'
 #__________________
                    
@@ -290,10 +296,4 @@ root.geometry('250x130+100+100')
 app =   App (root)
 app . pack()
 root.mainloop()                         
-                  
-    
-
-    
-
-    
- 
+           
