@@ -248,7 +248,7 @@ class Listbox_class(Listbox, Frm_B3_class):    # HECHO
         selection = self.get(ANCHOR)                                                                              
         
         if self.get(0,END) != ():
-            Frm_B3_class.self.delete_spinbox(selection) ###      
+            Frm_B3_class .delete_spinbox(selection)  ###puede q falte master a la llamada     
         self.selection_clear(0,END)
 
         print('numero',self.size())
