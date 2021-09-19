@@ -110,12 +110,25 @@ class Frm_B3_class(Frame):
         self.label_filas .grid_propagate(False)
         self.listbox .grid_propagate(False)
     
-    def delete_spinbox(self,arg_selection):
+    def delete_spinbox(self, selection):
 
         self.spinbox.delete(0, END)
         self.spinbox .insert(0, selection)
  
         self.after(100, lambda: self.spinbox.focus_set())
+   
+    def delete_listbox(self):
+
+        self.listbox .delete(0, END)
+
+    def insert_listbox(self, i)
+        
+        self.listbox .insert(END, i) # aqui
+
+    def config_miniatures(self, index)
+       
+        self.label_miniature .config(image= self.master.Miniatures[index])
+        self.spinbox .icursor(END)
 
                               
 ############################################################################################################################
@@ -186,19 +199,21 @@ class Spinbox_class(Spinbox, Frm_B3_class):
         spinbox = self.get() .capitalize()
 
         if spinbox == '':                                                          
-            self.listbox .delete(0, END)  ##
+            Frm_B3_class .delete_listbox()  ##
+            ###self.listbox.delete(0,END)
         else:                                                                    
             list_new = []                                                       
             for index, i in enumerate(self.spinbox_values):                      
-                if spinbox == i:                           
-                    self.label_miniature .config(image= self.master.Miniatures[index])
-                    self .icursor(END)
+                if spinbox == i: 
+                    Frm_B3_class .config_miniatures(index)                          
+                    ###self.label_miniature .config(image= self.master.Miniatures[index])
+                    ###self .icursor(END)
                 if spinbox in i:
                     list_new .append(i)
                     print(list_new)
 
             if list_new != []:         
-                self.update(list_new)
+                self.update(list_new)  ##aqui
 
             if spinbox == 'As':  
                 self.listbox.delete(0,1)
@@ -211,10 +226,14 @@ class Spinbox_class(Spinbox, Frm_B3_class):
  
     def update(self, list):  # ACTIVA: SI EL METODO CHANGE_MINIATURE LA MANDA A LLAMAR - BORRA LA LISTA DE LISTBOX EXISTENTE, AGREGA NUEVOS VALORES A LISTA Y BORRA DE NUEVO SI SE CUMPLE LA CONDICION
         
-        self.listbox .delete(0, END)                                    # 1- BORRA LA LISTA DE LISTBOX
+        list_new = []
+        Frm_B3_class .delete_listbox() 
+        ###self.listbox.delete(0, END)                                    # 1- BORRA LA LISTA DE LISTBOX
         print('entre estando vacio')
-        for i in list:                                                  # 1- ITERANDO: 'list_new'.  2- INSERTANDO ITERADOR 'i' A LISTBOX.  
-            self.listbox .insert(END, i) 
+        for i in list:
+            list_new .append(i)
+        Frm_B3_class .insert_listbox(list_new) # ver si necesito return                                                  # 1- ITERANDO: 'list_new'.  2- INSERTANDO ITERADOR 'i' A LISTBOX.  
+            ###self.listbox .insert(END, i) 
         if self.listbox.get(0) == self.spinbox_variable.get():  #|||
             self .delete(0, END) 
 
