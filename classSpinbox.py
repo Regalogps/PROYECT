@@ -61,8 +61,7 @@ class App(Frame):
                     img = ImageTk.PhotoImage (array)
                     empty. append (img)
             return empty
-
-
+        
 
 
 class Frm_B3_class(Frame):
@@ -110,6 +109,13 @@ class Frm_B3_class(Frame):
         ##self.frm_C1 .grid_propagate(False)
         self.label_filas .grid_propagate(False)
         self.listbox .grid_propagate(False)
+    
+    def delete_spinbox(self,arg_selection):
+
+        self.spinbox.delete(0, END)
+        self.spinbox .insert(0, selection)
+ 
+        self.after(100, lambda: self.spinbox.focus_set())
 
                               
 ############################################################################################################################
@@ -241,12 +247,9 @@ class Listbox_class(Listbox, Frm_B3_class):    # HECHO
        
         selection = self.get(ANCHOR)                                                                              
         
-        if self.get(0,END) != ():      
-            self.spinbox .delete(0, END) 
-        self.spinbox .insert(0, selection)
+        if self.get(0,END) != ():
+            Frm_B3_class.self.delete_spinbox(selection) ###      
         self.selection_clear(0,END)
- 
-        self.after(100, lambda: self.spinbox.focus_set())
 
         print('numero',self.size())
 
