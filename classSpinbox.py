@@ -204,7 +204,7 @@ class Spinbox_class(Spinbox, Frm_B3_class):
         spinbox = self.get() .capitalize()
 
         if spinbox == '':                                                          
-            Frm_B3_class .delete_listbox()  ##
+            Frm_B3_class .delete_listbox(1)  ##
             ###self.listbox.delete(0,END)
         else:                                                                    
             list_new = []                                                       
