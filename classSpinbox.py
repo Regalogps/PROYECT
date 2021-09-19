@@ -124,16 +124,39 @@ class Frm_B3_class(Frame):
         if number == 2:
             self.listbox .delete(0, 1)
 
-    def insert_listbox(self, list_new)
+    def insert_listbox(self, list_new):
         
         self.listbox .insert(0, *list_new) # ver si necesita FOR para insertar, se cambió END por 0 , se necesita ordenar la lista?
         if self.listbox.get(0) == self.spinbox_variable.get(): # cre: == self.spinbox .spinbox_variable.get() ## acá puede q no tenga acceso..
             self.spinbox .delete(0, END)
 
-    def config_miniatures(self, index)
+    def change_miniature(self, event):
+
+        spinbox = self.spinbox.get() .capitalizar()
+        listbox = self.listbox.get(0)
        
-        self.label_miniature .config(image= self.master.Miniatures[index])
-        self.spinbox .icursor(END)
+        for index, i in enumerate(self.spinbox_values):    # puede q no tenga acceso  
+            if spinbox == i:                           
+                self.label_miniature .config(image= self.master.Miniatures[index])
+                self.spinbox.icursor(END)
+       
+        if listbox != spinbox and listbox != '' or spinbox == '': 
+            self.label_miniature .config(image= self.master.Miniatures[22])
+
+     def bind_listbox(self, event):  # HECHO     #ACTIVA: TECLA ENTER - SELECCIONA LISTBOX Y LLAMA A SELF.BIND.SPINBOX
+ 
+        print('QUERIENDO ENTRAR A IFF BIND')
+        listbox = self.listbox.get(0) ###PROBAR CON self  todps
+        spinbox = self.spinbox.get()
+        ####print('valor de list:', listbox)
+        ####print('valor de spin:', spinbox)
+
+        if listbox != spinbox and listbox != '':
+            self.spinbox .delete(0, END)
+            self.spinbox .insert(0, listbox)
+            
+        self.bind_spinbox(event)  #probar con la instancia self.spinbox.bind....
+
 
                               
 ############################################################################################################################
@@ -159,8 +182,9 @@ class Spinbox_class(Spinbox, Frm_B3_class):
               
         self.bind ('<Double-Button-1>', lambda *arg: self.delete(0, END))   # ACTIVA: CON DOBLE CLICK EN SPINBOX - LIMPIA SPINBOX
         self.bind ('<Return>', self.bind_spinbox)  # ACTIVA: CON TECLA ENTER - ABRE LAS VENTANAS
-        self.bind ('<Return>', self.bind_listbox)  # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX Y LLAMA AL METODO(EVENT) DEF SELF.BIND.SPINBOX   #||||||
-       
+        ##self.bind ('<Return>', self.bind_listbox)  # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX Y LLAMA AL METODO(EVENT) DEF SELF.BIND.SPINBOX   #||||||
+        self.BIND ('<Return>', self.master.bind_listbox)
+
         self.spinbox_variable .trace_add ('write', self.change_miniature)  
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # INSERTA EL VALOR OBTENIDO EN MAYUSCULA EL PRIMER STRING
        
@@ -174,19 +198,19 @@ class Spinbox_class(Spinbox, Frm_B3_class):
         # TRUE = PERMITIR
         # FALSE = DENEGAR
 
-    def bind_listbox(self, event):  # HECHO     #ACTIVA: TECLA ENTER - SELECCIONA LISTBOX Y LLAMA A SELF.BIND.SPINBOX
+    ""'def bind_listbox(self, event):  # HECHO     #ACTIVA: TECLA ENTER - SELECCIONA LISTBOX Y LLAMA A SELF.BIND.SPINBOX
  
         print('QUERIENDO ENTRAR A IFF BIND')
         listbox = self.listbox.get(0)
         spinbox = self .get()
-        #print('valor de list:', listbox)
-        #print('valor de spin:', spinbox)
+        ####print('valor de list:', listbox)
+        ####print('valor de spin:', spinbox)
 
         if listbox != spinbox and listbox != '':
             self .delete(0, END)
             self .insert(0, listbox)
             
-        self.bind_spinbox(event)  
+        self.bind_spinbox(event)"""  
 
     def bind_spinbox(self, event): # HECHO   # ACTIVA: CON TECLA ENTER SI SPINBOX TIENE FOCO - ABRE LAS VENTANAS
         
@@ -199,33 +223,29 @@ class Spinbox_class(Spinbox, Frm_B3_class):
                 self.master. windows_123(left[index], right[index], stuf[index]) 
                 self .icursor(END)  # ESTA APRUEBA SI ES TOTLAMENTE NECESARIO 
   
-    def change_miniature(self, *args):   # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
+    def change_miniature(self, *args): # HECHO  # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
 
         spinbox = self.get() .capitalize()
 
         if spinbox == '':                                                          
-            Frm_B3_class .delete_listbox(1)  ##
+            Frm_B3_class .delete_listbox(1)  
             ###self.listbox.delete(0,END)
-        else:                                                                    
-            list_new = []                                                       
-            for index, i in enumerate(self.spinbox_values):                      
-                if spinbox == i: 
-                    Frm_B3_class .config_miniatures(index)                          
-                    ###self.label_miniature .config(image= self.master.Miniatures[index])
-                    ###self .icursor(END)
+        else:  
+            list_new = []                                      # 4- SI COINCIDE 'value' EN 'self.spinbox_values'.  5- AGREGA VALUE A LISTA.  6- SI LA LISTA NO ESTA VACIA.
+            for i in self.spinbox_values:                            # 10- LLAMA AL METODO: 'def update' Y PASA LA LISTA DE ARGUMENTO. 
                 if spinbox in i:
                     list_new .append(i)
                     print(list_new)
 
-            if list_new != []:         
-                self.update(list_new)  
+            if list_new != []: 
+                print("mando lista", list_new)          
+                self.update(list_new)
 
             if spinbox == 'As':  # podría probar con la variable
                 Frm_B3_class .delete_listbox(2)
-                ###self.listbox.delete(0,1)   ####aqui
-
-        if self.listbox.get(0) != spinbox and self.listbox.get(0) != '' or spinbox == '': 
-            self.label_miniature .config(image= self.master.Miniatures[22])
+                ###self.listbox.delete(0,1)
+        
+        Frm_B3_class .change_miniature()
 
         # print('111', self.spinbox_variable.get()) # DEVUELVE: PRIMER CARACTER EN MAYUSCULA
         # print('222', self.spinbox.get())          # DEVUELVE: PRIMER CARACTER EN MINUSCULA
