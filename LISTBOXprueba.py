@@ -59,7 +59,6 @@ class Frm_B3_class(Frame):
         #__________Propagación:
         ##self.frm_B3 .grid_propagate(False)
         ##self.frm_C1 .grid_propagate(False)
-
         self.label_filas .grid_propagate(False)
         self.listbox .grid_propagate(False)
     
@@ -165,39 +164,28 @@ class Spinbox_class(Spinbox, Frm_B3_class):
                 self.master. windows_123(left[index], right[index], stuf[index]) 
                 self .icursor(END)  # ESTA APRUEBA SI ES TOTLAMENTE NECESARIO 
   
-    def change_variable(self, *args): # HECHO  # ACTIVA: SI SPINBOX_VAdRIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
+    def change_variable(self, *args):
+        spinbox = self.get().capitalize() #
+        if spinbox == '': #
+            self.master.master.listbox.delete(0, END) #
+        else:
+            list_new = []
+            for i in self.spinbox_values: #
+                if spinbox in i: #
+                    list_new .append(i) #
+            if list_new != []: #
+                self.update(list_new) #
+            if spinbox == 'As': #
+                self.master.master.listbox .delete(0, 1) #
 
-        spinbox = self.get() .capitalize()
-
-        if spinbox == '':                                                          
-            #self.master.master.delete_listbox(1)  
-            self.master.master.listbox.delete(0, END)
-  
-        else:  
-            list_new = []                                      
-            for i in self.spinbox_values:                            
-                if spinbox in i:
-                    list_new .append(i)
-                    print(list_new)
-
-            if list_new != []: 
-                print("mando lista", list_new)          
-                self.update(list_new)
-
-            if spinbox == 'As':  # podría probar con la variable
-                #self.master.master.delete_listbox(2)
-                self.master.master.listbox.delete(0, 1)
-  
-        
         self.master.master.change_miniature()
 
- 
     def update(self, list, *args):
-        list_new = []
-        self.master.master.listbox .delete(0, END)
+        list_new = [] #
+        self.master.master.listbox .delete(0, END) #
 
-        for i in list:
-            list_new .append(i)
+        for i in list: #
+            list_new .append(i) #
         self.master.master.insert_listbox(list_new)
 
 #------------------------------------------ 
@@ -215,13 +203,13 @@ class Listbox_class(Listbox, Frm_B3_class):
 
     def listbox_select(self,event):  ###
 
-        selection = self.get(ANCHOR)
-        if self.get(0,END) != ():
-            self.master.master.spinbox .delete(0, END)
-        self.master.master.spinbox .insert(0, selection)
-        self.selection_clear(0,END)
+        selection = self.get(ANCHOR) #
+        if self.get(0,END) != (): #
+            self.master.master.spinbox .delete(0, END) #
+        self.master.master.spinbox .insert(0, selection) #
+        self.selection_clear(0,END) #
         
-        self.after(100, lambda: self.spinbox.focus_set())
+        self.after(100, lambda: self.spinbox.focus_set()) #
 
 root = Tk()
 root.geometry('250x130+200+200')   
