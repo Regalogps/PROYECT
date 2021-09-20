@@ -1,7 +1,5 @@
-
-from tkinter import Tk, Label, Frame, Spinbox, Listbox, Checkbutton, StringVar, IntVar 
-from tkinter import S,N,E,W, SINGLE, END, ANCHOR
-#from tkinter import *
+from tkinter import Tk, Frame, Label, Spinbox, Listbox, StringVar
+from tkinter import SINGLE, ANCHOR, END, S,N,E,W
 from PIL import ImageTk, Image
 import cv2
 import imutils
