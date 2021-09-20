@@ -1,11 +1,13 @@
-from tkinter import *
-#from tkinter import Label, Frame, Spinbox, Listbox, Checkbutton, StringVar, IntVar
-#from typing import Sized
+
+from tkinter import Tk, Label, Frame, Spinbox, Listbox, Checkbutton, StringVar, IntVar 
+from tkinter import S,N,E,W, SINGLE, END, ANCHOR
+#from tkinter import *
 from PIL import ImageTk, Image
 import cv2
 import imutils
 import numpy as np
 import os 
+
 
 class App(Frame):
     def __init__(self, parents, *args, **kwargs):
@@ -13,8 +15,8 @@ class App(Frame):
 
         path = 'E:/1-RICHI/MovilesDB'
         #_____Lista de Imágenes         
-        self.Images_1 = self.generate_list (path, 'a')                          # Lista de imgs para las ventanas: 1 y 2
-        self.Images_sublist= self.generate_list (path, 's')                     # Lista de imgs para la ventana: Interface
+        self.Images_1 = self.generate_list (path, 'a')                         
+        self.Images_sublist= self.generate_list (path, 's')                     
         self.Miniatures= self.generate_list (path, 'z') 
 
 
@@ -81,16 +83,11 @@ class Frm_B3_class(Frame):
         #_____L A B E L:  MINIATURAS
         self.label_miniature = Label (self.frm_C1, image=self.master.Miniatures[0], bd= 0)                                                   
 
-
-
         #_____L I S T B O X  / POSICIONADO
-        #self.listbox = listv 
         self.listbox = Listbox_class (self.label_filas, width=11, height=1)  
                            
         #_____S P I N B O X  / POSICIONADO
-        #self.spinbox = spinv
         self.spinbox = Spinbox_class (self.frm_B3, width=13, bd=0)                             
-
 
 
         #__________Posicionamientos:
@@ -112,30 +109,39 @@ class Frm_B3_class(Frame):
     
     def delete_spinbox(self, selection):
 
-        self.spinbox.delete(0, END)
+        print('essss',selection)
+
+        self.spinbox .delete(0, END)
         self.spinbox .insert(0, selection)
- 
+        self.listbox .selection_clear(0,END)
+    
         self.after(100, lambda: self.spinbox.focus_set())
    
+
     def delete_listbox(self, number):
+        print('entreee')
         
         if number == 1:
+            print('ifff 11')
             self.listbox .delete(0, END)
         if number == 2:
             self.listbox .delete(0, 1)
 
+
     def insert_listbox(self, list_new):
         
         self.listbox .insert(0, *list_new) # ver si necesita FOR para insertar, se cambió END por 0 , se necesita ordenar la lista?
-        if self.listbox.get(0) == self.spinbox_variable.get(): # cre: == self.spinbox .spinbox_variable.get() ## acá puede q no tenga acceso..
-            self.spinbox .delete(0, END)
+        print('lista completa en insert:',self.listbox.get(0, END))
+        if self.listbox.get(0) == self.spinbox.spinbox_variable.get(): # cre: == self.spinbox .spinbox_variable.get() ## acá puede q no tenga acceso..
+            self.listbox .delete(0, END)
 
-    def change_miniature(self, event):
 
-        spinbox = self.spinbox.get() .capitalizar()
+    def change_miniature(self):
+
+        spinbox = self.spinbox.get() 
         listbox = self.listbox.get(0)
        
-        for index, i in enumerate(self.spinbox_values):    # puede q no tenga acceso  
+        for index, i in enumerate(self.spinbox.spinbox_values):    # puede q no tenga acceso  
             if spinbox == i:                           
                 self.label_miniature .config(image= self.master.Miniatures[index])
                 self.spinbox.icursor(END)
@@ -143,14 +149,13 @@ class Frm_B3_class(Frame):
         if listbox != spinbox and listbox != '' or spinbox == '': 
             self.label_miniature .config(image= self.master.Miniatures[22])
 
-     def bind_listbox(self, event):  # HECHO     #ACTIVA: TECLA ENTER - SELECCIONA LISTBOX Y LLAMA A SELF.BIND.SPINBOX
+
+    def bind_listbox(self, event):  # HECHO     #ACTIVA: TECLA ENTER - SELECCIONA LISTBOX Y LLAMA A SELF.BIND.SPINBOX
  
         print('QUERIENDO ENTRAR A IFF BIND')
         listbox = self.listbox.get(0) ###PROBAR CON self  todps
         spinbox = self.spinbox.get()
-        ####print('valor de list:', listbox)
-        ####print('valor de spin:', spinbox)
-
+ 
         if listbox != spinbox and listbox != '':
             self.spinbox .delete(0, END)
             self.spinbox .insert(0, listbox)
@@ -183,9 +188,9 @@ class Spinbox_class(Spinbox, Frm_B3_class):
         self.bind ('<Double-Button-1>', lambda *arg: self.delete(0, END))   # ACTIVA: CON DOBLE CLICK EN SPINBOX - LIMPIA SPINBOX
         self.bind ('<Return>', self.bind_spinbox)  # ACTIVA: CON TECLA ENTER - ABRE LAS VENTANAS
         ##self.bind ('<Return>', self.bind_listbox)  # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX Y LLAMA AL METODO(EVENT) DEF SELF.BIND.SPINBOX   #||||||
-        self.BIND ('<Return>', self.master.bind_listbox)
+        self.bind ('<Return>', self.bind_listbox)
 
-        self.spinbox_variable .trace_add ('write', self.change_miniature)  
+        self.spinbox_variable .trace_add ('write', self.change_variable)  
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # INSERTA EL VALOR OBTENIDO EN MAYUSCULA EL PRIMER STRING
        
 
@@ -195,22 +200,19 @@ class Spinbox_class(Spinbox, Frm_B3_class):
             return True                                                 
         return False  
         
-        # TRUE = PERMITIR
-        # FALSE = DENEGAR
 
-    ""'def bind_listbox(self, event):  # HECHO     #ACTIVA: TECLA ENTER - SELECCIONA LISTBOX Y LLAMA A SELF.BIND.SPINBOX
+    def bind_listbox(self, event):  # HECHO     #ACTIVA: TECLA ENTER - SELECCIONA LISTBOX Y LLAMA A SELF.BIND.SPINBOX
  
-        print('QUERIENDO ENTRAR A IFF BIND')
-        listbox = self.listbox.get(0)
+        #listbox = self.listbox.get(0)
         spinbox = self .get()
-        ####print('valor de list:', listbox)
-        ####print('valor de spin:', spinbox)
+
+        listbox = self.master.master.listbox.get(0)
 
         if listbox != spinbox and listbox != '':
             self .delete(0, END)
             self .insert(0, listbox)
             
-        self.bind_spinbox(event)"""  
+        self.bind_spinbox(event)  
 
     def bind_spinbox(self, event): # HECHO   # ACTIVA: CON TECLA ENTER SI SPINBOX TIENE FOCO - ABRE LAS VENTANAS
         
@@ -223,16 +225,17 @@ class Spinbox_class(Spinbox, Frm_B3_class):
                 self.master. windows_123(left[index], right[index], stuf[index]) 
                 self .icursor(END)  # ESTA APRUEBA SI ES TOTLAMENTE NECESARIO 
   
-    def change_miniature(self, *args): # HECHO  # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
+    def change_variable(self, *args): # HECHO  # ACTIVA: SI SPINBOX_VAdRIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
 
         spinbox = self.get() .capitalize()
 
         if spinbox == '':                                                          
-            Frm_B3_class .delete_listbox(1)  
-            ###self.listbox.delete(0,END)
+            #self.master.master.delete_listbox(1)  
+            self.master.master.listbox.delete(0, END)
+  
         else:  
-            list_new = []                                      # 4- SI COINCIDE 'value' EN 'self.spinbox_values'.  5- AGREGA VALUE A LISTA.  6- SI LA LISTA NO ESTA VACIA.
-            for i in self.spinbox_values:                            # 10- LLAMA AL METODO: 'def update' Y PASA LA LISTA DE ARGUMENTO. 
+            list_new = []                                      
+            for i in self.spinbox_values:                            
                 if spinbox in i:
                     list_new .append(i)
                     print(list_new)
@@ -242,26 +245,24 @@ class Spinbox_class(Spinbox, Frm_B3_class):
                 self.update(list_new)
 
             if spinbox == 'As':  # podría probar con la variable
-                Frm_B3_class .delete_listbox(2)
-                ###self.listbox.delete(0,1)
+                #self.master.master.delete_listbox(2)
+                self.master.master.listbox.delete(0, 1)
+  
         
-        Frm_B3_class .change_miniature()
+        self.master.master.change_miniature()
 
-        # print('111', self.spinbox_variable.get()) # DEVUELVE: PRIMER CARACTER EN MAYUSCULA
-        # print('222', self.spinbox.get())          # DEVUELVE: PRIMER CARACTER EN MINUSCULA
  
-    def update(self, list): # HECHO # ACTIVA: SI EL METODO CHANGE_MINIATURE LA MANDA A LLAMAR - BORRA LA LISTA DE LISTBOX EXISTENTE, AGREGA NUEVOS VALORES A LISTA Y BORRA DE NUEVO SI SE CUMPLE LA CONDICION
+    def update(self, list , *args): # HECHO # ACTIVA: SI EL METODO CHANGE_MINIATURE LA MANDA A LLAMAR - BORRA LA LISTA DE LISTBOX EXISTENTE, AGREGA NUEVOS VALORES A LISTA Y BORRA DE NUEVO SI SE CUMPLE LA CONDICION
         
         list_new = []
-        Frm_B3_class .delete_listbox() 
-        ###self.listbox.delete(0, END)                                    # 1- BORRA LA LISTA DE LISTBOX
+        #self.master.master.delete_listbox(1)
+        self.master.master.listbox.delete(0, END) 
+                                 
         print('entre estando vacio')
         for i in list:
             list_new .append(i)
-        Frm_B3_class .insert_listbox(list_new) # ver si necesito return                                                  # 1- ITERANDO: 'list_new'.  2- INSERTANDO ITERADOR 'i' A LISTBOX.  
-            ###self.listbox .insert(END, i) 
-        ###if self.listbox.get(0) == self.spinbox_variable.get():  #|||
-        ###    self .delete(0, END) 
+        self.master.master.insert_listbox(list_new)  
+  
 
 ############################################################################################################################
 ############################################################################################################################
@@ -286,30 +287,36 @@ class Listbox_class(Listbox, Frm_B3_class):    # HECHO
                      )   
  
         self.bind ('<<ListboxSelect>>', self.listbox_select)   # ACTIVA: CON CLICK IZQUIERDO EN EL LISTBOX - SELECCIONA 1 ITEM
-        
+ 
     
     def listbox_select(self,event):  # HECHO   # ACTIVA: CON CLICK IZQUIERDO EN LISTBOX - 
        
         selection = self.get(ANCHOR)                                                                              
         
         if self.get(0,END) != ():
-            Frm_B3_class .delete_spinbox(selection)  ###puede q falte master a la llamada     
-        self.selection_clear(0,END)
+            #self.master.master.master.delete_spinbox(selection)
+            self.master.master.spinbox .delete(0, END)   
+        self.master.master.spinbox.insert(0, selection)
+        self.listbox .selection_clear(0,END)
 
-        print('numero',self.size())
+        self.spinbox .delete(0, END)
+        self.spinbox .insert(0, selection)
+        self.listbox .selection_clear(0,END)
+    
+        self.after(100, lambda: self.spinbox.focus_set())
 
-#__________________G L O S A R I O:
-        # LISTBOX:    
-        # width= 15 ---> NUMEROS DE CARACTERES PERMITIDOS
-        # height= 1 ---> NUMERO DE FILAS OBSERVABLES
-        # justify= 'center' ---> CENTRAR TEXTO INTERNO
-        # highlightbackground= '#11161d' ---> COLOR DEL BORDE SIN FOCO
-        # highlightthickness= 4 ---> TAMAÑO DEL BORDE EN PIXELES SIN FOCO
-        # selectbackground= '#11161d' ---> COLOR DE BORDE CON FOCO
-        # selectforeground= 'green2' ---> COLOR DE FONDO CON Fvariable
-        # activestyle= 'none' ---> SUBRAYADO DEL TEXTO CUANDO ES SELECCIONADO DESACTIVADO:'none'
-#__________________
-                   
+
+
+        selection = self.listbox .get(ANCHOR)    #                                                       # 1- BORRA EL CONTENIDO DE SPINBOX.  2- INSERTA EL ITEM SELECCIONADO DEL LISTBOX A SPINBOX                         
+        
+        if self.listbox.get(0,END) != ():   #   
+            self.spinbox .delete(0, END)  #
+        self.spinbox .insert(0, selection)  #
+        self.listbox .selection_clear(0,END)
+ 
+        self.after(100, lambda: self.spinbox.focus_set())
+#_________________
+
 
 root = Tk()
 root.geometry('250x130+100+100')   
