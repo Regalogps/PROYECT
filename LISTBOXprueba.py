@@ -10,50 +10,18 @@ import os
 class App(Frame):
     def __init__(self, parents, *args, **kwargs):
         Frame.__init__(self, parents, *args, kwargs)
-
-        path = 'E:/1-RICHI/MovilesDB'
-        #_____Lista de Imágenes         
-        self.Images_1 = self.generate_list (path, 'a')                         
-        self.Images_sublist= self.generate_list (path, 's')                     
-        self.Miniatures= self.generate_list (path, 'z') 
-
+        path = 'E:/1-RICHI/MovilesDB'           
+        self.Miniatures= self.generate_list (path, 'z')
 
         e = Frm_B3_class (self)
         e . pack()
 
-    def generate_list (self, file, option):   # INICIALIZA IMAGENES
-
+    def generate_list (self, file, option):
         ouput = os.listdir (file)
-        empty = [] 
-                     
-        if option == 'a': 
-            _lst = [[] for x in range(22)]
-            _str = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Kal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Dr1','Dr2']
-            for i in ouput:               
-                for index,iter in enumerate(_str):
-                    if iter in i: 
-                        full = file + '/' + i
-                        open = cv2.imread (full)
-                        RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
-                        _lst[index].append(RGB)               
-            return _lst        
-           
-        if option == 's':
-            for i in ouput:
-                #if i.split('.')[0] in ['SubList__00','SubList__01'] :  
-                if 'SubList' in i :      
-                    full = file + '/' + i
-                    open = cv2.imread (full)
-                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
-                    array = Image.fromarray (RGB)
-                    img = ImageTk.PhotoImage (array)
-                    empty. append (img)
-            return empty
-
-
+        empty = []
         if option == 'z':
-            for i in ouput:  
-                if 'Mini' in i :      
+            for i in ouput:
+                if 'Mini' in i :
                     full = file + '/' + i
                     open = cv2.imread (full)
                     RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
@@ -61,82 +29,60 @@ class App(Frame):
                     img = ImageTk.PhotoImage (array)
                     empty. append (img)
             return empty
-        
 
-
+#-------------------------
 class Frm_B3_class(Frame):
     def __init__(self, parents, *args, **kwargs):
-        Frame.__init__(self, parents, *args, kwargs)
-    
-        #_____C O N T E N E D O R E S:
-        self.frm_B3 = Frame (self, bg='#31343a', width=172, height=65)     # Color: Plomo       
-        self.frm_C1 = Frame (self, bg='#11161d', width=60, height=65)      # Color: Azul  #11161d
+        Frame.__init__(self, parents, *args, kwargs)  
+        #_____C O N T A I N E R:
+        self.frm_B3 = Frame (self, bg='#31343a', width=172, height=65)
+        self.frm_C1 = Frame (self, bg='#11161d', width=60, height=65)
 
-        #_____L A B E L:  NUMERO DE FILAS EXISTENTES   
-        self.label_filas = Label (self.frm_B3, width=18, bg='#11161d', fg='#969696', bd=2, anchor= E) 
+        self.label_filas = Label (self.frm_B3, width=18, bg='#11161d', fg='#969696', bd=2, anchor= E)
+        label_title = Label (self.frm_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.label_miniature = Label (self.frm_C1, image=self.master.Miniatures[0], bd= 0)
 
-        #_____L A B E L:  SELECCIONE MOBIL
-        label_title = Label (self.frm_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)      
+        self.listbox = Listbox_class (self.label_filas, width=11, height=1)
+        self.spinbox = Spinbox_class (self.frm_B3, width=13, bd=0)
 
-        #_____L A B E L:  MINIATURAS
-        self.label_miniature = Label (self.frm_C1, image=self.master.Miniatures[0], bd= 0)                                                   
-
-        #_____L I S T B O X  / POSICIONADO
-        self.listbox = Listbox_class (self.label_filas, width=11, height=1)  
-                           
-        #_____S P I N B O X  / POSICIONADO
-        self.spinbox = Spinbox_class (self.frm_B3, width=13, bd=0)                             
-
-
-        #__________Posicionamientos:
+        #_____Position:
         self.frm_B3 .grid (column=0, row=0, padx=0, pady=0)
         self.frm_C1 .grid (column=1, row=0, padx=0, pady=0)
 
-        self.label_filas .grid (column=0, row=0, padx=(0,5), pady=(0,2), sticky=N)  
+        self.label_filas .grid (column=0, row=0, padx=(0,5), pady=(0,2), sticky=N)
         label_title .grid (column=0, row=1, padx=10, pady=(0,0), sticky=W)
         self.label_miniature .grid (padx=2, pady=3)
 
         self.listbox .grid ( padx=(19,0), pady=(0,5), sticky=N)
-        self.spinbox .grid (column=0, row=2, padx=11, pady=(3,3), sticky=W)   
+        self.spinbox .grid (column=0, row=2, padx=11, pady=(3,3), sticky=W)
 
         #__________Propagación:
         ##self.frm_B3 .grid_propagate(False)
         ##self.frm_C1 .grid_propagate(False)
+
         self.label_filas .grid_propagate(False)
         self.listbox .grid_propagate(False)
     
     def delete_spinbox(self, selection):
-
-        print('essss',selection)
-
         self.spinbox .delete(0, END)
         self.spinbox .insert(0, selection)
         self.listbox .selection_clear(0,END)
     
         self.after(100, lambda: self.spinbox.focus_set())
    
-
     def delete_listbox(self, number):
-        print('entreee')
-        
         if number == 1:
-            print('ifff 11')
             self.listbox .delete(0, END)
         if number == 2:
             self.listbox .delete(0, 1)
 
-
     def insert_listbox(self, list_new):
-        
-        self.listbox .insert(0, *list_new) # ver si necesita FOR para insertar, se cambió END por 0 , se
-        print('lista completa en insert:',self.listbox.get(0, END))
+        self.listbox .insert(0, *list_new)
         if self.listbox.get(0) == self.spinbox.spinbox_variable.get(): # cre: == self.spinbox .spinbox_variable.get() ## acá puede q no tenga acceso..
             self.listbox .delete(0, END)
 
-
     def change_miniature(self):
-
-        spinbox = self.spinbox.get() 
+        spinbox = self.spinbox.get()
         listbox = self.listbox.get(0)
        
         for index, i in enumerate(self.spinbox.spinbox_values):    # puede q no tenga acceso  
@@ -158,13 +104,9 @@ class Frm_B3_class(Frame):
             self.spinbox .delete(0, END)
             self.spinbox .insert(0, listbox)
             
-        self.bind_spinbox(event)  #probar con la instancia self.spinbox.bind....
+        self.bind_spinbox(event)
 
-
-                              
-############################################################################################################################
-############################################################################################################################  
-#    
+#------------------------------------------
 class Spinbox_class(Spinbox, Frm_B3_class):
 
     def __init__(self, master, **args):     
