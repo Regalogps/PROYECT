@@ -128,7 +128,7 @@ class Frm_B3_class(Frame):
 
     def insert_listbox(self, list_new):
         
-        self.listbox .insert(0, *list_new) # ver si necesita FOR para insertar, se cambió END por 0 , se necesita ordenar la lista?
+        self.listbox .insert(0, *list_new) # ver si necesita FOR para insertar, se cambió END por 0 , se
         print('lista completa en insert:',self.listbox.get(0, END))
         if self.listbox.get(0) == self.spinbox.spinbox_variable.get(): # cre: == self.spinbox .spinbox_variable.get() ## acá puede q no tenga acceso..
             self.listbox .delete(0, END)
@@ -250,48 +250,31 @@ class Spinbox_class(Spinbox, Frm_B3_class):
         self.master.master.change_miniature()
 
  
-    def update(self, list , *args): # HECHO # ACTIVA: SI EL METODO CHANGE_MINIATURE LA MANDA A LLAMAR - BORRA LA LISTA DE LISTBOX EXISTENTE, AGREGA NUEVOS VALORES A LISTA Y BORRA DE NUEVO SI SE CUMPLE LA CONDICION
-        
+    def update(self, list, *args):
         list_new = []
-        #self.master.master.delete_listbox(1)
-        self.master.master.listbox.delete(0, END) 
-                                 
-        print('entre estando vacio')
+        self.master.master.listbox .delete(0, END)
+
         for i in list:
             list_new .append(i)
-        self.master.master.insert_listbox(list_new)  
-  
+        self.master.master.insert_listbox(list_new)
 
-############################################################################################################################
-############################################################################################################################
-#       
-class Listbox_class(Listbox, Frm_B3_class):    # HECHO
-
-    def __init__(self, master, **kwargs):
+#------------------------------------------ 
+class Listbox_class(Listbox, Frm_B3_class):
+    def __init__(self, master, **kwargs):  ###
         Listbox.__init__(self, master, **kwargs)
-        
-        self.config (font=('Calibri',9,'bold'), 
-                     bg='#11161d', fg='#00ff00', 
-                     borderwidth=0, bd=0,
-                     highlightthickness=0,
-                     highlightbackground='#11161d',
-                     highlightcolor='#11161d',
-                     selectbackground='#11161d', 
-                     selectforeground='#ff8000', 
-                     activestyle='none',  
-                     justify='center',                                      
+        self.config (font=('Calibri',9,'bold'),
+                     bg='#11161d', fg='#00ff00',
+                     activestyle='none',
+                     justify='center',
                      selectmode=SINGLE,
-                     takefocus=0,
-                     )   
- 
-        self.bind ('<<ListboxSelect>>', self.listbox_select)   # ACTIVA: CON CLICK IZQUIERDO EN EL LISTBOX - SELECCIONA 1 ITEM
- 
-    
-    def listbox_select(self,event):  # HECHO   # ACTIVA: CON CLICK IZQUIERDO EN LISTBOX - 
-       
-        selection = self.get(ANCHOR)                                                                              
+                     takefocus=0)
+
+        self.bind ('<<ListboxSelect>>', self.listbox_select)
+
+    def listbox_select(self,event):  ###
+
+        selection = self.get(ANCHOR)
         if self.get(0,END) != ():
-            #self.master
             self.master.master.spinbox .delete(0, END)
         self.master.master.spinbox .insert(0, selection)
         self.selection_clear(0,END)
