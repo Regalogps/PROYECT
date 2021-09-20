@@ -292,34 +292,16 @@ class Listbox_class(Listbox, Frm_B3_class):    # HECHO
     def listbox_select(self,event):  # HECHO   # ACTIVA: CON CLICK IZQUIERDO EN LISTBOX - 
        
         selection = self.get(ANCHOR)                                                                              
-        
         if self.get(0,END) != ():
             #self.master.master.master.delete_spinbox(selection)
-            self.master.master.spinbox .delete(0, END)   
-        self.master.master.spinbox.insert(0, selection)
-        self.listbox .selection_clear(0,END)
-
-        self.spinbox .delete(0, END)
-        self.spinbox .insert(0, selection)
-        self.listbox .selection_clear(0,END)
-    
-        self.after(100, lambda: self.spinbox.focus_set())
-
-
-
-        selection = self.listbox .get(ANCHOR)    #                                                       # 1- BORRA EL CONTENIDO DE SPINBOX.  2- INSERTA EL ITEM SELECCIONADO DEL LISTBOX A SPINBOX                         
+            self.master.master.spinbox .delete(0, END)
+        self.master.master.spinbox .insert(0, selection)
+        self.selection_clear(0,END)
         
-        if self.listbox.get(0,END) != ():   #   
-            self.spinbox .delete(0, END)  #
-        self.spinbox .insert(0, selection)  #
-        self.listbox .selection_clear(0,END)
- 
         self.after(100, lambda: self.spinbox.focus_set())
-#_________________
-
 
 root = Tk()
-root.geometry('250x130+100+100')   
+root.geometry('250x130+200+200')   
 app =   App (root)
 app . pack()
 root.mainloop()                         
