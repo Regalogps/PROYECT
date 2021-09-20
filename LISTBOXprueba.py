@@ -61,24 +61,6 @@ class Frm_B3_class(Frame):
         ##self.frm_C1 .grid_propagate(False)
         self.label_filas .grid_propagate(False)
         self.listbox .grid_propagate(False)
-    
-    def delete_spinbox(self, selection):
-        self.spinbox .delete(0, END)
-        self.spinbox .insert(0, selection)
-        self.listbox .selection_clear(0,END)
-    
-        self.after(100, lambda: self.spinbox.focus_set())
-   
-    def delete_listbox(self, number):
-        if number == 1:
-            self.listbox .delete(0, END)
-        if number == 2:
-            self.listbox .delete(0, 1)
-
-    def insert_listbox(self, list_new):
-        self.listbox .insert(0, *list_new)
-        if self.listbox.get(0) == self.spinbox.spinbox_variable.get(): # cre: == self.spinbox .spinbox_variable.get() ## acá puede q no tenga acceso..
-            self.listbox .delete(0, END)
 
     def change_miniature(self):
         spinbox = self.spinbox.get()
@@ -92,38 +74,21 @@ class Frm_B3_class(Frame):
         if listbox != spinbox and listbox != '' or spinbox == '': 
             self.label_miniature .config(image= self.master.Miniatures[22])
 
-
-    def bind_listbox(self, event):  # HECHO     #ACTIVA: TECLA ENTER - SELECCIONA LISTBOX Y LLAMA A SELF.BIND.SPINBOX
- 
-        print('QUERIENDO ENTRAR A IFF BIND')
-        listbox = self.listbox.get(0) ###PROBAR CON self  todps
-        spinbox = self.spinbox.get()
- 
-        if listbox != spinbox and listbox != '':
-            self.spinbox .delete(0, END)
-            self.spinbox .insert(0, listbox)
-            
-        self.bind_spinbox(event)
-
 #------------------------------------------
 class Spinbox_class(Spinbox, Frm_B3_class):
-
-    def __init__(self, master, **args):     
+    def __init__(self, master, **args):
         Spinbox.__init__(self, master, **args)
-        
-        
-        self.spinbox_variable = StringVar() # ?poner padre?
+        self.spinbox_variable = StringVar()
         self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']
         self.all_register = (self.register(self.validate_text), '%P', '%S')
-
-        self.config (values=self.spinbox_values,                                      # DESDE AQUI PARA ABAJO SE HACEN LLAMADAS
-                     textvariable=self.spinbox_variable, 
-                     validate='key', 
+        self.config (values=self.spinbox_values,
+                     textvariable=self.spinbox_variable,
+                     validate='key',
                      validatecommand=self.all_register,
                      justify='center',
                      wrap=True,
-                     bd=0)                                                
-              
+                     bd=0)
+
         self.bind ('<Double-Button-1>', lambda *arg: self.delete(0, END))   # ACTIVA: CON DOBLE CLICK EN SPINBOX - LIMPIA SPINBOX
         self.bind ('<Return>', self.bind_spinbox)  # ACTIVA: CON TECLA ENTER - ABRE LAS VENTANAS
         ##self.bind ('<Return>', self.bind_listbox)  # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX Y LLAMA AL METODO(EVENT) DEF SELF.BIND.SPINBOX   #||||||
@@ -133,25 +98,18 @@ class Spinbox_class(Spinbox, Frm_B3_class):
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # INSERTA EL VALOR OBTENIDO EN MAYUSCULA EL PRIMER STRING
        
 
-    def validate_text(self, text, arg): # HECHO     # ACTIVA: SIEMPRE QUE INSERTE TEXTO EN SPINBOX - NO PERMITE NUMEROS,SIMBOLOS,ESPACIOS Y CONTROLA LA CANTIDAD
+    def validate_text(self, text, arg): ##
+        if all (i not in "0123456789[{!¡¿?<>(|#$%&),_-°'´}] +-*/=" for i in text) and len(text) < 14:
+            return True
+        return False
 
-        if all (i not in "0123456789[{!¡¿?<>(|#$%&),_-°'´}] +-*/=" for i in text) and len(text) < 14:   
-            return True                                                 
-        return False  
-        
-
-    def bind_listbox(self, event):  # HECHO     #ACTIVA: TECLA ENTER - SELECCIONA LISTBOX Y LLAMA A SELF.BIND.SPINBOX
- 
-        #listbox = self.listbox.get(0)
-        spinbox = self .get()
-
+    def bind_listbox(self, event):
+        spinbox = self.get()
         listbox = self.master.master.listbox.get(0)
-
         if listbox != spinbox and listbox != '':
-            self .delete(0, END)
-            self .insert(0, listbox)
-            
-        self.bind_spinbox(event)  
+            self.delete(0, END)
+            self.insert(0, listbox)
+        self.bind_spinbox(event)  # eliminar esto y su metodo
 
     def bind_spinbox(self, event): # HECHO   # ACTIVA: CON TECLA ENTER SI SPINBOX TIENE FOCO - ABRE LAS VENTANAS
         
@@ -167,7 +125,7 @@ class Spinbox_class(Spinbox, Frm_B3_class):
     def change_variable(self, *args):
         spinbox = self.get().capitalize() #
         if spinbox == '': #
-            self.master.master.listbox.delete(0, END) #
+            self.master.master.listbox .delete(0, END) #
         else:
             list_new = []
             for i in self.spinbox_values: #
@@ -181,20 +139,11 @@ class Spinbox_class(Spinbox, Frm_B3_class):
         self.master.master.change_miniature()
 
     def update(self, list, *args):
-        list_new = [] #
         self.master.master.listbox .delete(0, END) #
-
         for i in list: #
-            list_new .append(i) #
-        self.master.master.insert_listbox(list_new)
-       
-        ###########################
-        self.listbox .delete(0, END)    ##                                # 1- BORRA LA LISTA DE LISTBOX
-        for i in list:     ##                                             # 1- ITERANDO: 'list_new'.  2- INSERTANDO ITERADOR 'i' A LISTBOX.  
-            self.listbox .insert(END, i) 
-        if self.listbox.get(0) == self.spinbox_variable.get():  #|||
-            self.listbox .delete(0, END) 
-
+            self.master.master.listbox .insert(END, i) #
+        if self.master.master.listbox .get() == self.spinbox_variable.get(): #
+            self.master.master.listbox .delete(0, END) #
 
 #------------------------------------------ 
 class Listbox_class(Listbox, Frm_B3_class):
