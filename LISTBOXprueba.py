@@ -187,6 +187,14 @@ class Spinbox_class(Spinbox, Frm_B3_class):
         for i in list: #
             list_new .append(i) #
         self.master.master.insert_listbox(list_new)
+       
+        ###########################
+        self.listbox .delete(0, END)    ##                                # 1- BORRA LA LISTA DE LISTBOX
+        for i in list:     ##                                             # 1- ITERANDO: 'list_new'.  2- INSERTANDO ITERADOR 'i' A LISTBOX.  
+            self.listbox .insert(END, i) 
+        if self.listbox.get(0) == self.spinbox_variable.get():  #|||
+            self.listbox .delete(0, END) 
+
 
 #------------------------------------------ 
 class Listbox_class(Listbox, Frm_B3_class):
@@ -202,7 +210,6 @@ class Listbox_class(Listbox, Frm_B3_class):
         self.bind ('<<ListboxSelect>>', self.listbox_select)
 
     def listbox_select(self,event):  ###
-
         selection = self.get(ANCHOR) #
         if self.get(0,END) != (): #
             self.master.master.spinbox .delete(0, END) #
