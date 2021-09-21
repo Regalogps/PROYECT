@@ -291,12 +291,11 @@ class Listbox_class(Listbox, Frm_B3_class):    # HECHO
        
         selection = self.get(ANCHOR)                                                                              
         if self.get(0,END) != ():
-            #self.master.master.master.delete_spinbox(selection)
-            self.master.master.spinbox .delete(0, END)
-        self.master.master.spinbox .insert(0, selection)
+            self.master.master.master.spinbox .delete(0, END)
+        self.master.master.master.spinbox .insert(0, selection)
         self.selection_clear(0,END)
         
-        self.after(100, lambda: self.spinbox.focus_set())
+        self.after(100, lambda: self.master.master.master.spinbox.focus_set())
 
 root = Tk()
 root.geometry('250x130+200+200')   
