@@ -12,8 +12,7 @@ class B3_class(Frame):
         self.label_filas = Label (self, width=18, bg='#11161d', fg='#969696', bd=2, anchor= E)
         label_title = Label (self, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
         # self.label_miniature = Label (self.frm_C1, image=self.master.Miniatures[0], bd= 0)
-        # This label is a container for the images that are changing ...
-#        self.create_listbox(self.label_filas, width=11, height=1)
+
         self.create_listbox(width=11, height=1)
         self.create_spinbox(width=13, bd=0)
 
@@ -45,7 +44,7 @@ class B3_class(Frame):
              # for reasons of verification the code was removed
 
     def change_variable(self, *args):
-        spinbox = self.get().capitalize()
+        spinbox = self.spinbox.get().capitalize()
         if spinbox == '':
             self.listbox .delete(0, END)
         else:
