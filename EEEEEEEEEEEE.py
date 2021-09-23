@@ -327,7 +327,7 @@ class B2_class(Frame):
 class B3_class(Frame):
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, kwargs)
-        #_____C O N T E N E D O R E S:
+        #_____2___C O N T E N E D O R E S:
         self.frame_1 = Frame (self, bg='#31343a', width=116, height=65)    # Color: Plomo       
         self.frame_2 = Frame (self, bg='#11161d', width=60, height=65)     # Color: Azul  
 
@@ -338,7 +338,7 @@ class B3_class(Frame):
         self.create_listbox (width=11, height=1)
         self.create_spinbox (width=13)
 
-        #__________GESTIOhhhhhN:
+        #_____G R I D ():
         self.frame_1 .grid (column=0, row=0)  # MASTER A
         self.frame_2 .grid (column=1, row=0)  # MASTER B
 
@@ -351,16 +351,16 @@ class B3_class(Frame):
 
         self.miniature_mobil .grid (padx=2, pady=3)  # SUB B.1
 
-        #__________Propagación:
+        #_____G R I D___P R O P A G A T E ():
         self.frame_1 .grid_propagate(False)
         self.frame_2 .grid_propagate(False)
         self.container_2w .grid_propagate(False)
         
-        #_____
+        #_____VARIABLES DE CONTROL:
         self._change = None
    
 
-    def change_miniature(self, *args):   # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
+    def change_variable(self, *args):   # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
 
         spin = self.spinboxx.get().capitalize()
 
@@ -438,7 +438,7 @@ class B3_class(Frame):
 
         self.spinboxx .delete(0, END)     
 
-    def automatic(self, event):
+    def change_red_green(self, event):
 
         if self._change is None:
             self.red_green .config (image=self.master.Images_sublist [5], width=15)  
@@ -473,11 +473,11 @@ class B3_class(Frame):
 
         self.spinboxx.icursor(END)
 
-        self.spinboxx .bind ('<Return>', self.bind_spinbox)                              # ACTIVA: CON TECLA ENTER - ABRE LAS VENTANAS
+        ###self.spinboxx .bind ('<Return>', self.bind_spinbox)                              # ACTIVA: CON TECLA ENTER - ABRE LAS VENTANAS
         self.spinboxx .bind ('<Double-1>', lambda *arg: self.spinboxx.delete(0, END))     # ACTIVA: CON DOBLE CLICK EN SPINBOX - LIMPIA SPINBOX
         self.spinboxx .bind ('<Return>', self.bind_listbox)                              # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX  
 
-        self.spinbox_variable .trace_add ('write', self.change_miniature)  
+        self.spinbox_variable .trace_add ('write', self.change_variable)  
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # INSERTA EL VALOR OBTENIDO EN MAYUSCULA EL PRIMER STRING
 
     def create_listbox(self, **kwargs):
@@ -498,7 +498,7 @@ class B3_class(Frame):
                               selectmode=SINGLE,
                               takefocus=0)
 
-        self.red_green .bind ("<Button-1>", self.automatic)
+        self.red_green .bind ("<Button-1>", self.change_red_green)
         self.listboxx .bind ('<<ListboxSelect>>', self.listbox_select)   # ACTIVA: CON CLICK IZQUIERDO EN EL LISTBOX - SELECCIONA 1 ITEM
 
 
