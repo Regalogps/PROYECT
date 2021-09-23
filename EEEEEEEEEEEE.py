@@ -327,7 +327,6 @@ class B2_class(Frame):
 class B3_class(Frame):
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, kwargs)
-
         #_____C O N T E N E D O R E S:
         self.frame_1 = Frame (self, bg='#31343a', width=116, height=65)    # Color: Plomo       
         self.frame_2 = Frame (self, bg='#11161d', width=60, height=65)     # Color: Azul  
@@ -336,26 +335,21 @@ class B3_class(Frame):
         self.select_mobil = Label (self.frame_1, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
         self.miniature_mobil = Label (self.frame_2, image=self.master.Miniatures[0], bd= 0) 
 
-        self.red_green = Label (self.container_1, image= self.master.Images_sublist [4], width=15, bd=0) #  bg='#11161d'
-        self.red_green .grid (column=0, row=0, padx=1, pady=0, sticky=N)
-
         self.create_listbox (width=11, height=1)
         self.create_spinbox (width=13)
 
-        self.red_green .bind("<Button-1>", self.automatic)
-
         #__________GESTIOhhhhhN:
-        self.frame_1 .grid (column=0, row=0)
-        self.frame_2 .grid (column=1, row=0)
+        self.frame_1 .grid (column=0, row=0)  # MASTER A
+        self.frame_2 .grid (column=1, row=0)  # MASTER B
 
-        self.container_2w .grid (column=0, row=0, padx=0, pady=(0,2), sticky=N)  
-        self.select_mobil .grid (column=0, row=1, padx=11, pady=0)
-        self.spinboxx .grid (column=0, row=2, padx=13, pady=(3,3))   
+        self.container_2w .grid (column=0, row=0, padx=0, pady=(0,2), sticky=N)  # SUB A.1
+        self.select_mobil .grid (column=0, row=1, padx=11, pady=0)               # SUB A.2
+        self.spinboxx .grid (column=0, row=2, padx=13, pady=(3,3))               # SUB A.3
 
-        self.red_green .grid (column=0, row=0, padx=1, pady=0, sticky=N) # creo no necesita sticky
-        self.listboxx .grid (column=1, row=0, padx=12, pady=(1,0))
+        self.red_green .grid (column=0, row=0, padx=1, pady=0, sticky=N)  # SUB.SUB A.1 .1    # creo no necesita stickyn  
+        self.listboxx .grid (column=1, row=0, padx=12, pady=(1,0))        # SUB.SUB A.1 .2
 
-        self.miniature_mobil .grid (padx=2, pady=3)
+        self.miniature_mobil .grid (padx=2, pady=3)  # SUB B.1
 
         #__________Propagación:
         self.frame_1 .grid_propagate(False)
@@ -454,7 +448,7 @@ class B3_class(Frame):
             self._change = None
 
 
-    def validate_text(self, text, arg):   # ACTIVA: SIEMPRE QUE INSERTE TEXTO EN SPINBOX - NO PERMITE NUMEROS,SIMBOLOS,ESPACIOS Y CONTROLA LA CANTIDAD
+    def validate_text(self, text, arg): SIEMPRE QUE INSERTE TEXTO EN SPINBOX - NO PERMITE NUMEROS,SIMBOLOS,ESPACIOS Y CONTROLA LA CANTIDAD
 
         if all (i not in "0123456789[{!¡¿?<>(|#$%&),_-°'´}] +-*/=" for i in text) and len(text) < 14:   
                 return True                                                 
@@ -487,6 +481,8 @@ class B3_class(Frame):
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # INSERTA EL VALOR OBTENIDO EN MAYUSCULA EL PRIMER STRING
 
     def create_listbox(self, **kwargs):
+     
+        self.red_green = Label (self.container_1, image= self.master.Images_sublist [4], width=15, bd=0) #  bg='#11161d'
 
         self.listboxx = Listbox (self.container_2w, **kwargs)
         self.listboxx .config (font=('Calibri',9,'bold'),
@@ -502,6 +498,7 @@ class B3_class(Frame):
                               selectmode=SINGLE,
                               takefocus=0)
 
+        self.red_green .bind ("<Button-1>", self.automatic)
         self.listboxx .bind ('<<ListboxSelect>>', self.listbox_select)   # ACTIVA: CON CLICK IZQUIERDO EN EL LISTBOX - SELECCIONA 1 ITEM
 
 
