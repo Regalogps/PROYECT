@@ -344,7 +344,7 @@ class B3_class(Frame):
 
         self.red_green .bind("<Button-1>", self.automatic)
 
-        #__________Posicionamientos:
+        #__________GESTIOhhhhhN:
         self.frame_1 .grid (column=0, row=0)
         self.frame_2 .grid (column=1, row=0)
 
@@ -352,14 +352,18 @@ class B3_class(Frame):
         self.select_mobil .grid (column=0, row=1, padx=11, pady=0)
         self.spinboxx .grid (column=0, row=2, padx=13, pady=(3,3))   
 
-
+        self.red_green .grid (column=0, row=0, padx=1, pady=0, sticky=N) # creo no necesita sticky
         self.listboxx .grid (column=1, row=0, padx=12, pady=(1,0))
+
         self.miniature_mobil .grid (padx=2, pady=3)
 
         #__________Propagación:
         self.frame_1 .grid_propagate(False)
         self.frame_2 .grid_propagate(False)
         self.container_2w .grid_propagate(False)
+        
+        #_____
+        self._change = None
    
 
     def change_miniature(self, *args):   # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
@@ -387,7 +391,7 @@ class B3_class(Frame):
         if self.listboxx.get(0) != spin and self.listboxx.get(0) != '' or spin == '': 
             self.miniature_mobil .config(image= self.master.Miniatures[22])
         
-        if self.master.toplevel_LEFT .winfo_ismapped() == True or self.master.toplevel_RIGHT .winfo_ismapped() == True or self.master.toplevel_STUF .winfo_ismapped() == True and self.label_deletion.winfo_width()==14:
+        if self._change is not None:
             print(111111111)
             self.after(5000, self.automatic_deletion) 
 
@@ -438,21 +442,17 @@ class B3_class(Frame):
 
     def automatic_deletion(self):
 
-        try:
-            if self.master.toplevel_LEFT .winfo_ismapped() == True or self.master.toplevel_RIGHT .winfo_ismapped() == True or self.master.toplevel_STUF .winfo_ismapped():
-                self.spinboxx .delete(0, END)
-                self.red_green .config (image=self.master.Images_sublist [4], width=15)      
-        except:
-            pass
+        self.spinboxx .delete(0, END)     
 
     def automatic(self, event):
-        e = True
-        if e:
-            self.red_green .config (image=self.master.Images_sublist [5], width=14)  
-            e = False
+
+        if self._change is None:
+            self.red_green .config (image=self.master.Images_sublist [5], width=15)  
+            self._change = True
         else:
             self.red_green .config (image=self.master.Images_sublist [4], width=15)
-            e = True
+            self._change = None
+
 
     def validate_text(self, text, arg):   # ACTIVA: SIEMPRE QUE INSERTE TEXTO EN SPINBOX - NO PERMITE NUMEROS,SIMBOLOS,ESPACIOS Y CONTROLA LA CANTIDAD
 
