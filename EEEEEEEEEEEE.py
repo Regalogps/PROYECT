@@ -151,7 +151,7 @@ class Interface(Tk):
             self.gear = True 
             if self.frame_configuration.checkbutton5 .variable.get() == True:   
                 self.frame_listmode .grid (column=1, row=0, padx=0, pady=0) 
-                self.frame_listmode .spinbox.focus_set()
+                self.frame_listmode .spinboxx.focus_set()
                 self.geometry ('232x65')
             else:
                 self.frm_B1 .grid()
@@ -329,64 +329,63 @@ class B3_class(Frame):
         Frame.__init__(self, master, *args, kwargs)
 
         #_____C O N T E N E D O R E S:
-        self.frame_B3 = Frame (self, bg='#31343a', width=116, height=65)    # Color: Plomo       
-        self.frame_C1 = Frame (self, bg='#11161d', width=60, height=65)     # Color: Azul  
+        self.frame_1 = Frame (self, bg='#31343a', width=116, height=65)    # Color: Plomo       
+        self.frame_2 = Frame (self, bg='#11161d', width=60, height=65)     # Color: Azul  
 
-        self.label_listbox = Frame (self.frame_B3, width=116, height=20, bg='#11161d') 
-        self.label_title = Label (self.frame_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.label_miniature = Label (self.frame_C1, image=self.master.Miniatures[0], bd= 0) 
+        self.container_2w = Frame (self.frame_1, width=116, height=20, bg='#11161d') 
+        self.select_mobil = Label (self.frame_1, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.miniature_mobil = Label (self.frame_2, image=self.master.Miniatures[0], bd= 0) 
+
+        self.red_green = Label (self.container_1, image= self.master.Images_sublist [4], width=15, bd=0) #  bg='#11161d'
+        self.red_green .grid (column=0, row=0, padx=1, pady=0, sticky=N)
 
         self.create_listbox (width=11, height=1)
         self.create_spinbox (width=13)
 
-        self.label_deletion = Label (self.label_listbox, image= self.master.Images_sublist [4], width=15, bd=0) #  bg='#11161d'
-        self.label_deletion .grid (column=0, row=0, padx=1, pady=0, sticky=N)
-
-        self.label_deletion .bind("<Button-1>", self.automatic)
-
+        self.red_green .bind("<Button-1>", self.automatic)
 
         #__________Posicionamientos:
-        self.frame_B3 .grid (column=0, row=0)
-        self.frame_C1 .grid (column=1, row=0)
+        self.frame_1 .grid (column=0, row=0)
+        self.frame_2 .grid (column=1, row=0)
 
-        self.label_listbox .grid (column=0, row=0, padx=0, pady=(0,2), sticky=N)  
-        self.label_title .grid (column=0, row=1, padx=11, pady=0)
-        self.spinbox .grid (column=0, row=2, padx=13, pady=(3,3))   
+        self.container_2w .grid (column=0, row=0, padx=0, pady=(0,2), sticky=N)  
+        self.select_mobil .grid (column=0, row=1, padx=11, pady=0)
+        self.spinboxx .grid (column=0, row=2, padx=13, pady=(3,3))   
 
 
-        self.listbox .grid (column=1, row=0, padx=12, pady=(1,0))
-        self.label_miniature .grid (padx=2, pady=3)
+        self.listboxx .grid (column=1, row=0, padx=12, pady=(1,0))
+        self.miniature_mobil .grid (padx=2, pady=3)
 
         #__________Propagación:
-        self.frame_B3 .grid_propagate(False)
-        self.frame_C1 .grid_propagate(False)
-        self.label_listbox .grid_propagate(False)
+        self.frame_1 .grid_propagate(False)
+        self.frame_2 .grid_propagate(False)
+        self.container_2w .grid_propagate(False)
    
 
     def change_miniature(self, *args):   # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
 
-        spinbox = self.spinbox.get().capitalize()
+        spin = self.spinboxx.get().capitalize()
 
-        if spinbox == '':                                                          # 1- SI SPINBOX ESTA VACIO.  2- BORRA LA LISTA DE LISTBOX.  3- DESHABILITA LISTBOX.
-            self.listbox .delete(0, END)
+        if spin == '':                                                          # 1- SI SPINBOX ESTA VACIO.  2- BORRA LA LISTA DE LISTBOX.  3- DESHABILITA LISTBOX.
+            self.listboxx .delete(0, END)
         else:                                                                      # 1- HABILITA LISTBOX.  2- CREA LISTA VACIA.  3- ITERANDO: 'self.spinbox_values'.
             list_new = []                                                          # 4- SI COINCIDE 'value' EN 'self.spinbox_values'.  5- AGREGA VALUE A LISTA.  6- SI LA LISTA NO ESTA VACIA.
             for index, i in enumerate(self.spinbox_values):                        # 10- LLAMA AL METODO: 'def update' Y PASA LA LISTA DE ARGUMENTO.
-                if spinbox == i:                           
-                    self.label_miniature .config(image= self.master.Miniatures[index])
-                    self.spinbox .icursor(END)
-                if spinbox in i:
+                if spin == i:                           
+                    self.miniature_mobil .config(image= self.master.Miniatures[index])
+                    self.spinboxx .icursor(END)
+                if spin in i:
                     list_new .append(i)
                     print(list_new)
 
             if list_new != []:         
                 self.update(list_new)
 
-            if spinbox == 'As':  
-                self.listbox.delete(0,1)
+            if spin == 'As':  
+                self.listboxx.delete(0,1)
 
-        if self.listbox.get(0) != spinbox and self.listbox.get(0) != '' or spinbox == '': 
-            self.label_miniature .config(image= self.master.Miniatures[22])
+        if self.listboxx.get(0) != spin and self.listboxx.get(0) != '' or spin == '': 
+            self.miniature_mobil .config(image= self.master.Miniatures[22])
         
         if self.master.toplevel_LEFT .winfo_ismapped() == True or self.master.toplevel_RIGHT .winfo_ismapped() == True or self.master.toplevel_STUF .winfo_ismapped() == True and self.label_deletion.winfo_width()==14:
             print(111111111)
@@ -394,36 +393,35 @@ class B3_class(Frame):
 
     def update(self, list):  # ACTIVA: SI EL METODO CHANGE_MINIATURE LA MANDA A LLAMAR - BORRA LA LISTA DE LISTBOX EXISTENTE, AGREGA NUEVOS VALORES A LISTA Y BORRA DE NUEVO SI SE CUMPLE LA CONDICION
     
-        self.listbox .delete(0, END)                                    # 1- BORRA LA LISTA DE LISTBOX
-        print('entre estando vacio')
+        self.listboxx .delete(0, END)                                    # 1- BORRA LA LISTA DE LISTBOX
         for i in list:                                                  # 1- ITERANDO: 'list_new'.  2- INSERTANDO ITERADOR 'i' A LISTBOX.  
-            self.listbox .insert(END, i) 
-        if self.listbox.get(0) == self.spinbox_variable.get():  #|||
-            self.listbox .delete(0, END) 
+            self.listboxx .insert(END, i) 
+        if self.listboxx.get(0) == self.spinbox_variable.get():
+            self.listboxx .delete(0, END) 
 
 
     def listbox_select(self,event):   # ACTIVA: CON CLICK IZQUIERDO EN LISTBOX - 
        
-        selection = self.listbox .get(ANCHOR)                                                           # 1- BORRA EL CONTENIDO DE SPINBOX.  2- INSERTA EL ITEM SELECCIONADO DEL LISTBOX A SPINBOX                         
+        selection = self.listboxx .get(ANCHOR)                                                           # 1- BORRA EL CONTENIDO DE SPINBOX.  2- INSERTA EL ITEM SELECCIONADO DEL LISTBOX A SPINBOX                         
         
-        if self.listbox.get(0,END) != ():      
-            self.spinbox .delete(0, END) 
-        self.spinbox .insert(0, selection)
-        self.listbox .selection_clear(0,END)
+        if self.listboxx.get(0,END) != ():      
+            self.spinboxx .delete(0, END) 
+        self.spinboxx .insert(0, selection)
+        self.listboxx .selection_clear(0,END)
  
-        self.after(100, lambda: self.spinbox.focus_set())
+        self.after(100, lambda: self.spinboxx.focus_set())
 
-        print('numero',self.listbox.size())
+        print('numero',self.listboxx.size())
           
 
     def bind_listbox(self, event):
  
-        listbox = self.listbox.get(0)
-        spinbox = self.spinbox.get()
+        listbx = self.listboxx.get(0)
+        spinbx = self.spinboxx.get()
 
-        if listbox != spinbox and listbox != '':
-            self.spinbox.delete(0, END)
-            self.spinbox.insert(0, listbox)
+        if listbx != spinbx and listbx != '':
+            self.spinboxx.delete(0, END)
+            self.spinboxx.insert(0, listbx)
             
         self.bind_spinbox(event) 
          
@@ -434,7 +432,7 @@ class B3_class(Frame):
         stuf = [Frog_stuf, Fox_stuf, Boomer_stuf, Ice_stuf, Jd_stuf, Grub_stuf, Lightning_stuf, Aduka_stuf, Knight_stuf, Kalsiddon_stuf, Mage_stuf, Randomizer_stuf, Jolteon_stuf, Turtle_stuf, Armor_stuf, Asate_stuf, Raon_stuf, Trico_stuf, Nak_stuf, Bigfoot_stuf, Barney_stuf, Dragon_stuf]
 
         for index, i in enumerate(self.spinbox_values):
-            if self.spinbox.get() == i:
+            if self.spinboxx.get() == i:
                 self.master.windows_123(left[index], right[index], stuf[index]) 
         
 
@@ -442,18 +440,18 @@ class B3_class(Frame):
 
         try:
             if self.master.toplevel_LEFT .winfo_ismapped() == True or self.master.toplevel_RIGHT .winfo_ismapped() == True or self.master.toplevel_STUF .winfo_ismapped():
-                self.spinbox .delete(0, END)
-                self.label_deletion .config (image=self.master.Images_sublist [4], width=15)      
+                self.spinboxx .delete(0, END)
+                self.red_green .config (image=self.master.Images_sublist [4], width=15)      
         except:
             pass
 
     def automatic(self, event):
         e = True
         if e:
-            self.label_deletion .config (image=self.master.Images_sublist [5], width=14)  
+            self.red_green .config (image=self.master.Images_sublist [5], width=14)  
             e = False
         else:
-            self.label_deletion .config (image=self.master.Images_sublist [4], width=15)
+            self.red_green .config (image=self.master.Images_sublist [4], width=15)
             e = True
 
     def validate_text(self, text, arg):   # ACTIVA: SIEMPRE QUE INSERTE TEXTO EN SPINBOX - NO PERMITE NUMEROS,SIMBOLOS,ESPACIOS Y CONTROLA LA CANTIDAD
@@ -466,12 +464,12 @@ class B3_class(Frame):
 
     def create_spinbox(self, **args):
         
-        self.spinbox = Spinbox (self.frame_B3, **args)
+        self.spinboxx = Spinbox (self.frame_1, **args)
         
         self.spinbox_variable = StringVar()
         self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']
         self.all_register = (self.register(self.validate_text), '%P', '%S')
-        self.spinbox.config (values=self.spinbox_values,
+        self.spinboxx.config (values=self.spinbox_values,
                              textvariable=self.spinbox_variable,
                              validate='key',
                              validatecommand=self.all_register,
@@ -479,19 +477,19 @@ class B3_class(Frame):
                              wrap=True,
                              bd=0)
 
-        self.spinbox.icursor(END)
+        self.spinboxx.icursor(END)
 
-        self.spinbox .bind ('<Return>', self.bind_spinbox)                              # ACTIVA: CON TECLA ENTER - ABRE LAS VENTANAS
-        self.spinbox .bind ('<Double-1>', lambda *arg: self.spinbox.delete(0, END))     # ACTIVA: CON DOBLE CLICK EN SPINBOX - LIMPIA SPINBOX
-        self.spinbox .bind ('<Return>', self.bind_listbox)                              # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX  
+        self.spinboxx .bind ('<Return>', self.bind_spinbox)                              # ACTIVA: CON TECLA ENTER - ABRE LAS VENTANAS
+        self.spinboxx .bind ('<Double-1>', lambda *arg: self.spinboxx.delete(0, END))     # ACTIVA: CON DOBLE CLICK EN SPINBOX - LIMPIA SPINBOX
+        self.spinboxx .bind ('<Return>', self.bind_listbox)                              # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX  
 
         self.spinbox_variable .trace_add ('write', self.change_miniature)  
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # INSERTA EL VALOR OBTENIDO EN MAYUSCULA EL PRIMER STRING
 
     def create_listbox(self, **kwargs):
 
-        self.listbox = Listbox (self.label_listbox, **kwargs)
-        self.listbox .config (font=('Calibri',9,'bold'),
+        self.listboxx = Listbox (self.container_2w, **kwargs)
+        self.listboxx .config (font=('Calibri',9,'bold'),
                               bg='#11161d', fg='#00ff00',
                               borderwidth=0, bd=0,
                               highlightthickness=0,
@@ -504,7 +502,7 @@ class B3_class(Frame):
                               selectmode=SINGLE,
                               takefocus=0)
 
-        self.listbox .bind ('<<ListboxSelect>>', self.listbox_select)   # ACTIVA: CON CLICK IZQUIERDO EN EL LISTBOX - SELECCIONA 1 ITEM
+        self.listboxx .bind ('<<ListboxSelect>>', self.listbox_select)   # ACTIVA: CON CLICK IZQUIERDO EN EL LISTBOX - SELECCIONA 1 ITEM
 
 
 #_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
