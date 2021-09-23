@@ -33,10 +33,10 @@ class B3_class(Frame):
         self.spinbox .grid (column=0, row=2, padx=11, pady=(3,3), sticky=W)
 
         #__________Propagación:
-        self.frm_B3 .grid_propagate(False)
-        self.frm_C1 .grid_propagate(False)
-        self.label_filas .grid_propagate(False)
-        self.listbox .grid_propagate(False)
+        #self.frm_B3 .grid_propagate(False)
+        #self.frm_C1 .grid_propagate(False)
+        #self.label_filas .grid_propagate(False)
+        #self.listbox .grid_propagate(False)
 
     def change_miniature(self):
         pass # This function is responsible for changing the images of self.label_miniature,

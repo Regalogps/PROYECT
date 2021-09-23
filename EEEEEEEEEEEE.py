@@ -329,45 +329,39 @@ class B3_class(Frame):
         Frame.__init__(self, master, *args, kwargs)
 
         #_____C O N T E N E D O R E S:
-        self.frame_B3 = Frame (self, bg='#31343a', width=172, height=65)   # NO POSICIONADO     # Color: Plomo       
-        self.frame_C1 = Frame (self, bg='#11161d', width=60, height=65)    # NO POSICIONADO     # Color: Azul  #11161d
+        self.frame_B3 = Frame (self, bg='#31343a', width=116, height=65)    # Color: Plomo       
+        self.frame_C1 = Frame (self, bg='#11161d', width=60, height=65)     # Color: Azul  
 
-        #_____L A B E L: 
-        self.label_listbox = Label (self.frame_B3, width=18, bg='#11161d', fg='#969696', bd=2, anchor= E) 
-        label_title = Label (self.frame_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0) 
-
-        #_____L A B E L:  MINIATURAS
+        self.label_listbox = Frame (self.frame_B3, width=116, height=20, bg='#11161d') 
+        self.label_title = Label (self.frame_B3, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
         self.label_miniature = Label (self.frame_C1, image=self.master.Miniatures[0], bd= 0) 
 
-
-        #_____L I S T B O X  
         self.create_listbox (width=11, height=1)
-        #_____S P I N B O X 
         self.create_spinbox (width=13)
 
+        self.label_deletion = Label (self.label_listbox, image= self.master.Images_sublist [4], width=15, bd=0) #  bg='#11161d'
+        self.label_deletion .grid (column=0, row=0, padx=1, pady=0, sticky=N)
 
-        self.radio_listbox = Radiobutton (self.label_listbox, borderwidth=0, bd=0 )
-        self.radio_listbox .place (x=0 ,y=0)
+        self.label_deletion .bind("<Button-1>", self.automatic)
 
 
         #__________Posicionamientos:
-        self.frame_B3 .grid (column=1, row=0, padx=0, pady=0, sticky=NW)
-        self.frame_C1 .grid (column=1, row=0, padx=0, pady=0, sticky=NE)
+        self.frame_B3 .grid (column=0, row=0)
+        self.frame_C1 .grid (column=1, row=0)
 
-        self.label_listbox .grid (column=0, row=0, padx=(0,5), pady=(0,2), sticky=N)  
-        label_title .grid (column=0, row=1, padx=10, pady=(0,0), sticky=W)
+        self.label_listbox .grid (column=0, row=0, padx=0, pady=(0,2), sticky=N)  
+        self.label_title .grid (column=0, row=1, padx=11, pady=0)
+        self.spinbox .grid (column=0, row=2, padx=13, pady=(3,3))   
+
+
+        self.listbox .grid (column=1, row=0, padx=12, pady=(1,0))
         self.label_miniature .grid (padx=2, pady=3)
-
-        self.listbox .grid ( padx=(19,0), pady=(0,5), sticky=N)
-        self.spinbox .grid (column=0, row=2, padx=11, pady=(3,3), sticky=W)   
 
         #__________Propagación:
         self.frame_B3 .grid_propagate(False)
         self.frame_C1 .grid_propagate(False)
-
         self.label_listbox .grid_propagate(False)
-        self.listbox .grid_propagate(False)
-
+   
 
     def change_miniature(self, *args):   # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
 
@@ -393,6 +387,10 @@ class B3_class(Frame):
 
         if self.listbox.get(0) != spinbox and self.listbox.get(0) != '' or spinbox == '': 
             self.label_miniature .config(image= self.master.Miniatures[22])
+        
+        if self.master.toplevel_LEFT .winfo_ismapped() == True or self.master.toplevel_RIGHT .winfo_ismapped() == True or self.master.toplevel_STUF .winfo_ismapped() == True and self.label_deletion.winfo_width()==14:
+            print(111111111)
+            self.after(5000, self.automatic_deletion) 
 
     def update(self, list):  # ACTIVA: SI EL METODO CHANGE_MINIATURE LA MANDA A LLAMAR - BORRA LA LISTA DE LISTBOX EXISTENTE, AGREGA NUEVOS VALORES A LISTA Y BORRA DE NUEVO SI SE CUMPLE LA CONDICION
     
@@ -439,16 +437,24 @@ class B3_class(Frame):
             if self.spinbox.get() == i:
                 self.master.windows_123(left[index], right[index], stuf[index]) 
         
-        self.after(5000, self.automatic_deletion) 
 
     def automatic_deletion(self):
 
         try:
             if self.master.toplevel_LEFT .winfo_ismapped() == True or self.master.toplevel_RIGHT .winfo_ismapped() == True or self.master.toplevel_STUF .winfo_ismapped():
-                self.spinbox .delete(0, END)      
+                self.spinbox .delete(0, END)
+                self.label_deletion .config (image=self.master.Images_sublist [4], width=15)      
         except:
             pass
 
+    def automatic(self, event):
+        e = True
+        if e:
+            self.label_deletion .config (image=self.master.Images_sublist [5], width=14)  
+            e = False
+        else:
+            self.label_deletion .config (image=self.master.Images_sublist [4], width=15)
+            e = True
 
     def validate_text(self, text, arg):   # ACTIVA: SIEMPRE QUE INSERTE TEXTO EN SPINBOX - NO PERMITE NUMEROS,SIMBOLOS,ESPACIOS Y CONTROLA LA CANTIDAD
 
@@ -486,7 +492,7 @@ class B3_class(Frame):
 
         self.listbox = Listbox (self.label_listbox, **kwargs)
         self.listbox .config (font=('Calibri',9,'bold'),
-                              bg='blue', fg='#00ff00',  ##11161d
+                              bg='#11161d', fg='#00ff00',
                               borderwidth=0, bd=0,
                               highlightthickness=0,
                               highlightbackground='#11161d',  
