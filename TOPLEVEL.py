@@ -89,7 +89,51 @@ class Aplicacion(Frame)
                  self.ventana .update()
 
     def pantalla_completa(self):
-        self.ventana .geometry(
+        self.ventana .geometry('{0}x{1}+0+0' .format(self.ventana .winfo_screenwidth(),
+                               self.ventana .screenheight() - 30))
+   
+    def cambiar_dimencion(self):
+        if self. click == True:
+            self.cambiar_tamano .config(image= self.imagen_encogimiento)
+            self.pantalla_completa()
+            self.click = False
+        else:
+            self.cambiar_tamano .config(image= self.imagen_maximizar)
+            self.ventana . geometry('%sx%s+%s+%s' %((self.x1 - self.x0), (self.y1 - self.y0), self.x0, self.y0))
+            self.click = True
+
+    def on_deiconify(self, event):
+        self.ventana .deiconify()
+        self.master .lower()
+
+    def on_iconify(self, event):
+        self.ventana .withdraw()
+        self.master .iconify()
+
+    def widgets(self):
+        self.imagen_cerrar = PhotoImage(file= '//')
+        self.imagen_maximizar = PhotoImage(file= '//') 
+        self.imagen_minimizae = PhotoImage(file= '//')
+        self.imagen_encogimiento = PhotoImage(file= '//')
+
+        self.cerrar = Button(self.frame_top, image=self.imagen_cerrar, bg='DarkOrchid1',
+                             activebackground='DarkOrchid1', bd=0, command=self.salir)
+        self.cerrar .pack(ipadx=5, ipady=2, padx=5, side='right')
+
+        self.cambiar_tamano = Button(self.frame_top, image=self.imagen_maximizar, bg='DarkOrchid1',
+                             activebackground='DarkOrchid1', bd=0, command=self.cambiar_dimencion)
+        self.cambiar_tamano .pack(ipadx=5, padx=5, side='right')
+
+        self.minimizar = Button(self.frame_top, image=self.imagen_minimizar, bg='DarkOrchid1',
+                             activebackground='DarkOrchid1', bd=0, command= lambda: self.master .iconify())
+        self.minimizar .pack(ipadx=5, padx=5, side='right')
+
+        self.titulo = Label(
+
+    def on_deiconify(self, event):
+
+
+
             
 
 
