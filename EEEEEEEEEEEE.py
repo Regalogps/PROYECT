@@ -10,13 +10,14 @@ import os
 
 class Interface(Tk):
 
-    def __init__(self): #-------------------------------------------------------------NO TOCAR     
-        super().__init__()                                                      # Llamando a Tk ()
-        
+    def __init__(self):
+        Tk.__init__(self)
+
         path = 'E:/1-RICHI/MovilesDB'
-        #____Coleccion de imagenes         
-        self.Images_1 = self.generate_list (path, 'a')
-        #____Variables de control para las ventanas:  [ 1,2,3 ]    
+        #____Coleccion de imagenes:
+        self.Images_1 = self.generate_list (path, 'I')
+
+        #____Variables de control para las ventanas:  [ 1,2,3 ]
         self._frame_1 = None
         self._frame_2 = None
         self._frame_3 = None
@@ -25,7 +26,7 @@ class Interface(Tk):
         self._open_2 = False 
         self._open_3 = False
 
-        #_____V A R I A B L E S  de  C O N T R O L  S E G U N D A R I A S
+        #____Variables de control secundarias:
         self._gear = True
         self._minimize = True
         
@@ -34,9 +35,6 @@ class Interface(Tk):
         self. configure_interface(geo)     # NEW EL ARGUMENTO geo     
         self. widgets()
 
-        #______________________________________
-        # overider
-        #self.e = False
     
     def geometry_(self, geometry_width, geometry_height ):
 
@@ -62,9 +60,8 @@ class Interface(Tk):
     def generate_list(self, file, option):   # INICIALIZA IMAGENES
 
         ouput = os.listdir (file)
-        empty = [] 
-                     
-        if option == 'a': 
+        empty = []                    
+        if option == 'I': 
             _lst = [[] for x in range(22)]
             _str = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Kal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Dr1','Dr2']
             for i in ouput:               
@@ -78,16 +75,17 @@ class Interface(Tk):
        
     def widgets(self):
 
+        #____C O N T A I N E R:  [ 4 ]
         self.frame_controller = A1_class (self, bg='#11161d', width=60, height=65)  # POSICIONADO       # Color: Azul         --- Frame contenedor de ash y gear
         self.frame_botones = B1_class (self, bg='#31343a', width=756, height=65)    # POSICIONADO       # Color: Plomo        --- Frame contenedor de botones
         self.frame_config = B2_class (self, bg='#31343a', width=756, height=65)     # NO POSICIONADO    # Color: Plomo        --- Frame contenedor de checkbuttons y labels
         self.frame_listmode = B3_class (self)                                       # NO POSICIONADO    # Color: Azul y Plomo --- Frame Contenedor de Spinbox y Listbox
          
-        #______Posicionamiento:
+        #____G R I D ():
         self.frame_controller .grid (column= 0, row= 0, padx=(0,0), pady=(0,0))
         self.frame_botones .grid (column= 1, row= 0, padx=0, pady=0, sticky='n') 
 
-        #______Propagación:
+        #____G R I D___P R O P A G A T E ():
         self.frame_controller .grid_propagate (False)
         self.frame_botones .grid_propagate (False)
         self.frame_config .grid_propagate (False)
@@ -98,7 +96,7 @@ class Interface(Tk):
             self.frame_botones .grid_remove()                      # BOTONES          
             self.frame_listmode .grid_remove()                     # MODO LISTA
             self.frame_config .focus_set()                         # MODO CONFIGURACION
-            self.frame_config .grid (column=1, row=0, padx=0, pady=0, sticky=N)
+            self.frame_config .grid (column=1, row=0, padx=0, pady=0, sticky=N) # creo borar stiky
             self._gear = False
             self.geometry ('816x65')
  
