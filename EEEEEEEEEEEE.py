@@ -9,7 +9,6 @@ import os
 #import sys
 
 class Interface(Tk):
-
     def __init__(self):
         Tk.__init__(self)
 
@@ -75,7 +74,7 @@ class Interface(Tk):
        
     def widgets(self):
 
-        #____C O N T A I N E R:  [ 4 ]
+        #____I N S T A N C I A S:  [ 4 ]
         self.frame_controller = A1_class (self, bg='#11161d', width=60, height=65)  # POSICIONADO       # Color: Azul         --- Frame contenedor de ash y gear
         self.frame_botones = B1_class (self, bg='#31343a', width=756, height=65)    # POSICIONADO       # Color: Plomo        --- Frame contenedor de botones
         self.frame_config = B2_class (self, bg='#31343a', width=756, height=65)     # NO POSICIONADO    # Color: Plomo        --- Frame contenedor de checkbuttons y labels
@@ -99,8 +98,7 @@ class Interface(Tk):
             self.frame_config .grid (column=1, row=0, padx=0, pady=0, sticky=N) # creo borar stiky
             self._gear = False
             self.geometry ('816x65')
- 
-    
+   
         else:
             self.frame_config .grid_remove()
             self._gear = True 
@@ -116,7 +114,8 @@ class Interface(Tk):
 ############   G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S  
 
     def windows_123 (self, var_1, var_2, var_3):
-
+        
+        #___V E N T A N A__°1:
         if self._open_1 == False: 
             self.toplevel_LEFT = _Toplevel()  #############################################################   VENTANA TOPLEVEL IZQUIERDA
             self.toplevel_LEFT .configure_toplevel ('izq', '220x690') #  metodo 
@@ -132,8 +131,7 @@ class Interface(Tk):
               
         self.toplevel_LEFT .protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(1))
 
-#_______
-
+        #___V E N T A N A__°2:
         if self._open_2 == False:
             self.toplevel_RIGHT = _Toplevel()  #############################################################   VENTANA TOPLEVEL DERECHA
             self.toplevel_RIGHT .configure_toplevel ('der', '220x690')
@@ -150,7 +148,7 @@ class Interface(Tk):
         self.toplevel_RIGHT.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(2))
 
 #_______ desde aqui falta completar este if
-        
+        #___V E N T A N A__°3:
         if self._open_3 == False:
             self.toplevel_STUF = _Toplevel()  #############################################################   VENTANA TOPLEVEL STUFF
             self.toplevel_STUF .configure_toplevel ('stuf', '620x190')     
@@ -165,9 +163,6 @@ class Interface(Tk):
         self._frame_3 .pack()
 
         self.toplevel_STUF.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(3))
-
-
-
 
 
     def close_windows(self, number):
