@@ -128,9 +128,32 @@ class Aplicacion(Frame)
                              activebackground='DarkOrchid1', bd=0, command= lambda: self.master .iconify())
         self.minimizar .pack(ipadx=5, padx=5, side='right')
 
-        self.titulo = Label(
+        self.titulo = Label(self.frame_top, text='Aplicación de escritorio', bg='DarkOrchid1', fg='black',
+                           font=('Calibri',12,'bold'))  
+        self.titulo = pack(padx=10, side='left')
+        self.titulo = bind ('<B1-Motion>', self.mover)
+        self.titulo = bind ('<ButtonPress-1>', self.start)
 
-    def on_deiconify(self, event):
+        frame_1 = Frame (self.frame_principal, bg='spring green', width=00, height=200, highLightbackground='gray25', highLightthickness=2)
+        frame_1 .grid (padx=10, pady=10, columnspan=2, row=0, sticky='nsew')
+        frame_2 = Frame (self.frame_principal, bg='spring green', width=00, height=200, highLightbackground='gray25', highLightthickness=2)
+        frame_2 .grid (padx=10, pady=10, column=2, row=0, sticky='nsew')
+        frame_3 = Frame (self.frame_principal, bg='magenta2', width=00, height=200, highLightbackground='gray25', highLightthickness=2)
+        frame_3 .grid (padx=10, pady=10, column=0, row=1, sticky='nsew')
+        frame_4 = Frame (self.frame_principal, bg='gold', width=00, height=200, highLightbackground='gray25', highLightthickness=2)
+        frame_4 .grid (padx=10, pady=10, column=1, row=1, sticky='nsew')
+        frame_5 = Frame (self.frame_principal, bg='tomato', width=00, height=200, highLightbackground='gray25', highLightthickness=2)
+        frame_5 .grid (padx=10, pady=10, column=2, row=1, sticky='nsew')
+
+if __name__=='__main__':
+    root = Tk()
+    root .title('Aplicación moderna')
+    #icono
+    root .attributes('-alpha', 0,0)
+    root .config(bg='DarkOrchid1')
+    app = Aplicacion (root)
+    app .mainloop()
+
 
 
 
