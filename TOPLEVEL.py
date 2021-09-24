@@ -60,4 +60,42 @@ class Aplicacion(Frame)
         self.ventana .quit()
 
     def start(self, event):
-        
+        self.x = event.x
+        self.y = event.y
+
+    def mover(self, event):
+        deltax = event.x - self.x
+        deltay = event.y - self.y
+        if self.ventana .winfo_y() > 0:
+            self.ventana . geometry('+%s+%s' % (self.ventana .winfo_x() +
+                 deltax, self.ventana .winfo_y() + deltay))
+            self.ventana .update()
+
+        elif self.ventana .winfo_y() <= 1:
+            self.ventana . geometry('+%s+%s' % (self.ventana .winfo_x() +
+                 deltax, self.ventana .winfo_y() + deltay))
+            self.ventana .update()
+
+            self.pantalla_completa()
+            self.cambiar_tamano .config(image= self.imagen_encogimiento)
+            self.click = False
+            
+            if self.ventana .winfo_y() <= 50 and self.ventana .winfo_y() > 0::
+                 self.click = TRUE
+                 self.cambiar_tamano .config(image= self.imagen_maximizar)                                                           
+                 self.ventana . geometry('%sx%s+%s+%s' %((self.x1 - self.x0), (self.y1 - self.y0), self.x0, self.y0))
+                 self.ventana . geometry('+%s+%s' % (self.ventana .winfo_x() +
+                      deltax, self.ventana .winfo_y() + deltay))
+                 self.ventana .update()
+
+    def pantalla_completa(self):
+        self.ventana .geometry(
+            
+
+
+
+
+
+
+
+
