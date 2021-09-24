@@ -14,10 +14,9 @@ class Interface(Tk):
         super().__init__()                                                      # Llamando a Tk ()
         
         path = 'E:/1-RICHI/MovilesDB'
-        #_____Lista de Imágenes         
-        self.Images_1 = self.generate_list (path, 'a')                          # Lista de imgs para las ventanas: 1 y 2
-        self.Images_sublist= self.generate_list (path, 's')                     # Lista de imgs para la ventana: Interface
-        #_____V A R I A B L E S  de  C O N T R O L  para las  V E N T A N A S   S U P E R I O R E S :  [1, 2, 3]      
+        #____Coleccion de imagenes         
+        self.Images_1 = self.generate_list (path, 'a')
+        #____Variables de control para las ventanas:  [ 1,2,3 ]    
         self._frame_1 = None
         self._frame_2 = None
         self._frame_3 = None
