@@ -17,19 +17,18 @@ class Interface(Tk):
         #_____Lista de Imágenes         
         self.Images_1 = self.generate_list (path, 'a')                          # Lista de imgs para las ventanas: 1 y 2
         self.Images_sublist= self.generate_list (path, 's')                     # Lista de imgs para la ventana: Interface
-        self.Miniatures= self.generate_list (path, 'z') 
         #_____V A R I A B L E S  de  C O N T R O L  para las  V E N T A N A S   S U P E R I O R E S :  [1, 2, 3]      
         self._frame_1 = None
         self._frame_2 = None
         self._frame_3 = None
 
-        self.open_1 = False  
-        self.open_2 = False 
-        self.open_3 = False
+        self._open_1 = False  
+        self._open_2 = False 
+        self._open_3 = False
 
         #_____V A R I A B L E S  de  C O N T R O L  S E G U N D A R I A S
-        self.gear = True
-        self.minimize = True
+        self._gear = True
+        self._minimize = True
         
         #_____Métodos de Configuración y Posicionamiento de Widget: [Interface]
         geo = self.geometry_(816, 65)   #NEW
@@ -61,7 +60,7 @@ class Interface(Tk):
         #root.attributes("-alpha", 0.5 ) 
         #self.eval('tk::PlaceWindow . center')    ######%%%%%%%%%%%%%%%%%%%%%%%%%
 
-    def generate_list (self, file, option):   # INICIALIZA IMAGENES
+    def generate_list(self, file, option):   # INICIALIZA IMAGENES
 
         ouput = os.listdir (file)
         empty = [] 
@@ -77,136 +76,55 @@ class Interface(Tk):
                         RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
                         _lst[index].append(RGB)               
             return _lst        
-           
-        if option == 's':
-            for i in ouput:
-                #if i.split('.')[0] in ['SubList__00','SubList__01'] :  
-                if 'SubList' in i :      
-                    full = file + '/' + i
-                    open = cv2.imread (full)
-                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
-                    array = Image.fromarray (RGB)
-                    img = ImageTk.PhotoImage (array)
-                    empty. append (img)
-            return empty
-
-
-        if option == 'z':
-            for i in ouput:  
-                if 'Mini' in i :      
-                    full = file + '/' + i
-                    open = cv2.imread (full)
-                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
-                    array = Image.fromarray (RGB)
-                    img = ImageTk.PhotoImage (array)
-                    empty. append (img)
-            return empty
-
-        
+       
     def widgets(self):
 
-        self.frm_A1 = Create_Frame (self, bg='#11161d', width=60, height=65)  # Color: Azul         --- Frame Contenedor del logo y la rueda            
-        self.frm_B1 = Frame (self, bg='#31343a', width=756, height=65)        # Color: Plomo        --- Frame Contenedor del Contenedor de los Botones
-        self.frm_b1 = Create_Frame (self.frm_B1, bg = '#11161d',)             # Color: Azul         --- Frame Contenedor de los Botones
-        self.frame_listmode = B3_class (self)                                 # Color: Azul y Plomo --- Frame Contenedor de Spinbox y Listbox
-        
-        
-
+        self.frame_controller = A1_class (self, bg='#11161d', width=60, height=65)  # POSICIONADO       # Color: Azul         --- Frame contenedor de ash y gear
+        self.frame_botones = B1_class (self, bg='#31343a', width=756, height=65)    # POSICIONADO       # Color: Plomo        --- Frame contenedor de botones
+        self.frame_config = B2_class (self, bg='#31343a', width=756, height=65)     # NO POSICIONADO    # Color: Plomo        --- Frame contenedor de checkbuttons y labels
+        self.frame_listmode = B3_class (self)                                       # NO POSICIONADO    # Color: Azul y Plomo --- Frame Contenedor de Spinbox y Listbox
+         
         #______Posicionamiento:
-
-        self.frm_A1 .grid (column= 0, row= 0, padx=(0,0), pady=(0,0))         # Instancia
-        self.frm_B1 .grid (column= 1, row= 0, padx=0, pady=0, sticky='n')     # Frame 
-        self.frm_b1 .grid (padx = (10,10), pady = (6,6))                      # Instancia
-
-        #______Metodos de Instancias:
-
-        self.frm_A1 .img_ash()
-        self.frm_A1 .img_gear() 
-        self.frm_b1 .img_moviles()
+        self.frame_controller .grid (column= 0, row= 0, padx=(0,0), pady=(0,0))
+        self.frame_botones .grid (column= 1, row= 0, padx=0, pady=0, sticky='n') 
 
         #______Propagación:
+        self.frame_controller .grid_propagate (False)
+        self.frame_botones .grid_propagate (False)
+        self.frame_config .grid_propagate (False)
 
-        self.frm_A1 .grid_propagate (False)
-        self.frm_B1 .grid_propagate (False)
-
-#______________C O N F I G U R A C I O N  V I S U A L :
-
-        #______C O N T E N E D O R : INTERFACE DE CONFIGURACION:  (NO POSICIONADO)
-        self.frame_configuration = B2_class (self, bg='#31343a', width=756, height=65)  # Color: Plomo
-        self.frame_configuration .grid_propagate (False)
-
-   
     def gear_stacking(self):   # ACTIVA: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
 
-        if  self.gear == True:          # PREDETERMINADO: TRUE
-            self.frm_B1 .grid_remove()  # B1: BOTONES          
-            self.frame_listmode .grid_remove() ###
-            self.frame_configuration .focus_set()    # NECESARIO 
-            self.frame_configuration .grid (column=1, row=0, padx=0, pady=0, sticky=N)
-            self.gear = False
+        if  self._gear == True:                                    # PREDETERMINADO: TRUE
+            self.frame_botones .grid_remove()                      # BOTONES          
+            self.frame_listmode .grid_remove()                     # MODO LISTA
+            self.frame_config .focus_set()                         # MODO CONFIGURACION
+            self.frame_config .grid (column=1, row=0, padx=0, pady=0, sticky=N)
+            self._gear = False
             self.geometry ('816x65')
+ 
     
         else:
-            self.frame_configuration .grid_remove()
-            self.gear = True 
-            if self.frame_configuration.checkbutton5 .variable.get() == True:   
+            self.frame_config .grid_remove()
+            self._gear = True 
+            if self.frame_config .ckbutton5.variable.get() == True:   
                 self.frame_listmode .grid (column=1, row=0, padx=0, pady=0) 
                 self.frame_listmode .spinboxx.focus_set()
                 self.geometry ('232x65')
             else:
-                self.frm_B1 .grid()
+                self.frame_botones .grid()
                 self.frame_listmode .grid_remove()
-                
+   
 
- 
-    def minimize_windows(self):   # ACTIVA: CON CLICK IZQUIERDO AL LOGO - MINIMIZA LAS VENTANAS
-
-        if self.open_1 == True or self.open_2 == True or self.open_3 == True:
-
-            if self.minimize == False:
-                if self.open_1 == True:
-                    self.toplevel_LEFT .deiconify()   # MOSTRAR VENTANAS  
-                if self.open_2 == True:
-                    self.toplevel_RIGHT .deiconify()
-                if self.open_3 == True:
-                    self.toplevel_STUF .deiconify()
-
-                self.minimize = True
-
-            else: 
-                if self.open_1 == True:
-                    self.toplevel_LEFT .iconify()     # OCULTAR VENTANAS
-                if self.open_2 == True:
-                    self.toplevel_RIGHT .iconify() 
-                if self.open_3 == True:    
-                    self.toplevel_STUF .iconify()
-
-                self.minimize = False
-
-    def ash_close_windows(self, event):   # ACTIVA: CON DOBLE CLICK DERECHO EN EL LOGO - CIERRA LAS VENTANAS 
-    
-        try:
-            self.toplevel_LEFT .destroy() 
-            self.open_1 = False
-
-            self.toplevel_RIGHT .destroy()
-            self.open_2 = False
-
-            self.toplevel_STUF .destroy()
-            self.open_3 = False
-        except:
-            pass
-
-
-############   M E T O D O S   P A R A   G E S T I O N A R   L A S   V E N T A N A S   S U P E R I O R E S   ############ 
+############   G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S  
 
     def windows_123 (self, var_1, var_2, var_3):
 
-        if self.open_1 == False: 
+        if self._open_1 == False: 
             self.toplevel_LEFT = _Toplevel()  #############################################################   VENTANA TOPLEVEL IZQUIERDA
             self.toplevel_LEFT .configure_toplevel ('izq', '220x690') #  metodo 
 
-        self.open_1 = True     
+        self._open_1 = True     
                                 
         container_frame_left = var_1 (self.toplevel_LEFT)  #  var_1 es un frame
 
@@ -214,17 +132,16 @@ class Interface(Tk):
             self._frame_1 .destroy()
         self._frame_1 = container_frame_left
         self._frame_1 .pack()
-        
-        
+              
         self.toplevel_LEFT .protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(1))
 
 #_______
 
-        if self.open_2 == False:
+        if self._open_2 == False:
             self.toplevel_RIGHT = _Toplevel()  #############################################################   VENTANA TOPLEVEL DERECHA
             self.toplevel_RIGHT .configure_toplevel ('der', '220x690')
 
-        self.open_2 = True
+        self._open_2 = True
 
         container_frame_right = var_2 (self.toplevel_RIGHT)  # ES UN FRAME POSICIONADO EN TOPLEVEL
 
@@ -233,17 +150,15 @@ class Interface(Tk):
         self._frame_2 = container_frame_right
         self._frame_2 .pack()
 
-
         self.toplevel_RIGHT.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(2))
 
 #_______ desde aqui falta completar este if
         
-        if self.open_3 == False:
+        if self._open_3 == False:
             self.toplevel_STUF = _Toplevel()  #############################################################   VENTANA TOPLEVEL STUFF
-            self.toplevel_STUF .configure_toplevel ('stuf', '620x190')
-            
+            self.toplevel_STUF .configure_toplevel ('stuf', '620x190')     
 
-        self.open_3 = True
+        self._open_3 = True
 
         container_frame_stuf = var_3 (self.toplevel_STUF)  # ES UN FRAME POSICIONADO EN TOPLEVEL
 
@@ -251,7 +166,6 @@ class Interface(Tk):
             self._frame_3 .destroy()
         self._frame_3 = container_frame_stuf
         self._frame_3 .pack()
-
 
         self.toplevel_STUF.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(3))
 
@@ -263,337 +177,129 @@ class Interface(Tk):
 
         if number == 1:
             self.toplevel_LEFT. destroy()
-            self.open_1 = False
+            self._open_1 = False
 
         if number == 2:
             self.toplevel_RIGHT. destroy()
-            self.open_2 = False
+            self._open_2 = False
 
         if number == 3:
             self.toplevel_STUF. destroy()
-            self.open_3 = False
+            self._open_3 = False
 
 
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
-
-class B2_class(Frame):
-    def __init__(self, master, *args, **kwargs):
-        Frame.__init__(self, master, *args, kwargs)
-
-        self.create_label()
-        self.create_checkbutton()
-
-    def cheeck_5 (self):   # SIN USOOOOOOOOOOOOOOOOOO
-        pass
-        #self.checkbutton5.value()
-
-    def create_label(self):
-
-        label_option1 = Label (self, text= 'Activar Aimbot :' , font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        label_option2 = Label (self, text= 'Activar aimbot :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        label_option3 = Label (self, text= 'Activar ddd ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        label_option4 = Label (self, text= 'Activar Modo On :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        label_option5 = Label (self, text= 'Activar Modo Lista :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        label_option6 = Label (self, text= 'Activar Modo Guía :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        label_option7 = Label (self, text= 'Recordar Configuracion :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-
-        label_option1 .grid (column=0, row=0, padx= (30,10), pady=(10,0), sticky=W)
-        label_option2 .grid (column=0, row=1, padx= (30,10), pady=(0,0), sticky=W)
-        label_option3 .grid (column=2, row=0, padx= (30,10), pady=(10,0), sticky=W)
-        label_option4 .grid (column=2, row=1, padx= (30,10), pady=(0,0), sticky=W)
-        label_option5 .grid (column=4, row=0, padx= (30,10), pady=(10,0), sticky=W)
-        label_option6 .grid (column=4, row=1, padx= (30,10), pady=(0,0), sticky=W)   
-        label_option7 .grid (column=6, row=0, padx= (30,10), pady=(10,0), sticky=W)
-    
-    def create_checkbutton(self):
-
-        self.checkbutton1 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
-        self.checkbutton2 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
-        self.checkbutton3 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
-        self.checkbutton4 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
-        self.checkbutton5 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0, command=self.cheeck_5)
-        self.checkbutton6 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
-        self.checkbutton7 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
-    
-        self.checkbutton1 .grid (column=1, row=0, pady=(10,0))
-        self.checkbutton2 .grid (column=1, row=1, pady=(0,0))
-        self.checkbutton3 .grid (column=3, row=0, pady=(10,0))
-        self.checkbutton4 .grid (column=3, row=1, pady=(0,0))
-        self.checkbutton5 .grid (column=5, row=0, pady=(10,0))
-        self.checkbutton6 .grid (column=5, row=1, pady=(0,0))
-        self.checkbutton7 .grid (column=7, row=0, pady=(10,0))
-
-
-class B3_class(Frame):
-    def __init__(self, master, *args, **kwargs):
-        Frame.__init__(self, master, *args, kwargs)
-        #_____2___C O N T E N E D O R E S:
-        self.frame_1 = Frame (self, bg='#31343a', width=116, height=65)    # Color: Plomo       
-        self.frame_2 = Frame (self, bg='#11161d', width=60, height=65)     # Color: Azul  
-
-        self.container_2w = Frame (self.frame_1, width=116, height=20, bg='#11161d') 
-        self.select_mobil = Label (self.frame_1, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.miniature_mobil = Label (self.frame_2, image=self.master.Miniatures[0], bd= 0) 
-
-        self.create_listbox (width=11, height=1)
-        self.create_spinbox (width=13)
-
-        #_____G R I D ():
-        self.frame_1 .grid (column=0, row=0)  # MASTER A
-        self.frame_2 .grid (column=1, row=0)  # MASTER B
-
-        self.container_2w .grid (column=0, row=0, padx=0, pady=(0,2), sticky=N)  # SUB A.1
-        self.select_mobil .grid (column=0, row=1, padx=11, pady=0)               # SUB A.2
-        self.spinboxx .grid (column=0, row=2, padx=13, pady=(3,3))               # SUB A.3
-
-        self.red_green .grid (column=0, row=0, padx=1, pady=0, sticky=N)  # SUB.SUB A.1 .1    # creo no necesita stickyn  
-        self.listboxx .grid (column=1, row=0, padx=12, pady=(1,0))        # SUB.SUB A.1 .2
-
-        self.miniature_mobil .grid (padx=2, pady=3)  # SUB B.1
-
-        #_____G R I D___P R O P A G A T E ():
-        self.frame_1 .grid_propagate(False)
-        self.frame_2 .grid_propagate(False)
-        self.container_2w .grid_propagate(False)
-        
-        #_____VARIABLES DE CONTROL:
-        self._change = None
-   
-
-    def change_variable(self, *args):   # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
-
-        spin = self.spinboxx.get().capitalize()
-
-        if spin == '':                                                          # 1- SI SPINBOX ESTA VACIO.  2- BORRA LA LISTA DE LISTBOX.  3- DESHABILITA LISTBOX.
-            self.listboxx .delete(0, END)
-        else:                                                                      # 1- HABILITA LISTBOX.  2- CREA LISTA VACIA.  3- ITERANDO: 'self.spinbox_values'.
-            list_new = []                                                          # 4- SI COINCIDE 'value' EN 'self.spinbox_values'.  5- AGREGA VALUE A LISTA.  6- SI LA LISTA NO ESTA VACIA.
-            for index, i in enumerate(self.spinbox_values):                        # 10- LLAMA AL METODO: 'def update' Y PASA LA LISTA DE ARGUMENTO.
-                if spin == i:                           
-                    self.miniature_mobil .config(image= self.master.Miniatures[index])
-                    self.spinboxx .icursor(END)
-                if spin in i:
-                    list_new .append(i)
-                    print(list_new)
-
-            if list_new != []:         
-                self.update(list_new)
-
-            if spin == 'As':  
-                self.listboxx.delete(0,1)
-
-        if self.listboxx.get(0) != spin and self.listboxx.get(0) != '' or spin == '': 
-            self.miniature_mobil .config(image= self.master.Miniatures[22])
-        
-        if self._change is not None:
-            print(111111111)
-            self.after(5000, self.automatic_deletion) 
-
-    def update(self, list):  # ACTIVA: SI EL METODO CHANGE_MINIATURE LA MANDA A LLAMAR - BORRA LA LISTA DE LISTBOX EXISTENTE, AGREGA NUEVOS VALORES A LISTA Y BORRA DE NUEVO SI SE CUMPLE LA CONDICION
-    
-        self.listboxx .delete(0, END)                                    # 1- BORRA LA LISTA DE LISTBOX
-        for i in list:                                                  # 1- ITERANDO: 'list_new'.  2- INSERTANDO ITERADOR 'i' A LISTBOX.  
-            self.listboxx .insert(END, i) 
-        if self.listboxx.get(0) == self.spinbox_variable.get():
-            self.listboxx .delete(0, END) 
-
-
-    def listbox_select(self,event):   # ACTIVA: CON CLICK IZQUIERDO EN LISTBOX - 
-       
-        selection = self.listboxx .get(ANCHOR)                                                           # 1- BORRA EL CONTENIDO DE SPINBOX.  2- INSERTA EL ITEM SELECCIONADO DEL LISTBOX A SPINBOX                         
-        
-        if self.listboxx.get(0,END) != ():      
-            self.spinboxx .delete(0, END) 
-        self.spinboxx .insert(0, selection)
-        self.listboxx .selection_clear(0,END)
- 
-        self.after(100, lambda: self.spinboxx.focus_set())
-
-        print('numero',self.listboxx.size())
-          
-
-    def bind_listbox(self, event):
- 
-        listbx = self.listboxx.get(0)
-        spinbx = self.spinboxx.get()
-
-        if listbx != spinbx and listbx != '':
-            self.spinboxx.delete(0, END)
-            self.spinboxx.insert(0, listbx)
-            
-        self.bind_spinbox(event) 
-         
-    def bind_spinbox(self, event):  # ACTIVA: CON TECLA ENTER SI SPINBOX TIENE FOCO - ABRE LAS VENTANAS
-        
-        left = [Frog_left_off, Fox_left_off, Boomer_left_off, Ice_left_off, Jd_left_off, Grub_left_off, Lightning_left_off, Aduka_left_off, Knight_left_off, Kalsiddon_left_off, Mage_left_off, Randomizer_left_off, Jolteon_left_off, Turtle_left_off, Armor_left_off, Asate_left_off, Raon_left_off, Trico_left_off, Nak_left_off, Bigfoot_left_off, Barney_left_off, Dragon_left_off,]
-        right = [Frog_right, Fox_right, Boomer_right, Ice_right, Jd_right, Grub_right, Lightning_right, Aduka_right, Knight_right, Kalsiddon_right, Mage_right, Randomizer_right, Jolteon_right, Turtle_right, Armor_right, Asate_right, Raon_right, Trico_right, Nak_right, Bigfoot_right, Barney_right, Dragon_right]
-        stuf = [Frog_stuf, Fox_stuf, Boomer_stuf, Ice_stuf, Jd_stuf, Grub_stuf, Lightning_stuf, Aduka_stuf, Knight_stuf, Kalsiddon_stuf, Mage_stuf, Randomizer_stuf, Jolteon_stuf, Turtle_stuf, Armor_stuf, Asate_stuf, Raon_stuf, Trico_stuf, Nak_stuf, Bigfoot_stuf, Barney_stuf, Dragon_stuf]
-
-        for index, i in enumerate(self.spinbox_values):
-            if self.spinboxx.get() == i:
-                self.master.windows_123(left[index], right[index], stuf[index]) 
-        
-
-    def automatic_deletion(self):
-
-        self.spinboxx .delete(0, END)     
-
-    def change_red_green(self, event):
-
-        if self._change is None:
-            self.red_green .config (image=self.master.Images_sublist [5], width=15)  
-            self._change = True
-        else:
-            self.red_green .config (image=self.master.Images_sublist [4], width=15)
-            self._change = None
-
-
-    def validate_text(self, text, arg): SIEMPRE QUE INSERTE TEXTO EN SPINBOX - NO PERMITE NUMEROS,SIMBOLOS,ESPACIOS Y CONTROLA LA CANTIDAD
-
-        if all (i not in "0123456789[{!¡¿?<>(|#$%&),_-°'´}] +-*/=" for i in text) and len(text) < 14:   
-                return True                                                 
-        return False  
-        # TRUE = PERMITIR
-        # FALSE = DENEGAR 
-
-    def create_spinbox(self, **args):
-        
-        self.spinboxx = Spinbox (self.frame_1, **args)
-        
-        self.spinbox_variable = StringVar()
-        self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']
-        self.all_register = (self.register(self.validate_text), '%P', '%S')
-        self.spinboxx.config (values=self.spinbox_values,
-                             textvariable=self.spinbox_variable,
-                             validate='key',
-                             validatecommand=self.all_register,
-                             justify='center',
-                             wrap=True,
-                             bd=0)
-
-        self.spinboxx.icursor(END)
-
-        ###self.spinboxx .bind ('<Return>', self.bind_spinbox)                              # ACTIVA: CON TECLA ENTER - ABRE LAS VENTANAS
-        self.spinboxx .bind ('<Double-1>', lambda *arg: self.spinboxx.delete(0, END))     # ACTIVA: CON DOBLE CLICK EN SPINBOX - LIMPIA SPINBOX
-        self.spinboxx .bind ('<Return>', self.bind_listbox)                              # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX  
-
-        self.spinbox_variable .trace_add ('write', self.change_variable)  
-        self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # INSERTA EL VALOR OBTENIDO EN MAYUSCULA EL PRIMER STRING
-
-    def create_listbox(self, **kwargs):
-     
-        self.red_green = Label (self.container_1, image= self.master.Images_sublist [4], width=15, bd=0) #  bg='#11161d'
-
-        self.listboxx = Listbox (self.container_2w, **kwargs)
-        self.listboxx .config (font=('Calibri',9,'bold'),
-                              bg='#11161d', fg='#00ff00',
-                              borderwidth=0, bd=0,
-                              highlightthickness=0,
-                              highlightbackground='#11161d',  
-                              highlightcolor='#11161d',  
-                              selectbackground='#11161d', 
-                              selectforeground='#ff8000',
-                              activestyle='none',
-                              justify='center',
-                              selectmode=SINGLE,
-                              takefocus=0)
-
-        self.red_green .bind ("<Button-1>", self.change_red_green)
-        self.listboxx .bind ('<<ListboxSelect>>', self.listbox_select)   # ACTIVA: CON CLICK IZQUIERDO EN EL LISTBOX - SELECCIONA 1 ITEM
-
-
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
-
-class Checkbutton_class (Checkbutton):   
+################################
+class A1_class(Frame):   # Frame contenedor de ash y gear
     def __init__(self, *args, **kwargs):
-        Checkbutton.__init__(self, *args, **kwargs)
+        Frame.__init__(self, *args, **kwargs)
 
-        self.variable = BooleanVar()
-        self.configure(variable=self.variable)
-    
-    def checked(self):
-        return self.variable.get()
-    
-    """ def check(self):
-        self.variable.set(True)
-    
-    def uncheck(self):
-        self.variable.set(False) """
+        path = 'E:/1-RICHI/MovilesDB'
+        #_____Coleccion de Imágenes         
+        self.Sublist= self.generate_list(path, 'S') 
+        #_____C O N T E N E D O R E S:  [ 0 ]
 
-    def value (self):
-        if self.variable .get() == True: 
-            pass  
-   
- 
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
-
-class _Toplevel (Toplevel):
-
-    def __init__(self, *args): #---------------------------------------------------------NO TOCAR 
-        Toplevel. __init__(self, *args) 
-        #self.masters = master
-          
-    def configure_toplevel(self, head, size): #--------------------------------NO TOCAR (despues)
-     
-        self.title (head)    #  titulo
-        self.geometry (size)  #  tamaño
-        self.resizable (1,1)
-        self.wm_attributes ('-topmost', True)
-        self.config (bg = 'magenta2')
-        self.wm_attributes ('-transparentcolor', 'magenta2')
-        #self.overrideredirect(1)
-
-    def widgets_toplevel(self):
-        pass
-
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
-#_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_--_-_-_-_-_-_-_-_-
-
-class Create_Frame (Frame):   
-
-    def __init__(self, *args, **kwargs):   #---------------------------------------NO TOCAR (despues) 
-        Frame.__init__(self, *args, **kwargs)   # Llamando a Frame ()  #, **kwargs : pasar mas valores al momento de la llamada (diccionarios)
-
-    def img_ash(self):   # Metodo que crea -1- Boton (logo) -------------------NO TOCAR (despues)
+        self.ash_controller()
+        self.gear_controller()
         
-        self.btn_ash = Button (self, image= self.master.Images_sublist [3], bg= '#11161d', bd= 0, activebackground= '#11161d' , command= self.master.minimize_windows)
-        self.btn_ash .grid (column= 0, row= 0, padx= (6,6), pady= 0)
-
-        self.btn_ash .bind ('<Double-3>', self.master.ash_close_windows)
+    def ash_controller(self):  # IMAGE
+        self.btn_ash = Button (self, image=self.Sublist[0], bg='#11161d', bd=0, activebackground='#11161d' , command=self.ash_minimize_windows)
+        self.btn_ash .grid (column=0, row=0, padx=(6,6), pady=0)
+        self.btn_ash .bind ('<Double-3>', self.ash_close_windows)
           
-    def img_gear(self):   # Metodo que crea -1- Boton (rueda)-----------------NO TOCAR (despues)
-
-        self.btn_gear = Button (self, image= self.master.Images_sublist [1], bg= '#11161d', bd= 0, activebackground= '#11161d', command= self.master.gear_stacking)        # akl era  command= self.master.configure_height
-        self.btn_gear .grid (column= 0, row= 1)
-
+    def gear_controller(self):  # IMAGE
+        self.btn_gear = Button (self, image=self.Sublist[1], bg='#11161d', bd=0, activebackground='#11161d', command=self.master.gear_stacking) 
+        self.btn_gear .grid (column=0, row=1)
         #self.btn_gear .bind ('<Double-3>', self.master.otros)
-       
-    def img_moviles(self):   # Metodo que crea -22- Botones (moviles)  #command = lambda:images(1))
-        
-        self.Frog_1 = Button (self, text='Frog', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Frog_left_off, Frog_right, Frog_stuf)) 
-        self.Fox_2 = Button (self, text='Fox', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Fox_left_off, Fox_right, Fox_stuf))         
-        self.Boomer_3 = Button (self, text='Boomer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Boomer_left_off, Boomer_right, Boomer_stuf))             
-        self.Ice_4 = Button (self, text='Ice', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Ice_left_off, Ice_right, Ice_stuf))
-        self.JD_5 = Button (self, text='J.D', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Jd_left_off, Jd_right, Jd_stuf))
-        self.Grub_6 = Button (self, text='Grub', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Grub_left_off, Grub_right, Grub_stuf))   
-        self.Lightning_7 = Button (self, text='Lightning', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width=10, bd=0, command= lambda: self.master.master.windows_123 (Lightning_left_off, Lightning_right, Lightning_stuf))       
-        self.Aduka_8 = Button (self, text='Aduka', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Aduka_left_off, Aduka_right, Aduka_stuf))      
-        self.Knight_9 = Button (self, text='Knight', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Knight_left_off, Knight_right, Knight_stuf))     
-        self.Kalsiddon_10 = Button (self, text='Kalsiddon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Kalsiddon_left_off, Kalsiddon_right, Kalsiddon_stuf))
-        self.Mage_11 = Button (self, text='Mage', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Mage_left_off, Mage_right, Mage_stuf))     
 
-        self.Randomizer_12 = Button (self, text='Randomizer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Randomizer_left_off, Randomizer_right, Randomizer_stuf)) 
-        self.Jolteon_13 = Button (self, text='Jolteon', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Jolteon_left_off, Jolteon_right, Jolteon_stuf)) 
-        self.Turtle_14 = Button (self, text='Turtle', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Turtle_left_off, Turtle_right, Turtle_stuf))
-        self.Armor_15 = Button (self, text='Armor', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Armor_left_off, Armor_right, Armor_stuf))
-        self.Asate_16 = Button (self, text='A.Sate', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Asate_left_off, Asate_right, Asate_stuf))
-        self.Raon_17 = Button (self, text='Raon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Raon_left_off, Raon_right, Raon_stuf)) 
-        self.Trico_18 = Button (self, text='Trico', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Trico_left_off, Trico_right, Trico_stuf))
-        self.Nak_19 = Button (self, text='Nak', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Nak_left_off, Nak_right, Nak_stuf)) 
-        self.Bigfoot_20 = Button (self, text='Bigfoot', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Bigfoot_left_off, Bigfoot_right, Bigfoot_stuf)) 
-        self.Barney_21 = Button (self, text='Barney', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Barney_left_off, Barney_right, Barney_stuf)) 
-        self.Dragon_22 = Button (self, text='Dragon', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.master.windows_123 (Dragon_left_off, Dragon_right, Dragon_stuf))
+    def ash_close_windows(self, event):   # ACTIVA: CON DOBLE CLICK DERECHO EN EL LOGO - CIERRA LAS VENTANAS 
+    
+        try:
+            self.master.toplevel_LEFT .destroy() 
+            self.master._open_1 = False
+
+            self.master.toplevel_RIGHT .destroy()
+            self.master._open_2 = False
+
+            self.master.toplevel_STUF .destroy()
+            self.master._open_3 = False
+        except:
+            pass
+
+    def ash_minimize_windows(self):   # ACTIVA: CON CLICK IZQUIERDO AL LOGO - MINIMIZA LAS VENTANAS
+
+        if self.master._open_1 == True or self.master._open_2 == True or self.master._open_3 == True:
+
+            if self.master._minimize == False:
+                if self.master._open_1 == True:
+                    self.master.toplevel_LEFT .deiconify()   # MOSTRAR VENTANAS  
+                if self.master._open_2 == True:
+                    self.master.toplevel_RIGHT .deiconify()
+                if self.master._open_3 == True:
+                    self.master.toplevel_STUF .deiconify()
+
+                self.master._minimize = True
+
+            else: 
+                if self.master._open_1 == True:
+                    self.master.toplevel_LEFT .iconify()     # OCULTAR VENTANAS
+                if self.master._open_2 == True:
+                    self.master.toplevel_RIGHT .iconify() 
+                if self.master._open_3 == True:    
+                    self.master.toplevel_STUF .iconify()
+
+                self.master._minimize = False
+
+    def generate_list(self, file, option):   # INICIALIZA IMAGENES
+
+        ouput = os.listdir(file)
+        empty = []              
+        if option == 'S':
+            for i in ouput: 
+                if 'SubList' in i :      
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    array = Image.fromarray (RGB)
+                    img = ImageTk.PhotoImage (array)
+                    empty. append (img)
+            return empty
+
+################################
+class B1_class(Frame):   # Frame contenedor de botones
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)
+
+        #_____C O N T E N E D O R E S:  [ 1 ]
+        self.frame_1 = Frame (self, bg='#11161d')          # Color: Azul
+        self.frame_1 .grid (padx=(10,10), pady=(6,6))
+
+        self.mobile_button()
+
+    def mobile_button(self):   # Metodo que crea -22- Botones (moviles)  #command = lambda:images(1))
+        
+        self.Frog_1 = Button (self.frame_1, text='Frog', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.windows_123 (Frog_left_off, Frog_right, Frog_stuf)) 
+        self.Fox_2 = Button (self.frame_1, text='Fox', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.windows_123 (Fox_left_off, Fox_right, Fox_stuf))         
+        self.Boomer_3 = Button (self.frame_1, text='Boomer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.windows_123 (Boomer_left_off, Boomer_right, Boomer_stuf))             
+        self.Ice_4 = Button (self.frame_1, text='Ice', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.windows_123 (Ice_left_off, Ice_right, Ice_stuf))
+        self.JD_5 = Button (self.frame_1, text='J.D', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.windows_123 (Jd_left_off, Jd_right, Jd_stuf))
+        self.Grub_6 = Button (self.frame_1, text='Grub', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.windows_123 (Grub_left_off, Grub_right, Grub_stuf))   
+        self.Lightning_7 = Button (self.frame_1, text='Lightning', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width=10, bd=0, command= lambda: self.master.windows_123 (Lightning_left_off, Lightning_right, Lightning_stuf))       
+        self.Aduka_8 = Button (self.frame_1, text='Aduka', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.windows_123 (Aduka_left_off, Aduka_right, Aduka_stuf))      
+        self.Knight_9 = Button (self.frame_1, text='Knight', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.windows_123 (Knight_left_off, Knight_right, Knight_stuf))     
+        self.Kalsiddon_10 = Button (self.frame_1, text='Kalsiddon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.windows_123 (Kalsiddon_left_off, Kalsiddon_right, Kalsiddon_stuf))
+        self.Mage_11 = Button (self.frame_1, text='Mage', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.windows_123 (Mage_left_off, Mage_right, Mage_stuf))     
+
+        self.Randomizer_12 = Button (self.frame_1, text='Randomizer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.windows_123 (Randomizer_left_off, Randomizer_right, Randomizer_stuf)) 
+        self.Jolteon_13 = Button (self.frame_1, text='Jolteon', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.windows_123 (Jolteon_left_off, Jolteon_right, Jolteon_stuf)) 
+        self.Turtle_14 = Button (self.frame_1, text='Turtle', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.windows_123 (Turtle_left_off, Turtle_right, Turtle_stuf))
+        self.Armor_15 = Button (self.frame_1, text='Armor', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.windows_123 (Armor_left_off, Armor_right, Armor_stuf))
+        self.Asate_16 = Button (self.frame_1, text='A.Sate', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.windows_123 (Asate_left_off, Asate_right, Asate_stuf))
+        self.Raon_17 = Button (self.frame_1, text='Raon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.windows_123 (Raon_left_off, Raon_right, Raon_stuf)) 
+        self.Trico_18 = Button (self.frame_1, text='Trico', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.windows_123 (Trico_left_off, Trico_right, Trico_stuf))
+        self.Nak_19 = Button (self.frame_1, text='Nak', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.windows_123 (Nak_left_off, Nak_right, Nak_stuf)) 
+        self.Bigfoot_20 = Button (self.frame_1, text='Bigfoot', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, command= lambda: self.master.windows_123 (Bigfoot_left_off, Bigfoot_right, Bigfoot_stuf)) 
+        self.Barney_21 = Button (self.frame_1, text='Barney', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.windows_123 (Barney_left_off, Barney_right, Barney_stuf)) 
+        self.Dragon_22 = Button (self.frame_1, text='Dragon', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, command= lambda: self.master.windows_123 (Dragon_left_off, Dragon_right, Dragon_stuf))
                 
         self.Frog_1 .grid (column= 1, row= 1, pady= 3, padx= (5,0))
         self.Fox_2 .grid (column= 2, row= 1, pady= 3, padx= (0,0))       
@@ -618,8 +324,297 @@ class Create_Frame (Frame):
         self.Bigfoot_20 .grid (column= 9, row= 2, pady= 2, padx= (0,0))
         self.Barney_21 .grid (column= 10, row= 2, pady= 2, padx= (0,0))
         self.Dragon_22 .grid (column= 11, row= 2, pady= 2, padx= (0,5))
+
+################################
+class B2_class(Frame):   # Frame contenedor de checkbuttons y labels
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, kwargs)
+
+        #_____C O N T E N E D O R E S:  [ 0 ]
         
+        self.create_label()
+        self.create_checkbutton()
+
+    def cheeck(self): # ES UN EVENTP QUE ´PASA CUANDO CHECKBUTON 5 CAMBIOA DE VALOR 
+        pass
+        """ if self.variable.get() == False:
+            self.variable.set(True)
+        if self.variable.get() == True:
+            self.variable.set(False)
+        """
+
+    def create_label(self):
+
+        label_option1 = Label (self, text= 'Activar Aimbot :' , font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        label_option2 = Label (self, text= 'Activar aimbot :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        label_option3 = Label (self, text= 'Activar ddd ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        label_option4 = Label (self, text= 'Activar Modo On :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        label_option5 = Label (self, text= 'Activar Modo Lista :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        label_option6 = Label (self, text= 'Activar Modo Guía :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        label_option7 = Label (self, text= 'Recordar Configuracion :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+
+        label_option1 .grid (column=0, row=0, padx= (30,10), pady=(10,0), sticky=W)
+        label_option2 .grid (column=0, row=1, padx= (30,10), pady=(0,0), sticky=W)
+        label_option3 .grid (column=2, row=0, padx= (30,10), pady=(10,0), sticky=W)
+        label_option4 .grid (column=2, row=1, padx= (30,10), pady=(0,0), sticky=W)
+        label_option5 .grid (column=4, row=0, padx= (30,10), pady=(10,0), sticky=W)
+        label_option6 .grid (column=4, row=1, padx= (30,10), pady=(0,0), sticky=W)   
+        label_option7 .grid (column=6, row=0, padx= (30,10), pady=(10,0), sticky=W)
     
+    def create_checkbutton(self):
+
+        self.ckbutton1 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        self.ckbutton2 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        self.ckbutton3 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        self.ckbutton4 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        self.ckbutton5 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        self.ckbutton6 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        self.ckbutton7 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+    
+        self.ckbutton1 .grid (column=1, row=0, pady=(10,0))
+        self.ckbutton2 .grid (column=1, row=1, pady=(0,0))
+        self.ckbutton3 .grid (column=3, row=0, pady=(10,0))
+        self.ckbutton4 .grid (column=3, row=1, pady=(0,0))
+        self.ckbutton5 .grid (column=5, row=0, pady=(10,0))
+        self.ckbutton6 .grid (column=5, row=1, pady=(0,0))
+        self.ckbutton7 .grid (column=7, row=0, pady=(10,0))
+
+################################          
+class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, kwargs)
+
+        path = 'E:/1-RICHI/MovilesDB'
+        #_____Coleccion de imagenes         
+        self.Miniatures= self.generate_list(path, 'M')
+
+        #_____C O N T E N E D O R E S___2:
+        self.frame_1 = Frame (self, bg='#31343a', width=116, height=65)    # Color: Plomo       
+        self.frame_2 = Frame (self, bg='#11161d', width=60, height=65)     # Color: Azul  
+
+        self.container_2w = Frame (self.frame_1, width=116, height=20, bg='#11161d') 
+        self.select_mobil = Label (self.frame_1, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        self.miniature_mobil = Label (self.frame_2, image=self.Miniatures[0], bd= 0) 
+
+        self.create_listbox (width=11, height=1)
+        self.create_spinbox (width=13)
+
+        #_____G R I D ():
+        self.frame_1 .grid (column=0, row=0)                                     # MASTER A
+        self.frame_2 .grid (column=1, row=0)                                     # MASTER B
+
+        self.container_2w .grid (column=0, row=0, padx=0, pady=(0,2), sticky=N)  # SUB A.1
+        self.select_mobil .grid (column=0, row=1, padx=11, pady=0)               # SUB A.2
+        self.spinboxx .grid (column=0, row=2, padx=13, pady=(3,3))               # SUB A.3
+
+        self.red_green .grid (column=0, row=0, padx=0, pady=0)                   # SUB.SUB A.1 .1 
+        self.listboxx .grid (column=1, row=0, padx=12, pady=(1,0))               # SUB.SUB A.1 .2
+
+        self.miniature_mobil .grid (padx=2, pady=3)                              # SUB B.1
+
+        #_____G R I D___P R O P A G A T E ():
+        self.frame_1 .grid_propagate(False)
+        self.frame_2 .grid_propagate(False)
+        self.container_2w .grid_propagate(False)
+        
+        #_____Variables de control:
+        self._change = None
+   
+
+    def change_variable(self, *args):  # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
+
+        spin = self.spinboxx.get().capitalize()
+
+        if spin == '':                                                          # 1- SI SPINBOX ESTA VACIO.  2- BORRA LA LISTA DE LISTBOX.  3- DESHABILITA LISTBOX.
+            self.listboxx .delete(0, END)
+        else:                                                                      # 1- HABILITA LISTBOX.  2- CREA LISTA VACIA.  3- ITERANDO: 'self.spinbox_values'.
+            list_new = []                                                          # 4- SI COINCIDE 'value' EN 'self.spinbox_values'.  5- AGREGA VALUE A LISTA.  6- SI LA LISTA NO ESTA VACIA.
+            for index, i in enumerate(self.spinbox_values):                        # 10- LLAMA AL METODO: 'def update' Y PASA LA LISTA DE ARGUMENTO.
+                if spin == i:                           
+                    self.miniature_mobil .config(image= self.Miniatures[index])
+                    self.spinboxx .icursor(END)
+                if spin in i:
+                    list_new .append(i)
+
+            if list_new != []:         
+                self.update(list_new)
+
+            if spin == 'As':  
+                self.listboxx.delete(0,1)
+
+        if self.listboxx.get(0) != spin and self.listboxx.get(0) != '' or spin == '': 
+            self.miniature_mobil .config(image= self.Miniatures[22])
+        
+    def update(self, list):  # ACTIVA: ** SI ES LLAMADO POR CHANGE_VARIABLE ** - BORRA LA LISTA DE LISTBOX EXISTENTE, AGREGA NUEVOS VALORES A LISTA Y BORRA DE NUEVO SI SE CUMPLE LA CONDICION
+    
+        self.listboxx .delete(0, END)                                    # 1- BORRA LA LISTA DE LISTBOX
+        for i in list:                                                  # 1- ITERANDO: 'list_new'.  2- INSERTANDO ITERADOR 'i' A LISTBOX.  
+            self.listboxx .insert(END, i)
+        if self.listboxx.get(0) == self.spinbox_variable.get():
+            self.listboxx .delete(0, END) 
+
+
+    def listbox_select(self,event):  # ACTIVA: CON CLICK IZQUIERDO EN LISTBOX - 
+       
+        selection = self.listboxx .get(ANCHOR)                                                           # 1- BORRA EL CONTENIDO DE SPINBOX.  2- INSERTA EL ITEM SELECCIONADO DEL LISTBOX A SPINBOX                         
+        
+        if self.listboxx.get(0,END) != ():      
+            self.spinboxx .delete(0, END) 
+        self.spinboxx .insert(0, selection)
+        self.listboxx .selection_clear(0,END)
+ 
+        self.after(100, lambda: self.spinboxx.focus_set())
+
+        #print('numero',self.listboxx.size())
+          
+
+    def listbox_enter(self, event):  # ACTIVA: CON TECLA ENTER - INSERTA EL VALOR DE LISTBOX A SPINBOX, MANDA LLAMAR A OPEN_WINDOWS  Y ABREN LAS VENTANAS
+ 
+        listbx = self.listboxx.get(0)
+        spinbx = self.spinboxx.get()
+
+        if listbx != spinbx and listbx != '':
+            self.spinboxx.delete(0, END)
+            self.spinboxx.insert(0, listbx)
+            
+        self.open_windows(event) 
+         
+    def open_windows(self, event):  # ACTIVA: ** SI ES LLAMADO POR LISTBOX_SELECT ** - ABRE LAS VENTANAS
+        
+        left = [Frog_left_off, Fox_left_off, Boomer_left_off, Ice_left_off, Jd_left_off, Grub_left_off, Lightning_left_off, Aduka_left_off, Knight_left_off, Kalsiddon_left_off, Mage_left_off, Randomizer_left_off, Jolteon_left_off, Turtle_left_off, Armor_left_off, Asate_left_off, Raon_left_off, Trico_left_off, Nak_left_off, Bigfoot_left_off, Barney_left_off, Dragon_left_off,]
+        right = [Frog_right, Fox_right, Boomer_right, Ice_right, Jd_right, Grub_right, Lightning_right, Aduka_right, Knight_right, Kalsiddon_right, Mage_right, Randomizer_right, Jolteon_right, Turtle_right, Armor_right, Asate_right, Raon_right, Trico_right, Nak_right, Bigfoot_right, Barney_right, Dragon_right]
+        stuf = [Frog_stuf, Fox_stuf, Boomer_stuf, Ice_stuf, Jd_stuf, Grub_stuf, Lightning_stuf, Aduka_stuf, Knight_stuf, Kalsiddon_stuf, Mage_stuf, Randomizer_stuf, Jolteon_stuf, Turtle_stuf, Armor_stuf, Asate_stuf, Raon_stuf, Trico_stuf, Nak_stuf, Bigfoot_stuf, Barney_stuf, Dragon_stuf]
+
+        for index, i in enumerate(self.spinbox_values):
+            if self.spinboxx.get() == i:
+                self.master.windows_123(left[index], right[index], stuf[index]) 
+        
+        if self._change is not None:
+            self.after(10000, self.automatic_deletion) 
+
+    def automatic_deletion(self):  # ACTIVA: ** SI ES LLAMADO POR OPEN_WINDOWS ** Y SI LA VARIABLE DE CONTROL NO ES NONE - LIMPIA SPINBOX
+
+        self.spinboxx .delete(0, END)     
+
+
+    def change_red_green(self, event):  # ACTIVA: CLICK IZQUIERDO EN RED_GREEN - CAMBIA IMAGEN ROJO-VERDE Y VICEVERSA
+
+        if self._change is None:
+            self.red_green .config (image=self.Miniatures[24])  
+            self._change = True
+        else:
+            self.red_green .config (image=self.Miniatures[23])
+            self._change = None
+
+    def validate_text(self, text, arg): # SIEMPRE QUE INSERTE TEXTO EN SPINBOX - NO PERMITE NUMEROS,SIMBOLOS,ESPACIOS Y CONTROLA LA CANTIDAD
+
+        if all (i not in "0123456789[{!¡¿?<>(|#$%&),_-°'´}] +-*/=" for i in text) and len(text) < 14:   
+                return True                                                 
+        return False  
+
+    def create_spinbox(self, **args):
+        
+        self.spinboxx = Spinbox (self.frame_1, **args)
+        
+        self.spinbox_variable = StringVar()
+        self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']
+        self.all_register = (self.register(self.validate_text), '%P', '%S')
+        self.spinboxx.config (values=self.spinbox_values,
+                             textvariable=self.spinbox_variable,
+                             validate='key',
+                             validatecommand=self.all_register,
+                             justify='center',
+                             wrap=True,
+                             bd=0)
+
+        self.spinboxx.icursor(END)
+
+        self.spinboxx .bind ('<Double-1>', lambda *arg: self.spinboxx.delete(0, END))     # ACTIVA: CON DOBLE CLICK EN SPINBOX - LIMPIA SPINBOX
+        self.spinboxx .bind ('<Return>', self.listbox_enter)                              # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX  
+
+        self.spinbox_variable .trace_add ('write', self.change_variable)  
+        self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # INSERTA EL VALOR OBTENIDO EN MAYUSCULA EL PRIMER STRING
+
+    def create_listbox(self, **kwargs):
+     
+        self.red_green = Label (self.container_2w, image= self.Miniatures[23], width=11, bd=0) 
+
+        self.listboxx = Listbox (self.container_2w, **kwargs)
+        self.listboxx .config (font=('Calibri',9,'bold'),
+                              bg='#11161d', fg='#00ff00',
+                              borderwidth=0, bd=0,
+                              highlightthickness=0,
+                              highlightbackground='#11161d',  
+                              highlightcolor='#11161d',  
+                              selectbackground='#11161d', 
+                              selectforeground='#ff8000',
+                              activestyle='none',
+                              justify='center',
+                              selectmode=SINGLE,
+                              takefocus=0)
+
+        self.red_green .bind ("<Button-1>", self.change_red_green)
+        self.listboxx .bind ('<<ListboxSelect>>', self.listbox_select)   # ACTIVA: CON CLICK IZQUIERDO EN EL LISTBOX - SELECCIONA 1 ITEM
+
+    def generate_list (self, file, option):   # INICIALIZA IMAGENES
+
+        ouput = os.listdir (file)
+        empty = [] 
+           
+        if option == 'M':
+            for i in ouput:  
+                if 'Mini' in i :      
+                    full = file + '/' + i
+                    open = cv2.imread (full)
+                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    array = Image.fromarray (RGB)
+                    img = ImageTk.PhotoImage (array)
+                    empty. append (img)
+            return empty
+
+################################ 
+class Checkbutton_class(Checkbutton):   
+    def __init__(self, *args, **kwargs):
+        Checkbutton.__init__(self, *args, **kwargs)
+
+        self.variable = BooleanVar()
+        self.configure(variable=self.variable)
+    
+    def checked(self):
+        return self.variable.get()
+    
+    def check(self):
+        self.variable.set(True)
+    
+    def uncheck(self):
+        self.variable.set(False) 
+
+    def value (self):
+        if self.variable .get() == True: 
+            pass  
+   
+################################
+class _Toplevel (Toplevel):
+
+    def __init__(self, *args): #---------------------------------------------------------NO TOCAR 
+        Toplevel. __init__(self, *args) 
+        #self.masters = master
+          
+    def configure_toplevel(self, head, size): #--------------------------------NO TOCAR (despues)
+     
+        self.title (head)    #  titulo
+        self.geometry (size)  #  tamaño
+        self.resizable (1,1)
+        self.wm_attributes ('-topmost', True)
+        self.config (bg = 'magenta2')
+        self.wm_attributes ('-transparentcolor', 'magenta2')
+        #self.overrideredirect(1)
+
+    def widgets_toplevel(self):
+        pass
+
+################################
+  
 
 class Example(Frame):
     def __init__(self, master, index, *args, **kwargs):
