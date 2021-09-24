@@ -35,12 +35,29 @@ class Aplicacion(Frame)
         self.frame_top .bind ('<ButtonPress-1>', self.start)
         self.frame_top .bind ('<B1-Motion>', self.mover)
         self.master .bind ('<Map>', self.on_deiconify)
-        self.master .bind ('<Unmap>', self.on_iconify)
+        self.master .bind ('<Unmap>', self.on_iconify)                       
 
+        self.grip = ttk.Sizegrip (self.frame_principal, style='TSizegrip')
+        self.grip .place (relx=1.0, rely=1.0, anchor='se')
+        self.grip .bind ('<B1-Motion>', self.redimencionar)
+        ttk.Style().configure('TSizegrip', background='black')
 
+        self.widgets()
 
+    def redimencionar(self, event):
+        self.x0 = self.ventana .winfo_rootx()
+        self.y0 = self.ventana .winfo_rooty()
+        self.x1 = self.ventana .winfo_pointerx()
+        self.y1 = self.ventana .winfo_pointery()
 
+        try:
+        self.ventana . geometry('%sx%s' % ((self.x1 - self.x0),(self.y1 - self.y0)))
+        except:
+            pass
 
+    def salir(self):
+        self.ventana .destroy()
+        self.ventana .quit()
 
-
-
+    def start(self, event):
+        
