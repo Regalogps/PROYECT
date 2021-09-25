@@ -8,9 +8,9 @@ import numpy as np
 import os 
 #import sys
 
-class Interface(Frame):
-    def __init__(self, master):
-        Frame.__init__(self, master)
+class Interface(Tk):
+    def __init__(self):
+        Tk.__init__(self)
 
         path = 'E:/1-RICHI/MovilesDB'
         #____Coleccion de imagenes:
@@ -43,7 +43,7 @@ class Interface(Frame):
         position = str(geometry_width) + 'x' + str(geometry_height) + '+' + str(width_pixel) + '+' + str(height_pixel)
         return position
 
-    """ def configure_interface(self, geometry):   # CONFIGURA VENTANA PRINCIPAL
+    def configure_interface(self, geometry):   # CONFIGURA VENTANA PRINCIPAL
       
         #ventana.overrideredirect(1)
         #ventana.attributes("-toolwindow",-1)
@@ -53,19 +53,6 @@ class Interface(Frame):
         self.config (bg='magenta2')                                # CONFIGURA EL FONDO DE LA VENTANA, etc
         self.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
         self.wm_attributes ('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
-        #root.attributes("-alpha", 0.5 ) 
-        #self.eval('tk::PlaceWindow . center')    ######%%%%%%%%%%%%%%%%%%%%%%%%% """
-
-    def configure_interface(self, geometry):   # CONFIGURA VENTANA PRINCIPAL
-      
-        #ventana.overrideredirect(1)
-        #ventana.attributes("-toolwindow",-1)
-        self.master.title ('_AshmanBot_')                                 #  BORRAR
-        self.master.geometry (geometry)                                 # TAMANIO DE LA VENTANA  ('816x65')
-        self.master.resizable (1,1)                                       # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
-        self.master.config (bg='magenta2')                                # CONFIGURA EL FONDO DE LA VENTANA, etc
-        self.master.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
-        self.master.wm_attributes ('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
         #root.attributes("-alpha", 0.5 ) 
         #self.eval('tk::PlaceWindow . center')    ######%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -110,7 +97,7 @@ class Interface(Frame):
             self.frame_config .focus_set()                         # MODO CONFIGURACION
             self.frame_config .grid (column=1, row=0, padx=0, pady=0, sticky=N) # creo borar stiky
             self._gear = False
-            self.master.geometry ('816x65')
+            self.geometry ('816x65')
    
         else:
             self.frame_config .grid_remove()
@@ -118,7 +105,7 @@ class Interface(Frame):
             if self.frame_config .ckbutton5.variable.get() == True:   
                 self.frame_listmode .grid (column=1, row=0, padx=0, pady=0) 
                 self.frame_listmode .spinboxx.focus_set()
-                self.master.geometry ('236x65')
+                self.geometry ('236x65')
             else:
                 self.frame_botones .grid()
                 self.frame_listmode .grid_remove()
@@ -2072,11 +2059,8 @@ class Dragon_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  
 ################################            FIN            ################################
 
 def main (): #------------------------------------------------------------NO TOCAR 
-    root = Tk()
-    
-    app = Interface(root)
-    app .pack()    
-    root .mainloop()
+    app = Interface()    
+    app .mainloop()
 
 if __name__=="__main__":  #-------------------------------------------------------NO TOCAR 
     main()
