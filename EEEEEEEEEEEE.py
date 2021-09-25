@@ -105,7 +105,7 @@ class Interface(Tk):
             if self.frame_config .ckbutton5.variable.get() == True:   
                 self.frame_listmode .grid (column=1, row=0, padx=0, pady=0) 
                 self.frame_listmode .spinboxx.focus_set()
-                self.geometry ('232x65')
+                self.geometry ('236x65')
             else:
                 self.frame_botones .grid()
                 self.frame_listmode .grid_remove()
