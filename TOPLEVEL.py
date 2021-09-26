@@ -17,7 +17,7 @@ class Aplicacion(Frame):
         self.ventana .minsize(width=300, height=200)
         self.ventana .geometry('800x500+300+90')
        
-        #__FRAME BARRA DE TITULO:
+        #__FRAME BARRA DE TITULO:aaaaaa
         self.frame_top = Frame (self.ventana, bg='blue', height=60)
         self.frame_top .grid_propagate(0)
         self.frame_top .grid (column=0, row=0, sticky='nsew')
