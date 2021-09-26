@@ -1,4 +1,7 @@
-class Aplicacion(Frame)
+from tkinter import *
+from tkinter import ttk
+
+class Aplicacion(Frame):
     def __init__(self, master, *args):
         Frame.__init__(self, master, *args)
         self.x = 0
@@ -51,7 +54,7 @@ class Aplicacion(Frame)
         self.y1 = self.ventana .winfo_pointery()
 
         try:
-        self.ventana . geometry('%sx%s' % ((self.x1 - self.x0),(self.y1 - self.y0)))
+            self.ventana . geometry('%sx%s' % ((self.x1 - self.x0),(self.y1 - self.y0)))
         except:
             pass
 
@@ -80,8 +83,8 @@ class Aplicacion(Frame)
             self.cambiar_tamano .config(image= self.imagen_encogimiento)
             self.click = False
             
-            if self.ventana .winfo_y() <= 50 and self.ventana .winfo_y() > 0::
-                 self.click = TRUE
+            if self.ventana .winfo_y() <= 50 and self.ventana .winfo_y() > 0:
+                 self.click = True
                  self.cambiar_tamano .config(image= self.imagen_maximizar)                                                           
                  self.ventana . geometry('%sx%s+%s+%s' %((self.x1 - self.x0), (self.y1 - self.y0), self.x0, self.y0))
                  self.ventana . geometry('+%s+%s' % (self.ventana .winfo_x() +
@@ -90,7 +93,7 @@ class Aplicacion(Frame)
 
     def pantalla_completa(self):
         self.ventana .geometry('{0}x{1}+0+0' .format(self.ventana .winfo_screenwidth(),
-                               self.ventana .screenheight() - 30))
+                               self.ventana .winfo_screenheight () - 30))
    
     def cambiar_dimencion(self):
         if self. click == True:
@@ -111,10 +114,10 @@ class Aplicacion(Frame)
         self.master .iconify()
 
     def widgets(self):
-        self.imagen_cerrar = PhotoImage(file= '//')
-        self.imagen_maximizar = PhotoImage(file= '//') 
-        self.imagen_minimizae = PhotoImage(file= '//')
-        self.imagen_encogimiento = PhotoImage(file= '//')
+        self.imagen_cerrar = PhotoImage(file= 'ce.png')
+        self.imagen_maximizar = PhotoImage(file= 'ma.png') 
+        self.imagen_minimizar = PhotoImage(file= 'mi.png')
+        self.imagen_encogimiento = PhotoImage(file= 'ma2.png')
 
         self.cerrar = Button(self.frame_top, image=self.imagen_cerrar, bg='DarkOrchid1',
                              activebackground='DarkOrchid1', bd=0, command=self.salir)
@@ -128,28 +131,28 @@ class Aplicacion(Frame)
                              activebackground='DarkOrchid1', bd=0, command= lambda: self.master .iconify())
         self.minimizar .pack(ipadx=5, padx=5, side='right')
 
-        self.titulo = Label(self.frame_top, text='Aplicación de escritorio', bg='DarkOrchid1', fg='black',
+        self.titulo = Label(self.frame_top, text='Aplicación de escritorio', bg='green2', fg='black',
                            font=('Calibri',12,'bold'))  
-        self.titulo = pack(padx=10, side='left')
-        self.titulo = bind ('<B1-Motion>', self.mover)
-        self.titulo = bind ('<ButtonPress-1>', self.start)
+        self.titulo .pack(padx=10, side='left')
+        self.titulo .bind ('<B1-Motion>', self.mover)
+        self.titulo .bind ('<ButtonPress-1>', self.start)
 
-        frame_1 = Frame (self.frame_principal, bg='spring green', width=00, height=200, highLightbackground='gray25', highLightthickness=2)
+        frame_1 = Frame (self.frame_principal, bg='spring green', width=00, height=200, highlightbackground ='gray25', highlightthickness=2)
         frame_1 .grid (padx=10, pady=10, columnspan=2, row=0, sticky='nsew')
-        frame_2 = Frame (self.frame_principal, bg='spring green', width=00, height=200, highLightbackground='gray25', highLightthickness=2)
+        frame_2 = Frame (self.frame_principal, bg='spring green', width=00, height=200, highlightbackground='gray25', highlightthickness=2)
         frame_2 .grid (padx=10, pady=10, column=2, row=0, sticky='nsew')
-        frame_3 = Frame (self.frame_principal, bg='magenta2', width=00, height=200, highLightbackground='gray25', highLightthickness=2)
+        frame_3 = Frame (self.frame_principal, bg='magenta2', width=00, height=200, highlightbackground='gray25', highlightthickness=2)
         frame_3 .grid (padx=10, pady=10, column=0, row=1, sticky='nsew')
-        frame_4 = Frame (self.frame_principal, bg='gold', width=00, height=200, highLightbackground='gray25', highLightthickness=2)
+        frame_4 = Frame (self.frame_principal, bg='gold', width=00, height=200, highlightbackground='gray25', highlightthickness=2)
         frame_4 .grid (padx=10, pady=10, column=1, row=1, sticky='nsew')
-        frame_5 = Frame (self.frame_principal, bg='tomato', width=00, height=200, highLightbackground='gray25', highLightthickness=2)
+        frame_5 = Frame (self.frame_principal, bg='tomato', width=00, height=200, highlightbackground='gray25', highlightthickness=2)
         frame_5 .grid (padx=10, pady=10, column=2, row=1, sticky='nsew')
 
 if __name__=='__main__':
     root = Tk()
     root .title('Aplicación moderna')
     #icono
-    root .attributes('-alpha', 0,0)
+    root .wm_attributes("-alpha", 0.0 ) 
     root .config(bg='DarkOrchid1')
     app = Aplicacion (root)
     app .mainloop()

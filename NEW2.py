@@ -1,5 +1,6 @@
-from tkinter import Tk, Toplevel, Frame, Label, Button, Spinbox, Listbox, Checkbutton, StringVar, IntVar, BooleanVar
-from tkinter import SINGLE, ANCHOR, END, S,N,E,W, SE
+from tkinter import *
+#from tkinter import Label, Frame, Spinbox, Listbox, Checkbutton, StringVar, IntVar
+#from typing import Sized
 from PIL import ImageTk, Image
 import cv2
 import imutils
@@ -7,14 +8,16 @@ import numpy as np
 import os 
 #import sys
 
+global Images
+
 class Interface(Tk):
     def __init__(self):
         Tk.__init__(self)
-
+        global Images
         path = 'E:/1-RICHI/MovilesDB'
         #____Coleccion de imagenes:
         self.Images_1 = self.generate_list (path, 'I')
-
+        Images = self.generate_list (path, 'I')
         #____Variables de control para las ventanas:  [ 1,2,3 ]
         self._frame_1 = None
         self._frame_2 = None
@@ -642,10 +645,10 @@ class Frog_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [0][0], bd=0)
+        self.fr_img_delay = Example (self, Images[0][2], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [0][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[0][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -670,11 +673,11 @@ class Frog_right (Frame):  #------------------------------- DERECHA :  BASE  /  
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [0][2], bd=0)
+        self.fr_img_base = Example (self, Images[0][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [0][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[0][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -705,10 +708,10 @@ class Fox_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [1][0], bd=0)
+        self.fr_img_delay = Example (self, Images[1][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [1][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[1][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -733,11 +736,11 @@ class Fox_right (Frame):  #------------------------------- DERECHA :  BASE  /  7
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [1][2], bd=0)
+        self.fr_img_base = Example (self, Images[1][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [1][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[1][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -773,10 +776,10 @@ class Boomer_left_off (Frame):  #------------------------------ IZQUIERDA :  DEL
 
         self.bind ('<Configure>', self.a)    # Ver si cambiar a self.master.bind
                 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [2][0], bd=0)
+        self.fr_img_delay = Example (self, Images[2][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [2][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[2][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)   #self.lbl_guia . place(x= 2, y= 48)  
@@ -815,11 +818,11 @@ class Boomer_right (Frame):  #------------------------------- DERECHA :  BASE  /
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
-        self.fr_img_base = Example (self, self.master.master.Images_1 [2][2], bd=0)
+        self.fr_img_base = Example (self, Images[2][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [2][3], bd=0)  
+        self.fr_img_77 = Example (self, Images[2][3], bd=0)  
  
         self.flecha = Label (self, text= '↑', font=('Calibri',30,'bold'), bg=  '#2f3337',fg='green2', width=1, height=1)
         self.alert_77 = Label (self, text= "Haga ' Click ' para mostrar:\nAngulo ' 77 '", font=('Bickham Script Pro',8  ,'bold'), bg=  '#2f3337',fg='white', width=50, height=2)
@@ -897,10 +900,10 @@ class Ice_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [3][0], bd=0)
+        self.fr_img_delay = Example (self, Images[3][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [3][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[3][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -925,11 +928,11 @@ class Ice_right (Frame):  #------------------------------- DERECHA :  BASE  /  7
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [3][2], bd=0)
+        self.fr_img_base = Example (self, Images[3][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [3][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[3][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -960,10 +963,10 @@ class Jd_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [4][0], bd=0)
+        self.fr_img_delay = Example (self, Images[4][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [4][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[4][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -988,11 +991,11 @@ class Jd_right (Frame):  #------------------------------- DERECHA :  BASE  /  77
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [4][2], bd=0)
+        self.fr_img_base = Example (self, Images[4][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [4][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[4][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1024,10 +1027,10 @@ class Grub_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [5][0], bd=0)
+        self.fr_img_delay = Example (self, Images[5][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [5][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[5][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1052,11 +1055,11 @@ class Grub_right (Frame):  #------------------------------- DERECHA :  BASE  /  
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [5][2], bd=0)
+        self.fr_img_base = Example (self, Images[5][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [5][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[5][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1088,10 +1091,10 @@ class Lightning_left_off (Frame):  #------------------------------ IZQUIERDA :  
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [6][0], bd=0)
+        self.fr_img_delay = Example (self, Images[6][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [6][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[6][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1116,11 +1119,11 @@ class Lightning_right (Frame):  #------------------------------- DERECHA :  BASE
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [6][2], bd=0)
+        self.fr_img_base = Example (self, Images[6][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [6][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[6][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1149,10 +1152,10 @@ class Aduka_left_off (Frame):  #------------------------------ IZQUIERDA :  DELA
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [7][0], bd=0)
+        self.fr_img_delay = Example (self, Images[7][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [7][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[7][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1177,11 +1180,11 @@ class Aduka_right (Frame):  #------------------------------- DERECHA :  BASE  / 
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [7][2], bd=0)
+        self.fr_img_base = Example (self, Images[7][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [7][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[7][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1210,10 +1213,10 @@ class Knight_left_off (Frame):  #------------------------------ IZQUIERDA :  DEL
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [8][0], bd=0)
+        self.fr_img_delay = Example (self, Images[8][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [8][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[8][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1238,11 +1241,11 @@ class Knight_right (Frame):  #------------------------------- DERECHA :  BASE  /
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [8][2], bd=0)
+        self.fr_img_base = Example (self, Images[8][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [8][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[8][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1271,10 +1274,10 @@ class Kalsiddon_left_off (Frame):  #------------------------------ IZQUIERDA :  
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [9][0], bd=0)
+        self.fr_img_delay = Example (self, Images[9][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [9][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[9][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1299,11 +1302,11 @@ class Kalsiddon_right (Frame):  #------------------------------- DERECHA :  BASE
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [9][2], bd=0)
+        self.fr_img_base = Example (self, Images[9][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [9][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[9][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1332,10 +1335,10 @@ class Mage_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [10][0], bd=0)
+        self.fr_img_delay = Example (self, Images[10][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [10][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[10][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1360,11 +1363,11 @@ class Mage_right (Frame):  #------------------------------- DERECHA :  BASE  /  
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [10][2], bd=0)
+        self.fr_img_base = Example (self, Images[10][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [10][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[10][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1393,10 +1396,10 @@ class Randomizer_left_off (Frame):  #------------------------------ IZQUIERDA : 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [11][0], bd=0)
+        self.fr_img_delay = Example (self, Images[11][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [11][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[11][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1421,11 +1424,11 @@ class Randomizer_right (Frame):  #------------------------------- DERECHA :  BAS
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [11][2], bd=0)
+        self.fr_img_base = Example (self, Images[11][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [11][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[11][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1454,10 +1457,10 @@ class Jolteon_left_off (Frame):  #------------------------------ IZQUIERDA :  DE
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [12][0], bd=0)
+        self.fr_img_delay = Example (self, Images[12][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [12][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[12][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1482,11 +1485,11 @@ class Jolteon_right (Frame):  #------------------------------- DERECHA :  BASE  
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [12][2], bd=0)
+        self.fr_img_base = Example (self, Images[12][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [12][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[12][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1514,10 +1517,10 @@ class Turtle_left_off (Frame):  #------------------------------ IZQUIERDA :  DEL
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [13][0], bd=0)
+        self.fr_img_delay = Example (self, Images[13][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [13][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[13][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1542,11 +1545,11 @@ class Turtle_right (Frame):  #------------------------------- DERECHA :  BASE  /
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [13][2], bd=0)
+        self.fr_img_base = Example (self, Images[13][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [13][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[13][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1575,10 +1578,10 @@ class Armor_left_off (Frame):  #------------------------------ IZQUIERDA :  DELA
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [14][0], bd=0)
+        self.fr_img_delay = Example (self, Images[14][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [14][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[14][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1603,11 +1606,11 @@ class Armor_right (Frame):  #------------------------------- DERECHA :  BASE  / 
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [14][2], bd=0)
+        self.fr_img_base = Example (self, Images[14][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [14][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[14][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1636,10 +1639,10 @@ class Asate_left_off (Frame):  #------------------------------ IZQUIERDA :  DELA
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [15][0], bd=0)
+        self.fr_img_delay = Example (self, Images[15][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [15][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[15][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1664,11 +1667,11 @@ class Asate_right (Frame):  #------------------------------- DERECHA :  BASE  / 
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [15][2], bd=0)
+        self.fr_img_base = Example (self, Images[15][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [15][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[15][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1697,10 +1700,10 @@ class Raon_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [16][0], bd=0)
+        self.fr_img_delay = Example (self, Images[16][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [16][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[16][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1725,11 +1728,11 @@ class Raon_right (Frame):  #------------------------------- DERECHA :  BASE  /  
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [16][2], bd=0)
+        self.fr_img_base = Example (self, Images[16][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [16][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[16][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1758,10 +1761,10 @@ class Trico_left_off (Frame):  #------------------------------ IZQUIERDA :  DELA
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [17][0], bd=0)
+        self.fr_img_delay = Example (self, Images[17][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [17][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[17][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1786,11 +1789,11 @@ class Trico_right (Frame):  #------------------------------- DERECHA :  BASE  / 
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [17][2], bd=0)
+        self.fr_img_base = Example (self, Images[17][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [17][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[17][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1819,10 +1822,10 @@ class Nak_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY 
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [18][0], bd=0)
+        self.fr_img_delay = Example (self, Images[18][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [18][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[18][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1847,11 +1850,11 @@ class Nak_right (Frame):  #------------------------------- DERECHA :  BASE  /  7
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [18][2], bd=0)
+        self.fr_img_base = Example (self, Images[18][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [18][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[18][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1880,10 +1883,10 @@ class Bigfoot_left_off (Frame):  #------------------------------ IZQUIERDA :  DE
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [19][0], bd=0)
+        self.fr_img_delay = Example (self, Images[19][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [19][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[19][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1908,11 +1911,11 @@ class Bigfoot_right (Frame):  #------------------------------- DERECHA :  BASE  
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [19][2], bd=0)
+        self.fr_img_base = Example (self, Images[19][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [19][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[19][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -1941,10 +1944,10 @@ class Barney_left_off (Frame):  #------------------------------ IZQUIERDA :  DEL
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [20][0], bd=0)
+        self.fr_img_delay = Example (self, Images[20][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [20][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[20][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -1969,11 +1972,11 @@ class Barney_right (Frame):  #------------------------------- DERECHA :  BASE  /
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [20][2], bd=0)
+        self.fr_img_base = Example (self, Images[20][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [20][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[20][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -2002,10 +2005,10 @@ class Dragon_left_off (Frame):  #------------------------------ IZQUIERDA :  DEL
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)   
 
-        self.fr_img_delay = Example (self, self.master.master.Images_1 [21][0], bd=0)
+        self.fr_img_delay = Example (self, Images[21][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
 
-        self.fr_img_movil= Example (self, self.master.master.Images_1 [21][1], bd=0)  
+        self.fr_img_movil= Example (self, Images[21][1], bd=0)  
 
         self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
         self.lbl_guia . bind('<Button-1>', self.position_img)
@@ -2030,11 +2033,11 @@ class Dragon_right (Frame):  #------------------------------- DERECHA :  BASE  /
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = Example (self, self.master.master.Images_1 [21][2], bd=0)
+        self.fr_img_base = Example (self, Images[21][2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = Example (self, self.master.master.Images_1 [21][3], bd=0)       
+        self.fr_img_77 = Example (self, Images[21][3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
