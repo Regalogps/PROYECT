@@ -7,12 +7,15 @@ class BarraTitulo(Frame):
         Frame.__init__(self, master, **kwargs)
         self.master = master
         self.title = title if title else StringVar('')
+
         self.btn_close = Button(self, text="X", command=self.close)
+        self.btn_close .pack(side=RIGHT, padx=10, pady=10)
+
         self.btn_minimize = Button(self, text="_", command=self.minimize)
+        self.btn_minimize .pack(side=RIGHT, pady=10)
+
         self.title_lb = Label(self, textvariable=self.title, fg="white", bg="black")
-        self.btn_close.pack(side=RIGHT, padx=10, pady=10)
-        self.btn_minimize.pack(side=RIGHT, pady=10)
-        self.title_lb.pack(side=BOTTOM, padx=10, pady=10)
+        self.title_lb .pack(side=BOTTOM, padx=10, pady=10)
 
     def close(self):
         self.master.destroy()
@@ -55,6 +58,7 @@ class VentanaSinBordes(Toplevel):
         deltax = event.x - self._x
         deltay = event.y - self._y
         new_pos = "+{}+{}".format(self.winfo_x() + deltax, self.winfo_y() + deltay)
+
         self.geometry(new_pos)
         self.master.geometry(new_pos)
 
