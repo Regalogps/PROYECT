@@ -121,7 +121,7 @@ class Aplicacion(Frame):
 
         self.cerrar = Button(self.frame_top, image=self.imagen_cerrar, bg='DarkOrchid1',
                              activebackground='DarkOrchid1', bd=0, command=self.salir)
-        self.cerrar .pack(ipadx=5, ipady=2, padx=5, side='right')
+        self.cerrar .pack(ipadx=5,  padx=5, side='right')
 
         self.cambiar_tamano = Button(self.frame_top, image=self.imagen_maximizar, bg='DarkOrchid1',
                              activebackground='DarkOrchid1', bd=0, command=self.cambiar_dimencion)
