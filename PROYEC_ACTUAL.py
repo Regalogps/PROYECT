@@ -2180,11 +2180,8 @@ class BarraTitulo(Frame):
         self.button_close = Button(self, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
         self.button_minimize = Button(self, image=self.image_minimize, command=self.minimize, bd=0, bg='black', activebackground='black')
 
-        self.button_close .pack(side=RIGHT, pady=7)
-        self.button_minimize .pack(side=RIGHT, pady=7)
-
-        #self.label_title = Label(self, fg="white", bg="black")
-        #self.label_title .pack(side=BOTTOM, padx=10, pady=10)
+        self.button_close .pack(side=RIGHT)
+        self.button_minimize .pack(side=RIGHT, padx=10)
 
 
     def close(self):
