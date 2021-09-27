@@ -2166,7 +2166,7 @@ class BarraTitulo(Frame):
         self.image_initializer()
    
 
-    def orientation_button1(self):
+    def buttons_height(self):
 
         self.button_close = Button(self, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
         self.button_minimize = Button(self, image=self.image_minimize, command=self.minimize, bd=0, bg='black', activebackground='black')
@@ -2175,7 +2175,7 @@ class BarraTitulo(Frame):
         self.button_minimize .pack(side=BOTTOM, pady=7)
         
 
-    def orientation_button2(self):
+    def buttons_width(self):
 
         self.button_close = Button(self, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
         self.button_minimize = Button(self, image=self.image_minimize, command=self.minimize, bd=0, bg='black', activebackground='black')
@@ -2213,16 +2213,22 @@ class Toplevel_class(Toplevel):
         self.y1 = 100
         self.click = True
 
-        if type == 'T':
+        if type == 'H':
             self.borde = BarraTitulo(self, background="black") # #11161d
-            self.borde.pack(side=RIGHT, fill=BOTH)
+            self.borde .pack(side=RIGHT, fill=BOTH)
+            self.borde .buttons_height()
 
-            self.borde .orientation_button1()
-        if type == 'R':
+        if type == 'W':
             self.borde = BarraTitulo(self, background="black") # #11161d
-            self.borde.pack(side=RIGHT, fill=BOTH)
+            self.borde .pack(side=RIGHT, fill=BOTH)
+            self.borde .buttons_width()
 
-            self.borde .orientation_button2()
+            self.grip = ttk.Sizegrip (self.contenido, style='TSizegrip')
+            self.grip .place (relx=1.0, rely=1.0, anchor='center')
+            self.grip .bind ('<B1-Motion>', self.redimencionar)
+
+            ttk.Style().configure('TSizegrip', background='black')
+
 
 
         self.contenido = Interface(self)
@@ -2325,7 +2331,7 @@ def main (): #------------------------------------------------------------NO TOC
 
     root =  Tk()
     root .wm_attributes("-alpha", 0.0 )
-    app = Toplevel_class(root, type='T')
+    app = Toplevel_class(root, type='H')
     app .geometry('830x65')
     root .mainloop()
 
