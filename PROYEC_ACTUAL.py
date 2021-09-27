@@ -2200,8 +2200,8 @@ class BarraTitulo(Frame):
   
 ################################
 
-class VentanaSinBordes(Toplevel):
-    def __init__(self, master=None, barra=None, **kwargs):
+class Toplevel_class(Toplevel):
+    def __init__(self, master=None, type=None, **kwargs):
         Toplevel.__init__(self, master, **kwargs)
         self.overrideredirect(True)
         self.master = master
@@ -2213,12 +2213,15 @@ class VentanaSinBordes(Toplevel):
         self.y1 = 100
         self.click = True
 
-        self.borde = BarraTitulo(self, background="black") # #11161d
-        self.borde.pack(side=RIGHT, fill=BOTH)
+        if type == 'T':
+            self.borde = BarraTitulo(self, background="black") # #11161d
+            self.borde.pack(side=RIGHT, fill=BOTH)
 
-        if barra is '_top':
             self.borde .orientation_button1()
-        if barra is '_right':
+        if type == 'R':
+            self.borde = BarraTitulo(self, background="black") # #11161d
+            self.borde.pack(side=RIGHT, fill=BOTH)
+
             self.borde .orientation_button2()
 
 
@@ -2322,9 +2325,11 @@ def main (): #------------------------------------------------------------NO TOC
 
     root =  Tk()
     root .wm_attributes("-alpha", 0.0 )
-    app = VentanaSinBordes(root, barra='_top')
+    app = Toplevel_class(root, type='T')
     app .geometry('830x65')
     root .mainloop()
+
+
 
     """ root =  WindRoot()
     root .wm_attributes("-alpha", 0.0 )
