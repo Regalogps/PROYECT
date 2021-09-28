@@ -1,5 +1,6 @@
 from tkinter import Tk, ttk, Toplevel, PhotoImage, Frame, Label, Button, Spinbox, Listbox, Checkbutton, StringVar, IntVar, BooleanVar
 from tkinter import SINGLE, ANCHOR, END, S,N,E,W, RIGHT, BOTTOM, BOTH, SE, TOP, LEFT
+from tkinter.constants import NSEW
 from PIL import ImageTk, Image
 import cv2
 import imutils
@@ -38,7 +39,7 @@ class Interface(Frame):
         #ventana.overrideredirect(1)
         #ventana.attributes("-toolwindow",-1)
         self.master.title ('_AshmanBot_')                                 #  BORRAR
-        self.master.geometry ('816x65')                                 # TAMANIO DE LA VENTANA  ('816x65')   ---self.master.geometry (geometry)  
+        self.master.geometry ('830x65')                                 # TAMANIO DE LA VENTANA  ('816x65')   ---self.master.geometry (geometry)  
         self.master.resizable (1,1)                                       # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
         self.master.config (bg='magenta2')                                # CONFIGURA EL FONDO DE LA VENTANA, etc
         self.master.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
@@ -80,7 +81,7 @@ class Interface(Frame):
         #____G R I D___P R O P A G A T E ():
         self.frame_controller .pack_propagate (False)
         self.frame_botones .pack_propagate (False)
-        self.frame_config .pack_propagate (False)
+        #self.frame_config .pack_propagate (False)
 
     def gear_stacking(self):   # ACTIVA: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
 
@@ -92,10 +93,10 @@ class Interface(Frame):
 
             self.frame_config .focus_set()                         # MODO CONFIGURACION
             #self.frame_config .grid (column=1, row=0, padx=0, pady=0, sticky=N) # creo borar stiky    ----------
-            self.frame_config .pack (side=LEFT, fill=BOTH)
+            self.frame_config .pack (side=LEFT, fill=BOTH, expand=True)
             
             self._gear = False
-            self.master.geometry ('830x65')
+            #self.master.geometry ('830x65')
    
         else:
             #self.frame_config .grid_remove()
@@ -106,7 +107,7 @@ class Interface(Frame):
                 #self.frame_listmode .grid (column=1, row=0, padx=0, pady=0)  #-+-----------
                 self.frame_listmode .pack (side=LEFT, fill=BOTH)
                 self.frame_listmode .spinboxx.focus_set()
-                self.master.geometry ('250x65')
+                #self.master.geometry ('250x65')
             else:
                 #self.frame_botones .grid()
                 self.frame_botones .pack (side=LEFT, fill=BOTH) 
@@ -121,8 +122,9 @@ class Interface(Frame):
         
         #___V E N T A N A__°1:
         if self._open_1 == False: 
-            self.toplevel_LEFT = _Toplevel(self, barra='_right')  #############################################################   VENTANA TOPLEVEL IZQUIERDA
-            self.toplevel_LEFT .configure_toplevel ('220x690') #  metodo  ('izq', '220x690')
+            self.toplevel_LEFT = Toplevel()
+            self.toplevel_LEFT = Aplicacion (self, type='W')  #############################################################   VENTANA TOPLEVEL IZQUIERDA
+            #self.toplevel_LEFT .configure_toplevel ('220x690') #  metodo  ('izq', '220x690')
 
         self._open_1 = True     
                                 
@@ -132,13 +134,19 @@ class Interface(Frame):
             self._frame_1 .destroy()
         self._frame_1 = container_frame_left
         self._frame_1 .pack()
+
+        self.grip = ttk.Sizegrip(self._frame_1, style='TSizegrip')
+        self.grip .place (relx=1.0, rely=1.0, anchor='center')
+        ttk.Style().configure('TSizegrip', bg='black')
               
-        self.toplevel_LEFT .protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(1))
+        #self.toplevel_LEFT .protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(1))
+            
 
         #___V E N T A N A__°2:
         if self._open_2 == False:
-            self.toplevel_RIGHT = _Toplevel(self, barra='_right')  #############################################################   VENTANA TOPLEVEL DERECHA
-            self.toplevel_RIGHT .configure_toplevel ('220x690')  # ('der', '220x690')
+            self.toplevel_RIGHT = Toplevel()
+            self.toplevel_RIGHT = Aplicacion (self, type='W')  #############################################################   VENTANA TOPLEVEL DERECHA
+            #self.toplevel_RIGHT .configure_toplevel ('220x690')  # ('der', '220x690')
 
         self._open_2 = True
 
@@ -149,13 +157,19 @@ class Interface(Frame):
         self._frame_2 = container_frame_right
         self._frame_2 .pack()
 
-        self.toplevel_RIGHT.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(2))
+
+        self.grip = ttk.Sizegrip(self._frame_2, style='TSizegrip')
+        self.grip .place (relx=1.0, rely=1.0, anchor='center')
+        ttk.Style().configure('TSizegrip', bg='black')
+
+        #self.toplevel_RIGHT.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(2))
 
         #_______ desde aqui falta completar este if
         #___V E N T A N A__°3:
         if self._open_3 == False:
-            self.toplevel_STUF = _Toplevel(self, barra='_right')  #############################################################   VENTANA TOPLEVEL STUFF
-            self.toplevel_STUF .configure_toplevel ('620x190')     # ('stuf', '620x190')  
+            self.toplevel_STUF = Toplevel()
+            self.toplevel_STUF = Aplicacion (self, type='W')  #############################################################   VENTANA TOPLEVEL STUFF
+            #self.toplevel_STUF .configure_toplevel ('620x190')     # ('stuf', '620x190')  
 
         self._open_3 = True
 
@@ -166,8 +180,13 @@ class Interface(Frame):
         self._frame_3 = container_frame_stuf
         self._frame_3 .pack()
 
-        self.toplevel_STUF.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(3))
 
+        """ self.grip = ttk.Sizegrip(self._frame_3, style='TSizegrip')
+        self.grip .place (relx=1.0, rely=1.0, anchor='center')
+        ttk.Style().configure('TSizegrip', bg='black') """  # NO TIENE FRAME O IMAGEN TODAVIA
+
+        #self.toplevel_STUF.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(3))
+        self.toplevel_LEFT .mainloop()
 
     def close_windows(self, number):
 
@@ -327,7 +346,7 @@ class B2_class(Frame):   # Frame contenedor de checkbuttons y labels
         Frame.__init__(self, *args, kwargs)
 
         #_____C O N T E N E D O R E S:  [ 0 ]
-        
+ 
         self.create_label()
         self.create_checkbutton()
 
@@ -373,7 +392,7 @@ class B2_class(Frame):   # Frame contenedor de checkbuttons y labels
         self.ckbutton4 .grid (column=3, row=1, pady=(0,0))
         self.ckbutton5 .grid (column=5, row=0, pady=(10,0))
         self.ckbutton6 .grid (column=5, row=1, pady=(0,0))
-        self.ckbutton7 .grid (column=7, row=0, pady=(10,0))
+        self.ckbutton7 .grid (column=7, row=0, padx=(0,200), pady=(10,0),)
 
 ################################          
 class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
@@ -2064,9 +2083,9 @@ class _Toplevel (Toplevel):
         self.borde.pack(side=TOP, fill=BOTH)
 
         if barra is '_top':
-            self.borde .orientation_button1()
+            self.frame_titlebar .buttons_height ()
         if barra is '_right':
-            self.borde .orientation_button2()
+            self.frame_titlebar .buttons_width ()
 
 
         #self.contenido = Interface(self)
@@ -2074,9 +2093,9 @@ class _Toplevel (Toplevel):
         
  
 
-        self.borde.bind("<ButtonPress-1>", self.start_move)
-        self.borde.bind("<ButtonRelease-1>", self.stop_move)
-        self.borde.bind("<B1-Motion>", self.on_move)
+        self.frame_titlebar.bind("<ButtonPress-1>", self.start_move)
+        self.frame_titlebar.bind("<ButtonRelease-1>", self.stop_move)
+        self.frame_titlebar.bind("<B1-Motion>", self.on_move)
 
         """ self.borde.label_title.bind("<ButtonPress-1>", self.start_move)
         self.borde.label_title.bind("<ButtonRelease-1>", self.stop_move)
@@ -2164,24 +2183,6 @@ class BarraTitulo(Frame):
         Frame.__init__(self, master, **kwargs)
         self.master = master
         self.image_initializer()
-   
-
-    def buttons_height(self):
-
-        self.button_close = Button(self, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
-        self.button_minimize = Button(self, image=self.image_minimize, command=self.minimize, bd=0, bg='black', activebackground='black')
-
-        self.button_close .pack(side=TOP, pady=7)
-        self.button_minimize .pack(side=BOTTOM, pady=7)
-        
-
-    def buttons_width(self):
-
-        self.button_close = Button(self, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
-        self.button_minimize = Button(self, image=self.image_minimize, command=self.minimize, bd=0, bg='black', activebackground='black')
-
-        self.button_close .pack(side=RIGHT)
-        self.button_minimize .pack(side=RIGHT, padx=10)
 
 
     def close(self):
@@ -2191,6 +2192,25 @@ class BarraTitulo(Frame):
     def minimize(self):
         self.master.withdraw()
         self.master.master.iconify()
+   
+
+    def buttons_height(self):
+
+        self.button_close = Button(self, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
+        self.button_minimize = Button(self, image=self.image_minimize, command=self.minimize, bd=0, bg='black', activebackground='black')
+
+        self.button_close .pack(side=TOP, pady=7)               # modo vertical
+        self.button_minimize .pack(side=BOTTOM, pady=7)         # modo vertical
+        
+    def buttons_width(self):
+
+        self.button_close = Button(self, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
+        self.button_minimize = Button(self, image=self.image_minimize, command=self.minimize, bd=0, bg='black', activebackground='black')
+        self.label_title = Label(self, text='', fg="white", bg="green")
+
+        self.button_close .pack(side=RIGHT)                     # modo horizontal
+        self.button_minimize .pack(side=RIGHT, padx=10)         # modo horizontal    
+        self.label_title .pack(side=RIGHT, padx=0, pady=0)
 
     def image_initializer(self):
         self.image_close = PhotoImage(file= '11.png')
@@ -2203,6 +2223,11 @@ class BarraTitulo(Frame):
 class Toplevel_class(Toplevel):
     def __init__(self, master=None, type=None, **kwargs):
         Toplevel.__init__(self, master, **kwargs)
+
+        path = 'E:/1-RICHI/MovilesDB'
+        #____Coleccion de imagenes:
+        self.Images_1 = self.generate_list (path, 'I')
+
         self.overrideredirect(True)
         self.master = master
         self._x = 0
@@ -2213,70 +2238,50 @@ class Toplevel_class(Toplevel):
         self.y1 = 100
         self.click = True
 
-        if type == 'H':
-            self.borde = BarraTitulo(self, background="black") # #11161d
-            self.borde .pack(side=RIGHT, fill=BOTH)
-            self.borde .buttons_height()
+        if type == 'H':   # INTERFACE PRINCIPAL
+            self.frame_titlebar = BarraTitulo(self, bg="black") # #11161d
+            self.frame_titlebar .pack(side=RIGHT, fill=BOTH)
+            self.frame_titlebar .buttons_height()
 
-        if type == 'W':
-            self.borde = BarraTitulo(self, background="black") # #11161d
-            self.borde .pack(side=RIGHT, fill=BOTH)
-            self.borde .buttons_width()
+            self.frame_ashmanbot = Interface(self)
+            self.frame_ashmanbot .pack(side=RIGHT, fill=BOTH)  # esto es la liena blanco de arriba
 
-            self.grip = ttk.Sizegrip (self.contenido, style='TSizegrip')
+            #self.frame_ashmanbot .
+
+        if type == 'W':   # VENTANAS ALTERNAS
+            self.frame_titlebar = BarraTitulo(self, bg="black") # #11161d
+            self.frame_titlebar .pack(side=TOP, fill=BOTH)
+            self.frame_titlebar .buttons_width()
+
+            #____S I Z E G R I P:
+            """ self.grip = ttk.Sizegrip(self.master._frame_1, style='TSizegrip')
             self.grip .place (relx=1.0, rely=1.0, anchor='center')
-            self.grip .bind ('<B1-Motion>', self.redimencionar)
+            ttk.Style().configure('TSizegrip', bg='black') """
+            #self.grip .bind ('<B1-Motion>', self.redimencionar)
+            #____L A B E L:
+            self.frame_titlebar .label_title .bind("<ButtonPress-1>", self.start_move)
+            self.frame_titlebar .label_title .bind("<ButtonRelease-1>", self.stop_move)
+            self.frame_titlebar .label_title .bind("<B1-Motion>", self.on_move)
+            
+   
+        self.frame_titlebar .bind("<ButtonPress-1>", self.start_move)
+        self.frame_titlebar .bind("<ButtonRelease-1>", self.stop_move)
+        self.frame_titlebar .bind("<B1-Motion>", self.on_move)
 
-            ttk.Style().configure('TSizegrip', background='black')
+        self.master .bind("<Map>", self.on_deiconify)
+        self.master .bind("<Unmap>", self.on_iconify)
 
+    def on_iconify(self, event):
+        self.withdraw()
 
-
-        self.contenido = Interface(self)
-        self.contenido.pack(side=BOTTOM, fill=BOTH)  # esto es la liena blanco de arriba
-        
- 
-
-        self.borde.bind("<ButtonPress-1>", self.start_move)
-        self.borde.bind("<ButtonRelease-1>", self.stop_move)
-        self.borde.bind("<B1-Motion>", self.on_move)
-
-        """ self.borde.label_title.bind("<ButtonPress-1>", self.start_move)
-        self.borde.label_title.bind("<ButtonRelease-1>", self.stop_move)
-        self.borde.label_title.bind("<B1-Motion>", self.on_move) """
-
-
-        """ self.grip = ttk.Sizegrip (self.contenido, style='TSizegrip')
-        self.grip .place (relx=1.0, rely=1.0, anchor='center')
-        self.grip .bind ('<B1-Motion>', self.redimencionar) """
-        #ttk.Style().configure('TSizegrip', background='black')
-
-        """ def posi3(self):
-            self.borde.pack(side=TOP, fill=BOTH) """
-
-
-        self.master.bind("<Map>", self.on_deiconify)
-        self.master.bind("<Unmap>", self.on_iconify)
+    def on_deiconify(self, event):
+        self.deiconify()
 
 
 
     def start_move(self, event):
         self._x = event.x
         self._y = event.y
-
-    def redimencionar(self, event):
-        self.x0 = self.winfo_rootx()
-        self.y0 = self.winfo_rooty()
-        self.x1 = self.winfo_pointerx()
-        self.y1 = self.winfo_pointery()
-
-        try:
-            self. geometry('%sx%s' % ((self.x1 - self.x0),(self.y1 - self.y0)))
-        except:
-            pass
-
-
-
-
 
     def stop_move(self, event):
         self._x = None
@@ -2288,38 +2293,55 @@ class Toplevel_class(Toplevel):
         new_pos = "+{}+{}".format(self.winfo_x() + deltax, self.winfo_y() + deltay)
 
         self.geometry(new_pos)
-        self.geometry(new_pos)
+        if type == 'H': 
+            self.master.geometry(new_pos)    # aqui conflicto
 
-    
-    def on_iconify(self, event):
-        self.withdraw()
+    def configure_toplevel(self, size): #--------------------------------NO TOCAR (despues)
+    #def configure_toplevel(self, head, size): #--------------------------------NO TOCAR (despues) 
+        #self.title (head)    #  titulo
+        self.geometry (size)  #  tamaño
+        #self.resizable (1,1)
+        self.wm_attributes ('-topmost', True)
+        #self.config (bg = 'magenta2')
+        #self.wm_attributes ('-transparentcolor', 'magenta2')
+        #self.overrideredirect(1)
 
-    def on_deiconify(self, event):
-        self.deiconify()
+    def generate_list(self, file, option):   # INICIALIZA IMAGENES
+
+        ouput = os.listdir (file)
+        empty = []                    
+        if option == 'I': 
+            _lst = [[] for x in range(22)]
+            _str = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Kal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Dr1','Dr2']
+            for i in ouput:               
+                for index,iter in enumerate(_str):
+                    if iter in i: 
+                        full = file + '/' + i
+                        open = cv2.imread (full)
+                        RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
+                        _lst[index].append(RGB)               
+            return _lst 
+
         
 ################################
-
-
-
-
-
-class WindRoot(Tk):
+#____
+    """ class WindRoot(Tk):  # SIN FUNCIONAMIENTO
     def __init__(self, *args, **kwargs):
         Tk.__init__(self, *args, **kwargs)
         self.resizable(0, 0)
         self.geometry('0x0')
         #self._title = StringVar(self.title())
-        self.window = VentanaSinBordes(self, barra='_top')
+        self.window = Toplevel_class(self, barra='_top')
         self.window.geometry('830x65')
         self.bind("<Map>", self.on_deiconify)
         self.bind("<Unmap>", self.on_iconify)
 
 
-    """ def title(self, *args):
+    def title(self, *args):
         if args:
             print(args)
             self._title.set(args[0])
-        Tk.title(self, args) """
+        Tk.title(self, args) 
 
     def on_iconify(self, event):
         self.window.withdraw()
@@ -2327,17 +2349,7 @@ class WindRoot(Tk):
     def on_deiconify(self, event):
         self.window.deiconify()
 
-def main (): #------------------------------------------------------------NO TOCAR
-
-    root =  Tk()
-    root .wm_attributes("-alpha", 0.0 )
-    app = Toplevel_class(root, type='H')
-    app .geometry('830x65')
-    root .mainloop()
-
-
-
-    """ root =  WindRoot()
+    root =  WindRoot()
     root .wm_attributes("-alpha", 0.0 )
     app = Interface(root)
     app .pack()    
@@ -2346,7 +2358,145 @@ def main (): #------------------------------------------------------------NO TOC
     """ root =  Tk()
     app = Interface(root)
     app .pack()    
-    root .mainloop() """
+    root .mainloop()
+    """
+
+class Aplicacion(Frame):
+    def __init__(self, master, type, version=None, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs )
+
+        path = 'E:/1-RICHI/MovilesDB'
+        #____Coleccion de imagenes:
+        self.Images_1 = self.generate_list (path, 'I')
+
+
+
+        self.image_initializer()
+        self.x = 0
+        self.y = 0
+        
+        self.ventana = Toplevel(self.master)
+        self.ventana .overrideredirect(1)
+        #self.ventana .minsize(width=300, height=200)
+        self.ventana .geometry('830x65+300+90')
+       
+        #__FRAME BARRA DE TITULO:aaaaaa
+        if type == 'H':
+            self.frame_titlebar = Frame (self.ventana, bg="black" )
+            self.frame_titlebar .pack(side=RIGHT, fill=BOTH)
+        
+        if type == 'W':
+            self.frame_titlebar = Frame (self.ventana, bg="black" )
+            self.frame_titlebar .pack(side=TOP, fill=BOTH)
+        #self.frame_titlebar .grid_propagate(0)
+    
+
+        #__FRAME DEL CONTENIDO:
+        #if frame ==
+        #self.frame_interface = Interface (self.ventana)
+        #self.frame_interface .pack(side=RIGHT, fill=BOTH)
+
+
+        #______DEL OTROOOOOOOOOOOOOOOOOOOOOOO
+        if type == 'H':   # INTERFACE PRINCIPAL
+            self.frame_interface = Interface (self.ventana)
+            self.frame_interface .pack(side=RIGHT, fill=BOTH)
+            #_________________________
+            self.button_close = Button(self.frame_titlebar, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
+            self.button_minimize = Button(self.frame_titlebar, image=self.image_minimize, command= lambda: self.master .iconify(), bd=0, bg='black', activebackground='black')
+
+            self.button_close .pack(side=TOP, pady=7)               # modo vertical
+            self.button_minimize .pack(side=BOTTOM, pady=7)         # modo vertical
+            
+        if type == 'w':
+
+            self.button_close = Button(self.frame_titlebar, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
+            self.button_minimize = Button(self.frame_titlebar, image=self.image_minimize, command= lambda: self.master .iconify(), bd=0, bg='black', activebackground='black')
+            #self.label_title = Label(self, text='', fg="white", bg="green")
+
+            self.button_close .pack(side=RIGHT)                     # modo horizontal
+            self.button_minimize .pack(side=RIGHT, padx=10)         # modo horizontal    
+            #self.label_title .pack(side=RIGHT, padx=0, pady=0)
+        #_______________________________
+
+        self.frame_titlebar .bind ('<ButtonPress-1>', self.start)
+        self.frame_titlebar .bind ('<B1-Motion>', self.mover)
+        self.master .bind ('<Map>', self.on_deiconify)
+        self.master .bind ('<Unmap>', self.on_iconify)
+
+
+
+
+    def close(self):
+        self.ventana .destroy()
+        self.ventana .quit()
+
+    def start(self, event):
+        self.x = event.x
+        self.y = event.y
+
+    def mover(self, event):
+        deltax = event.x - self.x
+        deltay = event.y - self.y
+        new_pos = "+{}+{}".format(self.ventana.winfo_x() + deltax, self.ventana.winfo_y() + deltay)
+
+        self.ventana.geometry(new_pos) # solo habia este
+        #self.master.geometry(new_pos)
+   
+    def on_deiconify(self, event):
+        self.ventana .deiconify()
+        self.master .lower()
+
+    def on_iconify(self, event):
+        self.ventana .withdraw()
+        self.master .iconify()
+
+    #______DEL OTROOOOOOOOOOOOOOOOOOOOOOO
+
+
+    def image_initializer(self):
+        self.image_close = PhotoImage(file= '11.png')
+        self.image_maximize = PhotoImage(file= 'ma.png') 
+        self.image_minimize = PhotoImage(file= '22.png')
+        self.image_reduce = PhotoImage(file= 'ma2.png')
+
+    #def configure_toplevel(self, size): #--------------------------------NO TOCAR (despues)
+        #def configure_toplevel(self, head, size): #--------------------------------NO TOCAR (despues) 
+        #self.title (head)    #  titulo
+        #self.ventana.geometry (size)  #  tamaño
+        #self.resizable (1,1)
+        #self.master.wm_attributes ('-topmost', True)
+        #self.config (bg = 'magenta2')
+        #self.wm_attributes ('-transparentcolor', 'magenta2')
+        #self.overrideredirect(1)
+
+    def generate_list(self, file, option):   # INICIALIZA IMAGENES
+
+        ouput = os.listdir (file)
+        empty = []                    
+        if option == 'I': 
+            _lst = [[] for x in range(22)]
+            _str = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Kal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Dr1','Dr2']
+            for i in ouput:               
+                for index,iter in enumerate(_str):
+                    if iter in i: 
+                        full = file + '/' + i
+                        open = cv2.imread (full)
+                        RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
+                        _lst[index].append(RGB)               
+            return _lst 
+
+
+
+def main (): #------------------------------------------------------------NO TOCAR
+
+    root = Tk()
+    root .title('Aplicación moderna')
+    #icono
+    root .wm_attributes("-alpha", 0.0 ) 
+    #root .config(bg='DarkOrchid1')
+    app = Aplicacion (root, type='H')
+    app .mainloop()
 
 if __name__=="__main__":  #-------------------------------------------------------NO TOCAR 
     main()
