@@ -2493,7 +2493,8 @@ def main (): #------------------------------------------------------------NO TOC
     root = Tk()
     root .title('Aplicación moderna')
     #root .wm_attributes("-alpha", 0.0 ) 
-    app = Aplicacion (root, type='H')
+
+    app = Toplevel_class (root, type='H')
     app .mainloop()
 
 if __name__=="__main__":  #-------------------------------------------------------NO TOCAR 
