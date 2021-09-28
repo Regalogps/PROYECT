@@ -2196,6 +2196,16 @@ class BarraTitulo(Frame):
     def minimize(self):
         self.master.withdraw()
         self.master.master.iconify()
+
+    ###### modo VENTANAS:
+    def close2(self):
+        self.master .destroy()
+        self.master .quit()
+
+    def minimize2(self):
+        self.master.withdraw()
+        self.master.master.iconify()
+
    
 
     def buttons_height(self):
@@ -2208,8 +2218,8 @@ class BarraTitulo(Frame):
         
     def buttons_width(self):
 
-        self.button_close = Button(self, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
-        self.button_minimize = Button(self, image=self.image_minimize, command=self.minimize, bd=0, bg='black', activebackground='black')
+        self.button_close = Button(self, image=self.image_close, command=self.close2, bd=0, bg='black', activebackground='black')
+        self.button_minimize = Button(self, image=self.image_minimize, command=self.minimize2, bd=0, bg='black', activebackground='black')
         self.label_title = Label(self, text='', fg="white", bg="green")
 
         self.button_close .pack(side=RIGHT)                     # modo horizontal
