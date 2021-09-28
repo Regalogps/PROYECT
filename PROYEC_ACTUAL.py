@@ -122,9 +122,9 @@ class Interface(Frame):
         
         #___V E N T A N A__°1:
         if self._open_1 == False: 
-            self.toplevel_LEFT = Toplevel()
-            self.toplevel_LEFT = Aplicacion (self, type='W')  #############################################################   VENTANA TOPLEVEL IZQUIERDA
-            #self.toplevel_LEFT .configure_toplevel ('220x690') #  metodo  ('izq', '220x690')
+            #self.toplevel_LEFT = Toplevel()
+            self.toplevel_LEFT = Toplevel_class (self, type='W')  #############################################################   VENTANA TOPLEVEL IZQUIERDA
+            self.toplevel_LEFT .configure_toplevel ('220x690') #  metodo  ('izq', '220x690')
 
         self._open_1 = True     
                                 
@@ -144,9 +144,9 @@ class Interface(Frame):
 
         #___V E N T A N A__°2:
         if self._open_2 == False:
-            self.toplevel_RIGHT = Toplevel()
-            self.toplevel_RIGHT = Aplicacion (self, type='W')  #############################################################   VENTANA TOPLEVEL DERECHA
-            #self.toplevel_RIGHT .configure_toplevel ('220x690')  # ('der', '220x690')
+            #self.toplevel_RIGHT = Toplevel()
+            self.toplevel_RIGHT = Toplevel_class (self, type='W')  #############################################################   VENTANA TOPLEVEL DERECHA
+            self.toplevel_RIGHT .configure_toplevel ('220x690')  # ('der', '220x690')
 
         self._open_2 = True
 
@@ -167,9 +167,9 @@ class Interface(Frame):
         #_______ desde aqui falta completar este if
         #___V E N T A N A__°3:
         if self._open_3 == False:
-            self.toplevel_STUF = Toplevel()
-            self.toplevel_STUF = Aplicacion (self, type='W')  #############################################################   VENTANA TOPLEVEL STUFF
-            #self.toplevel_STUF .configure_toplevel ('620x190')     # ('stuf', '620x190')  
+            #self.toplevel_STUF = Toplevel()
+            self.toplevel_STUF = Toplevel_class (self, type='W')  #############################################################   VENTANA TOPLEVEL STUFF
+            self.toplevel_STUF .configure_toplevel ('620x190')     # ('stuf', '620x190')  
 
         self._open_3 = True
 
@@ -2492,9 +2492,7 @@ def main (): #------------------------------------------------------------NO TOC
 
     root = Tk()
     root .title('Aplicación moderna')
-    #icono
-    root .wm_attributes("-alpha", 0.0 ) 
-    #root .config(bg='DarkOrchid1')
+    #root .wm_attributes("-alpha", 0.0 ) 
     app = Aplicacion (root, type='H')
     app .mainloop()
 
