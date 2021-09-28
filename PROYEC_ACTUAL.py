@@ -186,7 +186,11 @@ class Interface(Frame):
         ttk.Style().configure('TSizegrip', bg='black') """  # NO TIENE FRAME O IMAGEN TODAVIA
 
         #self.toplevel_STUF.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(3))
+
+
         self.toplevel_LEFT .mainloop()
+        self.toplevel_RIGHT .mainloop()
+        self.toplevel_STUF .mainloop()
 
     def close_windows(self, number):
 
@@ -2232,12 +2236,7 @@ class Toplevel_class(Toplevel):
         self.master = master
         self._x = 0
         self._y = 0
-        self.x0 = 50
-        self.y0 = 50
-        self.x1 = 100
-        self.y1 = 100
-        self.click = True
-
+       
         if type == 'H':   # INTERFACE PRINCIPAL
             self.frame_titlebar = BarraTitulo(self, bg="black") # #11161d
             self.frame_titlebar .pack(side=RIGHT, fill=BOTH)
@@ -2253,11 +2252,6 @@ class Toplevel_class(Toplevel):
             self.frame_titlebar .pack(side=TOP, fill=BOTH)
             self.frame_titlebar .buttons_width()
 
-            #____S I Z E G R I P:
-            """ self.grip = ttk.Sizegrip(self.master._frame_1, style='TSizegrip')
-            self.grip .place (relx=1.0, rely=1.0, anchor='center')
-            ttk.Style().configure('TSizegrip', bg='black') """
-            #self.grip .bind ('<B1-Motion>', self.redimencionar)
             #____L A B E L:
             self.frame_titlebar .label_title .bind("<ButtonPress-1>", self.start_move)
             self.frame_titlebar .label_title .bind("<ButtonRelease-1>", self.stop_move)
