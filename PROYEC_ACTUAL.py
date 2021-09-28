@@ -139,7 +139,7 @@ class Interface(Frame):
         self.grip .place (relx=1.0, rely=1.0, anchor='center')
         ttk.Style().configure('TSizegrip', bg='black')
               
-        #self.toplevel_LEFT .protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(1))
+        self.toplevel_LEFT .protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(1))
             
 
         #___V E N T A N A__°2:
@@ -162,7 +162,7 @@ class Interface(Frame):
         self.grip .place (relx=1.0, rely=1.0, anchor='center')
         ttk.Style().configure('TSizegrip', bg='black')
 
-        #self.toplevel_RIGHT.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(2))
+        self.toplevel_RIGHT.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(2))
 
         #_______ desde aqui falta completar este if
         #___V E N T A N A__°3:
@@ -185,7 +185,7 @@ class Interface(Frame):
         self.grip .place (relx=1.0, rely=1.0, anchor='center')
         ttk.Style().configure('TSizegrip', bg='black') """  # NO TIENE FRAME O IMAGEN TODAVIA
 
-        #self.toplevel_STUF.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(3))
+        self.toplevel_STUF.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(3))
 
 
         self.toplevel_LEFT .mainloop()
@@ -193,19 +193,20 @@ class Interface(Frame):
         self.toplevel_STUF .mainloop()
 
     def close_windows(self, number):
-
+        print(1111)
         if number == 1:
             self.toplevel_LEFT. destroy()
             self._open_1 = False
+            print(1111)
 
         if number == 2:
             self.toplevel_RIGHT. destroy()
             self._open_2 = False
-
+            print(2222)
         if number == 3:
             self.toplevel_STUF. destroy()
             self._open_3 = False
-
+            print(3333)
 
 ################################
 class A1_class(Frame):   # Frame contenedor de ash y gear
@@ -235,6 +236,7 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
         try:
             self.master.toplevel_LEFT .destroy() 
             self.master._open_1 = False
+            print(1111)
 
             self.master.toplevel_RIGHT .destroy()
             self.master._open_2 = False
@@ -2204,7 +2206,7 @@ class BarraTitulo(Frame):
 
     def minimize2(self):
         self.master.withdraw()
-        self.master.master.iconify()
+        self.master.iconify()
 
    
 
@@ -2274,6 +2276,7 @@ class Toplevel_class(Toplevel):
 
         self.master .bind("<Map>", self.on_deiconify)
         self.master .bind("<Unmap>", self.on_iconify)
+
 
     def on_iconify(self, event):
         self.withdraw()
