@@ -117,16 +117,15 @@ class Interface(Frame):
    
 
 ############   G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S  
+############   G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S  
+############   G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S  
 
     def windows_123 (self, var_1, var_2, var_3):
         
-        #___V E N T A N A__°1:
+        #________________________V E N T A N A:   1________________________________________________________________
         if self._open_1 == False: 
-            #self.toplevel_LEFT = Toplevel()
-            self.toplevel_LEFT = Toplevel_class (self, type='W')  #############################################################   VENTANA TOPLEVEL IZQUIERDA
-            self.toplevel_LEFT .configure_toplevel ('220x690') #  metodo  ('izq', '220x690')
-
-        self._open_1 = True     
+            self.toplevel_LEFT = Toplevel_class (self, type=False)
+            self.toplevel_LEFT .configure_toplevel ('Hoja Izquierda', '220x690') #  metodo  ('izq', '220x690')
                                 
         container_frame_left = var_1 (self.toplevel_LEFT)  #  var_1 es un frame
 
@@ -139,18 +138,15 @@ class Interface(Frame):
         self.grip .place (relx=1.0, rely=1.0, anchor='center')
         ttk.Style().configure('TSizegrip', bg='black')
               
-        self.toplevel_LEFT .protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(1))
-            
+        #self.toplevel_LEFT .protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(1))
+        #self.toplevel_LEFT.bind('<Destroy>',lambda f: self.close_windows(1) )    
 
-        #___V E N T A N A__°2:
+        #________________________V E N T A N A:   2________________________________________________________________
         if self._open_2 == False:
-            #self.toplevel_RIGHT = Toplevel()
-            self.toplevel_RIGHT = Toplevel_class (self, type='W')  #############################################################   VENTANA TOPLEVEL DERECHA
-            self.toplevel_RIGHT .configure_toplevel ('220x690')  # ('der', '220x690')
+            self.toplevel_RIGHT = Toplevel_class (self, type=False)
+            self.toplevel_RIGHT .configure_toplevel ('Hoja Derecha', '220x690')  # ('der', '220x690')
 
-        self._open_2 = True
-
-        container_frame_right = var_2 (self.toplevel_RIGHT)  # ES UN FRAME POSICIONADO EN TOPLEVEL
+        container_frame_right = var_2 (self.toplevel_RIGHT) 
 
         if self._frame_2 is not None:
             self._frame_2 .destroy()
@@ -162,18 +158,17 @@ class Interface(Frame):
         self.grip .place (relx=1.0, rely=1.0, anchor='center')
         ttk.Style().configure('TSizegrip', bg='black')
 
-        self.toplevel_RIGHT.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(2))
-
+        #self.toplevel_RIGHT.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(2))
+        #self.toplevel_RIGHT.bind('<Destroy>',lambda f: self.close_windows(2) )
         #_______ desde aqui falta completar este if
-        #___V E N T A N A__°3:
+
+
+        #________________________V E N T A N A:   3________________________________________________________________
         if self._open_3 == False:
-            #self.toplevel_STUF = Toplevel()
-            self.toplevel_STUF = Toplevel_class (self, type='W')  #############################################################   VENTANA TOPLEVEL STUFF
-            self.toplevel_STUF .configure_toplevel ('620x190')     # ('stuf', '620x190')  
+            self.toplevel_STUF = Toplevel_class (self, type=False) 
+            self.toplevel_STUF .configure_toplevel ('Game Stuff', '620x190')     # ('stuf', '620x190')  
 
-        self._open_3 = True
-
-        container_frame_stuf = var_3 (self.toplevel_STUF)  # ES UN FRAME POSICIONADO EN TOPLEVEL
+        container_frame_stuf = var_3 (self.toplevel_STUF) 
 
         if self._frame_3 is not None:
             self._frame_3 .destroy()
@@ -185,28 +180,45 @@ class Interface(Frame):
         self.grip .place (relx=1.0, rely=1.0, anchor='center')
         ttk.Style().configure('TSizegrip', bg='black') """  # NO TIENE FRAME O IMAGEN TODAVIA
 
-        self.toplevel_STUF.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(3))
+        #self.toplevel_STUF.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(3))
+        #self.toplevel_STUF.bind('<Destroy>',lambda f: self.close_windows(3) )
 
+
+
+
+
+        #___________________________________________________________________________________________________________
+        self._open_1 = True
+        self._open_2 = True
+        self._open_3 = True
 
         self.toplevel_LEFT .mainloop()
         self.toplevel_RIGHT .mainloop()
         self.toplevel_STUF .mainloop()
+        #___________________________________________________________________________________________________________
 
     def close_windows(self, number):
-        print(1111)
+        print('afueraaaaaaaaa')
         if number == 1:
             self.toplevel_LEFT. destroy()
             self._open_1 = False
-            print(1111)
+            print(11)
 
         if number == 2:
             self.toplevel_RIGHT. destroy()
             self._open_2 = False
-            print(2222)
+            print(22)
         if number == 3:
             self.toplevel_STUF. destroy()
             self._open_3 = False
-            print(3333)
+            print(33)
+
+
+
+
+
+
+
 
 ################################
 class A1_class(Frame):   # Frame contenedor de ash y gear
@@ -236,7 +248,7 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
         try:
             self.master.toplevel_LEFT .destroy() 
             self.master._open_1 = False
-            print(1111)
+            print('desde adentro')
 
             self.master.toplevel_RIGHT .destroy()
             self.master._open_2 = False
@@ -247,28 +259,45 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
             pass
 
     def ash_minimize_windows(self):   # ACTIVA: CON CLICK IZQUIERDO AL LOGO - MINIMIZA LAS VENTANAS
-
+ 
         if self.master._open_1 == True or self.master._open_2 == True or self.master._open_3 == True:
 
             if self.master._minimize == False:
                 if self.master._open_1 == True:
-                    self.master.toplevel_LEFT .deiconify()   # MOSTRAR VENTANAS  
+                    self.master.toplevel_LEFT.update_idletasks() # APRUEBA
+                    self.master.toplevel_LEFT.overrideredirect(True)
+                    self.master.toplevel_LEFT .state('normal')  # MOSTRAR VENTANAS  
+
                 if self.master._open_2 == True:
-                    self.master.toplevel_RIGHT .deiconify()
+                    self.master.update_idletasks() # APRUEBA
+                    self.master.toplevel_RIGHT.overrideredirect(True)
+                    self.master.toplevel_RIGHT .state('normal')
+
                 if self.master._open_3 == True:
-                    self.master.toplevel_STUF .deiconify()
+                    self.master.update_idletasks() # APRUEBA
+                    self.master.toplevel_STUF.overrideredirect(True)
+                    self.master.toplevel_STUF .state('normal')
+
 
                 self.master._minimize = True
 
             else: 
                 if self.master._open_1 == True:
-                    self.master.toplevel_LEFT .iconify()     # OCULTAR VENTANAS
+                    self.master.toplevel_LEFT.update_idletasks() # APRUEBA
+                    self.master.toplevel_LEFT.overrideredirect(False)
+                    self.master.toplevel_LEFT .state('iconic')     # OCULTAR VENTANAS
                 if self.master._open_2 == True:
-                    self.master.toplevel_RIGHT .iconify() 
-                if self.master._open_3 == True:    
-                    self.master.toplevel_STUF .iconify()
+                    self.master.update_idletasks() # APRUEBA
+                    self.master.toplevel_RIGHT.overrideredirect(False)
+                    self.master.toplevel_RIGHT .state('iconic')
+                if self.master._open_3 == True:
+                    self.master.update_idletasks() # APRUEBA
+                    self.master.toplevel_STUF.overrideredirect(False)    
+                    self.master.toplevel_STUF .state('iconic')
 
                 self.master._minimize = False
+
+       
 
     def generate_list(self, file, option):   # INICIALIZA IMAGENES
 
@@ -406,16 +435,16 @@ class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
         Frame.__init__(self, master, *args, kwargs)
 
         path = 'E:/1-RICHI/MovilesDB'
-        #_____Coleccion de imagenes         
+        #_____Coleccion de imagenes  
         self.Miniatures= self.generate_list(path, 'M')
 
         #_____C O N T E N E D O R E S___2:
         self.frame_1 = Frame (self, bg='#31343a', width=116, height=65)    # Color: Plomo       
         self.frame_2 = Frame (self, bg='#11161d', width=60, height=65)     # Color: Azul  
 
-        self.container_2w = Frame (self.frame_1, width=116, height=20, bg='#11161d') 
+        self.container_2w = Frame (self.frame_1, width=116, height=20, bg='#11161d')
         self.select_mobil = Label (self.frame_1, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        self.miniature_mobil = Label (self.frame_2, image=self.Miniatures[0], bd= 0) 
+        self.miniature_mobil = Label (self.frame_2, image=self.Miniatures[0], bd= 0)
 
         self.create_listbox (width=11, height=1)
         self.create_spinbox (width=13)
@@ -446,18 +475,18 @@ class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
 
         spin = self.spinboxx.get().capitalize()
 
-        if spin == '':                                                          # 1- SI SPINBOX ESTA VACIO.  2- BORRA LA LISTA DE LISTBOX.  3- DESHABILITA LISTBOX.
+        if spin == '':
             self.listboxx .delete(0, END)
-        else:                                                                      # 1- HABILITA LISTBOX.  2- CREA LISTA VACIA.  3- ITERANDO: 'self.spinbox_values'.
-            list_new = []                                                          # 4- SI COINCIDE 'value' EN 'self.spinbox_values'.  5- AGREGA VALUE A LISTA.  6- SI LA LISTA NO ESTA VACIA.
-            for index, i in enumerate(self.spinbox_values):                        # 10- LLAMA AL METODO: 'def update' Y PASA LA LISTA DE ARGUMENTO.
+        else:    
+            list_new = []
+            for index, i in enumerate(self.spinbox_values):
                 if spin == i:                           
                     self.miniature_mobil .config(image= self.Miniatures[index])
                     self.spinboxx .icursor(END)
                 if spin in i:
                     list_new .append(i)
 
-            if list_new != []:         
+            if list_new != []:
                 self.update(list_new)
 
             if spin == 'As':  
@@ -511,7 +540,7 @@ class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
                 self.master.windows_123(left[index], right[index], stuf[index]) 
         
         if self._change is not None:
-            self.after(10000, self.automatic_deletion) 
+            self.after(5000, self.automatic_deletion) 
 
     def automatic_deletion(self):  # ACTIVA: ** SI ES LLAMADO POR OPEN_WINDOWS ** Y SI LA VARIABLE DE CONTROL NO ES NONE - LIMPIA SPINBOX
 
@@ -649,8 +678,8 @@ class Example(Frame):
 
 class Frog_left_off (Frame):  #------------------------------ IZQUIERDA :  DELAY  /  MEDIR  _____________ SUBINDICE DEL MOVIL = [0] 
 
-    def __init__(self, *args, **kwargs):
-        Frame.__init__(self, *args, **kwargs)   
+    def __init__(self, master, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)   
 
         self.fr_img_delay = Example (self, self.master.Images_1 [0][0], bd=0)
         self.fr_img_delay .grid(column=0,row=0)
@@ -2066,113 +2095,6 @@ class Dragon_stuf (Frame):  #-------------------------------- REGLA: GAME STUF  
 
 ################################            EL             ################################ 
 ################################            FIN            ################################
-class _Toplevel (Toplevel):
-
-    def __init__(self, master=None, barra=None, **kwargs):
-        
-        path = 'E:/1-RICHI/MovilesDB'
-        #____Coleccion de imagenes:
-        self.Images_1 = self.generate_list (path, 'I')
-        Toplevel.__init__(self, master, **kwargs)
-        #self.masters = master
-        self.overrideredirect(True)
-        self.master = master
-        self._x = 0
-        self._y = 0
-        self.x0 = 50
-        self.y0 = 50
-        self.x1 = 100
-        self.y1 = 100
-        self.click = True
-
-        self.borde = BarraTitulo(self, background="black") # #11161d
-        self.borde.pack(side=TOP, fill=BOTH)
-
-        if barra is '_top':
-            self.frame_titlebar .buttons_height ()
-        if barra is '_right':
-            self.frame_titlebar .buttons_width ()
-
-
-        #self.contenido = Interface(self)
-        #self.contenido.pack(side=BOTTOM, fill=BOTH)  # esto es la liena blanco de arriba
-        
- 
-
-        self.frame_titlebar.bind("<ButtonPress-1>", self.start_move)
-        self.frame_titlebar.bind("<ButtonRelease-1>", self.stop_move)
-        self.frame_titlebar.bind("<B1-Motion>", self.on_move)
-
-        """ self.borde.label_title.bind("<ButtonPress-1>", self.start_move)
-        self.borde.label_title.bind("<ButtonRelease-1>", self.stop_move)
-        self.borde.label_title.bind("<B1-Motion>", self.on_move) """
-
-
-        """ self.grip = ttk.Sizegrip (self.contenido, style='TSizegrip')
-        self.grip .place (relx=1.0, rely=1.0, anchor='center')
-        self.grip .bind ('<B1-Motion>', self.redimencionar) """
-        #ttk.Style().configure('TSizegrip', background='black')
-
-    """ def posi3(self):
-        self.borde.pack(side=TOP, fill=BOTH) """
-
-    def start_move(self, event):
-        self._x = event.x
-        self._y = event.y
-
-    def redimencionar(self, event):
-        self.x0 = self.winfo_rootx()
-        self.y0 = self.winfo_rooty()
-        self.x1 = self.winfo_pointerx()
-        self.y1 = self.winfo_pointery()
-
-        try:
-            self. geometry('%sx%s' % ((self.x1 - self.x0),(self.y1 - self.y0)))
-        except:
-            pass
-    
-    def stop_move(self, event):
-        self._x = None
-        self._y = None
-
-    def on_move(self, event):
-        deltax = event.x - self._x
-        deltay = event.y - self._y
-        new_pos = "+{}+{}".format(self.winfo_x() + deltax, self.winfo_y() + deltay)
-
-        self.geometry(new_pos)
-        #self.master.geometry(new_pos)
-
-        
-          
-    def configure_toplevel(self, size): #--------------------------------NO TOCAR (despues)
-    #def configure_toplevel(self, head, size): #--------------------------------NO TOCAR (despues) 
-        #self.title (head)    #  titulo
-        self.geometry (size)  #  tamaño
-        #self.resizable (1,1)
-        #self.wm_attributes ('-topmost', True)
-        #self.config (bg = 'magenta2')
-        #self.wm_attributes ('-transparentcolor', 'magenta2')
-        #self.overrideredirect(1)
-
-    
-
-    def generate_list(self, file, option):   # INICIALIZA IMAGENES
-
-        ouput = os.listdir (file)
-        empty = []                    
-        if option == 'I': 
-            _lst = [[] for x in range(22)]
-            _str = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Kal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Dr1','Dr2']
-            for i in ouput:               
-                for index,iter in enumerate(_str):
-                    if iter in i: 
-                        full = file + '/' + i
-                        open = cv2.imread (full)
-                        RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
-                        _lst[index].append(RGB)               
-            return _lst        
-
 ################################
 ################################
 ################################
@@ -2184,109 +2106,145 @@ class _Toplevel (Toplevel):
 ################################
 ################################
 
-class BarraTitulo(Frame):
+class Frame_manager_class(Frame):
     def __init__(self, master=None, **kwargs):
         Frame.__init__(self, master, **kwargs)
         self.master = master
-        self.image_initializer()
+        self.initializer_images()
 
-
+    # MODO: VERTICAL INTERFACE
     def close(self):
         self.master.destroy()
         self.master.master.destroy()
 
-    def minimize(self):
+    def minimize(self):   
         self.master.withdraw()
         self.master.master.iconify()
+    
 
-    ###### modo VENTANAS:
-    def close2(self):
+    # MODO: HORIZONTAL VENTANAS
+    def close_2(self):
         self.master .destroy()
-        self.master .quit()
+        self.master .quit()  # APRUEBAA
 
-    def minimize2(self):
-        self.master.withdraw()
-        self.master.iconify()
 
-   
+    def minimize_2(self):
+        self.master.update_idletasks() # APRUEBA
+        self.master.overrideredirect(False)
+        #self.master.withdraw() # APRUEBA
+        #self.master.iconify() # APRUEBA
+        self.master.state('iconic')
+ 
 
+    # MODO: VERTICAL INTERFACE
     def buttons_height(self):
-
         self.button_close = Button(self, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
         self.button_minimize = Button(self, image=self.image_minimize, command=self.minimize, bd=0, bg='black', activebackground='black')
 
         self.button_close .pack(side=TOP, pady=7)               # modo vertical
         self.button_minimize .pack(side=BOTTOM, pady=7)         # modo vertical
-        
-    def buttons_width(self):
 
-        self.button_close = Button(self, image=self.image_close, command=self.close2, bd=0, bg='black', activebackground='black')
-        self.button_minimize = Button(self, image=self.image_minimize, command=self.minimize2, bd=0, bg='black', activebackground='black')
+    # MODO: HORIZONTAL VENTANAS      
+    def buttons_width(self):
+        self.button_close = Button(self, image=self.image_close, command=self.close_2, bd=0, bg='black', activebackground='black')
+        self.button_minimize = Button(self, image=self.image_minimize, command=self.minimize_2, bd=0, bg='black', activebackground='black')
         self.label_title = Label(self, text='', fg="white", bg="green")
 
         self.button_close .pack(side=RIGHT)                     # modo horizontal
         self.button_minimize .pack(side=RIGHT, padx=10)         # modo horizontal    
-        self.label_title .pack(side=RIGHT, padx=0, pady=0)
+        self.label_title .pack(side=RIGHT, padx=0, pady=0)      # modo horizontal
 
-    def image_initializer(self):
+    def initializer_images(self):
         self.image_close = PhotoImage(file= '11.png')
         self.image_maximize = PhotoImage(file= 'ma.png') 
         self.image_minimize = PhotoImage(file= '22.png')
         self.image_reduce = PhotoImage(file= 'ma2.png')
   
+
+
 ################################
 
 class Toplevel_class(Toplevel):
     def __init__(self, master=None, type=None, **kwargs):
         Toplevel.__init__(self, master, **kwargs)
+        self.master = master
+        self.overrideredirect(True)
+
+        if type == True:         # FRAME BOTONES DE CONTROL MODO: VERTICAL
+            self.mode_height()
+        if type == False:        # FRAME BOTONES DE CONTROL MODO: HORIZONTAL
+            self.mode_width()
 
         path = 'E:/1-RICHI/MovilesDB'
         #____Coleccion de imagenes:
         self.Images_1 = self.generate_list (path, 'I')
 
-        self.overrideredirect(True)
-        self.master = master
+
         self._x = 0
         self._y = 0
        
-        if type == 'H':   # INTERFACE PRINCIPAL
-            self.frame_titlebar = BarraTitulo(self, bg="black") # #11161d
-            self.frame_titlebar .pack(side=RIGHT, fill=BOTH)
-            self.frame_titlebar .buttons_height()
 
-            self.frame_ashmanbot = Interface(self)
-            self.frame_ashmanbot .pack(side=RIGHT, fill=BOTH)  # esto es la liena blanco de arriba
+        #self.frame_manager = Frame_manager_class (self, bg="black") # APRUEBA TAL VEZ CAUSA ERROR POR NO ESTA POSICIONADO 
+        self.frame_manager .bind("<ButtonPress-1>", self.start_move)                   # Intercepta los puntos x,y 
+        self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)                  # Asigna un estado de inicio o stop
+        self.frame_manager .bind("<B1-Motion>", self.on_move)                          # Mueve la ventana 
 
-            #self.frame_ashmanbot .
+        #self.frame_titlebar .bind("<Map>",self.frame_mapped)
 
-        if type == 'W':   # VENTANAS ALTERNAS
-            self.frame_titlebar = BarraTitulo(self, bg="black") # #11161d
-            self.frame_titlebar .pack(side=TOP, fill=BOTH)
-            self.frame_titlebar .buttons_width()
-
-            #____L A B E L:
-            self.frame_titlebar .label_title .bind("<ButtonPress-1>", self.start_move)
-            self.frame_titlebar .label_title .bind("<ButtonRelease-1>", self.stop_move)
-            self.frame_titlebar .label_title .bind("<B1-Motion>", self.on_move)
-            
-   
-        self.frame_titlebar .bind("<ButtonPress-1>", self.start_move)
-        self.frame_titlebar .bind("<ButtonRelease-1>", self.stop_move)
-        self.frame_titlebar .bind("<B1-Motion>", self.on_move)
-
-        self.master .bind("<Map>", self.on_deiconify)
-        self.master .bind("<Unmap>", self.on_iconify)
+        self.master .bind("<Map>", self.deiconify_1)                                   # SE EJECUTA CUANDO ES VISIBLE
+        self.master .bind("<Unmap>", self.iconify_1)                                   # SE EJECUTA CUANDO ES INVISIBLE     
 
 
-    def on_iconify(self, event):
+
+    # MODO: VERTICAL INTERFACE
+    def mode_height(self):  
+        #____F R A M E:
+        self.frame_manager = Frame_manager_class (self, bg="black")  
+        self.frame_manager .pack (side=RIGHT, fill=BOTH)
+        self.frame_manager .buttons_height()
+
+        self.frame_ashmanbot = Interface (self)
+        self.frame_ashmanbot .pack (side=RIGHT, fill=BOTH) 
+        self.move_tk = True   
+
+    # MODO: HORIZONTAL VENTANAS
+    def mode_width(self):
+        #____F R A M E:
+        self.frame_manager = Frame_manager_class (self, bg="black")   
+        self.frame_manager .pack(side=TOP, fill=BOTH)
+        self.frame_manager .buttons_width()
+
+        #____L A B E L:     
+        self.frame_manager .label_title .bind("<ButtonPress-1>", self.start_move)        # Intercepta los puntos x,y 
+        self.frame_manager .label_title .bind("<ButtonRelease-1>", self.stop_move)       # Asigna un estado de inicio o stop
+        self.frame_manager .label_title .bind("<B1-Motion>", self.on_move)               # Mueve la ventana 
+
+        self.frame_manager .bind("<Map>",self.frame_mapped) # aorueba
+        self.move_tk = False
+
+
+
+    def frame_mapped(self, event):
+        print('mappeeddd')
+        self.update_idletasks()
+        self.overrideredirect(True)
+        self.state('normal')  # APRUEBA
+
+
+
+
+
+    def iconify_1(self, event):   # Oculta la ventana (sin icono) : withdraw()
         self.withdraw()
+        print('withdraw')
 
-    def on_deiconify(self, event):
+    def deiconify_1(self, event): # Muestra la ventana (con o sin icono) : deiconify() --- [deiconify sirve para iconify() y para withdraw()]
         self.deiconify()
+        print('deiconify')
 
 
 
-    def start_move(self, event):
+    def start_move(self, event):        
         self._x = event.x
         self._y = event.y
 
@@ -2297,22 +2255,21 @@ class Toplevel_class(Toplevel):
     def on_move(self, event):
         deltax = event.x - self._x
         deltay = event.y - self._y
-        new_pos = "+{}+{}".format(self.winfo_x() + deltax, self.winfo_y() + deltay)
+        new_position = "+{}+{}".format(self.winfo_x() + deltax, self.winfo_y() + deltay)
 
-        self.geometry(new_pos)
-        if type == 'H': 
-            self.master.geometry(new_pos)    # aqui conflicto
+        self.geometry(new_position)              # Moviendo Instancias
+ 
+        if self.move_tk == True:
+            self.master.geometry(new_position)   # Moviendo Raiz   
 
-    def configure_toplevel(self, size): #--------------------------------NO TOCAR (despues)
-    #def configure_toplevel(self, head, size): #--------------------------------NO TOCAR (despues) 
-        #self.title (head)    #  titulo
-        self.geometry (size)  #  tamaño
-        #self.resizable (1,1)
-        self.wm_attributes ('-topmost', True)
-        #self.config (bg = 'magenta2')
-        #self.wm_attributes ('-transparentcolor', 'magenta2')
-        #self.overrideredirect(1)
-
+    def configure_toplevel(self, title, size):
+        self.title (title)
+        self.geometry (size)
+        self.resizable (1,1)
+        self.wm_attributes ('-topmost', True)                     # FUNCIONA BIEN pero molesta para editar 
+        #self.config (bg = 'magenta2')                            # FUNCIONA BIEN pero tiene mal aspecto
+        #self.wm_attributes ('-transparentcolor', 'magenta2')     # FUNCIONA BIEN pero tiene mal aspecto
+ 
     def generate_list(self, file, option):   # INICIALIZA IMAGENES
 
         ouput = os.listdir (file)
@@ -2368,140 +2325,17 @@ class Toplevel_class(Toplevel):
     root .mainloop()
     """
 
-class Aplicacion(Frame):
-    def __init__(self, master, type, version=None, *args, **kwargs):
-        Frame.__init__(self, master, *args, **kwargs )
-
-        path = 'E:/1-RICHI/MovilesDB'
-        #____Coleccion de imagenes:
-        self.Images_1 = self.generate_list (path, 'I')
-
-
-
-        self.image_initializer()
-        self.x = 0
-        self.y = 0
-        
-        self.ventana = Toplevel(self.master)
-        self.ventana .overrideredirect(1)
-        #self.ventana .minsize(width=300, height=200)
-        self.ventana .geometry('830x65+300+90')
-       
-        #__FRAME BARRA DE TITULO:aaaaaa
-        if type == 'H':
-            self.frame_titlebar = Frame (self.ventana, bg="black" )
-            self.frame_titlebar .pack(side=RIGHT, fill=BOTH)
-        
-        if type == 'W':
-            self.frame_titlebar = Frame (self.ventana, bg="black" )
-            self.frame_titlebar .pack(side=TOP, fill=BOTH)
-        #self.frame_titlebar .grid_propagate(0)
-    
-
-        #__FRAME DEL CONTENIDO:
-        #if frame ==
-        #self.frame_interface = Interface (self.ventana)
-        #self.frame_interface .pack(side=RIGHT, fill=BOTH)
-
-
-        #______DEL OTROOOOOOOOOOOOOOOOOOOOOOO
-        if type == 'H':   # INTERFACE PRINCIPAL
-            self.frame_interface = Interface (self.ventana)
-            self.frame_interface .pack(side=RIGHT, fill=BOTH)
-            #_________________________
-            self.button_close = Button(self.frame_titlebar, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
-            self.button_minimize = Button(self.frame_titlebar, image=self.image_minimize, command= lambda: self.master .iconify(), bd=0, bg='black', activebackground='black')
-
-            self.button_close .pack(side=TOP, pady=7)               # modo vertical
-            self.button_minimize .pack(side=BOTTOM, pady=7)         # modo vertical
-            
-        if type == 'w':
-
-            self.button_close = Button(self.frame_titlebar, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
-            self.button_minimize = Button(self.frame_titlebar, image=self.image_minimize, command= lambda: self.master .iconify(), bd=0, bg='black', activebackground='black')
-            #self.label_title = Label(self, text='', fg="white", bg="green")
-
-            self.button_close .pack(side=RIGHT)                     # modo horizontal
-            self.button_minimize .pack(side=RIGHT, padx=10)         # modo horizontal    
-            #self.label_title .pack(side=RIGHT, padx=0, pady=0)
-        #_______________________________
-
-        self.frame_titlebar .bind ('<ButtonPress-1>', self.start)
-        self.frame_titlebar .bind ('<B1-Motion>', self.mover)
-        self.master .bind ('<Map>', self.on_deiconify)
-        self.master .bind ('<Unmap>', self.on_iconify)
-
-
-
-
-    def close(self):
-        self.ventana .destroy()
-        self.ventana .quit()
-
-    def start(self, event):
-        self.x = event.x
-        self.y = event.y
-
-    def mover(self, event):
-        deltax = event.x - self.x
-        deltay = event.y - self.y
-        new_pos = "+{}+{}".format(self.ventana.winfo_x() + deltax, self.ventana.winfo_y() + deltay)
-
-        self.ventana.geometry(new_pos) # solo habia este
-        #self.master.geometry(new_pos)
-   
-    def on_deiconify(self, event):
-        self.ventana .deiconify()
-        self.master .lower()
-
-    def on_iconify(self, event):
-        self.ventana .withdraw()
-        self.master .iconify()
-
-    #______DEL OTROOOOOOOOOOOOOOOOOOOOOOO
-
-
-    def image_initializer(self):
-        self.image_close = PhotoImage(file= '11.png')
-        self.image_maximize = PhotoImage(file= 'ma.png') 
-        self.image_minimize = PhotoImage(file= '22.png')
-        self.image_reduce = PhotoImage(file= 'ma2.png')
-
-    #def configure_toplevel(self, size): #--------------------------------NO TOCAR (despues)
-        #def configure_toplevel(self, head, size): #--------------------------------NO TOCAR (despues) 
-        #self.title (head)    #  titulo
-        #self.ventana.geometry (size)  #  tamaño
-        #self.resizable (1,1)
-        #self.master.wm_attributes ('-topmost', True)
-        #self.config (bg = 'magenta2')
-        #self.wm_attributes ('-transparentcolor', 'magenta2')
-        #self.overrideredirect(1)
-
-    def generate_list(self, file, option):   # INICIALIZA IMAGENES
-
-        ouput = os.listdir (file)
-        empty = []                    
-        if option == 'I': 
-            _lst = [[] for x in range(22)]
-            _str = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Kal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Dr1','Dr2']
-            for i in ouput:               
-                for index,iter in enumerate(_str):
-                    if iter in i: 
-                        full = file + '/' + i
-                        open = cv2.imread (full)
-                        RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
-                        _lst[index].append(RGB)               
-            return _lst 
 
 
 
 def main (): #------------------------------------------------------------NO TOCAR
 
     root = Tk()
-    root .title('Aplicación moderna')
+    root .title('TKKKKKKKKKKKKKKK')
+    root .geometry('0x0')
     #root .wm_attributes("-alpha", 0.0 ) 
 
-    app = Toplevel_class (root, type='H')
+    app = Toplevel_class (root, type=True)
     app .mainloop()
 
 if __name__=="__main__":  #-------------------------------------------------------NO TOCAR 

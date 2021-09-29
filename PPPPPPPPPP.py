@@ -8,7 +8,7 @@ class Ventana(Frame):
 	def __init__(self, master):
 		super().__init__( master)
 		self.master.title('Bloc de Notas')
-		self.master.iconbitmap('icono.ico')
+		#self.master.iconbitmap('icono.ico')
 		self.master.geometry('700x500+380+20')
 		self.master.protocol("WM_DELETE_WINDOW", self.salir)
 
