@@ -7,11 +7,23 @@ import imutils
 import numpy as np
 import os 
 #import sys
+import time
 
 class Move_class()
     def __init__(self):
         self._x = 0
         self._y = 0
+   
+        self.go = None
+
+    def on_press(x):
+        self.go = time.time()
+
+    def on_release(x):
+        if self.go is None: return
+        if time.time() - self.go > 1: root.destroy() #aqyu
+        self.go = None
+
 
     def start_move2(self, event):        
         self._x = event.x
