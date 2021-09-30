@@ -552,7 +552,7 @@ class Create_Frame (Frame):
 
     def img_ash(self):   # Metodo que crea -1- Boton (logo) -------------------NO TOCAR (despues)
         
-        self.btn_ash = Button (self, image= self.master.Images_sublist [3], bg= '#11161d', bd= 0, activebackground= '#11161d' , command= self.master.minimize_windows)
+        self.btn_ash = Button (self, image= self.master.Images_sublist [0], bg= '#11161d', bd= 0, activebackground= '#11161d' , command= self.master.minimize_windows)
         self.btn_ash .grid (column= 0, row= 0, padx= (6,6), pady= 0)
 
         self.btn_ash .bind ('<Double-Button-3>', self.master.ash_close_windows)

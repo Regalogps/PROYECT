@@ -1,4 +1,4 @@
-from tkinter import Tk, ttk, Toplevel, PhotoImage, Frame, Label, Button, Spinbox, Listbox, Checkbutton, StringVar, IntVar, BooleanVar
+from tkinter import Tk, Widget, ttk, Toplevel, PhotoImage, Frame, Label, Button, Spinbox, Listbox, Checkbutton, StringVar, IntVar, BooleanVar
 from tkinter import SINGLE, ANCHOR, END, S,N,E,W, RIGHT, BOTTOM, BOTH, SE, TOP, LEFT
 from tkinter.constants import NSEW
 from PIL import ImageTk, Image
@@ -181,11 +181,7 @@ class Interface(Frame):
         ttk.Style().configure('TSizegrip', bg='black') """  # NO TIENE FRAME O IMAGEN TODAVIA
 
         #self.toplevel_STUF.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(3))
-        #self.toplevel_STUF.bind('<Destroy>',lambda f: self.close_windows(3) )
-
-
-
-
+        self.toplevel_STUF.bind('<Destroy>',lambda f: self.close_windows(3) )
 
         #___________________________________________________________________________________________________________
         self._open_1 = True
@@ -197,7 +193,7 @@ class Interface(Frame):
         self.toplevel_STUF .mainloop()
         #___________________________________________________________________________________________________________
 
-    def close_windows(self, number):
+    def close_windows(self,  number, event=None):
         print('afueraaaaaaaaa')
         if number == 1:
             self.toplevel_LEFT. destroy()
@@ -209,6 +205,9 @@ class Interface(Frame):
             self._open_2 = False
             print(22)
         if number == 3:
+            e = event.widget()
+            print(e)
+            #if 
             self.toplevel_STUF. destroy()
             self._open_3 = False
             print(33)
@@ -262,42 +261,40 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
  
         if self.master._open_1 == True or self.master._open_2 == True or self.master._open_3 == True:
 
+            # MOSTRAR VENTANAS
             if self.master._minimize == False:
                 if self.master._open_1 == True:
-                    self.master.toplevel_LEFT.update_idletasks() # APRUEBA
-                    self.master.toplevel_LEFT.overrideredirect(True)
-                    self.master.toplevel_LEFT .state('normal')  # MOSTRAR VENTANAS  
+                    self.master.toplevel_LEFT .mapped_manager()                         # Metodo de Toplevel_class
+                    x = self.master.toplevel_LEFT .winfo_x()               
+                    y = self.master.toplevel_LEFT .winfo_y()
+                    self.master.toplevel_LEFT .geometry('+{}+{}'.format(x,y))           # Remarcando la posicion , soluciona el redimensionamiento automatico interior
 
                 if self.master._open_2 == True:
-                    self.master.update_idletasks() # APRUEBA
-                    self.master.toplevel_RIGHT.overrideredirect(True)
-                    self.master.toplevel_RIGHT .state('normal')
+                    self.master.toplevel_RIGHT .mapped_manager()
+                    x = self.master.toplevel_RIGHT .winfo_x()
+                    y = self.master.toplevel_RIGHT .winfo_y()
+                    self.master.toplevel_RIGHT .geometry('+{}+{}'.format(x,y))
 
                 if self.master._open_3 == True:
-                    self.master.update_idletasks() # APRUEBA
-                    self.master.toplevel_STUF.overrideredirect(True)
-                    self.master.toplevel_STUF .state('normal')
-
+                    self.master.toplevel_STUF .mapped_manager()
+                    x = self.master.toplevel_STUF .winfo_x()
+                    y = self.master.toplevel_STUF .winfo_y()
+                    self.master.toplevel_STUF .geometry('+{}+{}'.format(x,y))
 
                 self.master._minimize = True
 
-            else: 
-                if self.master._open_1 == True:
-                    self.master.toplevel_LEFT.update_idletasks() # APRUEBA
-                    self.master.toplevel_LEFT.overrideredirect(False)
-                    self.master.toplevel_LEFT .state('iconic')     # OCULTAR VENTANAS
+            # OCULTAR VENTANAS
+            else:   
+                if self.master._open_1 == True:  
+                    #self.master.toplevel_LEFT .withdraw()                              # Esto distorciona el tamaño del icono, cuando el mouse se posiciona encima
+                    self.master.toplevel_LEFT .frame_manager .minimize_2()              # Metodo de Toplevel_class
                 if self.master._open_2 == True:
-                    self.master.update_idletasks() # APRUEBA
-                    self.master.toplevel_RIGHT.overrideredirect(False)
-                    self.master.toplevel_RIGHT .state('iconic')
+                    self.master.toplevel_RIGHT .frame_manager .minimize_2()
                 if self.master._open_3 == True:
-                    self.master.update_idletasks() # APRUEBA
-                    self.master.toplevel_STUF.overrideredirect(False)    
-                    self.master.toplevel_STUF .state('iconic')
+                    self.master.toplevel_STUF .frame_manager .minimize_2()
 
                 self.master._minimize = False
-
-       
+   
 
     def generate_list(self, file, option):   # INICIALIZA IMAGENES
 
@@ -445,6 +442,17 @@ class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
         self.container_2w = Frame (self.frame_1, width=116, height=20, bg='#11161d')
         self.select_mobil = Label (self.frame_1, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
         self.miniature_mobil = Label (self.frame_2, image=self.Miniatures[0], bd= 0)
+
+
+
+
+        self.select_mobil .bind("<ButtonPress-1>", self.master.master.start_move)   
+        self.select_mobil .bind("<ButtonRelease-1>", self.master.master.stop_move) 
+        self.select_mobil .bind("<B1-Motion>", self.master.master.on_move)
+
+
+
+
 
         self.create_listbox (width=11, height=1)
         self.create_spinbox (width=13)
@@ -2127,12 +2135,9 @@ class Frame_manager_class(Frame):
         self.master .destroy()
         self.master .quit()  # APRUEBAA
 
-
     def minimize_2(self):
-        self.master.update_idletasks() # APRUEBA
+        self.master.update_idletasks()
         self.master.overrideredirect(False)
-        #self.master.withdraw() # APRUEBA
-        #self.master.iconify() # APRUEBA
         self.master.state('iconic')
  
 
@@ -2184,51 +2189,13 @@ class Toplevel_class(Toplevel):
         self._y = 0
        
 
-        #self.frame_manager = Frame_manager_class (self, bg="black") # APRUEBA TAL VEZ CAUSA ERROR POR NO ESTA POSICIONADO 
-        self.frame_manager .bind("<ButtonPress-1>", self.start_move)                   # Intercepta los puntos x,y 
-        self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)                  # Asigna un estado de inicio o stop
-        self.frame_manager .bind("<B1-Motion>", self.on_move)                          # Mueve la ventana 
+        #self.frame_manager = Frame_manager_class (self, bg="black")        # APRUEBA TAL VEZ CAUSA ERROR POR NO ESTA POSICIONADO 
+        self.frame_manager .bind("<ButtonPress-1>", self.start_move)        # Intercepta los puntos x,y 
+        self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)       # Asigna un estado de inicio o stop
+        self.frame_manager .bind("<B1-Motion>", self.on_move)               # Mueve la ventana 
 
-        #self.frame_titlebar .bind("<Map>",self.frame_mapped)
-
-        self.master .bind("<Map>", self.deiconify_1)                                   # SE EJECUTA CUANDO ES VISIBLE
-        self.master .bind("<Unmap>", self.iconify_1)                                   # SE EJECUTA CUANDO ES INVISIBLE     
-
-
-
-    # MODO: VERTICAL INTERFACE
-    def mode_height(self):  
-        #____F R A M E:
-        self.frame_manager = Frame_manager_class (self, bg="black")  
-        self.frame_manager .pack (side=RIGHT, fill=BOTH)
-        self.frame_manager .buttons_height()
-
-        self.frame_ashmanbot = Interface (self)
-        self.frame_ashmanbot .pack (side=RIGHT, fill=BOTH) 
-        self.move_tk = True   
-
-    # MODO: HORIZONTAL VENTANAS
-    def mode_width(self):
-        #____F R A M E:
-        self.frame_manager = Frame_manager_class (self, bg="black")   
-        self.frame_manager .pack(side=TOP, fill=BOTH)
-        self.frame_manager .buttons_width()
-
-        #____L A B E L:     
-        self.frame_manager .label_title .bind("<ButtonPress-1>", self.start_move)        # Intercepta los puntos x,y 
-        self.frame_manager .label_title .bind("<ButtonRelease-1>", self.stop_move)       # Asigna un estado de inicio o stop
-        self.frame_manager .label_title .bind("<B1-Motion>", self.on_move)               # Mueve la ventana 
-
-        self.frame_manager .bind("<Map>",self.frame_mapped) # aorueba
-        self.move_tk = False
-
-
-
-    def frame_mapped(self, event):
-        print('mappeeddd')
-        self.update_idletasks()
-        self.overrideredirect(True)
-        self.state('normal')  # APRUEBA
+        self.master .bind("<Map>", self.deiconify_1)                        # SE EJECUTA CUANDO ES VISIBLE    / SOLO SE EJECUTA PARA INTERFACE
+        self.master .bind("<Unmap>", self.iconify_1)                        # SE EJECUTA CUANDO ES INVISIBLE  / SOLO SE EJECUTA PARA INTERFACE   
 
 
 
@@ -2236,12 +2203,9 @@ class Toplevel_class(Toplevel):
 
     def iconify_1(self, event):   # Oculta la ventana (sin icono) : withdraw()
         self.withdraw()
-        print('withdraw')
 
-    def deiconify_1(self, event): # Muestra la ventana (con o sin icono) : deiconify() --- [deiconify sirve para iconify() y para withdraw()]
+    def deiconify_1(self, event): # Muestra la ventana 
         self.deiconify()
-        print('deiconify')
-
 
 
     def start_move(self, event):        
@@ -2261,6 +2225,7 @@ class Toplevel_class(Toplevel):
  
         if self.move_tk == True:
             self.master.geometry(new_position)   # Moviendo Raiz   
+
 
     def configure_toplevel(self, title, size):
         self.title (title)
@@ -2286,7 +2251,82 @@ class Toplevel_class(Toplevel):
                         _lst[index].append(RGB)               
             return _lst 
 
-        
+
+    # MODO: VERTICAL INTERFACE
+    def mode_height(self):  
+        #____F R A M E:
+        self.frame_manager = Frame_manager_class (self, bg="black")  
+        self.frame_manager .pack (side=RIGHT, fill=BOTH)
+        self.frame_manager .buttons_height()
+        self.move_tk = True
+        # DESDE AQUI SE PUEDE BORRAR E INTANCIAR EN MAIN
+        self.frame_ashmanbot = Interface (self)         # ESTA INSTANCIADO EN MAIN CREO Q ES IGUAL O MEJOR QUE INSTANCIARLO AQUI
+        self.frame_ashmanbot .pack (side=RIGHT, fill=BOTH) 
+
+        self.move_tk = True
+
+        """ self.frame_ashmanbot .frame_botones .bind("<ButtonPress-1>", self.start_move)   
+        self.frame_ashmanbot .frame_botones .bind("<ButtonRelease-1>", self.stop_move) 
+        self.frame_ashmanbot .frame_botones .bind("<B1-Motion>", self.on_move) """
+
+        self.frame_ashmanbot .frame_controller .bind("<ButtonPress-1>", self.start_move)   
+        self.frame_ashmanbot .frame_controller .bind("<ButtonRelease-1>", self.stop_move) 
+        self.frame_ashmanbot .frame_controller .bind("<B1-Motion>", self.on_move)
+
+        self.frame_ashmanbot .frame_controller .btn_ash .bind("<ButtonPress-1>", self.start_move)   
+        self.frame_ashmanbot .frame_controller .btn_ash .bind("<ButtonRelease-1>", self.stop_move) 
+        self.frame_ashmanbot .frame_controller .btn_ash .bind("<B1-Motion>", self.on_move)
+
+        self.frame_ashmanbot .frame_controller .btn_gear .bind("<ButtonPress-1>", self.start_move)   
+        self.frame_ashmanbot .frame_controller .btn_gear .bind("<ButtonRelease-1>", self.stop_move) 
+        self.frame_ashmanbot .frame_controller .btn_gear .bind("<B1-Motion>", self.on_move)
+
+        self.frame_ashmanbot .frame_config .bind("<ButtonPress-1>", self.start_move)   
+        self.frame_ashmanbot .frame_config .bind("<ButtonRelease-1>", self.stop_move) 
+        self.frame_ashmanbot .frame_config .bind("<B1-Motion>", self.on_move)
+
+        self.frame_ashmanbot .frame_listmode .bind("<ButtonPress-1>", self.start_move)   
+        self.frame_ashmanbot .frame_listmode .bind("<ButtonRelease-1>", self.stop_move) 
+        self.frame_ashmanbot .frame_listmode .bind("<B1-Motion>", self.on_move)
+
+        self.frame_ashmanbot .frame_listmode.frame_1 .bind("<ButtonPress-1>", self.start_move)   
+        self.frame_ashmanbot .frame_listmode.frame_1 .bind("<ButtonRelease-1>", self.stop_move) 
+        self.frame_ashmanbot .frame_listmode.frame_1 .bind("<B1-Motion>", self.on_move)
+
+        self.frame_ashmanbot .frame_listmode.frame_2 .bind("<ButtonPress-1>", self.start_move)   
+        self.frame_ashmanbot .frame_listmode.frame_2 .bind("<ButtonRelease-1>", self.stop_move) 
+        self.frame_ashmanbot .frame_listmode.frame_2 .bind("<B1-Motion>", self.on_move)
+
+        """ self.frame_ashmanbot .frame_listmode.frame_2.miniature_mobil .bind("<ButtonPress-1>", self.start_move)   
+        self.frame_ashmanbot .frame_listmode.frame_2.miniature_mobil .bind("<ButtonRelease-1>", self.stop_move) 
+        self.frame_ashmanbot .frame_listmode.frame_2.miniature_mobil .bind("<B1-Motion>", self.on_move) """
+
+
+
+    # MODO: HORIZONTAL VENTANAS
+    def mode_width(self):
+        #____F R A M E:
+        self.frame_manager = Frame_manager_class (self, bg="black")   
+        self.frame_manager .pack(side=TOP, fill=BOTH)
+        self.frame_manager .buttons_width()
+        self.frame_manager .bind("<Map>",self.mapped_manager)
+
+        #____L A B E L:     
+        self.frame_manager .label_title .bind("<ButtonPress-1>", self.start_move)        # Intercepta los puntos x,y 
+        self.frame_manager .label_title .bind("<ButtonRelease-1>", self.stop_move)       # Asigna un estado de inicio o stop
+        self.frame_manager .label_title .bind("<B1-Motion>", self.on_move)               # Mueve la ventana 
+
+        self.move_tk = False 
+
+    def mapped_manager(self, event=None):  # / SOLO SE EJECUTA PARA VENTANAS 1,2,3   
+        self.update_idletasks()
+        self.overrideredirect(True)
+        self.state('normal')
+
+
+
+
+
 ################################
 #____
     """ class WindRoot(Tk):  # SIN FUNCIONAMIENTO
@@ -2327,7 +2367,6 @@ class Toplevel_class(Toplevel):
 
 
 
-
 def main (): #------------------------------------------------------------NO TOCAR
 
     root = Tk()
@@ -2336,7 +2375,9 @@ def main (): #------------------------------------------------------------NO TOC
     #root .wm_attributes("-alpha", 0.0 ) 
 
     app = Toplevel_class (root, type=True)
-    app .mainloop()
+    #e = Interface(app)    # NEW     PROBANDO
+    #e .pack(side=RIGHT, fill=BOTH)   # NEW    PROBANDO
+    app .mainloop()   
 
 if __name__=="__main__":  #-------------------------------------------------------NO TOCAR 
     main()
