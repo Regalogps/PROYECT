@@ -8,6 +8,29 @@ import numpy as np
 import os 
 #import sys
 
+class Move_class()
+    def __init__(self):
+        self._x = 0
+        self._y = 0
+
+    def start_move2(self, event):        
+        self._x = event.x
+        self._y = event.y
+
+    def stop_move2(self, event):
+        self._x = None
+        self._y = None
+
+    def on_move2(self, event):
+        deltax = event.x - self._x
+        deltay = event.y - self._y
+        new_position = "+{}+{}".format(self.winfo_x() + deltax, self.winfo_y() + deltay)
+        self.master.geometry(new_position) #AQUI PUEDE HABER CONFLICTO
+
+
+############################
+############################
+
 class Interface(Frame):
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
@@ -427,7 +450,7 @@ class B2_class(Frame):   # Frame contenedor de checkbuttons y labels
         self.ckbutton7 .grid (column=7, row=0, padx=(0,200), pady=(10,0),)
 
 ################################          
-class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
+class B3_class(Frame, Move_class):   # Frame Contenedor de Spinbox y Listbox
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, kwargs)
 
@@ -444,18 +467,15 @@ class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
         self.miniature_mobil = Label (self.frame_2, image=self.Miniatures[0], bd= 0)
 
 
-
-
-        self.select_mobil .bind("<ButtonPress-1>", self.master.master.start_move)   
-        self.select_mobil .bind("<ButtonRelease-1>", self.master.master.stop_move) 
-        self.select_mobil .bind("<B1-Motion>", self.master.master.on_move)
-
-
-
+        # ANTERIOR
+        #self.select_mobil .bind("<ButtonPress-1>", self.master.master.start_move)   
+        #self.select_mobil .bind("<ButtonRelease-1>", self.master.master.stop_move) 
+        #self.select_mobil .bind("<B1-Motion>", self.master.master.on_move)
 
 
         self.create_listbox (width=11, height=1)
         self.create_spinbox (width=13)
+        self.bind_move()
 
         #_____G R I D ():
         self.frame_1 .grid (column=0, row=0)                                     # MASTER A
@@ -630,6 +650,12 @@ class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
                     empty. append (img)
             return empty
 
+    def bind_move (self):
+        # NEW
+        self.select_mobil .bind("<ButtonPress-1>", self.start_move2)   
+        self.select_mobil .bind("<ButtonRelease-1>", self.stop_move2) 
+        self.select_mobil .bind("<B1-Motion>", self.on_move2)
+        
 ################################ 
 class Checkbutton_class(Checkbutton):   
     def __init__(self, *args, **kwargs):
