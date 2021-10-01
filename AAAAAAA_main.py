@@ -54,8 +54,8 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         self._open_3 = False
 
         #_____Variables de Control Secundarias:
-        self._gear = True
-        self._minimize = True
+        self._gear = False
+        self._minimize = False
         
         #_____Métodos Llamados:
         self. configure_interface()
@@ -106,7 +106,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
 
     def gear_stacking(self):   # ON: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
 
-        if  self._gear == True:                                                  # PREDETERMINADO: TRUE
+        if  self._gear == False:                                                  # PREDETERMINADO: TRUE
             self.frame_botones .pack_forget()                                    # BOTONES
             self.frame_listmode .pack_forget()                                   # MODO LISTA
 
@@ -114,7 +114,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
             self.frame_configurer .pack (side=LEFT, fill=BOTH, expand=True)
             self.master.geometry ('830x65')
 
-            self._gear = False
+            self._gear = True
  
         else:
             self.frame_configurer .pack_forget()
@@ -126,12 +126,12 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
                 self.frame_botones .pack (side=LEFT, fill=BOTH) 
                 self.frame_listmode .forget()
 
-            self._gear = True 
+            self._gear = False 
    
 
-############   G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S  
-############   G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S  
-############   G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S  
+#########################################################################
+#########################################################################
+#_______G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S_______#
 
     def windows_123 (self, var_1, var_2, var_3):
         
@@ -269,40 +269,42 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
  
         if self.master._open_1 == True or self.master._open_2 == True or self.master._open_3 == True:
 
+            # OCULTAR VENTANAS
+            if not self.master._minimize:
+                if self.master._open_1:  
+                    #self.master.toplevel_LEFT .withdraw()                            # Esto distorciona el tamaño del icono, cuando el mouse se posiciona encima
+                    self.master.toplevel_LEFT .frame_manager .minimize()              # Metodo de Toplevel_class
+
+                if self.master._open_2:
+                    self.master.toplevel_RIGHT .frame_manager .minimize()
+
+                if self.master._open_3:
+                    self.master.toplevel_STUF .frame_manager .minimize()
+
+                self.master._minimize = True
+
             # MOSTRAR VENTANAS
-            if self.master._minimize == False:
-                if self.master._open_1 == True:
+            else:
+                if self.master._open_1:
                     self.master.toplevel_LEFT .mapped_manager()                         # Metodo de Toplevel_class
 
                     x = self.master.toplevel_LEFT .winfo_x()               
                     y = self.master.toplevel_LEFT .winfo_y()
                     self.master.toplevel_LEFT .geometry('+{}+{}'.format(x,y))           # Remarcando la posicion , soluciona el redimensionamiento automatico interior
 
-                if self.master._open_2 == True:
+                if self.master._open_2:
                     self.master.toplevel_RIGHT .mapped_manager()
 
                     x = self.master.toplevel_RIGHT .winfo_x()
                     y = self.master.toplevel_RIGHT .winfo_y()
                     self.master.toplevel_RIGHT .geometry('+{}+{}'.format(x,y))
 
-                if self.master._open_3 == True:
+                if self.master._open_3:
                     self.master.toplevel_STUF .mapped_manager()
 
                     x = self.master.toplevel_STUF .winfo_x()
                     y = self.master.toplevel_STUF .winfo_y()
                     self.master.toplevel_STUF .geometry('+{}+{}'.format(x,y))
-
-                self.master._minimize = True
-
-            # OCULTAR VENTANAS
-            else:   
-                if self.master._open_1 == True:  
-                    #self.master.toplevel_LEFT .withdraw()                            # Esto distorciona el tamaño del icono, cuando el mouse se posiciona encima
-                    self.master.toplevel_LEFT .frame_manager .minimize()              # Metodo de Toplevel_class
-                if self.master._open_2 == True:
-                    self.master.toplevel_RIGHT .frame_manager .minimize()
-                if self.master._open_3 == True:
-                    self.master.toplevel_STUF .frame_manager .minimize()
 
                 self.master._minimize = False
    
