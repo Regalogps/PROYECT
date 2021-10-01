@@ -2,7 +2,6 @@ from A_importaciones import *
 from A_frames import *
 
 
-
 class Move_class():
     def __init__(self):
         self._x = 0
@@ -116,7 +115,6 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
             self.master.geometry ('830x65')
 
             self._gear = False
- 
 
         else:
             self.frame_configurer .pack_forget()
