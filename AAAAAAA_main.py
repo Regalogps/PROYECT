@@ -238,20 +238,21 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
         self.Sublist= self.generate_list(path, 'S') 
         #_____C O N T E N E D O R E S:  [ 0 ]
 
-        self.ash_controller()
-        self.gear_controller()
+        self.controllers()
         
-    def ash_controller(self):  # IMAGE
-        self.btn_ash = Button (self, image=self.Sublist[0], bg='#11161d', bd=0, activebackground='#11161d' , command=self.ash_minimize_windows)
+    def controllers(self):  # Botones
+        #____B U T T O N S:  [2]:  Logo y rueda
+        self.btn_ash = Button (self, image=self.Sublist[0], bg='#11161d', bd=0, activebackground='#11161d' ,
+                               command=self.minimize_windows)
+        self.btn_gear = Button (self, image=self.Sublist[1], bg='#11161d', bd=0, activebackground='#11161d',
+                                command=self.master.gear_stacking) 
+        #____G R I D ():
         self.btn_ash .grid (column=0, row=0, padx=(6,6), pady=0)
-        self.btn_ash .bind ('<Double-3>', self.ash_close_windows)
-          
-    def gear_controller(self):  # IMAGE
-        self.btn_gear = Button (self, image=self.Sublist[1], bg='#11161d', bd=0, activebackground='#11161d', command=self.master.gear_stacking) 
         self.btn_gear .grid (column=0, row=1)
-        #self.btn_gear .bind ('<Double-3>', self.master.otros)
-
-    def ash_close_windows(self, event):   # ACTIVA: CON DOBLE CLICK DERECHO EN EL LOGO - CIERRA LAS VENTANAS 
+        #____B I N D ():
+        self.btn_ash .bind ('<Double-Button-3>', self.close_windows)  # Cierra Toplevel Secundarias
+  
+    def close_windows(self, event):   # ACTIVA: CON DOBLE CLICK DERECHO EN EL LOGO - CIERRA LAS VENTANAS 
     
         try:
             self.master.toplevel_LEFT .destroy() 
@@ -266,7 +267,7 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
         except:
             pass
 
-    def ash_minimize_windows(self):   # ACTIVA: CON CLICK IZQUIERDO AL LOGO - MINIMIZA LAS VENTANAS
+    def minimize_windows(self):   # ACTIVA: CON CLICK IZQUIERDO AL LOGO - MINIMIZA LAS VENTANAS
  
         if self.master._open_1 == True or self.master._open_2 == True or self.master._open_3 == True:
 
@@ -274,18 +275,21 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
             if self.master._minimize == False:
                 if self.master._open_1 == True:
                     self.master.toplevel_LEFT .mapped_manager()                         # Metodo de Toplevel_class
+
                     x = self.master.toplevel_LEFT .winfo_x()               
                     y = self.master.toplevel_LEFT .winfo_y()
                     self.master.toplevel_LEFT .geometry('+{}+{}'.format(x,y))           # Remarcando la posicion , soluciona el redimensionamiento automatico interior
 
                 if self.master._open_2 == True:
                     self.master.toplevel_RIGHT .mapped_manager()
+
                     x = self.master.toplevel_RIGHT .winfo_x()
                     y = self.master.toplevel_RIGHT .winfo_y()
                     self.master.toplevel_RIGHT .geometry('+{}+{}'.format(x,y))
 
                 if self.master._open_3 == True:
                     self.master.toplevel_STUF .mapped_manager()
+
                     x = self.master.toplevel_STUF .winfo_x()
                     y = self.master.toplevel_STUF .winfo_y()
                     self.master.toplevel_STUF .geometry('+{}+{}'.format(x,y))
@@ -295,7 +299,7 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
             # OCULTAR VENTANAS
             else:   
                 if self.master._open_1 == True:  
-                    #self.master.toplevel_LEFT .withdraw()                              # Esto distorciona el tamaño del icono, cuando el mouse se posiciona encima
+                    #self.master.toplevel_LEFT .withdraw()                            # Esto distorciona el tamaño del icono, cuando el mouse se posiciona encima
                     self.master.toplevel_LEFT .frame_manager .minimize()              # Metodo de Toplevel_class
                 if self.master._open_2 == True:
                     self.master.toplevel_RIGHT .frame_manager .minimize()
@@ -907,7 +911,6 @@ def main (): #------------------------------------------------------------NO TOC
 
     root = Root_class()
     root .title('AshmanBot')
-    #root .geometry('0x0')
     #root .wm_attributes("-alpha", 0.0 )
     #app = Interface(root)
     #app .pack()    
