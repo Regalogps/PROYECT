@@ -242,12 +242,16 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
     def controllers(self):  # IMAGES
   
         #____B U T T O N :  [2] ---> LOGO Y RUEDA
-        self.btn_ash = Button (self, image=self.Sublist[0], bg='#11161d', bd=0, activebackground='#11161d' , command=self.ash_minimize_windows)
-        self.btn_ash .grid (column=0, row=0, padx
-        self.btn_ash .bind ('<Dou
-        self.btn_gear = Button (self, image=self.Sublist[1], bg='#11161d', bd=0, activebackground='#11161d', command=self.master.gear_stacking) 
+        self.btn_ash = Button (self, image=self.Sublist[0], bg='#11161d', bd=0, activebackground='#11161d',
+                               command=self.ash_minimize_windows)
+        self.btn_gear = Button (self, image=self.Sublist[1], bg='#11161d', bd=0, activebackground='#11161d',
+                                command=self.master.gear_stacking) 
+        #____G R I D ():
+        self.btn_ash .grid (column=0, row=0, padx=(6,6), pady=0)
         self.btn_gear .grid (column=0, row=1)
-
+        
+        #____B I N D ():
+        self.btn_ash .bind ('<Double-3>', self.ash_close_windows)
         #self.btn_gear .bind ('<Double-3>', self.master.otros)
 
     def ash_close_windows(self, event):   # ACTIVA: CON DOBLE CLICK DERECHO EN EL LOGO - CIERRA LAS VENTANAS 
