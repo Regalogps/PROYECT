@@ -134,6 +134,6 @@ class WindRoot(Tk):
 
 if __name__ == '__main__':
     root = WindRoot()
-    root .wm_attributes("-alpha", 0.0 ) 
+    #root .wm_attributes("-alpha", 0.0 ) 
     root.title('')
     root.mainloop()
