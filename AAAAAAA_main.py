@@ -139,7 +139,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
     def windows_123 (self, var_1, var_2, var_3):
         
         #________________________V E N T A N A:   1________________________________________________________________
-        if self._open_1 == False: 
+        if not self._open_1:   # ----> not self._open_1 == True:
             self.toplevel_LEFT = Toplevel_class (self, type=False)
             self.toplevel_LEFT .configure_toplevel ('Hoja Izquierda', '220x690') #  metodo  ('izq', '220x690')
                                 
@@ -158,7 +158,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         #self.toplevel_LEFT.bind('<Destroy>',lambda f: self.close_windows(1) )    
 
         #________________________V E N T A N A:   2________________________________________________________________
-        if self._open_2 == False:
+        if not self._open_2:
             self.toplevel_RIGHT = Toplevel_class (self, type=False)
             self.toplevel_RIGHT .configure_toplevel ('Hoja Derecha', '220x690')  # ('der', '220x690')
 
@@ -180,7 +180,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
 
 
         #________________________V E N T A N A:   3________________________________________________________________
-        if self._open_3 == False:
+        if not self._open_3:
             self.toplevel_STUF = Toplevel_class (self, type=False) 
             self.toplevel_STUF .configure_toplevel ('Game Stuff', '620x190')     # ('stuf', '620x190')  
 
