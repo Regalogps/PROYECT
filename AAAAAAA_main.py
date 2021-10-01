@@ -681,19 +681,33 @@ class Checkbutton_class(Checkbutton):
 ################################
 ################################
 class Frame_manager_class(Frame):
-    def __init__(self, master=None, **kwargs):
+    def __init__(self, master=None, type='default', **kwargs):
         Frame.__init__(self, master, **kwargs)
         self.master = master
         self.initializer_images()
 
     # MODO: VERTICAL INTERFACE
     def close(self):
-        self.master.destroy()
-        self.master.master.destroy()
+        if type is 'default':
+            self.master.destroy()
+            self.master.master.destroy()
 
-    def minimize(self):   
-        self.master.withdraw()
-        self.master.master.iconify()
+        if type is not 'default':  # Ventanas Frame
+            self.master .destroy()
+            self.master .quit()  # APRUEBAA
+
+
+    def minimize(self):
+        if type is 'default':
+            self.master.withdraw()
+            self.master.master.iconify()
+            print('___111')
+        
+        if type is not 'default':  # Ventanas Frame
+            self.master.update_idletasks()
+            self.master.overrideredirect(False)
+            self.master.state('iconic')
+            print('___222')
     
 
     # MODO: HORIZONTAL VENTANAS
@@ -827,7 +841,7 @@ class Toplevel_class(Toplevel):
     # MODO: HORIZONTAL VENTANAS
     def mode_width(self):
         #____F R A M E:
-        self.frame_manager = Frame_manager_class (self, bg="black")   
+        self.frame_manager = Frame_manager_class (self, type='not default', bg="black")   
         self.frame_manager .pack(side=TOP, fill=BOTH)
         self.frame_manager .buttons_width()
         self.frame_manager .bind("<Map>",self.mapped_manager)
