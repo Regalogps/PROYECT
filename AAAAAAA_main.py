@@ -152,7 +152,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         self.grip .place (relx=1.0, rely=1.0, anchor='center')
         ttk.Style().configure('TSizegrip', bg='black')
               
-        #self.toplevel_LEFT.bind('<Destroy>',lambda f: self.close_windows(1) )    
+        #self.toplevel_LEFT.bind('<Destroy>',lambda f: self.closing_toplevel(1) )    
 
 
         #________________________V E N T A N A:   2________________________________________________________________
@@ -172,7 +172,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         self.grip .place (relx=1.0, rely=1.0, anchor='center')
         ttk.Style().configure('TSizegrip', bg='black')
     
-        #self.toplevel_RIGHT.bind('<Destroy>',lambda f: self.close_windows(2) )
+        #self.toplevel_RIGHT.bind('<Destroy>',lambda f: self.closing_toplevel(2) )
         
 
         #________________________V E N T A N A:   3________________________________________________________________
@@ -192,7 +192,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         self.grip .place (relx=1.0, rely=1.0, anchor='center')
         ttk.Style().configure('TSizegrip', bg='black') """  # NO TIENE FRAME O IMAGEN TODAVIA
 
-        self.toplevel_STUF.bind('<Destroy>',lambda event: self.close_windows(3, event))
+        self.toplevel_STUF.bind('<Destroy>',lambda event: self.closing_toplevel(3, event))
 
 
         #___________________________________________________________________________________________________________
@@ -206,7 +206,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         #___________________________________________________________________________________________________________
 
 
-    def close_toplevel(self,  number, event=None):
+    def closing_toplevel(self,  number, event=None):
         print('afueraaaaaaaaa')
         if number == 1:
             self.toplevel_LEFT. destroy()
@@ -217,6 +217,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
             self.toplevel_RIGHT. destroy()
             self._open_2 = False
             print(22)
+
         if number == 3:
             a = event.widget.master.destroy()
             #self.toplevel_STUF. destroy()
