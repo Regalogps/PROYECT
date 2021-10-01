@@ -2,7 +2,6 @@ from A_importaciones import *
 from A_frames import *
 
 
-
 class Move_class():
     def __init__(self):
         self._x = 0
@@ -117,10 +116,8 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
 
             self._gear = False
  
-
         else:
             self.frame_configurer .pack_forget()
-
             if self.frame_configurer .ckbutton5.variable.get() == True:
                 self.frame_listmode .pack (side=LEFT, fill=BOTH)
                 self.frame_listmode .spinboxx .focus_set()
@@ -149,13 +146,14 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
             self._frame_1 .destroy()
         self._frame_1 = container_frame_left
         self._frame_1 .pack()
-
+        
+        #____S I Z E G R I P ():
         self.grip = ttk.Sizegrip(self._frame_1, style='TSizegrip')
         self.grip .place (relx=1.0, rely=1.0, anchor='center')
         ttk.Style().configure('TSizegrip', bg='black')
               
-        #self.toplevel_LEFT .protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(1))
         #self.toplevel_LEFT.bind('<Destroy>',lambda f: self.close_windows(1) )    
+
 
         #________________________V E N T A N A:   2________________________________________________________________
         if not self._open_2:
@@ -169,15 +167,13 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         self._frame_2 = container_frame_right
         self._frame_2 .pack()
 
-
+        #____S I Z E G R I P ():
         self.grip = ttk.Sizegrip(self._frame_2, style='TSizegrip')
         self.grip .place (relx=1.0, rely=1.0, anchor='center')
         ttk.Style().configure('TSizegrip', bg='black')
-
-        #self.toplevel_RIGHT.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(2))
+    
         #self.toplevel_RIGHT.bind('<Destroy>',lambda f: self.close_windows(2) )
-        #_______ desde aqui falta completar este if
-
+        
 
         #________________________V E N T A N A:   3________________________________________________________________
         if not self._open_3:
@@ -191,13 +187,13 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         self._frame_3 = container_frame_stuf
         self._frame_3 .pack()
 
-
+        #____S I Z E G R I P ():
         """ self.grip = ttk.Sizegrip(self._frame_3, style='TSizegrip')
         self.grip .place (relx=1.0, rely=1.0, anchor='center')
         ttk.Style().configure('TSizegrip', bg='black') """  # NO TIENE FRAME O IMAGEN TODAVIA
 
-        #self.toplevel_STUF.protocol ('WM_DELETE_WINDOW', lambda: self.close_windows(3))
-        self.toplevel_STUF.bind('<Destroy>',lambda f: self.close_windows(3) )
+        self.toplevel_STUF.bind('<Destroy>',lambda event: self.close_windows(3, event))
+
 
         #___________________________________________________________________________________________________________
         self._open_1 = True
@@ -209,7 +205,8 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         self.toplevel_STUF .mainloop()
         #___________________________________________________________________________________________________________
 
-    def close_windows(self,  number, event=None):
+
+    def close_toplevel(self,  number, event=None):
         print('afueraaaaaaaaa')
         if number == 1:
             self.toplevel_LEFT. destroy()
