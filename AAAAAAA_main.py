@@ -251,8 +251,8 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
         self.btn_gear .grid (column=0, row=1)
         
         #____B I N D ():
-        self.btn_ash .bind ('<Double-3>', self.ash_close_windows)
-        #self.btn_gear .bind ('<Double-3>', self.master.otros)
+        self.btn_ash .bind ('<Double-Button-3>', self.ash_close_windows)  # Cierra las Ventanas Frame
+
 
     def ash_close_windows(self, event):   # ACTIVA: CON DOBLE CLICK DERECHO EN EL LOGO - CIERRA LAS VENTANAS 
     
