@@ -118,7 +118,6 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
 
         else:
             self.frame_configurer .pack_forget()
-
             if self.frame_configurer .ckbutton5.variable.get() == True:
                 self.frame_listmode .pack (side=LEFT, fill=BOTH)
                 self.frame_listmode .spinboxx .focus_set()
