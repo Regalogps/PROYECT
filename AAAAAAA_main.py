@@ -914,11 +914,10 @@ def main (): #------------------------------------------------------------NO TOC
 
     root = Root_class()
     root .title('AshmanBot')
-    #root .geometry('0x0')
     #root .wm_attributes("-alpha", 0.0 )
     #app = Interface(root)
     #app .pack()    
     root .mainloop()
 
-if __name__=="__main__":  #-------------------------------------------------------NO TOCAR 
-    maRUEDA
+if __name__=="__main__":
+    main()
