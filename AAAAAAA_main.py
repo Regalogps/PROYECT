@@ -675,43 +675,30 @@ class Checkbutton_class(Checkbutton):
 ################################
 ################################
 class Frame_manager_class(Frame):
-    def __init__(self, master=None, a=None, **kwargs):
+    def __init__(self, master=None, _mode=None, **kwargs):
         Frame.__init__(self, master, **kwargs)
-        self.a = a
+        self._mode = _mode
         self.master = master
         self.initializer_images()
 
-    # MODO: VERTICAL INTERFACE
     def close(self):
-        if self.a is None:
-            self.master.destroy()
-            self.master.master.destroy()
-            print(2222444)
-        if self.a is not None:
-            self.master .destroy()
-            self.master .quit()  # APRUEBAA
-            print(222888888888888888884)
+        if self._mode is None:
+            self.master.destroy()                    # Destruye Toplevel Principal
+            self.master.master.destroy()             #/Destruye root
+
+        if self._mode is not None:
+            self.master.destroy()                    # Destruye Toplevel Secundarios
+            self.master.quit()                       # APRUEBAA
 
     def minimize(self):
-        if self.a is None:   
-            self.master.withdraw()
-            self.master.master.iconify()
-        if self.a is not None:
-            self.master.update_idletasks()
-            self.master.overrideredirect(False)
-            self.master.state('iconic')
-    
+        if self._mode is None:   
+            self.master.withdraw()                   # Oculta Toplevel Principal
+            self.master.master .iconify()            # Iconiza root
 
-    # MODO: HORIZONTAL VENTANAS
-    def close_2(self):
-        self.master .destroy()
-        self.master .quit()  # APRUEBAA
-
-    def minimize_2(self):
-        self.master.update_idletasks()
-        self.master.overrideredirect(False)
-        self.master.state('iconic')
- 
+        if self._mode is not None:
+            self.master.update_idletasks()           # Termina Tareas Pendientes (dibujo,etc)
+            self.master.overrideredirect(False)      # Dibuja el Gestor de Ventanas a Toplevel Secundarias
+            self.master.state('iconic')              # Iconiza Toplevel Secundarias
 
     # MODO: VERTICAL INTERFACE
     def buttons_height(self):
