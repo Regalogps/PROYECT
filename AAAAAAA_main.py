@@ -106,7 +106,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
 
     def gear_stacking(self):   # ON: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
 
-        if  self._gear == False:                                                  # PREDETERMINADO: TRUE
+        if  not self._gear:                                                      # PREDETERMINADO: TRUE
             self.frame_botones .pack_forget()                                    # BOTONES
             self.frame_listmode .pack_forget()                                   # MODO LISTA
 
