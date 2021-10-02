@@ -127,8 +127,10 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
                 self.frame_listmode .forget()
 
             self._gear = False 
+  
    
-
+#########################################################################
+#########################################################################
 #########################################################################
 #########################################################################
 #_______G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S_______#
@@ -153,7 +155,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         self.grip .place (relx=1.0, rely=1.0, anchor='center')
         ttk.Style().configure('TSizegrip', bg='black')
               
-        #self.toplevel_LEFT.bind('<Destroy>', lambda event: self.closing_toplevel(1, event))    
+        self.toplevel_LEFT.bind('<Destroy>', lambda event: self.closing_toplevel(1, event))    
 
 
         #________________________V E N T A N A:   2________________________________________________________________
@@ -174,7 +176,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         self.grip .place (relx=1.0, rely=1.0, anchor='center')
         ttk.Style().configure('TSizegrip', bg='black')
     
-        #self.toplevel_RIGHT.bind('<Destroy>', lambda event: self.closing_toplevel(2, event))
+        self.toplevel_RIGHT.bind('<Destroy>', lambda event: self.closing_toplevel(2, event))
         
 
         #________________________V E N T A N A:   3________________________________________________________________
@@ -208,25 +210,13 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         self.toplevel_STUF .mainloop()
         #___________________________________________________________________________________________________________
 
-
     def closing_toplevel(self,  number, event=None):
-        print('afueraaaaaaaaa')
         if number == 1:
             self._open_1 = False
-            event.widget.destroy()
-            print(11)
-    
         if number == 2:
-            self._open_1 = False
-            event.widget.destroy()
-            print(22)
-
-        if number == 3:
+            self._open_2 = False
+        if number == 3: 
             self._open_3 = False
-            #self.toplevel_STUF. destroy()
-            event.widget.destroy()
-            print(33)
-
 
 
 ################################
@@ -246,10 +236,11 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
         self.btn_ash = Button (self, image=self.Sublist[0], bg='#11161d', bd=0, activebackground='#11161d' ,
                                command=self.minimize_windows)
         self.btn_gear = Button (self, image=self.Sublist[1], bg='#11161d', bd=0, activebackground='#11161d',
-                                command=self.master.gear_stacking) 
+                                command=self.master.gear_stacking)                               
         #____G R I D ():
         self.btn_ash .grid (column=0, row=0, padx=(6,6), pady=0)
         self.btn_gear .grid (column=0, row=1)
+
         #____B I N D ():
         self.btn_ash .bind ('<Double-Button-3>', self.close_windows)  # Cierra Toplevel Secundarias
   
@@ -682,48 +673,54 @@ class Checkbutton_class(Checkbutton):
 ################################
 ################################
 class Frame_manager_class(Frame):
-    def __init__(self, master=None, _mode=None, **kwargs):
+    def __init__(self, master=None, _btn=None, **kwargs):
         Frame.__init__(self, master, **kwargs)
-        self._mode = _mode
+        self._btn = _btn
         self.master = master
         self.initializer_images()
+        self.buttons()
 
     def close(self):
-        if self._mode is None:
+        # MODO: VERTICAL 
+        if self._btn is None:  # Default
             self.master.destroy()                    # Destruye Toplevel Principal
-            self.master.master.destroy()             #/Destruye root
+            self.master.master.destroy()             # Destruye root
 
-        if self._mode is not None:
+        # MODO: HORIZONTAL
+        if self._btn is not None:
             self.master.destroy()                    # Destruye Toplevel Secundarios
             self.master.quit()                       # APRUEBAA
 
     def minimize(self):
-        if self._mode is None:   
+        # MODO: VERTICAL
+        if self._btn is None:  # Default      
             self.master.withdraw()                   # Oculta Toplevel Principal
             self.master.master .iconify()            # Iconiza root
-
-        if self._mode is not None:
+        
+        # MODO: HORIZONTAL
+        if self._btn is not None:
             self.master.update_idletasks()           # Termina Tareas Pendientes (dibujo,etc)
             self.master.overrideredirect(False)      # Dibuja el Gestor de Ventanas a Toplevel Secundarias
             self.master.state('iconic')              # Iconiza Toplevel Secundarias
 
-    # MODO: VERTICAL INTERFACE
-    def buttons_height(self):
+   
+    def buttons(self):
         self.button_close = Button(self, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
         self.button_minimize = Button(self, image=self.image_minimize, command=self.minimize, bd=0, bg='black', activebackground='black')
 
-        self.button_close .pack(side=TOP, pady=7)               # modo vertical
-        self.button_minimize .pack(side=BOTTOM, pady=7)         # modo vertical
+        # MODO: VERTICAL 
+        if self._btn is None:  # Default
+            self.button_close .pack(side=TOP, pady=7)                           # Orientacion del boton en el frame: Arriba
+            self.button_minimize .pack(side=BOTTOM, pady=7)                     # Abajo 
 
-    # MODO: HORIZONTAL VENTANAS      
-    def buttons_width(self):
-        self.button_close = Button(self, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
-        self.button_minimize = Button(self, image=self.image_minimize, command=self.minimize, bd=0, bg='black', activebackground='black')
-        self.label_title = Label(self, text='', fg="white", bg="green")
+        # MODO: HORIZONTAL
+        if self._btn is not None:
+            self.button_close .pack(side=RIGHT)                                 # Derecha
+            self.button_minimize .pack(side=RIGHT, padx=10)                     # Derecha
+            
+            self.label_title = Label(self, text='', fg="white", bg="green")   
+            self.label_title .pack(side=RIGHT, padx=0, pady=0)                  # Derecha
 
-        self.button_close .pack(side=RIGHT)                     # modo horizontal
-        self.button_minimize .pack(side=RIGHT, padx=10)         # modo horizontal    
-        self.label_title .pack(side=RIGHT, padx=0, pady=0)      # modo horizontal
 
     def initializer_images(self):
         self.image_close = PhotoImage(file= '11.png')
@@ -738,16 +735,19 @@ class Frame_manager_class(Frame):
 ################################
 ################################
 class Toplevel_class(Toplevel):
-    def __init__(self, master=None, type=None, **kwargs):
+    def __init__(self, master=None, _frm=None, **kwargs):
         Toplevel.__init__(self, master, **kwargs)
+        self._frm = _frm
         self.master = master
         self.overrideredirect(True)
         self._x = 0
         self._y = 0
 
-        if type == True:         # FRAME BOTONES DE CONTROL MODO: VERTICAL
+        self.frames()
+        
+        if _frm == True:         # FRAME BOTONES DE CONTROL MODO: VERTICAL
             self.mode_height()
-        if type == False:        # FRAME BOTONES DE CONTROL MODO: HORIZONTAL
+        if _frm == False:        # FRAME BOTONES DE CONTROL MODO: HORIZONTAL
             self.mode_width()
 
         path = 'E:/1-RICHI/MovilesDB'
@@ -817,9 +817,9 @@ class Toplevel_class(Toplevel):
     # MODO: VERTICAL INTERFACE
     def mode_height(self):  
         #____F R A M E:
-        self.frame_manager = Frame_manager_class (self, bg="black")  
+        self.frame_manager = Frame_manager_class (self, bg="black", _btn=None,)  
         self.frame_manager .pack (side=RIGHT, fill=BOTH)
-        self.frame_manager .buttons_height()
+
 
         self.move_tk = True
         # DESDE AQUI SE PUEDE BORRAR E INTANCIAR EN MAIN
@@ -827,9 +827,9 @@ class Toplevel_class(Toplevel):
     # MODO: HORIZONTAL VENTANAS
     def mode_width(self):
         #____F R A M E:
-        self.frame_manager = Frame_manager_class (self, a=1, bg="black")   
+        self.frame_manager = Frame_manager_class (self, bg="black", _btn=False)   
         self.frame_manager .pack(side=TOP, fill=BOTH)
-        self.frame_manager .buttons_width()
+
         self.frame_manager .bind("<Map>",self.mapped_manager)
 
         #____L A B E L:     
