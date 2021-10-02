@@ -140,7 +140,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         #________________________V E N T A N A:   1________________________________________________________________
         #__________________________________________________________________________________________________________
         if not self._open_1:   # ----> not self._open_1 == True:
-            self.toplevel_LEFT = Toplevel_class (self, type=False)
+            self.toplevel_LEFT = Toplevel_class (self, _frm='x', _btn='x')
             self.toplevel_LEFT .configure_toplevel ('Hoja Izquierda', '220x690') #  metodo  ('izq', '220x690')
                                 
         container_frame_left = var_1 (self.toplevel_LEFT)  #  var_1 es un frame
@@ -161,7 +161,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         #________________________V E N T A N A:   2________________________________________________________________
         #__________________________________________________________________________________________________________
         if not self._open_2:
-            self.toplevel_RIGHT = Toplevel_class (self, type=False)
+            self.toplevel_RIGHT = Toplevel_class (self, _frm='x', _btn='x')
             self.toplevel_RIGHT .configure_toplevel ('Hoja Derecha', '220x690')  # ('der', '220x690')
 
         container_frame_right = var_2 (self.toplevel_RIGHT) 
@@ -182,7 +182,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         #________________________V E N T A N A:   3________________________________________________________________
         #__________________________________________________________________________________________________________
         if not self._open_3:
-            self.toplevel_STUF = Toplevel_class (self, _frm=False, _btn=) 
+            self.toplevel_STUF = Toplevel_class (self, _frm='x', _btn='x') 
             self.toplevel_STUF .configure_toplevel ('Game Stuff', '620x190')     # ('stuf', '620x190')  
 
         container_frame_stuf = var_3 (self.toplevel_STUF) 
