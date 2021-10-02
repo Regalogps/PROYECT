@@ -681,23 +681,23 @@ class Frame_manager_class(Frame):
         self.buttons()
 
     def close(self):
-        # MODO: VERTICAL 
+        # CIERRA: Toplevel Principal 
         if self._btn is None:  # Default
             self.master.destroy()                    # Destruye Toplevel Principal
             self.master.master.destroy()             # Destruye root
 
-        # MODO: HORIZONTAL
+        # CIERRA: Toplevel Secundarios
         if self._btn is not None:
             self.master.destroy()                    # Destruye Toplevel Secundarios
             self.master.quit()                       # APRUEBAA
 
     def minimize(self):
-        # MODO: VERTICAL
+        # MINIMIZA: Toplevel Principal
         if self._btn is None:  # Default      
             self.master.withdraw()                   # Oculta Toplevel Principal
             self.master.master .iconify()            # Iconiza root
         
-        # MODO: HORIZONTAL
+        # MINIMIZA: Toplevel Secundarios
         if self._btn is not None:
             self.master.update_idletasks()           # Termina Tareas Pendientes (dibujo,etc)
             self.master.overrideredirect(False)      # Dibuja el Gestor de Ventanas a Toplevel Secundarias
@@ -708,7 +708,7 @@ class Frame_manager_class(Frame):
         self.button_close = Button(self, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
         self.button_minimize = Button(self, image=self.image_minimize, command=self.minimize, bd=0, bg='black', activebackground='black')
 
-        # MODO: VERTICAL 
+        # POSICIONA WIDGET: Toplevel Principal
         if self._btn is None:  # Default
             self.button_close .pack(side=TOP, pady=7)                           # Orientacion del boton en el frame: Arriba
             self.button_minimize .pack(side=BOTTOM, pady=7)                     # Abajo 
