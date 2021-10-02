@@ -182,7 +182,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         #________________________V E N T A N A:   3________________________________________________________________
         #__________________________________________________________________________________________________________
         if not self._open_3:
-            self.toplevel_STUF = Toplevel_class (self, type=False) 
+            self.toplevel_STUF = Toplevel_class (self, _frm=False, _btn=) 
             self.toplevel_STUF .configure_toplevel ('Game Stuff', '620x190')     # ('stuf', '620x190')  
 
         container_frame_stuf = var_3 (self.toplevel_STUF) 
@@ -681,23 +681,23 @@ class Frame_manager_class(Frame):
         self.buttons()
 
     def close(self):
-        # CIERRA: Toplevel Principal 
+        # CIERRA:  Toplevel Principal 
         if self._btn is None:  # Default
             self.master.destroy()                    # Destruye Toplevel Principal
             self.master.master.destroy()             # Destruye root
 
-        # CIERRA: Toplevel Secundarios
+        # CIERRA:  Toplevel Secundarios
         if self._btn is not None:
             self.master.destroy()                    # Destruye Toplevel Secundarios
             self.master.quit()                       # APRUEBAA
 
     def minimize(self):
-        # MINIMIZA: Toplevel Principal
+        # MINIMIZA:  Toplevel Principal
         if self._btn is None:  # Default      
             self.master.withdraw()                   # Oculta Toplevel Principal
             self.master.master .iconify()            # Iconiza root
         
-        # MINIMIZA: Toplevel Secundarios
+        # MINIMIZA:  Toplevel Secundarios
         if self._btn is not None:
             self.master.update_idletasks()           # Termina Tareas Pendientes (dibujo,etc)
             self.master.overrideredirect(False)      # Dibuja el Gestor de Ventanas a Toplevel Secundarias
@@ -708,12 +708,12 @@ class Frame_manager_class(Frame):
         self.button_close = Button(self, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
         self.button_minimize = Button(self, image=self.image_minimize, command=self.minimize, bd=0, bg='black', activebackground='black')
 
-        # POSICIONA WIDGET: Toplevel Principal
+        # POSICION WIDGET:  Toplevel Principal
         if self._btn is None:  # Default
             self.button_close .pack(side=TOP, pady=7)                           # Orientacion del boton en el frame: Arriba
             self.button_minimize .pack(side=BOTTOM, pady=7)                     # Abajo 
 
-        # MODO: HORIZONTAL
+        # POSICION WIDGET:  Toplevel Secundarios
         if self._btn is not None:
             self.button_close .pack(side=RIGHT)                                 # Derecha
             self.button_minimize .pack(side=RIGHT, padx=10)                     # Derecha
@@ -735,26 +735,24 @@ class Frame_manager_class(Frame):
 ################################
 ################################
 class Toplevel_class(Toplevel):
-    def __init__(self, master=None, _frm=None, **kwargs):
+    def __init__(self, master=None, _frm=None, _btn=None, **kwargs):
         Toplevel.__init__(self, master, **kwargs)
         self._frm = _frm
+        self._btn = _btn
         self.master = master
         self.overrideredirect(True)
         self._x = 0
         self._y = 0
 
         self.frames()
-        
-        if _frm == True:         # FRAME BOTONES DE CONTROL MODO: VERTICAL
-            self.mode_height()
-        if _frm == False:        # FRAME BOTONES DE CONTROL MODO: HORIZONTAL
-            self.mode_width()
 
         path = 'E:/1-RICHI/MovilesDB'
         #____Coleccion de imagenes:
         self.Images_1 = self.generate_list (path, 'I')
 
         #____self.frame_manager:  GESTOR DE VENTANAS INSTANCIA DE:          Frame_manager_class: FRAME
+        self.frame_manager = Frame_manager_class (self, bg="black", self._btn)
+
         self.frame_manager .bind("<ButtonPress-1>", self.start_move)        # Intercepta los puntos x,y 
         self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)       # Asigna un estado de inicio o stop
         self.frame_manager .bind("<B1-Motion>", self.on_move)               # Mueve la ventana 
@@ -785,7 +783,7 @@ class Toplevel_class(Toplevel):
 
         self.geometry(new_position)              # Moviendo Instancias
  
-        if self.move_tk == True:
+        if self._frm is None:  # Default
             self.master.geometry(new_position)   # Moviendo Raiz   
 
 
@@ -814,30 +812,24 @@ class Toplevel_class(Toplevel):
             return _lst 
 
 
-    # MODO: VERTICAL INTERFACE
-    def mode_height(self):  
-        #____F R A M E:
-        self.frame_manager = Frame_manager_class (self, bg="black", _btn=None,)  
-        self.frame_manager .pack (side=RIGHT, fill=BOTH)
+    # POSICION WIDGET:
+    def frames(self):
 
+        if _frm is None:  # Default
+            # P A C K ():  # Toplevel Principal
+            self.frame_manager .pack (side=RIGHT, fill=BOTH)
 
-        self.move_tk = True
-        # DESDE AQUI SE PUEDE BORRAR E INTANCIAR EN MAIN
+        if _frm is not None:
+            # P A C K ():  # Toplevel Secundarios
+            self.frame_manager .pack (side=TOP, fill=BOTH)
 
-    # MODO: HORIZONTAL VENTANAS
-    def mode_width(self):
-        #____F R A M E:
-        self.frame_manager = Frame_manager_class (self, bg="black", _btn=False)   
-        self.frame_manager .pack(side=TOP, fill=BOTH)
+            # B I N D ():
+            self.frame_manager .bind("<Map>",self.mapped_manager)
 
-        self.frame_manager .bind("<Map>",self.mapped_manager)
+            self.frame_manager .label_title .bind("<ButtonPress-1>", self.start_move)        # Intercepta los puntos x,y 
+            self.frame_manager .label_title .bind("<ButtonRelease-1>", self.stop_move)       # Asigna un estado de inicio o stop
+            self.frame_manager .label_title .bind("<B1-Motion>", self.on_move)               # Mueve la ventana 
 
-        #____L A B E L:     
-        self.frame_manager .label_title .bind("<ButtonPress-1>", self.start_move)        # Intercepta los puntos x,y 
-        self.frame_manager .label_title .bind("<ButtonRelease-1>", self.stop_move)       # Asigna un estado de inicio o stop
-        self.frame_manager .label_title .bind("<B1-Motion>", self.on_move)               # Mueve la ventana 
-
-        self.move_tk = False 
 
     def mapped_manager(self, event=None):  # / SOLO SE EJECUTA PARA VENTANAS 1,2,3   
         self.update_idletasks()
@@ -857,7 +849,7 @@ class Root_class(Tk):  # SIN FUNCIONAMIENTO
         #self.resizable(0, 0)
         self.geometry('0x0')
 
-        self.toplevel_principal = Toplevel_class(self, type=True)  # MODO VERTICAL
+        self.toplevel_principal = Toplevel_class(self, _frm=None, _btn=None)  # MODO VERTICAL
         self.toplevel_principal .geometry('830x65')
         self.frame_principal = Interface(self.toplevel_principal)
         self.frame_principal .pack(side=RIGHT, fill=BOTH)
