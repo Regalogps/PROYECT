@@ -751,7 +751,7 @@ class Toplevel_class(Toplevel):
         self.Images_1 = self.generate_list (path, 'I')
 
         # INSTANCIA / GESTOR DE VENTANAS:  [ 1 ]
-        self.frame_manager = Frame_manager_class (self, bg="black", self._btn)  # Conflicto x sin p
+        self.frame_manager = Frame_manager_class (self, bg="black", self._btn)  # Ver si pasando sin un valor le da el valoe de NoneConflicto x sin p
 
         self.frame_manager .bind("<ButtonPress-1>", self.start_move)        # Intercepta los puntos x,y 
         self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)       # Asigna un estado de inicio o stop
