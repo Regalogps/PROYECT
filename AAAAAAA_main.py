@@ -750,8 +750,8 @@ class Toplevel_class(Toplevel):
         #____Coleccion de imagenes:
         self.Images_1 = self.generate_list (path, 'I')
 
-        #____self.frame_manager:  GESTOR DE VENTANAS INSTANCIA DE:          Frame_manager_class: FRAME
-        self.frame_manager = Frame_manager_class (self, bg="black", self._btn)
+        # INSTANCIA / GESTOR DE VENTANAS:  [ 1 ]
+        self.frame_manager = Frame_manager_class (self, bg="black", self._btn)  # Conflicto x sin p
 
         self.frame_manager .bind("<ButtonPress-1>", self.start_move)        # Intercepta los puntos x,y 
         self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)       # Asigna un estado de inicio o stop
@@ -817,11 +817,11 @@ class Toplevel_class(Toplevel):
 
         if _frm is None:  # Default
             # P A C K ():  # Toplevel Principal
-            self.frame_manager .pack (side=RIGHT, fill=BOTH)
+            self.frame_manager .pack (side=RIGHT, fill=BOTH)    # Frame Gestor: Derecha
 
         if _frm is not None:
             # P A C K ():  # Toplevel Secundarios
-            self.frame_manager .pack (side=TOP, fill=BOTH)
+            self.frame_manager .pack (side=TOP, fill=BOTH)      # Frame Gestor: Arriba
 
             # B I N D ():
             self.frame_manager .bind("<Map>",self.mapped_manager)
