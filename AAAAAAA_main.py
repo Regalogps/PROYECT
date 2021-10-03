@@ -2,7 +2,7 @@ from A_importaciones import *
 from A_frames import *
 
 
-class Move_class():
+class Move_global():
     def __init__(self):
         self._x = 0
         self._y = 0
@@ -19,20 +19,30 @@ class Move_class():
         self.go = None
 
 
-    def start_move2(self, event):        
+    def start_move_global(self, event):        
         self._x = event.x
         self._y = event.y
 
-    def stop_move2(self, event):
+    def stop_move_global(self, event):
         self._x = None
         self._y = None
 
-    def on_move2(self, event):
+    def on_move_global(self, event):
+  
         deltax = event.x - self._x
         deltay = event.y - self._y
-        new_position = "+{}+{}".format(self.master.master.winfo_x() + deltax, self.master.master.winfo_y() + deltay)
-        self.master.master.geometry(new_position) #AQUI PUEDE HABER CONFLICTO
-        self.master.master.master.geometry(new_position) 
+
+        detect = event.widget.winfo_toplevel()
+        new_position = "+{}+{}".format (detect.winfo_x() + deltax, detect.winfo_y() + deltay)
+        detect .geometry(new_position)   
+        
+        #if self.toplevel_principal.focus_get()
+        #detect.master.geometry(new_position)
+
+        print(self.toplevel_principal.focus_get())
+
+        #if self._exception2 is None:  # Default
+          #  self.master.geometry(new_position)   # Mueve la ventana root
 
  
 ################################
@@ -136,12 +146,16 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
 #_______G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S_______#
 
     def windows_123 (self, var_1, var_2, var_3):
+
+        close = {'side':RIGHT}
+        minimize = {'side':RIGHT, 'padx':10}
+        frame ={'side':TOP, 'fill':BOTH}
         
         #________________________V E N T A N A:   1________________________________________________________________
         #__________________________________________________________________________________________________________
         if not self._open_1:   # ----> not self._open_1 == True:
-            self.toplevel_LEFT = Toplevel_class (self, _SIDE=TOP, _frm='x', A='x')
-            self.toplevel_LEFT .configure_toplevel ('Hoja Izquierda', '220x690') #  metodo  ('izq', '220x690')
+            self.toplevel_LEFT = Toplevel_class (self, close, minimize, frame, value_exception1='btn', _exception2='frm')
+            self.toplevel_LEFT .configure_toplevel ('Hoja Izquierda', '220x690') #  mestodo  ('izq', '220x690')
                                 
         container_frame_left = var_1 (self.toplevel_LEFT)  #  var_1 es un frame
 
@@ -161,7 +175,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         #________________________V E N T A N A:   2________________________________________________________________
         #__________________________________________________________________________________________________________
         if not self._open_2:
-            self.toplevel_RIGHT = Toplevel_class (self, _frm='x', _btn='x')
+            self.toplevel_RIGHT = Toplevel_class (self, close, minimize, frame, value_exception1='btn', _exception2='frm')
             self.toplevel_RIGHT .configure_toplevel ('Hoja Derecha', '220x690')  # ('der', '220x690')
 
         container_frame_right = var_2 (self.toplevel_RIGHT) 
@@ -182,7 +196,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         #________________________V E N T A N A:   3________________________________________________________________
         #__________________________________________________________________________________________________________
         if not self._open_3:
-            self.toplevel_STUF = Toplevel_class (self, _frm='x', _btn='x') 
+            self.toplevel_STUF = Toplevel_class (self, close, minimize, frame, value_exception1='btn', _exception2='frm') 
             self.toplevel_STUF .configure_toplevel ('Game Stuff', '620x190')     # ('stuf', '620x190')  
 
         container_frame_stuf = var_3 (self.toplevel_STUF) 
@@ -434,7 +448,7 @@ class B2_class(Frame):   # Frame contenedor de checkbuttons y labels
         self.ckbutton7 .grid (column=7, row=0, padx=(0,200), pady=(10,0),)
 
 ################################          
-class B3_class(Frame, Move_class):   # Frame Contenedor de Spinbox y Listbox
+class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, kwargs)
 
@@ -442,7 +456,7 @@ class B3_class(Frame, Move_class):   # Frame Contenedor de Spinbox y Listbox
         #_____Coleccion de imagenes  
         self.Miniatures= self.generate_list(path, 'M')
 
-        #_____C O N T E N E D O R E S___2:
+        #_____C O N T E N E D O R E S:   [ 2 ]
         self.frame_1 = Frame (self, bg='#31343a', width=116, height=65)    # Color: Plomo       
         self.frame_2 = Frame (self, bg='#11161d', width=60, height=65)     # Color: Azul  
 
@@ -450,16 +464,8 @@ class B3_class(Frame, Move_class):   # Frame Contenedor de Spinbox y Listbox
         self.select_mobil = Label (self.frame_1, text='Seleccione  Mobil :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
         self.miniature_mobil = Label (self.frame_2, image=self.Miniatures[0], bd= 0)
 
-
-        # ANTERIOR
-        #self.select_mobil .bind("<ButtonPress-1>", self.master.master.start_move)   
-        #self.select_mobil .bind("<ButtonRelease-1>", self.master.master.stop_move) 
-        #self.select_mobil .bind("<B1-Motion>", self.master.master.on_move)
-
-
         self.create_listbox (width=11, height=1)
         self.create_spinbox (width=13)
-        self.bind_move_3()
 
         #_____G R I D ():
         self.frame_1 .grid (column=0, row=0)                                            # MASTER A
@@ -634,12 +640,6 @@ class B3_class(Frame, Move_class):   # Frame Contenedor de Spinbox y Listbox
                     empty. append (img)
             return empty
 
-    def bind_move_3(self):
-        # NEW
-        #Move_class.__init__(self)
-        self.select_mobil .bind("<ButtonPress-1>", self.start_move2)   
-        self.select_mobil .bind("<ButtonRelease-1>", self.stop_move2) 
-        self.select_mobil .bind("<B1-Motion>", self.on_move2)
         
 ################################
 ################################
@@ -673,53 +673,47 @@ class Checkbutton_class(Checkbutton):
 ################################
 ################################
 class Frame_manager_class(Frame):
-    def __init__(self, master=None, _var=None, **kwargs):
+    def __init__(self, master=None, _exception1=None, **kwargs):
         Frame.__init__(self, master, **kwargs)
-        self._var = _var
+        self._exception1 = _exception1
         self.master = master
         self.initializer_images()
-        self.buttons()
+        #self.buttons()
 
     def close(self):
-        # CIERRA:  Toplevel Principal 
-        if self._var is None:  # Default
+        # Cerrar:  Toplevel Principal 
+        if self._exception1 is None:  # Default
             self.master.destroy()                    # Destruye Toplevel Principal
             self.master.master.destroy()             # Destruye root
 
-        # CIERRA:  Toplevel Secundarios
-        if self._var is not None:
+        # Cerrar:  Toplevel Secundarios
+        if self._exception1 is not None:
             self.master.destroy()                    # Destruye Toplevel Secundarios
             self.master.quit()                       # APRUEBAA
 
     def minimize(self):
-        # MINIMIZA:  Toplevel Principal
-        if self._var is None:  # Default      
+        # Minimiza:  Toplevel Principal
+        if self._exception1 is None:  # Default      
             self.master.withdraw()                   # Oculta Toplevel Principal
             self.master.master .iconify()            # Iconiza root
         
-        # MINIMIZA:  Toplevel Secundarios
-        if self._var is not None:
+        # Minimiza:  Toplevel Secundarios
+        if self._exception1 is not None:
             self.master.update_idletasks()           # Termina Tareas Pendientes (dibujo,etc)
             self.master.overrideredirect(False)      # Dibuja el Gestor de Ventanas a Toplevel Secundarias
             self.master.state('iconic')              # Iconiza Toplevel Secundarias
 
    
-    def buttons(self):
+    def type_button(self, pack_1, pack_2):
         self.button_close = Button(self, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
         self.button_minimize = Button(self, image=self.image_minimize, command=self.minimize, bd=0, bg='black', activebackground='black')
 
-        # POSICION WIDGET:  Toplevel Principal
-        if self._var is None:  # Default
-            self.button_close .pack(side=TOP, pady=7)                           # Orientacion del boton en el frame: Arriba
-            self.button_minimize .pack(side=BOTTOM, pady=7)                     # Abajo 
+        self.button_close .pack (pack_1)       # Orientacion del boton en el frame: Principal: (side=TOP, pady=7)    Secundario: (side=RIGHT) 
+        self.button_minimize .pack (pack_2)    # Orientacion del boton en el frame: Principal: (side=BOTTOM, pady=7) Secundario: (side=RIGHT, padx=10)
 
-        # POSICION WIDGET:  Toplevel Secundarios
-        if self._var is not None:
-            self.button_close .pack(side=RIGHT)                                 # Derecha
-            self.button_minimize .pack(side=RIGHT, padx=10)                     # Derecha
             
-            self.label_title = Label(self, text='', fg="white", bg="green")   
-            self.label_title .pack(side=RIGHT, padx=0, pady=0)                  # Derecha
+           # self.label_title = Label(self, text='', fg="white", bg="green")   
+           # self.label_title .pack(side=RIGHT, padx=0, pady=0)                  # Derecha """
 
 
     def initializer_images(self):
@@ -735,38 +729,49 @@ class Frame_manager_class(Frame):
 ################################
 ################################
 class Toplevel_class(Toplevel):
-    def __init__(self, master=None, _frm=None, _position_frm=RIGHT, _position_btn=None, **kwargs):
+    def __init__(self, master=None, posy_close=None, posy_minimize=None, pack_3=None, value_exception1=None, _exception2=None, **kwargs):
         Toplevel.__init__(self, master, **kwargs)
-        self._frm = _frm # falta temrinar de borrar abajo
+        self._exception2 = _exception2 # falta temrinar de borrar abajo
         self.master = master
         self.overrideredirect(True)
         self._x = 0
         self._y = 0
 
-        #self.frames()
+        #_____________________________________________
         path = 'E:/1-RICHI/MovilesDB'
         #____Coleccion de imagenes:
         self.Images_1 = self.generate_list (path, 'I')
+        #_____________________________________________
+      
 
-
-
-        self.frame_manager = Frame_manager_class (self, bg="black", _var=_position_btn)  # Ver si pasando sin un valor le da el valoe de NoneConflicto x sin p
-        self.frame_manager .pack (side=_position_frm, fill=BOTH)    # Frame Gestor: Derecha
-
-        self.frame_manager .bind("<ButtonPress-1>", self.start_move)        # Intercepta los puntos x,y 
-        self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)       # Asigna un estado de inicio o stop
-        self.frame_manager .bind("<B1-Motion>", self.on_move)               # Mueve la ventana 
+        self.frame_manager = Frame_manager_class (self, bg="black", _exception1=value_exception1)       # Frame: Gestor de Ventanas
+        self.frame_manager .pack (pack_3)
+    
+        #self.frame_manager .bind("<ButtonPress-1>", self.start_move)                                    # Intercepta los puntos x,y 
+        #self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)                                   # Asigna un estado de inicio o stop
+        #self.frame_manager .bind("<B1-Motion>", self.on_move)                                           # Mueve la ventana 
+        self.frame_manager .type_button (posy_close, posy_minimize)                                     # Llama al metodo para dibujar los botones
         
-        #if 
-        self.frame_manager .bind("<Map>",self.mapped_manager)
+        if self._exception2 is not None:  # Toplevel Secundarias
+            self.frame_manager .bind("<Map>",self.mapped_manager)
 
-        self.frame_manager .label_title .bind("<ButtonPress-1>", self.start_move)        # Intercepta los puntos x,y 
-        self.frame_manager .label_title .bind("<ButtonRelease-1>", self.stop_move)       # Asigna un estado de inicio o stop
-        self.frame_manager .label_title .bind("<B1-Motion>", self.on_move)               # Mueve la ventana 
+            self.label_title = Label(self.frame_manager, text='', fg="white", bg="green")   
+            self.label_title .pack(side=RIGHT, padx=0, pady=0)                                          # Derecha 
 
-        self.master .bind("<Map>", self.deiconify_1)                        # SE EJECUTA CUANDO ES VISIBLE    / SOLO SE EJECUTA PARA INTERFACE
-        self.master .bind("<Unmap>", self.iconify_1)                        # SE EJECUTA CUANDO ES INVISIBLE  / SOLO SE EJECUTA PARA INTERFACE   
+            #self.label_title .bind("<ButtonPress-1>", self.start_move)                                  # Intercepta los puntos x,y 
+            #self.label_title .bind("<ButtonRelease-1>", self.stop_move)                                 # Asigna un estado de inicio o stop
+            #self.label_title .bind("<B1-Motion>", self.on_move)                                         # Mueve la ventana 
 
+        #self.master .bind("<Map>", self.deiconify_1)                          # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
+        #self.master .bind("<Unmap>", self.iconify_1)                          # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
+
+        # GLOSARIO:
+            # _exception1: Es el argumento de la clase: Frame_manager_class que valida que tipo de funcion se va ejecutar en el Instancia creada
+                # None:         Default / para Toplevel Principal
+                # not is None:          / para Toplevel Secundarias
+            # value_exception1: Es el valor de _exception1, puede ser 'cualquier valor' y 'None'
+
+            # _exception1: Es el argumento de la clase: Toplevel_class que valida que tipo de funcion se va ejecutar en el Instancia creada,
 
     def iconify_1(self, event):   # SOLO SE EJECUTA SI SE INSTANCIA INTERFACE SI NO NO SIRVE PORQUE ESTA INSTANCIADO EN TK
         self.withdraw()
@@ -775,23 +780,22 @@ class Toplevel_class(Toplevel):
         self.deiconify()
 
 
-    def start_move(self, event):        
+    def start_move(self, event=None):        
         self._x = event.x
         self._y = event.y
 
-    def stop_move(self, event):
+    def stop_move(self, event=None):
         self._x = None
         self._y = None
 
-    def on_move(self, event):
+    def on_move(self, event=None):
         deltax = event.x - self._x
         deltay = event.y - self._y
         new_position = "+{}+{}".format(self.winfo_x() + deltax, self.winfo_y() + deltay)
+        self.geometry(new_position)                 # Mueve todas las ventanas en general
 
-        self.geometry(new_position)              # Moviendo Instancias
- 
-        if self._frm is None:  # Default
-            self.master.geometry(new_position)   # Moviendo Raiz   
+        if self._exception2 is None:                # Default
+            self.master.geometry(new_position)      # Mueve la ventana roo 
 
 
     def configure_toplevel(self, title, size):
@@ -802,7 +806,7 @@ class Toplevel_class(Toplevel):
         #self.config (bg = 'magenta2')                            # FUNCIONA BIEN pero tiene mal aspecto
         #self.wm_attributes ('-transparentcolor', 'magenta2')     # FUNCIONA BIEN pero tiene mal aspecto
  
-    def generate_list(self, file, option):   # INICIALIZA IMAGENES
+    def generate_list(self, file, option):      # INICIALIZA IMAGENES
 
         ouput = os.listdir (file)
         empty = []                    
@@ -818,7 +822,7 @@ class Toplevel_class(Toplevel):
                         _lst[index].append(RGB)               
             return _lst 
 
-    def mapped_manager(self, event=None):  # / SOLO SE EJECUTA PARA VENTANAS 1,2,3   
+    def mapped_manager(self, event=None):       # / SOLO SE EJECUTA PARA VENTANAS 1,2,3   
         self.update_idletasks()
         self.overrideredirect(True)
         self.state('normal')
@@ -830,64 +834,39 @@ class Toplevel_class(Toplevel):
 ################################
 ################################
 ################################
-class Root_class(Tk):  # SIN FUNCIONAMIENTO
+class Root_class(Tk, Move_global):
     def __init__(self, *args, **kwargs):
         Tk.__init__(self, *args, **kwargs)
-        #self.resizable(0, 0)
-        self.geometry('0x0')
 
-        self.toplevel_principal = Toplevel_class(self, _frm=None, _btn=None)  # MODO VERTICAL
-        self.toplevel_principal .geometry('830x65')
-        self.frame_principal = Interface(self.toplevel_principal)
+        close = {'side':TOP, 'pady':7}
+        minimize = {'side':BOTTOM, 'pady':7}
+        frame ={'side':RIGHT, 'fill':BOTH}
+        
+        #self.resizable(0, 0)
+        self.geometry('0x0')   
+
+        self.toplevel_principal = Toplevel_class(self, close, minimize, frame, value_exception1=None, _exceptidon2=None)  # Toplevel Principal
+        self.toplevel_principal .geometry('830x65') 
+
+        self.frame_principal = Interface(self.toplevel_principal)                                                         # Frame Principal
         self.frame_principal .pack(side=RIGHT, fill=BOTH)
 
-        self.bind("<Map>", self.on_deiconify)
-        self.bind("<Unmap>", self.on_iconify)
+        self.bind("<Map>", self.deiconify_on)  # Deiconiza Toplevel Principal
+        self.bind("<Unmap>", self.iconify_on)  # Iconiza Toplevel Principal
+     
+        self.frame_principal. bind_all("<ButtonPress-1>", self.start_move_global)     # Mueve las ventanas globalmente   
+        self.frame_principal. bind_all("<B1-Motion>", self.on_move_global)            # Mueve las ventanas globalmente     
+        self.frame_principal. bind_all("<ButtonRelease-1>", self.stop_move_global)    # Mueve las ventanas globalmente    
 
-        #self.bind_all_root()
 
-    def on_iconify(self, event):
+    def iconify_on(self, event):
         self.toplevel_principal.withdraw()
 
-    def on_deiconify(self, event):
+    def deiconify_on(self, event):
         self.toplevel_principal.deiconify()
 
-    def bind_all_root(self):
+    def bind_all_root(self): pass
 
-        print(77777)
-        self.frame_principal .frame_botones .bind("<ButtonPress-1>", self.start_move)   
-        self.frame_principal .frame_botones .bind("<ButtonRelease-1>", self.stop_move) 
-        self.frame_principal .frame_botones .bind("<B1-Motion>", self.on_move)
-
-        """ self.frame_ashmanbot .frame_controller .bind("<ButtonPress-1>", self.start_move)   
-        self.frame_ashmanbot .frame_controller .bind("<ButtonRelease-1>", self.stop_move) 
-        self.frame_ashmanbot .frame_controller .bind("<B1-Motion>", self.on_move)
-
-        self.frame_ashmanbot .frame_controller .btn_ash .bind("<ButtonPress-1>", self.start_move)   
-        self.frame_ashmanbot .frame_controller .btn_ash .bind("<ButtonRelease-1>", self.stop_move) 
-        self.frame_ashmanbot .frame_controller .btn_ash .bind("<B1-Motion>", self.on_move)
-
-        self.frame_ashmanbot .frame_controller .btn_gear .bind("<ButtonPress-1>", self.start_move)   
-        self.frame_ashmanbot .frame_controller .btn_gear .bind("<ButtonRelease-1>", self.stop_move) 
-        self.frame_ashmanbot .frame_controller .btn_gear .bind("<B1-Motion>", self.on_move)
-
-        self.frame_ashmanbot .frame_config .bind("<ButtonPress-1>", self.start_move)   
-        self.frame_ashmanbot .frame_config .bind("<ButtonRelease-1>", self.stop_move) 
-        self.frame_ashmanbot .frame_config .bind("<B1-Motion>", self.on_move)
-
-        self.frame_ashmanbot .frame_listmode .bind("<ButtonPress-1>", self.start_move)   
-        self.frame_ashmanbot .frame_listmode .bind("<ButtonRelease-1>", self.stop_move) 
-        self.frame_ashmanbot .frame_listmode .bind("<B1-Motion>", self.on_move)
-
-        self.frame_ashmanbot .frame_listmode.frame_1 .bind("<ButtonPress-1>", self.start_move)   
-        self.frame_ashmanbot .frame_listmode.frame_1 .bind("<ButtonRelease-1>", self.stop_move) 
-        self.frame_ashmanbot .frame_listmode.frame_1 .bind("<B1-Motion>", self.on_move)
-
-        self.frame_ashmanbot .frame_listmode.frame_2 .bind("<ButtonPress-1>", self.start_move)   
-        self.frame_ashmanbot .frame_listmode.frame_2 .bind("<ButtonRelease-1>", self.stop_move) 
-        self.frame_ashmanbot .frame_listmode.frame_2 .bind("<B1-Motion>", self.on_move) """
-
- 
 
 def main (): #------------------------------------------------------------NO TOCAR
 

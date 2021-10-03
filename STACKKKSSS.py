@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import ttk
 
 class Move():
     def __init__(self):
@@ -17,6 +18,7 @@ class Move():
         deltax = event.x - self._x
         deltay = event.y - self._y
         win = event.widget.winfo_toplevel()
+        print(win)
         new_position = "+{}+{}".format(win.winfo_x() + deltax, win.winfo_y() + deltay)
 
         win.geometry(new_position) 
@@ -35,6 +37,7 @@ class A (Frame, Move):
 
     def open(self):
         self.w1 = Toplevel(self.master)
+        self.w1 .overrideredirect(1)
         self.w2 = Toplevel(self.master)
         self.w1 .geometry('300x300')
         self.w2 .geometry('300x300')
@@ -47,6 +50,10 @@ class A (Frame, Move):
         self.frm2 .pack()
         self.lbl1 .pack()
         self.lbl2 .pack()
+
+        self.grip = ttk.Sizegrip(self.w1, style='TSizegrip')
+        self.grip .place (relx=1.0, rely=1.0, anchor='center')
+        ttk.Style().configure('TSizegrip', bg='black')
 
 root = Tk()
 app = A(root, bg='black')
