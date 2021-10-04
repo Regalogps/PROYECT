@@ -1,3 +1,4 @@
+from tkinter.constants import DISABLED
 from A_importaciones import *
 from A_frames import *
 
@@ -5,44 +6,65 @@ from A_frames import *
 class Move_global():
     def __init__(self):
         self._x = 0
-        self._y = 0
-   
-        self.go = None
+        self._y = 0 
+        self._star = None
 
-    def on_press(self):
-        self.go = time.time()
+    def on_press_global(self, event):
+        self._star = time.time()
 
-    def on_release(self):
-        if self.go is None: return
-        if time.time() - self.go > 1:
+        #p = event.widget.winfo_name()
+        #print(p)
+
+    def on_release_global(self, event):
+        if self._star is None: return
+        if time.time() - self._star > 1:
             pass # root.destroy() #aqyu
-        self.go = None
+        self._star = None
+
+      
 
 
     def start_move_global(self, event):        
         self._x = event.x
         self._y = event.y
-
+        #____
+        #self._star = time.time()
+        
+        """ p = event.widget()
+        print(p) """
+        #p = event.widget.winfo_name() 
+        p = event.widget()
+        print(p)
+        p['state']= DISABLED
+        # encontrar el nombre completo del widget para desactivarlo
     def stop_move_global(self, event):
         self._x = None
         self._y = None
+        #____
+        """ if self._star is None: 
+            return
+        full  = time.time() - self._star
+        print(111)
+
+        if full > 0.5:
+            print(full)
+            print(555111)
+            self.option_add("*Button.state","disabled")
+        self._star = None """
 
     def on_move_global(self, event):
   
         deltax = event.x - self._x
         deltay = event.y - self._y
+        detect_1 = event.widget.winfo_class()
+        detect_2 = event.widget.winfo_toplevel()
 
-        detect = event.widget.winfo_toplevel()
-        new_position = "+{}+{}".format (detect.winfo_x() + deltax, detect.winfo_y() + deltay)
-        detect .geometry(new_position)   
+        new_position = "+{}+{}".format (detect_2.winfo_x() + deltax, detect_2.winfo_y() + deltay)
+        if not detect_1 == 'TSizegrip':              # Si la variable que se quiere mover es 'TSizegrip' no se mueve la ventana (SOLUCION)
+            detect_2 .geometry(new_position)          # Mueve todas las ventanas en general menos root
         
-        #if self.toplevel_principal.focus_get()
-        #detect.master.geometry(new_position)
-
-        print(self.toplevel_principal.focus_get())
-
-        #if self._exception2 is None:  # Default
-          #  self.master.geometry(new_position)   # Mueve la ventana root
+        if isinstance(detect_2.master, Tk) == True :
+            detect_2.master .geometry(new_position)    # Mueve la ventana root
 
  
 ################################
@@ -218,10 +240,10 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         self._open_1 = True
         self._open_2 = True
         self._open_3 = True
-
-        self.toplevel_LEFT .mainloop()
-        self.toplevel_RIGHT .mainloop()
-        self.toplevel_STUF .mainloop()
+        #_______________________________
+        #self.toplevel_LEFT .mainloop()   # Funcionaba el principio
+        #self.toplevel_RIGHT .mainloop()
+        #self.toplevel_STUF .mainloop()
         #___________________________________________________________________________________________________________
 
     def closing_toplevel(self,  number, event=None):
@@ -544,24 +566,24 @@ class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
         if listbx != spinbx and listbx != '':
             self.spinboxx.delete(0, END)
             self.spinboxx.insert(0, listbx)
-            
-        self.open_windows(event) 
+   
+        self.open_windows() 
          
-    def open_windows(self, event):  # ACTIVA: ** SI ES LLAMADO POR LISTBOX_SELECT ** - ABRE LAS VENTANAS
+    def open_windows(self, event=None):  # ACTIVA: ** SI ES LLAMADO POR LISTBOX_SELECT ** - ABRE LAS VENTANAS
         
         left = [Frog_left_off, Fox_left_off, Boomer_left_off, Ice_left_off, Jd_left_off, Grub_left_off, Lightning_left_off, Aduka_left_off, Knight_left_off, Kalsiddon_left_off, Mage_left_off, Randomizer_left_off, Jolteon_left_off, Turtle_left_off, Armor_left_off, Asate_left_off, Raon_left_off, Trico_left_off, Nak_left_off, Bigfoot_left_off, Barney_left_off, Dragon_left_off,]
         right = [Frog_right, Fox_right, Boomer_right, Ice_right, Jd_right, Grub_right, Lightning_right, Aduka_right, Knight_right, Kalsiddon_right, Mage_right, Randomizer_right, Jolteon_right, Turtle_right, Armor_right, Asate_right, Raon_right, Trico_right, Nak_right, Bigfoot_right, Barney_right, Dragon_right]
         stuf = [Frog_stuf, Fox_stuf, Boomer_stuf, Ice_stuf, Jd_stuf, Grub_stuf, Lightning_stuf, Aduka_stuf, Knight_stuf, Kalsiddon_stuf, Mage_stuf, Randomizer_stuf, Jolteon_stuf, Turtle_stuf, Armor_stuf, Asate_stuf, Raon_stuf, Trico_stuf, Nak_stuf, Bigfoot_stuf, Barney_stuf, Dragon_stuf]
 
-        for index, i in enumerate(self.spinbox_values):
-            if self.spinboxx.get() == i:
+        for index, i in enumerate(self.spinbox_values):     
+            if self.spinbox_variable.get() == i:            # ANTES DABA ERROR CON: self.spinboxx .!toplvel.!frame,etc
                 self.master.windows_123(left[index], right[index], stuf[index]) 
-        
+                break                                       # Sin breack el programa seguiria buscando coincidencias despues del enter, y guardaria un error           
+  
         if self._change is not None:
-            self.after(5000, self.automatic_deletion) 
+            self.after(10000, self.automatic_deletion) 
 
     def automatic_deletion(self):  # ACTIVA: ** SI ES LLAMADO POR OPEN_WINDOWS ** Y SI LA VARIABLE DE CONTROL NO ES NONE - LIMPIA SPINBOX
-
         self.spinboxx .delete(0, END)     
 
 
@@ -598,7 +620,7 @@ class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
         self.spinboxx.icursor(END)
 
         self.spinboxx .bind ('<Double-1>', lambda *arg: self.spinboxx.delete(0, END))     # ACTIVA: CON DOBLE CLICK EN SPINBOX - LIMPIA SPINBOX
-        self.spinboxx .bind ('<Return>', self.listbox_enter)                              # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX  
+        self.spinboxx .bind ('<Return>', self.listbox_enter)                              # ACTIVA: CON TECLA ENTER - SELECCIONA EL INDICE 0 DEL LISTBOX        
 
         self.spinbox_variable .trace_add ('write', self.change_variable)  
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # INSERTA EL VALOR OBTENIDO EN MAYUSCULA EL PRIMER STRING
@@ -678,18 +700,20 @@ class Frame_manager_class(Frame):
         self._exception1 = _exception1
         self.master = master
         self.initializer_images()
-        #self.buttons()
+
 
     def close(self):
         # Cerrar:  Toplevel Principal 
         if self._exception1 is None:  # Default
+            self.master.quit()                       # YO LO PUSE , utilidad por informarse todavia
             self.master.destroy()                    # Destruye Toplevel Principal
             self.master.master.destroy()             # Destruye root
 
         # Cerrar:  Toplevel Secundarios
         if self._exception1 is not None:
-            self.master.destroy()                    # Destruye Toplevel Secundarios
             self.master.quit()                       # APRUEBAA
+            self.master.destroy()                    # Destruye Toplevel Secundarios
+            #self.master.quit()                      # Este era el lugar donde estaba por default, ¿descubrir si la posicion importa?
 
     def minimize(self):
         # Minimiza:  Toplevel Principal
@@ -747,9 +771,9 @@ class Toplevel_class(Toplevel):
         self.frame_manager = Frame_manager_class (self, bg="black", _exception1=value_exception1)       # Frame: Gestor de Ventanas
         self.frame_manager .pack (pack_3)
     
-        #self.frame_manager .bind("<ButtonPress-1>", self.start_move)                                    # Intercepta los puntos x,y 
-        #self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)                                   # Asigna un estado de inicio o stop
-        #self.frame_manager .bind("<B1-Motion>", self.on_move)                                           # Mueve la ventana 
+        #self.frame_manager .bind("<ButtonPress-1>", self.start_move)       # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
+        #self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)      # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
+        #self.frame_manager .bind("<B1-Motion>", self.on_move)              # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
         self.frame_manager .type_button (posy_close, posy_minimize)                                     # Llama al metodo para dibujar los botones
         
         if self._exception2 is not None:  # Toplevel Secundarias
@@ -758,9 +782,9 @@ class Toplevel_class(Toplevel):
             self.label_title = Label(self.frame_manager, text='', fg="white", bg="green")   
             self.label_title .pack(side=RIGHT, padx=0, pady=0)                                          # Derecha 
 
-            #self.label_title .bind("<ButtonPress-1>", self.start_move)                                  # Intercepta los puntos x,y 
-            #self.label_title .bind("<ButtonRelease-1>", self.stop_move)                                 # Asigna un estado de inicio o stop
-            #self.label_title .bind("<B1-Motion>", self.on_move)                                         # Mueve la ventana 
+            #self.label_title .bind("<ButtonPress-1>", self.start_move)     # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
+            #self.label_title .bind("<ButtonRelease-1>", self.stop_move)    # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
+            #self.label_title .bind("<B1-Motion>", self.on_move)            # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
 
         #self.master .bind("<Map>", self.deiconify_1)                          # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
         #self.master .bind("<Unmap>", self.iconify_1)                          # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
@@ -780,22 +804,22 @@ class Toplevel_class(Toplevel):
         self.deiconify()
 
 
-    def start_move(self, event=None):        
+    def start_move(self, event=None):   # Desactivado temporalmente:  Razon: Arriba lo dice  
         self._x = event.x
         self._y = event.y
 
-    def stop_move(self, event=None):
+    def stop_move(self, event=None):    # Desactivado temporalmente:  Razon: Arriba lo dice
         self._x = None
         self._y = None
 
-    def on_move(self, event=None):
+    def on_move(self, event=None):      # Desactivado temporalmente:  Razon: Arriba lo dice
         deltax = event.x - self._x
         deltay = event.y - self._y
         new_position = "+{}+{}".format(self.winfo_x() + deltax, self.winfo_y() + deltay)
-        self.geometry(new_position)                 # Mueve todas las ventanas en general
+        self.geometry(new_position)                 # Mueve todas las ventanas en general menos root
 
         if self._exception2 is None:                # Default
-            self.master.geometry(new_position)      # Mueve la ventana roo 
+            self.master.geometry(new_position)      # Mueve la ventana root
 
 
     def configure_toplevel(self, title, size):
@@ -854,10 +878,12 @@ class Root_class(Tk, Move_global):
         self.bind("<Map>", self.deiconify_on)  # Deiconiza Toplevel Principal
         self.bind("<Unmap>", self.iconify_on)  # Iconiza Toplevel Principal
      
-        self.frame_principal. bind_all("<ButtonPress-1>", self.start_move_global)     # Mueve las ventanas globalmente   
-        self.frame_principal. bind_all("<B1-Motion>", self.on_move_global)            # Mueve las ventanas globalmente     
-        self.frame_principal. bind_all("<ButtonRelease-1>", self.stop_move_global)    # Mueve las ventanas globalmente    
+        self.bind_all("<ButtonPress-1>", self.start_move_global)     # Mueve las ventanas globalmente   
+        self.bind_all("<B1-Motion>", self.on_move_global)            # Mueve las ventanas globalmente     
+        self.bind_all("<ButtonRelease-1>", self.stop_move_global)    # Mueve las ventanas globalmente 
 
+        #self.bind_all('<ButtonPress-1>', self.on_press_global)
+        #self.bind_all('<ButtonRelease-1>', self.on_release_global)
 
     def iconify_on(self, event):
         self.toplevel_principal.withdraw()
@@ -873,8 +899,6 @@ def main (): #------------------------------------------------------------NO TOC
     root = Root_class()
     root .title('AshmanBot')
     #root .wm_attributes("-alpha", 0.0 )
-    #app = Interface(root)
-    #app .pack()    
     root .mainloop()
 
 if __name__=="__main__":  #-------------------------------------------------------NO TOCAR 
