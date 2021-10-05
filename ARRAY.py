@@ -26,10 +26,11 @@ class Interface(Frame):
         Frame.__init__(self, master, *args)
         self._frame_1 = None
         self._open_1 = False
+        self.path_lst = ['11.png', '22.png']
         self.button1 = Button(self, text='pack 1',
                       command= lambda:self.windows(Show_image))
         self.button1 .pack()
-        self.path_lst = ['11.png', '22.png']  # change/add paths 
+        
  
     def windows(self, var_1):
         if not self._open_1:
@@ -55,10 +56,9 @@ class Interface(Frame):
 class Show_image(Frame):   # Frame contenedor de ash y gear
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)
-        self.img = Array(self, '11.png' )
+        self.img = Array(self, self.master.path_lst[0] )
         self.img . grid(column=0, row=1)
-        self.img2 = Array(self, '22.png' )
-        self.img2 . grid(column=0, row=2)
+       
 
         # I intend to display 3 images 
         # in this frame, but how 
