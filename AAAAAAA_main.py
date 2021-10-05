@@ -1,56 +1,26 @@
-from tkinter.constants import DISABLED
-from A_importaciones import *
+from A_import import *
 from A_frames import *
 
 
 class Move_global():
     def __init__(self):
         self._x = 0
-        self._y = 0 
-        self._star = None
-
-    def on_press_global(self, event):
-        self._star = time.time()
-
-        #p = event.widget.winfo_name()
-        #print(p)
-
-    def on_release_global(self, event):
-        if self._star is None: return
-        if time.time() - self._star > 1:
-            pass # root.destroy() #aqyu
-        self._star = None
-
-      
-
+        self._y = 0
 
     def start_move_global(self, event):        
         self._x = event.x
         self._y = event.y
-        #____
-        #self._star = time.time()
-        
-        """ p = event.widget()
-        print(p) """
-        #p = event.widget.winfo_name() 
-        p = event.widget()
-        print(p)
-        p['state']= DISABLED
-        # encontrar el nombre completo del widget para desactivarlo
+   
     def stop_move_global(self, event):
         self._x = None
         self._y = None
-        #____
-        """ if self._star is None: 
-            return
-        full  = time.time() - self._star
-        print(111)
 
-        if full > 0.5:
-            print(full)
-            print(555111)
-            self.option_add("*Button.state","disabled")
-        self._star = None """
+        #___< R E L E A S E >:  Orden de ejecucion: 2
+        try:                                              # LANZA UN ERROR: porque no reconoce el widget
+            if event.widget.winfo_class() == 'Button':
+                event.widget["state"] = "normal"
+        except: pass
+        #____________________________________________
 
     def on_move_global(self, event):
   
@@ -60,11 +30,15 @@ class Move_global():
         detect_2 = event.widget.winfo_toplevel()
 
         new_position = "+{}+{}".format (detect_2.winfo_x() + deltax, detect_2.winfo_y() + deltay)
-        if not detect_1 == 'TSizegrip':              # Si la variable que se quiere mover es 'TSizegrip' no se mueve la ventana (SOLUCION)
-            detect_2 .geometry(new_position)          # Mueve todas las ventanas en general menos root
-        
+        if not detect_1 == 'TSizegrip':                 # Si la variable que se quiere mover es 'TSizegrip' no se mueve la ventana (SOLUCION)
+            detect_2 .geometry(new_position)            # Mueve todas las ventanas en general menos root     
         if isinstance(detect_2.master, Tk) == True :
-            detect_2.master .geometry(new_position)    # Mueve la ventana root
+            detect_2.master .geometry(new_position)     # Mueve la ventana root
+
+        #___< M O T I O N >:  Orden de ejecucion: 1
+        if event.widget.winfo_class() == 'Button':
+            event.widget["state"] = "disabled"
+        #__________________________________________
 
  
 ################################
@@ -98,7 +72,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         
         # MASTER REFIERE A TOPLEVEL: PRINCIPAL
         self.master.title ('_AshmanBot_')
-        self.master.geometry ('830x65+200+300')                           # TAMAÑO DE LA VENTANA + FALTA UNA POSICION AUTOMATICA BNA
+        self.master.geometry ('830x65+200+300')                           # TAMAÑO DE LA VENTANA + FALTA UNA POSICION AUTOMATICA BNA 830x65
         self.master.resizable (1,1)                                       # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
         self.master.config (bg='magenta2')                                # CONFIGURA EL FONDO DE LA VENTANA, etc
         self.master.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
@@ -123,10 +97,10 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
     def widgets(self):
 
         #____I N S T A N C I A S:  [ 4 ]
-        self.frame_controller = A1_class (self, bg='#11161d', width=60, height=65)   # POSICIONADO      # Color: Azul         --- Frame contenedor de ash y gear
-        self.frame_botones = B1_class (self, bg='#31343a', width=756, height=65)     # POSICIONADO      # Color: Plomo        --- Frame contenedor de botones
-        self.frame_configurer = B2_class (self, bg='#31343a', width=756, height=65)  # NO POSICIONADO   # Color: Plomo        --- Frame contenedor de checkbuttons y labels
-        self.frame_listmode = B3_class (self)                                        # NO POSICIONADO   # Color: Azul y Plomo --- Frame Contenedor de Spinbox y Listbox
+        self.frame_controller = A1_class (self, bg='#11161d', width=60, height=65)   # POSICIONADO     # Color: Azul         --- Frame contenedor de ash y gear
+        self.frame_botones = B1_class (self, bg='#31343a', width=756, height=65)     # POSICIONADO     # Color: Plomo        --- Frame contenedor de botones
+        self.frame_configurer = B2_class (self, bg='#31343a', width=756, height=65)  # NO POSICIONADO  # Color: Plomo        --- Frame contenedor de checkbuttons y labels
+        self.frame_listmode = B3_class (self)                                        # NO POSICIONADO  # Color: Azul y Plomo --- Frame Contenedor de Spinbox y Listbox
          
         #____P A C K ():
         self.frame_controller .pack (side=LEFT, fill=BOTH)
@@ -285,15 +259,15 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
         try:
             self.master.toplevel_LEFT .destroy() 
             self.master._open_1 = False
-            print('desde adentro')
 
             self.master.toplevel_RIGHT .destroy()
             self.master._open_2 = False
 
             self.master.toplevel_STUF .destroy()
             self.master._open_3 = False
-        except:
+        except: 
             pass
+            
 
     def minimize_windows(self):   # ACTIVA: CON CLICK IZQUIERDO AL LOGO - MINIMIZA LAS VENTANAS
  
@@ -702,18 +676,19 @@ class Frame_manager_class(Frame):
         self.initializer_images()
 
 
-    def close(self):
+    def close(self):     # SOLUCIONAR SI QUEDAN PROCESOS ABIERTOS POR USO INADECUADO DE QUIT()
         # Cerrar:  Toplevel Principal 
         if self._exception1 is None:  # Default
             self.master.quit()                       # YO LO PUSE , utilidad por informarse todavia
             self.master.destroy()                    # Destruye Toplevel Principal
             self.master.master.destroy()             # Destruye root
+            print('top principal')
 
         # Cerrar:  Toplevel Secundarios
         if self._exception1 is not None:
-            self.master.quit()                       # APRUEBAA
             self.master.destroy()                    # Destruye Toplevel Secundarios
-            #self.master.quit()                      # Este era el lugar donde estaba por default, ¿descubrir si la posicion importa?
+            #self.master.quit()                      # Elimina toda la aplicacion cuando hay 1 sola mainlopp()
+            print('top secundarias')
 
     def minimize(self):
         # Minimiza:  Toplevel Principal
@@ -861,7 +836,7 @@ class Toplevel_class(Toplevel):
 class Root_class(Tk, Move_global):
     def __init__(self, *args, **kwargs):
         Tk.__init__(self, *args, **kwargs)
-
+        #Move_global.__init__(self)              # Inicializando las variables de control
         close = {'side':TOP, 'pady':7}
         minimize = {'side':BOTTOM, 'pady':7}
         frame ={'side':RIGHT, 'fill':BOTH}
@@ -882,17 +857,12 @@ class Root_class(Tk, Move_global):
         self.bind_all("<B1-Motion>", self.on_move_global)            # Mueve las ventanas globalmente     
         self.bind_all("<ButtonRelease-1>", self.stop_move_global)    # Mueve las ventanas globalmente 
 
-        #self.bind_all('<ButtonPress-1>', self.on_press_global)
-        #self.bind_all('<ButtonRelease-1>', self.on_release_global)
 
     def iconify_on(self, event):
         self.toplevel_principal.withdraw()
 
     def deiconify_on(self, event):
         self.toplevel_principal.deiconify()
-
-    def bind_all_root(self): pass
-
 
 def main (): #------------------------------------------------------------NO TOCAR
 

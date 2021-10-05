@@ -1,11 +1,11 @@
-**This class resizes the image**
-```python
-from tkinter importante *
+
+from tkinter import*
 from PIL import Image, ImageTk
 
 class Array(Frame):
     def __init__(self, master, path, *args):
-        Frame.__init__(self, master, *args)       self.image = Image.open(path)
+        Frame.__init__(self, master, *args)       
+        self.image = Image.open(path)
         self.img_copy = self.image.copy()
 
         self.background_image = ImageTk.PhotoImage(self.image)
@@ -20,29 +20,17 @@ class Array(Frame):
         self.background_image = ImageTk.PhotoImage(self.image)
         self.background.configure(image=self.background_image)
 
-```
 
-
-**Base class control**
-```python
 class Interface(Frame):
     def __init__(self, master, *args):
         Frame.__init__(self, master, *args)
         self._frame_1 = None
         self._open_1 = False
         self.button1 = Button(self, text='pack 1',
-                      command= lambda:self.windows(Show_Image)
+                      command= lambda:self.windows(Show_image))
         self.button1 .pack()
-        self.path_lst = ['_1.png', '_2.png', '_99.jpg']  # change/add paths 
-        self.complet = self.frms()
-        
-    def frms(self):
-        lst = []
-        for i in (self.path_lst):
-            e = Array(self, i)
-            lst.append(i)
-        return lst
-
+        self.path_lst = ['11.png', '22.png']  # change/add paths 
+ 
     def windows(self, var_1):
         if not self._open_1:
             self.top1 = Toplevel(self.master)
@@ -56,12 +44,22 @@ class Interface(Frame):
         self._frame_1 .pack()
         self._open_1 = True
 
-```
-**This class should display 3 images in its frame, but I can't think of how to insert it, nor do I have the list of image container frames yet. This is a headache I have.**
-```python
-class Show_image(Frame):
-    def __init__(self, master, **kwargs):
-        Frame.__init__(self, master, **kwargs)
+        self.top1.protocol ('WM_DELETE_WINDOW', lambda: self.closed(1))
+    
+    def closed(self, number):
+        if number == 1:
+            self.top1. destroy()
+            self._open_1 = False
+
+
+class Show_image(Frame):   # Frame contenedor de ash y gear
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)
+        self.img = Array(self, '11.png' )
+        self.img . grid(column=0, row=1)
+        self.img2 = Array(self, '22.png' )
+        self.img2 . grid(column=0, row=2)
+
         # I intend to display 3 images 
         # in this frame, but how 
         # should I do it?
@@ -70,4 +68,4 @@ root = Tk()
 frm = Interface(root)
 frm .pack()
 root.mainloop()
-```
+

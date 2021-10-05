@@ -1,4 +1,4 @@
-from A_importaciones import *
+from A_import import *
 
 class Example(Frame):
     def __init__(self, master, index, *args, **kwargs):
