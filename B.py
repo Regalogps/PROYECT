@@ -1,4 +1,4 @@
-""" 
+
 from tkinter import *
 
 parent = Tk()
@@ -32,9 +32,9 @@ for a in range(10):
     BUT.grid(row = a, column = 0, sticky = NSEW)
 
 parent.mainloop()
- """
 
-from tkinter import *
+
+""" from tkinter import *
 import time
 
 F = None
@@ -51,10 +51,10 @@ def on_release(x):
         print(4444)
 
     print(F)
-   
+    """
 
 
-root = Tk()
+""" root = Tk()
 
 frm = Frame(root, bg='gray')
 frm.pack()
@@ -64,4 +64,4 @@ btn.pack()
 btn.bind('<ButtonPress-1>', on_press)
 btn.bind('<ButtonRelease-1>', on_release)
 
-root.mainloop()
+root.mainloop() """
