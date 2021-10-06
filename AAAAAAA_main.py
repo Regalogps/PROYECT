@@ -23,19 +23,16 @@ class Move_global():
         #____________________________________________
 
     def on_move_global(self, event):
-        # APRUEBA:
-        dete = event.widget.winfo_parent()
-  
         deltax = event.x - self._x
         deltay = event.y - self._y
-        detect_1 = event.widget.winfo_class()
-        detect_2 = event.widget.winfo_toplevel()
+        _class = event.widget.winfo_class()
+        _toplevel = event.widget.winfo_toplevel()
 
         new_position = "+{}+{}".format (detect_2.winfo_x() + deltax, detect_2.winfo_y() + deltay)
-        if not detect_1 == 'TSizegrip':                 # Si la variable que se quiere mover es 'TSizegrip' no se mueve la ventana (SOLUCION)
-            detect_2 .geometry(new_position)            # Mueve todas las ventanas en general menos root     
-        if isinstance(detect_2.master, Tk) == True :
-            detect_2.master .geometry(new_position)     # Mueve la ventana root
+        if not _class == 'TSizegrip':                 # Si la variable que se quiere mover es 'TSizegrip' no se mueve la ventana (SOLUCION)
+            _toplevel.geometry(new_position)            # Mueve todas las ventanas en general menos root     
+        if isinstance(_toplevel.master, Tk) == True :  # otro: if _toplevel.master == RootCls:
+            _toplevel.master.geometry(new_position)     # Mueve la ventana root
 
         #___< M O T I O N >:  Orden de ejecucion: 1
         if event.widget.winfo_class() == 'Button':
@@ -864,7 +861,7 @@ class Toplevel_class(Toplevel):
 ################################
 ################################
 ################################
-class Root_class(Tk, Move_global):
+class RootCls(Tk, Move_global):
     def __init__(self, *args, **kwargs):
         Tk.__init__(self, *args, **kwargs)
         #Move_global.__init__(self)              # Inicializando las variables de control
@@ -897,7 +894,7 @@ class Root_class(Tk, Move_global):
 
 def main (): #------------------------------------------------------------NO TOCAR
 
-    root = Root_class()
+    root = RootCls()
     root .title('AshmanBot')
     #root .wm_attributes("-alpha", 0.0 )
     root .mainloop()
