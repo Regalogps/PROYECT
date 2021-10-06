@@ -93,11 +93,11 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         width_2 = screen_x *
         height_2 = screen_y 
         
-        window_izq = ('{}x{}+{}+{}'.format(width_1, heigth_1, pos_x1, pos_y1))
-        window_der = ('{}x{}+{}+{}'.format(width_1, height_1, pos_x2, pos_y1))
-        window_stuf = ('{}x{}+{}+{}'.format(width_1, height_1, pos_x2, pos_y1))
+        self.window_izq = '{}x{}+{}+{}'.format(width_1, heigth_1, pos_x1, pos_y1)
+        self.window_der = '{}x{}+{}+{}'.format(width_1, height_1, pos_x2, pos_y1)
+        self.window_stuf = '{}x{}+{}+{}'.format(width_1, height_1, pos_x2, pos_y1)
    
-        new_pos = "+{}+{}".format(self.winfo_x() + deltax, self.winfo_y() + deltay)
+        #new_pos = "+{}+{}".format(self.winfo_x() + deltax, self.winfo_y() + deltay)
 
 
 
