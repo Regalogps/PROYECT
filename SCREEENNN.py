@@ -7,8 +7,8 @@
         screen_x = self.master.winfo_screenwidth()
         screen_y = self.master.winfo_screenheight()
 
-        width_1 = screen_x * 20 / 100   # Ancho de la ventana
-        height_1 = screen_y - 50        # Alto de la ventana
+        width_1 = screen_x * 20 / 100   # Ancho de la ventana  Aprox: 20% de 1200 = 220
+        height_1 = screen_y - 50        # Alto de la ventana   Aprox: 800 - 50 = 750
         pos_x1 = 0                      # Posición en eje x
         pos_y1 = 20                     # Posición en eje y
         
