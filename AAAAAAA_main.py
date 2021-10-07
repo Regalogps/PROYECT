@@ -6,16 +6,14 @@ class MoveGlobalCls():
     def __init__(self):
         self._x = 0
         self._y = 0
-
-        self._unmovable = []
+        self.movable = []
         
-    def make_unmovable(self, *widgets):
-        self._unmovable.extend(widgets)
+    def add_movable(self, *widgets):
+        self.movable.extend(widgets)
         
-    def _is_movable(self, widget):
-        return widget not in self._unmovable
+    def is_movable(self, widget):
+        return widget in self.movable
     
-
     def start_move_global(self, event):        
         self._x = event.x
         self._y = event.y
@@ -32,36 +30,28 @@ class MoveGlobalCls():
         #____________________________________________
 
     def on_move_global(self, event):
-        if not self._is_movable(event.widget):
-            return
+        #if not self._is_movable(event.widget):
+           # return
 
         deltax = event.x - self._x
         deltay = event.y - self._y     
-        _class = event.widget.winfo_class()
-        _evento_ = event.widget.winfo_toplevel()
+        #_class = event.widget.winfo_class()
+        _event = event.widget
+        _tops = event.widget.winfo_toplevel()
 
-        new_position = "+{}+{}".format (_evento.winfo_x() + deltax, _evento.winfo_y() + deltay)
-        #if 
-        if not isinstance(_evento, Button) == True or not isinstance(_evento, ttk.Sizegrip):       # otro: if _toplevel.master == RootCls:
-            _evento.geometry(new_position)           # Mueve la ventana root
-
+        new_position = "+{}+{}".format (_tops.winfo_x() + deltax, _tops.winfo_y() + deltay)
+         
+        if not isinstance(_event, Button) == True or not isinstance(_event, ttk.Sizegrip) == True or _event in self.movable:     # otro: if _toplevel.master == RootCls:
+            _tops.geometry(new_position)               # Mueve la ventana root
         #if not _class == 'TSizegrip':                 # Si la variable que se quiere mover es 'TSizegrip' no se mueve la ventana (SOLUCION)
             #_evento.geometry(new_position)            # Mueve todas las ventanas en general menos root    
- 
-        if isinstance(_event.master, Tk) == True :  # otro: if _toplevel.master == RootCls:
-            _evento.master.geometry(new_position)     # Mueve la ventana root
+        if isinstance(_tops.master, Tk):               # otro: if _tops.master == RootCls:
+            _tops.master.geometry(new_position)        # Mueve la ventana root
 
         #___< M O T I O N >:  Orden de ejecucion: 1
-        if event.widget.winfo_class() == 'Button':
-            event.widget["state"] = "disabled"
+      #  if event.widget.winfo_class() == 'Button':
+      #      event.widget["state"] = "disabled"
         #__________________________________________
-
-
-
-        print('5555555555555555555555',type(str(event.widget)))
-        print('print:', event.widget.winfo_parent())
-        if event.widget.winfo_parent() == '.!toplevel_class.!interface.!a1_class':
-            print(88888)
 
  
 ################################
@@ -98,6 +88,8 @@ class Interface(Frame, MoveGlobalCls):  #--------------------------> FRAME CONTR
         self.size_position()
         self.configure_interface()
         self.widgets()
+
+        self.add_movable(self.A1_class.btn_gear)   # Lista de Widget Innamovibles
 
 
     def size_position(self):  # Tamaño - Posicion de Todas las Ventanas  
@@ -324,8 +316,7 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
         #____B I N D ():
         self.btn_ash .bind ('<Double-Button-3>', self.close_windows)  # Cierra Toplevel Secundarias
 
-        self.make_unmovable(self.btn_gear)   # Lista de Widget Innamovibles
-  
+
     def close_windows(self, event):   # ACTIVA: CON DOBLE CLICK DERECHO EN EL LOGO - CIERRA LAS VENTANAS 
     
         try:
