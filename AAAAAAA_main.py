@@ -7,6 +7,15 @@ class Move_global():
         self._x = 0
         self._y = 0
 
+        self._unmovable = []
+        
+    def make_unmovable(self, *widgets):
+        self._unmovable.extend(widgets)
+        
+    def _is_movable(self, widget):
+        return widget not in self._unmovable
+    ...
+
     def start_move_global(self, event):        
         self._x = event.x
         self._y = event.y
