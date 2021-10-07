@@ -36,16 +36,20 @@ class MoveGlobalCls():
             return
 
         deltax = event.x - self._x
-        deltay = event.y - self._y
-        
+        deltay = event.y - self._y     
         _class = event.widget.winfo_class()
-        _toplevel = event.widget.winfo_toplevel()
+        _evento_ = event.widget.winfo_toplevel()
 
-        new_position = "+{}+{}".format (_toplevel.winfo_x() + deltax, _toplevel.winfo_y() + deltay)
-        if not _class == 'TSizegrip':                 # Si la variable que se quiere mover es 'TSizegrip' no se mueve la ventana (SOLUCION)
-            _toplevel.geometry(new_position)            # Mueve todas las ventanas en general menos root     
-        if isinstance(_toplevel.master, Tk) == True :  # otro: if _toplevel.master == RootCls:
-            _toplevel.master.geometry(new_position)     # Mueve la ventana root
+        new_position = "+{}+{}".format (_evento.winfo_x() + deltax, _evento.winfo_y() + deltay)
+        #if 
+        if not isinstance(_evento, Button) == True or not isinstance(_evento, ttk.Sizegrip):       # otro: if _toplevel.master == RootCls:
+            _evento.geometry(new_position)           # Mueve la ventana root
+
+        #if not _class == 'TSizegrip':                 # Si la variable que se quiere mover es 'TSizegrip' no se mueve la ventana (SOLUCION)
+            #_evento.geometry(new_position)            # Mueve todas las ventanas en general menos root    
+ 
+        if isinstance(_event.master, Tk) == True :  # otro: if _toplevel.master == RootCls:
+            _evento.master.geometry(new_position)     # Mueve la ventana root
 
         #___< M O T I O N >:  Orden de ejecucion: 1
         if event.widget.winfo_class() == 'Button':
