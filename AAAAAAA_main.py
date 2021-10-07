@@ -2,7 +2,7 @@ from A_import import *
 from A_frames import *
 
 
-class Move_global():
+class MoveGlobalCls():
     def __init__(self):
         self._x = 0
         self._y = 0
@@ -14,7 +14,7 @@ class Move_global():
         
     def _is_movable(self, widget):
         return widget not in self._unmovable
-    ...
+    
 
     def start_move_global(self, event):        
         self._x = event.x
@@ -32,6 +32,9 @@ class Move_global():
         #____________________________________________
 
     def on_move_global(self, event):
+        if not self._is_movable(event.widget):
+            return
+
         deltax = event.x - self._x
         deltay = event.y - self._y
         
@@ -62,9 +65,10 @@ class Move_global():
 ################################
 ################################
 ################################
-class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPAL
+class Interface(Frame, MoveGlobalCls):  #--------------------------> FRAME CONTROLADOR PRINCIPAL
     def __init__(self, master=None, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
+        MoveGlobalCls.__init__(self)
 
         #_____Variables de control para las ventanas:  [ 1,2,3 ]
         self._frame_1 = None
@@ -315,6 +319,8 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
 
         #____B I N D ():
         self.btn_ash .bind ('<Double-Button-3>', self.close_windows)  # Cierra Toplevel Secundarias
+
+        self.make_unmovable(self.btn_gear)   # Lista de Widget Innamovibles
   
     def close_windows(self, event):   # ACTIVA: CON DOBLE CLICK DERECHO EN EL LOGO - CIERRA LAS VENTANAS 
     
@@ -917,7 +923,7 @@ class Toplevel_class(Toplevel):
 ################################
 ################################
 ################################
-class RootCls(Tk, Move_global):
+class RootCls(Tk, MoveGlobalCls):
     def __init__(self, *args, **kwargs):
         Tk.__init__(self, *args, **kwargs)
         #Move_global.__init__(self)              # Inicializando las variables de control
@@ -940,7 +946,7 @@ class RootCls(Tk, Move_global):
         self.bind_all("<ButtonPress-1>", self.start_move_global)     # Mueve las ventanas globalmente   
         self.bind_all("<B1-Motion>", self.on_move_global)            # Mueve las ventanas globalmente     
         self.bind_all("<ButtonRelease-1>", self.stop_move_global)    # Mueve las ventanas globalmente 
-
+        #self.frame_principal .bind_all(
 
     def iconify_on(self, event):
         self.toplevel_principal.withdraw()
