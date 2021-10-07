@@ -25,10 +25,11 @@ class Move_global():
     def on_move_global(self, event):
         deltax = event.x - self._x
         deltay = event.y - self._y
+        
         _class = event.widget.winfo_class()
         _toplevel = event.widget.winfo_toplevel()
 
-        new_position = "+{}+{}".format (detect_2.winfo_x() + deltax, detect_2.winfo_y() + deltay)
+        new_position = "+{}+{}".format (_toplevel.winfo_x() + deltax, _toplevel.winfo_y() + deltay)
         if not _class == 'TSizegrip':                 # Si la variable que se quiere mover es 'TSizegrip' no se mueve la ventana (SOLUCION)
             _toplevel.geometry(new_position)            # Mueve todas las ventanas en general menos root     
         if isinstance(_toplevel.master, Tk) == True :  # otro: if _toplevel.master == RootCls:
@@ -68,44 +69,63 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         #_____Variables de Control Secundarias:
         self._gear = False
         self._minimize = False
+
+
+        #_____Variables de Control de Tamaño y Posición de Todas las Ventanas:
+        self.geo_principal = StringVar()
+        self.geo_izq = StringVar()
+        self.geo_der = StringVar()
+        self.geo_stuf = StringVar()
         
         #_____Métodos Llamados:
         self.size_position()
         self.configure_interface()
         self.widgets()
 
-        #_____Variables de Control de tamaño y Posición de todas las ventanas:
-        self._dist_izq = IntVar()
-        self._dist_der = IntVar()
 
-    def size_position(self):
+    def size_position(self):  # Tamaño - Posicion de Todas las Ventanas  
+        screen_x = self.master.winfo_screenwidth()      # 1280
+        screen_y = self.master.winfo_screenheight()     # 768
+        print('    ancho total:', screen_x,'    alto total:', screen_y )
 
-        screen_x = self.master.winfo_screenwidth()
-        screen_y = self.master.winfo_screenheight()
-
-        width_1 = screen_x * 20 / 100   # Ancho de la ventana  Aprox: 20% de 1200 = 220
-        height_1 = screen_y - 50        # Alto de la ventana   Aprox: 800 - 50 = 750
-        pos_x1 = 0                      # Posición en eje x
-        pos_y1 = 20                     # Posición en eje y
-        
-        pos_x2 = width_1 * 4
-
-        width_2 = screen_x *
-        height_2 = screen_y 
-        
-        self.window_izq = '{}x{}+{}+{}'.format(width_1, heigth_1, pos_x1, pos_y1)
-        self.window_der = '{}x{}+{}+{}'.format(width_1, height_1, pos_x2, pos_y1)
-        self.window_stuf = '{}x{}+{}+{}'.format(width_1, height_1, pos_x2, pos_y1)
-   
-        #new_pos = "+{}+{}".format(self.winfo_x() + deltax, self.winfo_y() + deltay)
+        #____V E N T A N A  P R I N C I P A L:
+        width_0 = 830                                   # Ancho
+        height_0 = 65                                   # Alto
+        posx_0 = screen_x // 2 - width_0 // 2           # Posicion  eje X : horizontal    ----> 1280 / 2 - 830 / 2
+        posy_0 = 0                                      # Posición  eje Y : vertical
+        window_0 = '{}x{}+{}+{}'.format(width_0, height_0, posx_0, posy_0)  
+        self.geo_principal .set(window_0)
 
 
+        #____Ventana  Secundaria  Izquierda:
+        width_1 = int(screen_x * 15.6 / 100)            # Ancho   Aprox: 199
+        height_1 = screen_y - 74                        # Alto    Aprox: 694
+        posx_1 = 0                                      # Posición  eje X : horizontal 
+        posy_1 = 35                                     # Posición  eje Y : vertical
+        window_1 = '{}x{}+{}+{}'.format(width_1, height_1, posx_1, posy_1)
+        self.geo_izq .set(window_1)
 
+
+        #____Ventana  Secundaria  Derecha:
+        posx_2 = screen_x - width_1                     # Posición  eje X : horizontal    ----> 1280 - 199
+        window_2 = '{}x{}+{}+{}'.format(width_1, height_1, posx_2, posy_1)
+        self.geo_der .set(window_2)
+
+
+        #____Ventana  Secundaria  Stuff:
+        width_3 = 860                                   # Ancho   Aprox: 
+        height_3 = 75                                   # Alto    Aprox: 
+        posx_3 = screen_x // 2 - width_3 // 2           # Posicion  eje X : horizontal    ----> 1280 / 2 - 860 / 2
+        posy_3 = screen_y - height_3 - 40               # Posición  eje Y : vertical      ----> 768 - 75 - 40
+        window_3 = '{}x{}+{}+{}'.format(width_3, height_3, posx_3, posy_3)
+        self.geo_stuf .set(window_3)
+
+ 
     def configure_interface(self):   # CONFIGURA TOPLEVEL PRINCIPA + FALTAA POSICIONAR LA VENTANA EN INICIACION
         
         # MASTER REFIERE A TOPLEVEL: PRINCIPAL
         self.master.title ('_AshmanBot_')
-        self.master.geometry ('830x65+200+300')                           # TAMAÑO DE LA VENTANA + FALTA UNA POSICION AUTOMATICA BNA 830x65
+        self.master.geometry (self.geo_principal.get())                   # TAMAÑO DE LA VENTANA
         self.master.resizable (1,1)                                       # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
         self.master.config (bg='magenta2')                                # CONFIGURA EL FONDO DE LA VENTANA, etc
         self.master.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
@@ -184,7 +204,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         #__________________________________________________________________________________________________________
         if not self._open_1:   # ----> not self._open_1 == True:
             self.toplevel_LEFT = Toplevel_class (self, close, minimize, frame, value_exception1='btn', _exception2='frm')
-            self.toplevel_LEFT .configure_toplevel ('Hoja Izquierda', '220x690') #  mestodo  ('izq', '220x690')
+            self.toplevel_LEFT .configure_toplevel ('Hoja Izquierda', self.geo_izq.get())
                                 
         container_frame_left = var_1 (self.toplevel_LEFT)  #  var_1 es un frame
 
@@ -205,7 +225,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         #__________________________________________________________________________________________________________
         if not self._open_2:
             self.toplevel_RIGHT = Toplevel_class (self, close, minimize, frame, value_exception1='btn', _exception2='frm')
-            self.toplevel_RIGHT .configure_toplevel ('Hoja Derecha', '220x690')  # ('der', '220x690')
+            self.toplevel_RIGHT .configure_toplevel ('Hoja Derecha', self.geo_der.get())
 
         container_frame_right = var_2 (self.toplevel_RIGHT) 
 
@@ -226,7 +246,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         #__________________________________________________________________________________________________________
         if not self._open_3:
             self.toplevel_STUF = Toplevel_class (self, close, minimize, frame, value_exception1='btn', _exception2='frm') 
-            self.toplevel_STUF .configure_toplevel ('Game Stuff', '620x190')     # ('stuf', '620x190')  
+            self.toplevel_STUF .configure_toplevel ('Game Stuff', self.geo_stuf.get())
 
         container_frame_stuf = var_3 (self.toplevel_STUF) 
 

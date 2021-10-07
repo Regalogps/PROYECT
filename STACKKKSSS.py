@@ -1,30 +1,29 @@
 from tkinter import *
-from tkinter import ttk
 
 class Move():
     def __init__(self):
         self._x = 0
         self._y = 0
-
     def start_move2(self, event):        
         self._x = event.x
         self._y = event.y
-
     def stop_move2(self, event):
         self._x = None
         self._y = None
-
     def on_move2(self, event):
         deltax = event.x - self._x
         deltay = event.y - self._y
         win = event.widget.winfo_toplevel()
-        print(win)
-        new_position = "+{}+{}".format(win.winfo_x() + deltax, win.winfo_y() + deltay)
 
+        new_position = "+{}+{}".format(win.winfo_x() + deltax, win.winfo_y() + deltay)
         win.geometry(new_position) 
 
+        #print('print:', event.widget.winfo_parent())
+        if event.widget.winfo_parent() == '.!a1.!toplevel.!frame.!frame.!label':
+            print('You found me but you have 0')
 
-class A (Frame, Move):
+
+class A1 (Frame, Move):
     def __init__(self, master=None, **kwargs):
         super().__init__(master, **kwargs)
         self.master = master
@@ -36,26 +35,51 @@ class A (Frame, Move):
         self.bind_all("<ButtonRelease-1>", self.stop_move2)
 
     def open(self):
-        self.w1 = Toplevel(self.master)
+        self.w1 = Toplevel(self)
         self.w1 .overrideredirect(1)
-        self.w2 = Toplevel(self.master)
-        self.w1 .geometry('300x300')
-        self.w2 .geometry('300x300')
-        self.frm1 = Frame(self.w1, bg='green')
-        self.frm2 = Frame(self.w2, bg='blue')
-        self.lbl1 = Label(self.frm1, text='windows 1', bg='green2')
-        self.lbl2 = Label(self.frm2,  text='windows 2', bg='gray')
-        
-        self.frm1 .pack()
-        self.frm2 .pack()
-        self.lbl1 .pack()
-        self.lbl2 .pack()
+        self.w1 .wm_attributes ('-topmost', True)        
+        self.w2 = Toplevel(self)
+        self.w2 .overrideredirect(1)
+        self.w2. wm_attributes ('-topmost', True) 
 
-        self.grip = ttk.Sizegrip(self.w1, style='TSizegrip')
-        self.grip .place (relx=1.0, rely=1.0, anchor='center')
-        ttk.Style().configure('TSizegrip', bg='black')
+        self.w1 .geometry('300x150')
+        self.w2 .geometry('300x150')
+
+        self.frame_1 = Frame(self.w1, bg='green')
+        self.label_1 = Label(self.frame_1, text='___windows 1___', bg='green2', width=50)
+        self.btn_1 = Button(self.label_1, text='AAAAAAA')
+
+        self._frame_1 = Frame(self.frame_1, bg='green')
+        self._label_1 = Label(self._frame_1, text='windows 1', bg='green2', width=50)
+        self._btn_1 = Button(self._label_1, text='button 2 - A')   #
+        self._bbn_11 = Button(self._label_1, text='button 3 - A')
+
+        self.frame_2 = Frame(self.w2, bg='green')
+        self.label_2 = Label(self.frame_2, text='___windows 2___', bg='green2', width=50)
+        self.btn_2 = Button(self.label_2, text='BBBBBBB')
+
+        self._frame_2 = Frame(self.frame_2, bg='green')
+        self._label_2 = Label(self._frame_2, text='windows 1', bg='green2', width=50)
+        self._btn_2 = Button(self._label_2, text='button 2 - B')
+        self._bbn_22 = Button(self._label_2, text='button 3 - B')
+
+        self.frame_1 .pack()
+        self.label_1 .pack()
+        self.btn_1 .pack()
+        self._frame_1 .pack()
+        self._label_1 .pack()
+        self._btn_1 .pack()
+        self._bbn_11 .pack()
+        
+        self.frame_2 .pack()
+        self.label_2 .pack()
+        self.btn_2 .pack()
+        self._frame_2 .pack()
+        self._label_2 .pack()
+        self._btn_2 .pack()
+        self._bbn_22 .pack()
 
 root = Tk()
-app = A(root, bg='black')
-app .pack()
+app = A1(root, bg='black')
+app .pack(side=BOTTOM, fill=BOTH)
 root .mainloop()

@@ -114,8 +114,8 @@ class Aplicacion(Frame):
         self.master .iconify()
 
     def widgets(self):
-        self.imagen_cerrar = PhotoImage(file= 'ce.png')
-        self.imagen_maximizar = PhotoImage(file= 'ma.png') 
+        self.imagen_cerrar = PhotoImage(file= '11.png')
+        self.imagen_maximizar = PhotoImage(file= '22.png') 
         self.imagen_minimizar = PhotoImage(file= 'mi.png')
         self.imagen_encogimiento = PhotoImage(file= 'ma2.png')
 
