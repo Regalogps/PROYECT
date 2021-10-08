@@ -8,7 +8,7 @@ class MoveGlobalCls():
         self._y = 0
         self.movable = []
         
-    def add_movable(self, *widgets):
+    def make_movable(self, *widgets):
         self.movable.extend(widgets)
         
     def is_movable(self, widget):
@@ -22,36 +22,19 @@ class MoveGlobalCls():
         self._x = None
         self._y = None
 
-        #___< R E L E A S E >:  Orden de ejecucion: 2
-        try:                                              # LANZA UN ERROR: porque no reconoce el widget
-            if event.widget.winfo_class() == 'Button':
-                event.widget["state"] = "normal"
-        except: pass
-        #____________________________________________
-
     def on_move_global(self, event):
-        #if not self._is_movable(event.widget):
-           # return
-
         deltax = event.x - self._x
         deltay = event.y - self._y     
-        #_class = event.widget.winfo_class()
         _event = event.widget
         _tops = event.widget.winfo_toplevel()
 
         new_position = "+{}+{}".format (_tops.winfo_x() + deltax, _tops.winfo_y() + deltay)
          
-        if not isinstance(_event, Button) == True or not isinstance(_event, ttk.Sizegrip) == True or _event in self.movable:     # otro: if _toplevel.master == RootCls:
-            _tops.geometry(new_position)               # Mueve la ventana root
-        #if not _class == 'TSizegrip':                 # Si la variable que se quiere mover es 'TSizegrip' no se mueve la ventana (SOLUCION)
-            #_evento.geometry(new_position)            # Mueve todas las ventanas en general menos root    
-        if isinstance(_tops.master, Tk):               # otro: if _tops.master == RootCls:
-            _tops.master.geometry(new_position)        # Mueve la ventana root
+        if not isinstance(_event, (Button, ttk.Sizegrip)) == True or self.is_movable(_event):                 # NOTA: self._is_movable(_event): Devuelve True 
+            _tops.geometry(new_position)                                                                      # Mueve todas las ventanas en general menos root 
+        if isinstance(_tops.master, Tk)== True and not isinstance(_event, (Button, ttk.Sizegrip)) or self.is_movable(_event):                                                           # otro: if _tops.master == RootCls:
+            _tops.master.geometry(new_position)                                                               # Mueve la ventana root
 
-        #___< M O T I O N >:  Orden de ejecucion: 1
-      #  if event.widget.winfo_class() == 'Button':
-      #      event.widget["state"] = "disabled"
-        #__________________________________________
 
  
 ################################
@@ -59,11 +42,10 @@ class MoveGlobalCls():
 ################################
 ################################
 ################################
-class Interface(Frame, MoveGlobalCls):  #--------------------------> FRAME CONTROLADOR PRINCIPAL
+class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPAL
     def __init__(self, master=None, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
-        MoveGlobalCls.__init__(self)
-
+        
         #_____Variables de control para las ventanas:  [ 1,2,3 ]
         self._frame_1 = None
         self._frame_2 = None
@@ -89,13 +71,11 @@ class Interface(Frame, MoveGlobalCls):  #--------------------------> FRAME CONTR
         self.configure_interface()
         self.widgets()
 
-        self.add_movable(self.A1_class.btn_gear)   # Lista de Widget Innamovibles
-
 
     def size_position(self):  # Tamaño - Posicion de Todas las Ventanas  
         screen_x = self.master.winfo_screenwidth()      # 1280
         screen_y = self.master.winfo_screenheight()     # 768
-        print('    ancho total:', screen_x,'    alto total:', screen_y )
+        #print('    ancho total:', screen_x,'    alto total:', screen_y )
 
         #____V E N T A N A  P R I N C I P A L:
         width_0 = 830                                   # Ancho
@@ -290,7 +270,11 @@ class Interface(Frame, MoveGlobalCls):  #--------------------------> FRAME CONTR
         if number == 3: 
             self._open_3 = False
 
-
+################################
+################################
+################################
+################################
+################################
 ################################
 class A1_class(Frame):   # Frame contenedor de ash y gear
     def __init__(self, *args, **kwargs):
@@ -308,8 +292,8 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
         self.btn_ash = Button (self, image=self.Sublist[0], bg='#11161d', bd=0, activebackground='#11161d' ,
                                command=self.minimize_windows)
         self.btn_gear = Button (self, image=self.Sublist[1], bg='#11161d', bd=0, activebackground='#11161d',
-                                command=self.master.gear_stacking)                               
-        #____G R I D ():
+                               command=self.master.gear_stacking)                               
+
         self.btn_ash .grid (column=0, row=0, padx=(6,6), pady=0)
         self.btn_gear .grid (column=0, row=1)
 
@@ -404,75 +388,75 @@ class B1_class(Frame):   # Frame contenedor de botones
 
     def mobile_button(self):   # Metodo que crea -22- Botones (moviles)  #command = lambda:images(1))
         
-        self.Frog_1 = Button        (self.frame_1, text='Frog', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, disabledforeground='white', activebackground='#bdfe04',
+        self.Frog_1 = Button        (self.frame_1, text='Frog', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04',
                                      command= lambda: self.master.windows_123 (Frog_left_off, Frog_right, Frog_stuf)) 
-        self.Fox_2 = Button         (self.frame_1, text='Fox', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, disabledforeground='white', activebackground='#ebb015',
+        self.Fox_2 = Button         (self.frame_1, text='Fox', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, activebackground='#ebb015',
                                      command= lambda: self.master.windows_123 (Fox_left_off, Fox_right, Fox_stuf))         
-        self.Boomer_3 = Button      (self.frame_1, text='Boomer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, disabledforeground='white', activebackground='#bdfe04', 
+        self.Boomer_3 = Button      (self.frame_1, text='Boomer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
                                      command= lambda: self.master.windows_123 (Boomer_left_off, Boomer_right, Boomer_stuf))             
-        self.Ice_4 = Button         (self.frame_1, text='Ice', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, disabledforeground='white', activebackground='#bdfe04', 
+        self.Ice_4 = Button         (self.frame_1, text='Ice', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
                                      command= lambda: self.master.windows_123 (Ice_left_off, Ice_right, Ice_stuf))
-        self.JD_5 = Button          (self.frame_1, text='J.D', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, disabledforeground='white', activebackground='#bdfe04', 
+        self.JD_5 = Button          (self.frame_1, text='J.D', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
                                      command= lambda: self.master.windows_123 (Jd_left_off, Jd_right, Jd_stuf))
-        self.Grub_6 = Button        (self.frame_1, text='Grub', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, disabledforeground='white', activebackground='#bdfe04', 
+        self.Grub_6 = Button        (self.frame_1, text='Grub', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
                                      command= lambda: self.master.windows_123 (Grub_left_off, Grub_right, Grub_stuf))   
-        self.Lightning_7 = Button   (self.frame_1, text='Lightning', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width=10, bd=0, disabledforeground='white', activebackground='#bdfe04', 
+        self.Lightning_7 = Button   (self.frame_1, text='Lightning', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width=10, bd=0, activebackground='#bdfe04', 
                                      command= lambda: self.master.windows_123 (Lightning_left_off, Lightning_right, Lightning_stuf))
-        self.Aduka_8 = Button       (self.frame_1, text='Aduka', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, disabledforeground='white', activebackground='#bdfe04', 
+        self.Aduka_8 = Button       (self.frame_1, text='Aduka', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
                                      command= lambda: self.master.windows_123 (Aduka_left_off, Aduka_right, Aduka_stuf))      
-        self.Knight_9 = Button      (self.frame_1, text='Knight', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, disabledforeground='white', activebackground='#ebb015', 
+        self.Knight_9 = Button      (self.frame_1, text='Knight', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, activebackground='#ebb015', 
                                      command= lambda: self.master.windows_123 (Knight_left_off, Knight_right, Knight_stuf))     
-        self.Kalsiddon_10 = Button  (self.frame_1, text='Kalsiddon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, disabledforeground='white', activebackground='#bdfe04', 
+        self.Kalsiddon_10 = Button  (self.frame_1, text='Kalsiddon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
                                      command= lambda: self.master.windows_123 (Kalsiddon_left_off, Kalsiddon_right, Kalsiddon_stuf))
-        self.Mage_11 = Button       (self.frame_1, text='Mage', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, disabledforeground='white', activebackground='#bdfe04', 
+        self.Mage_11 = Button       (self.frame_1, text='Mage', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
                                      command= lambda: self.master.windows_123 (Mage_left_off, Mage_right, Mage_stuf))     
 
-        self.Randomizer_12 = Button (self.frame_1, text='Randomizer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, disabledforeground='white', activebackground='#bdfe04', 
+        self.Randomizer_12 = Button (self.frame_1, text='Randomizer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
                                      command= lambda: self.master.windows_123 (Randomizer_left_off, Randomizer_right, Randomizer_stuf)) 
-        self.Jolteon_13 = Button    (self.frame_1, text='Jolteon', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, disabledforeground='white', activebackground='#ebb015', 
+        self.Jolteon_13 = Button    (self.frame_1, text='Jolteon', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, activebackground='#ebb015', 
                                      command= lambda: self.master.windows_123 (Jolteon_left_off, Jolteon_right, Jolteon_stuf)) 
-        self.Turtle_14 = Button     (self.frame_1, text='Turtle', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, disabledforeground='white', activebackground='#bdfe04', 
+        self.Turtle_14 = Button     (self.frame_1, text='Turtle', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
                                      command= lambda: self.master.windows_123 (Turtle_left_off, Turtle_right, Turtle_stuf))
-        self.Armor_15 = Button      (self.frame_1, text='Armor', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, disabledforeground='white', activebackground='#bdfe04', 
+        self.Armor_15 = Button      (self.frame_1, text='Armor', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
                                      command= lambda: self.master.windows_123 (Armor_left_off, Armor_right, Armor_stuf))
-        self.Asate_16 = Button      (self.frame_1, text='A.Sate', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, disabledforeground='white', activebackground='#bdfe04', 
+        self.Asate_16 = Button      (self.frame_1, text='A.Sate', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
                                      command= lambda: self.master.windows_123 (Asate_left_off, Asate_right, Asate_stuf))
-        self.Raon_17 = Button       (self.frame_1, text='Raon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, disabledforeground='white', activebackground='#bdfe04', 
+        self.Raon_17 = Button       (self.frame_1, text='Raon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
                                      command= lambda: self.master.windows_123 (Raon_left_off, Raon_right, Raon_stuf)) 
-        self.Trico_18 = Button      (self.frame_1, text='Trico', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, disabledforeground='white', activebackground='#bdfe04', 
+        self.Trico_18 = Button      (self.frame_1, text='Trico', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
                                      command= lambda: self.master.windows_123 (Trico_left_off, Trico_right, Trico_stuf))
-        self.Nak_19 = Button        (self.frame_1, text='Nak', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, disabledforeground='white', activebackground='#bdfe04', 
+        self.Nak_19 = Button        (self.frame_1, text='Nak', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
                                      command= lambda: self.master.windows_123 (Nak_left_off, Nak_right, Nak_stuf)) 
-        self.Bigfoot_20 = Button    (self.frame_1, text='Bigfoot', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, disabledforeground='white', activebackground='#bdfe04', 
+        self.Bigfoot_20 = Button    (self.frame_1, text='Bigfoot', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
                                      command= lambda: self.master.windows_123 (Bigfoot_left_off, Bigfoot_right, Bigfoot_stuf)) 
-        self.Barney_21 = Button     (self.frame_1, text='Barney', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, disabledforeground='white', activebackground='#ebb015', 
+        self.Barney_21 = Button     (self.frame_1, text='Barney', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, activebackground='#ebb015', 
                                      command= lambda: self.master.windows_123 (Barney_left_off, Barney_right, Barney_stuf)) 
-        self.Dragon_22 = Button     (self.frame_1, text='Dragon', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, disabledforeground='white', activebackground='#ebb015', 
+        self.Dragon_22 = Button     (self.frame_1, text='Dragon', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, activebackground='#ebb015', 
                                      command= lambda: self.master.windows_123 (Dragon_left_off, Dragon_right, Dragon_stuf))
                 
-        self.Frog_1 .grid (column= 1, row= 1, pady= 3, padx= (5,0))
-        self.Fox_2 .grid (column= 2, row= 1, pady= 3, padx= (0,0))       
-        self.Boomer_3 .grid (column= 3, row= 1, pady= 3, padx= (0,0))           
-        self.Ice_4 .grid (column= 4, row= 1, pady= 3, padx= (0,0))
-        self.JD_5 .grid (column= 5, row= 1, pady= 3, padx= (0,0))
-        self.Grub_6 .grid (column= 6, row= 1, pady= 3, padx= (0,0))
-        self.Lightning_7 .grid (column= 7, row= 1, pady= 3, padx= (0,0))
-        self.Aduka_8 .grid (column= 8, row= 1, pady= 3, padx= (0,0))
-        self.Knight_9 .grid (column= 9, row= 1, pady= 3, padx= (0,0))
-        self.Kalsiddon_10 .grid (column= 10, row= 1, pady= 3, padx= (0,0))
-        self.Mage_11 .grid (column= 11, row= 1, pady= 3, padx= (0,5))
+        self.Frog_1 .grid (column= 0, row= 0, pady= 3, padx= (5,0))
+        self.Fox_2 .grid (column= 1, row= 0, pady= 3, padx= (0,0))       
+        self.Boomer_3 .grid (column= 2, row= 0, pady= 3, padx= (0,0))           
+        self.Ice_4 .grid (column= 3, row= 0, pady= 3, padx= (0,0))
+        self.JD_5 .grid (column= 4, row= 0, pady= 3, padx= (0,0))
+        self.Grub_6 .grid (column= 5, row= 0, pady= 3, padx= (0,0))
+        self.Lightning_7 .grid (column= 6, row= 0, pady= 3, padx= (0,0))
+        self.Aduka_8 .grid (column= 7, row= 0, pady= 3, padx= (0,0))
+        self.Knight_9 .grid (column= 8, row= 0, pady= 3, padx= (0,0))
+        self.Kalsiddon_10 .grid (column= 9, row= 0, pady= 3, padx= (0,0))
+        self.Mage_11 .grid (column= 10, row= 0, pady= 3, padx= (0,5))
 
-        self.Randomizer_12 .grid (column= 1, row= 2, pady= 2, padx= (5,0))
-        self.Jolteon_13 .grid (column= 2, row= 2, pady= 2, padx= (0,0))
-        self.Turtle_14 .grid (column= 3, row= 2, pady= 2, padx= (0,0))
-        self.Armor_15 .grid (column= 4, row= 2, pady= 2, padx= (0,0))
-        self.Asate_16 .grid (column= 5, row= 2, pady= 2, padx= (0,0))
-        self.Raon_17 .grid (column= 6, row= 2, pady= 2, padx= (0,0))
-        self.Trico_18 .grid (column= 7, row= 2, pady= 2, padx= (0,0))
-        self.Nak_19 .grid (column= 8, row= 2, pady= 2, padx= (0,0))
-        self.Bigfoot_20 .grid (column= 9, row= 2, pady= 2, padx= (0,0))
-        self.Barney_21 .grid (column= 10, row= 2, pady= 2, padx= (0,0))
-        self.Dragon_22 .grid (column= 11, row= 2, pady= 2, padx= (0,5))
+        self.Randomizer_12 .grid (column= 0, row= 1, pady= 2, padx= (5,0))
+        self.Jolteon_13 .grid (column= 1, row= 1, pady= 2, padx= (0,0))
+        self.Turtle_14 .grid (column= 2, row= 1, pady= 2, padx= (0,0))
+        self.Armor_15 .grid (column= 3, row= 1, pady= 2, padx= (0,0))
+        self.Asate_16 .grid (column= 4, row= 1, pady= 2, padx= (0,0))
+        self.Raon_17 .grid (column= 5, row= 1, pady= 2, padx= (0,0))
+        self.Trico_18 .grid (column= 6, row= 1, pady= 2, padx= (0,0))
+        self.Nak_19 .grid (column= 7, row= 1, pady= 2, padx= (0,0))
+        self.Bigfoot_20 .grid (column= 8, row= 1, pady= 2, padx= (0,0))
+        self.Barney_21 .grid (column= 9, row= 1, pady= 2, padx= (0,0))
+        self.Dragon_22 .grid (column= 10, row= 1, pady= 2, padx= (0,5))
 
 ################################
 class B2_class(Frame):   # Frame contenedor de checkbuttons y labels
@@ -921,7 +905,8 @@ class Toplevel_class(Toplevel):
 class RootCls(Tk, MoveGlobalCls):
     def __init__(self, *args, **kwargs):
         Tk.__init__(self, *args, **kwargs)
-        #Move_global.__init__(self)              # Inicializando las variables de control
+        MoveGlobalCls.__init__(self)              # Inicializando las variables de control
+
         close = {'side':TOP, 'pady':7}
         minimize = {'side':BOTTOM, 'pady':7}
         frame ={'side':RIGHT, 'fill':BOTH}
@@ -941,7 +926,8 @@ class RootCls(Tk, MoveGlobalCls):
         self.bind_all("<ButtonPress-1>", self.start_move_global)     # Mueve las ventanas globalmente   
         self.bind_all("<B1-Motion>", self.on_move_global)            # Mueve las ventanas globalmente     
         self.bind_all("<ButtonRelease-1>", self.stop_move_global)    # Mueve las ventanas globalmente 
-        #self.frame_principal .bind_all(
+
+        self.make_movable(self.frame_principal.frame_controller.btn_ash)  # Metodo de MoveGlobalCls
 
     def iconify_on(self, event):
         self.toplevel_principal.withdraw()

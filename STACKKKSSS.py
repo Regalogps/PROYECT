@@ -4,19 +4,32 @@ class Move():
     def __init__(self):
         self._x = 0
         self._y = 0
+        self._unmovable = []
+        
+    def make_unmovable(self, *widgets):
+        self._unmovable.extend(widgets)
+        
+    def _is_movable(self, widget):
+        return widget not in self._unmovable
+
     def start_move2(self, event):        
         self._x = event.x
         self._y = event.y
+
     def stop_move2(self, event):
         self._x = None
         self._y = None
+
     def on_move2(self, event):
         deltax = event.x - self._x
         deltay = event.y - self._y
         win = event.widget.winfo_toplevel()
 
         new_position = "+{}+{}".format(win.winfo_x() + deltax, win.winfo_y() + deltay)
-        win.geometry(new_position) 
+        if not self._is_movable(event.widget):
+         #return
+    
+            win.geometry(new_position) 
 
         #print('print:', event.widget.winfo_parent())
         if event.widget.winfo_parent() == '.!a1.!toplevel.!frame.!frame.!label':
@@ -26,6 +39,7 @@ class Move():
 class A1 (Frame, Move):
     def __init__(self, master=None, **kwargs):
         super().__init__(master, **kwargs)
+        Move.__init__(self)
         self.master = master
         self.btn = Button(self, text='opens', command=self.open)
         self.btn .pack()
@@ -78,6 +92,8 @@ class A1 (Frame, Move):
         self._label_2 .pack()
         self._btn_2 .pack()
         self._bbn_22 .pack()
+
+        self.make_unmovable(self._btn_1, self._btn_2)
 
 root = Tk()
 app = A1(root, bg='black')

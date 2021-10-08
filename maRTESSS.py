@@ -11,7 +11,7 @@ class Application(Frame):
        self.create_widgets()
 
     def create_widgets(self):
-        self.borderFrame = Frame(self, width=500, height=600, bg="Gray")
+        self.borderFrame = Frame(self, width=500, height=600, bg="green")
         self.borderFrame.pack_propagate(False)
         self.borderFrame.pack(side=TOP)
 
@@ -84,6 +84,7 @@ root = Tk()
 root.title("Draggable Root")
 root.geometry("500x600")
 root.overrideredirect(True)
+root.wm_attributes ('-topmost', True) 
 
 app = Application(root)
 
