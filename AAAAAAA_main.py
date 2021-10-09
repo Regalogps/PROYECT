@@ -381,7 +381,7 @@ class B1_class(Frame):   # Frame contenedor de botones
         Frame.__init__(self, *args, **kwargs)
 
         #_____C O N T E N E D O R E S:  [ 1 ]
-        self.frame_1 = Frame (self, bg='#11161d')          # Color: Azul
+        self.frame_1 = Frame (self, bg='green')          # Color: Azul '#11161d'
         self.frame_1 .grid (padx=(10,10), pady=(6,6))
 
         self.mobile_button()

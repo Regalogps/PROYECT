@@ -32,8 +32,7 @@ class Array(tk.Frame):
 
 class Interface(tk.Frame):
     def __init__(self, master, folder, *args):
-        super().__init__(master, *args)
-        
+        super().__init__(master, *args)      
         self.folder = folder
         
         #self.path_lst = ['11.png','22.png','33.png','44.png']
