@@ -35,7 +35,8 @@ def bucle (self):
         for index, i in enumerate(lst_1):
             for indexe, e in enumerate(i):
                 btn = CButton (self.frame_1, text=e)
-                five = [(5,0) if indexe == 0 else five = 0
+                five = (5,0) if indexe == 0 else five = 0
+                five = (0,5) if ibdexe == 10 else five = 0
                 btn .grid(columna=indexe , row=index , pady=3-index , padx=five)
 
 
