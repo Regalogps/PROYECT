@@ -4,11 +4,12 @@ def bucle (self):
                  ['Randomizer', 'Jolteon', 'Turtle', 'Armor', 'A.sate',
                   'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']]
 
-        lst_2 = [['Fox','Knight','Jolteon','Barney','Dragon']]  
+        #lst_2 = [['Fox','Knight','Jolteon','Barney','Dragon']]  
     
         for index, i in enumerate(lst_1):
-            for index2, e in enumerate(lst_2):
-                btn = CButton (self.frame_1, text=i) 
+            for index2, e in enumerate(i):
+                btn = CButton (self.frame_1, text=e) 
+                btn .grid(columna=index_2 , row=index , pady= , padx=())
 
                 if index < 11 and index != 0 and index != 10:
                     btn .grid(column= index, row= 0, pady= 3, padx= (0,0))               
