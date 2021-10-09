@@ -16,7 +16,11 @@ def bucle (self):
         for index, i in enumerate(lst_1):
             for dex, x in enumerate(i):
                 for dey in (lst_2)
-                    btn = CButton (self.frame_1, text=x)
+                    btn = CButton (self.frame_1, text=x, command=lambda:self.windows(
+                                  lambda top1:ShowImage1(top1, index_1, index_2, self.path_lst),
+                                  lambda top2:ShowImage2(top2, index_1, index_2, self.path_lst),
+                                  lambda top3:ShowImage3(top3, index_1, index_2, self.path_lst)))         
+
                     five = (5,0) if dex == 0 else five = 0
                     five = (0,5) if dex == 10 else five = 0
                     btn .grid(columna=dex , row=index , pady=3-index , padx=five)
