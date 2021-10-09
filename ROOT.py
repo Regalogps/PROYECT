@@ -40,7 +40,9 @@ class Interface(tk.Frame):
         print(self.path_lst )
         
         self._frame_1 = None
+        self._frame_2 = None
         self._open_1 = False
+        self._open_2 = False
         
         index_1 = 0
         index_2 = 2
@@ -49,7 +51,7 @@ class Interface(tk.Frame):
                       command=lambda:self.windows(lambda top:ShowImage(top, index_1, index_2, self.path_lst)))
         self.button1.pack()
  
-    def windows(self, var_1):
+    def windows(self, var_1, var_2):
         if not self._open_1:
             self.top1 = tk.Toplevel(self.master)
             self.top1.geometry('200x200')
@@ -65,10 +67,30 @@ class Interface(tk.Frame):
 
         self.top1.protocol('WM_DELETE_WINDOW', lambda: self.closed(1))
     
+
+        if not self._open_2:
+            self.top2 = tk.Toplevel(self.master)
+            self.top2.geometry('200x200')
+                                
+        container2 = var_2(self.top2)
+
+        if self._frame_2 is not None:  
+            self._frame_2.destroy()
+            
+        self._frame_2 = container2
+        self._frame_2.pack(fill='both', expand=True)
+        self._open_2 = True
+
+        self.top2.protocol('WM_DELETE_WINDOW', lambda: self.closed(2))
+    
+
     def closed(self, number):
         if number == 1:
             self.top1.destroy()
             self._open_1 = False
+        if number == 2:
+            self.top2.destroy()
+            self._open_2 = False
 
 
 class ShowImage(tk.Frame):
