@@ -67,27 +67,26 @@ class Frame1Cls(Frame):
         self.Dragon_22 .grid (column= 10, row= 1, pady= 2, padx= (0,5))
 
     def bucle (self):
-        lst_1 = [['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub',
-                  'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage'],
-                 ['Randomizer', 'Jolteon', 'Turtle', 'Armor', 'A.sate',
-                  'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']]
+        moviles = [['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub',
+                    'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage'],
+                   ['Randomizer', 'Jolteon', 'Turtle', 'Armor', 'A.sate',
+                    'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']]
 
-        lst_2 = [['Fox','Knight','Jolteon','Barney','Dragon']]  
+        mobiles2 = [['Fox','Knight','Jolteon','Barney','Dragon']]  
     
-        for index, i in enumerate(lst_1):
-            print(i)
-            for dex, x in enumerate(i):
-                for dey in (lst_2):
-                    btn = CButton (self.frame_1, text=x) #command=lambda:self.windows(
+        for index1, mobil in enumerate(mobiles):     # Iterador: (mobil) = 11 elementos: 1 sublista
+            for index2, texto in enumerate(mobil):   # Iterador: (texto) = 1  elemento:  'Frog'
+                for mobil2 in (mobiles2):
+                    btn = CButton (self.frame_1, text=texto) #command=lambda:self.windows(
                                  # lambda top1:ShowImage1(top1, index_1, index_2, self.path_lst),
                                  # lambda top2:ShowImage2(top2, index_1, index_2, self.path_lst),
                                  # lambda top3:ShowImage3(top3, index_1, index_2, self.path_lst)))   
                     
-                    n1 = 5 if dex == 0 else 0 
-                    n2 = 5 if dex == 10 else 0
-                    btn .grid(column=dex , row=index , pady=3 - index, padx=(n1,n2)
+                    n1 = 5 if index2 == 0 else 0 
+                    n2 = 5 if index2 == 10 else 0
+                    btn .grid(column=index2 , row=index1 , pady=3 - index1, padx=(n1,n2)
 
-                    if x in dey: btn.config(fg='yellow', activebackground='#ebb015')
+                    if x in mobil2: btn.config(fg='yellow', activebackground='#ebb015')
     
                   
 
