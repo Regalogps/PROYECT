@@ -81,13 +81,11 @@ class Frame1Cls(Frame):
                     btn = CButton (self.frame_1, text=x) #command=lambda:self.windows(
                                  # lambda top1:ShowImage1(top1, index_1, index_2, self.path_lst),
                                  # lambda top2:ShowImage2(top2, index_1, index_2, self.path_lst),
-                                 # lambda top3:ShowImage3(top3, index_1, index_2, self.path_lst)))         
-                    five = (5,0) if dex == 0 else 0
-                    #print('indice:',dex,'es:', five)
-                    five = (0,5) if dex == 10 else 0
-                    #print('indice:',dex,'es:', five)
-                    btn .grid(column=dex , row=index , pady=3 - index, padx=five)
-                    #print('indice:',dex,'es:', five)
+                                 # lambda top3:ShowImage3(top3, index_1, index_2, self.path_lst)))   
+                    
+                    n1 = 5 if dex == 0 else 0 
+                    n2 = 5 if dex == 10 else 0
+                    btn .grid(column=dex , row=index , pady=3 - index, padx=(n1,n2)
 
                     if x in dey: btn.config(fg='yellow', activebackground='#ebb015')
     
