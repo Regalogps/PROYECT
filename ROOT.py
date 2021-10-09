@@ -48,7 +48,11 @@ class Interface(tk.Frame):
         index_2 = 2
         
         self.button1 = tk.Button(self, text='pack 1',
-                      command=lambda:self.windows(lambda top:ShowImage(top, index_1, index_2, self.path_lst)))
+                      command=lambda:self.windows(lambda top:ShowImage(top, index_1, index_2, self.path_lst),
+                                                  lambda top2:ShowImage2(top2, index_1, index_2, self.path_lst)))
+                      
+                   ###command=lambda:self.windows(lambda top:ShowImage(top, index_1, index_2, self.path_lst)))
+        
         self.button1.pack()
  
     def windows(self, var_1, var_2):
@@ -110,6 +114,26 @@ class ShowImage(tk.Frame):
         # row 0 will use 1/2 height AND row 1 will use 1/2 height
         self.grid_rowconfigure(0, weight=1)     
         self.grid_rowconfigure(1, weight=1)
+
+
+class ShowImage2(tk.Frame):
+    def __init__(self, master, index_1, index_2, path_lst, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
+        
+        if len(path_lst) > index_1:
+            self.img = Array(self, path_lst[index_1])
+            self.img.grid(column=0, row=0, sticky='news')
+        
+        if len(path_lst) > index_2:
+            self.img2 = Array(self, path_lst[index_2])
+            self.img2.grid(column=0, row=1, sticky='news')
+
+        # column 0 will use full width
+        self.grid_columnconfigure(0, weight=1)
+        # row 0 will use 1/2 height AND row 1 will use 1/2 height
+        self.grid_rowconfigure(0, weight=1)     
+        self.grid_rowconfigure(1, weight=1)
+
 
 # --- functions ---  # PEP8: `lower_case_names`
 
