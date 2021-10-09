@@ -30,15 +30,17 @@ def bucle (self):
                  ['Randomizer', 'Jolteon', 'Turtle', 'Armor', 'A.sate',
                   'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']]
 
-        #lst_2 = [['Fox','Knight','Jolteon','Barney','Dragon']]  
+        lst_2 = [['Fox','Knight','Jolteon','Barney','Dragon']]  
     
         for index, i in enumerate(lst_1):
-            for indexe, e in enumerate(i):
-                for a in
-                    btn = CButton (self.frame_1, text=e)
-                    five = (5,0) if indexe == 0 else five = 0
-                    five = (0,5) if ibdexe == 10 else five = 0
-                    btn .grid(columna=indexe , row=index , pady=3-index , padx=five)
+            for dex, x in enumerate(i):
+                for dey in (lst_2)
+                    btn = CButton (self.frame_1, text=x)
+                    five = (5,0) if dex == 0 else five = 0
+                    five = (0,5) if dex == 10 else five = 0
+                    btn .grid(columna=dex , row=index , pady=3-index , padx=five)
+
+                    if x in dey: btn.config(fg='yellow', activebackground='#ebb015')
 
 
                 if index < 11 and index != 0 and index != 10:
