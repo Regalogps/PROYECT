@@ -1,8 +1,9 @@
 
 
  self.button1 = tk.Button(self, text='pack 1',
-     command=lambda:self.windows(lambda top:ShowImage(top, index_1, index_2, self.path_lst),
-                                 lambda top2:ShowImage2(top2, index_1, index_2, self.path_lst)))         
+     command=lambda:self.windows(lambda top1:ShowImage1(top1, index_1, index_2, self.path_lst),
+                                 lambda top2:ShowImage2(top2, index_1, index_2, self.path_lst),
+                                 lambda top3:ShowImage3(top3, index_1, index_2, self.path_lst)))         
 
 def bucle (self):
         lst_1 = [['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub',
