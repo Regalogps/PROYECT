@@ -86,7 +86,7 @@ class Frame1Cls(Frame):
                     n2 = 5 if index2 == 10 else 0
                     btn .grid(column=index2 , row=index1 , pady=3 - index1, padx=(n1,n2)
 
-                    if x in mobil2: btn.config(fg='yellow', activebackground='#ebb015')
+                    if texto in mobil2: btn.config(fg='yellow', activebackground='#ebb015')
     
                   
 
