@@ -50,7 +50,7 @@ class Interface(tk.Frame):
         self.button1 = tk.Button(self, text='pack 1',
                       command=lambda:self.windows(lambda top:ShowImage(top, index_1, index_2, self.path_lst),
                                                   lambda top2:ShowImage2(top2, index_1, index_2, self.path_lst)))
-                      
+                                                    
                    ###command=lambda:self.windows(lambda top:ShowImage(top, index_1, index_2, self.path_lst))).....
         
         self.button1.pack()

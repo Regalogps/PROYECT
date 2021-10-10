@@ -1,5 +1,7 @@
+
 from A_import import *
-from A_frames import *
+#from A_frames import *
+#from B_Frames import *
 
 
 class MoveGlobalCls():
@@ -45,6 +47,12 @@ class MoveGlobalCls():
 class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPAL
     def __init__(self, master=None, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
+
+        #_____________________________________________
+        path = 'E:/1-RICHI/MovilesDB'
+        #____Coleccion de imagenes:
+        self.path_lst = self.generate_list (path, 'I')
+        #print(len(self.Images_1))
         
         #_____Variables de control para las ventanas:  [ 1,2,3 ]
         self._frame_1 = None
@@ -376,6 +384,11 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
             return empty
 
 ################################
+class B1ButtonCls(Button):
+    def __init__(self, master, *args, **kwargs):
+        kwargs = {"font":('Calibri',9,'bold'), 'bg': '#11161d', 'fg':'white', 'width':10, 'bd':0, 'activebackground':'#ebb015', **kwargs}
+        super().__init__(master, *args, **kwargs)
+
 class B1_class(Frame):   # Frame contenedor de botones
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)
@@ -384,7 +397,8 @@ class B1_class(Frame):   # Frame contenedor de botones
         self.frame_1 = Frame (self, bg='green')          # Color: Azul '#11161d'
         self.frame_1 .grid (padx=(10,10), pady=(6,6))
 
-        self.mobile_button()
+        #self.mobile_button()
+        self.bucle()
 
     def mobile_button(self):   # Metodo que crea -22- Botones (moviles)  #command = lambda:images(1))
         
@@ -457,6 +471,185 @@ class B1_class(Frame):   # Frame contenedor de botones
         self.Bigfoot_20 .grid (column= 8, row= 1, pady= 2, padx= (0,0))
         self.Barney_21 .grid (column= 9, row= 1, pady= 2, padx= (0,0))
         self.Dragon_22 .grid (column= 10, row= 1, pady= 3, padx= (0,5))
+
+    def bucle(self): 
+        mobiles = [['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub',
+                    'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage'],
+                   ['Randomizer', 'Jolteon', 'Turtle', 'Armor', 'A.sate',
+                    'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']]
+        mobiles2 = ['Fox','Knight','Jolteon','Barney','Dragon'] 
+        buttons = [] 
+        id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, = 0, 1, 2, 3, 4, 5, 6, 7
+
+        for index1, mobil in enumerate(mobiles):     # Iterador: (mobil) = 11 elementos: 1 sublista
+            for index2, texto in enumerate(mobil):   # Iterador: (texto) = 1  elemento:  'Frog'
+                _11 = 11 if index1 == 1 else 0
+                btn = B1ButtonCls (self.frame_1, text=texto, command= lambda: self.master.windows_123(
+                                   lambda top1: TopIzqCls  (top1, index2 + _11, id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, self.master.path_lst),
+                                   lambda top2: TopDerCls  (top2, index2 + _11, id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, self.master.path_lst),
+                                   lambda top3: TopStufCls (top3, index2 + _11, id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, self.master.path_lst)))
+                print(_11)
+                
+                n1 = 5 if index2 == 0 else 0 
+                n2 = 5 if index2 == 10 else 0
+                btn .grid(column=index2 , row=index1 , pady=3, padx=(n1,n2))
+                if texto in mobiles2: btn.config(fg='yellow', activebackground='#ebb015')      
+                buttons.append(btn)
+
+
+
+
+
+        """ ls = []             command=lambda: print(i)).pack()    command=lambda i=i: print(i)).pack()
+        
+        for index1 in (range(22)):
+            buttons[index1] .config (command= lambda: self.master.windows_123(
+                lambda top1: TopIzqCls  (top1, index1, id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, self.master.path_lst),
+                lambda top2: TopDerCls  (top2, index1, id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, self.master.path_lst),
+                lambda top3: TopStufCls (top3, index1, id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, self.master.path_lst)))
+            #buttons[index1]=buttons[index1]
+            #return
+
+            print(index1) """
+
+
+
+
+
+
+
+
+class ResizeCls(Frame):
+    def __init__(self, master, index, *args, **kwargs):
+        Frame.__init__(self, master, *args, kwargs)
+        
+        self.image = Image.fromarray (index)
+        self.image_copy = self.image .copy()
+
+        self.background = ImageTk.PhotoImage (self.image)
+
+        self.img = Label (self, image= self.background)
+        self.img .pack (fill= 'both', expand= True)
+        self.img .bind ('<Configure>', self.resize)
+
+    def resize(self, event):
+        #self.xx, self.yy = self.
+        
+        self.image2 = self.image_copy .resize ((self.master .winfo_width(), self.master .winfo_height()))
+        
+        self.background2 = ImageTk.PhotoImage (self.image2)
+        self.img .config (image= self.background2)
+        #self.img .image = self.backgroundd
+
+
+
+################################                           ################################
+################################            EL             ################################ 
+################################          INICIO           ################################ 
+################################   F R A M E  " F R O G "  ################################  
+################################                           ################################
+class TopIzqCls(Frame):
+    def __init__(self, master, index1, id_0=None, id_1=None, id_2=None, id_3=None, id_4=None, id_5=None, id_6=None, id_7=None, path_lst=None, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
+        
+
+        self.fr_img_delay = ResizeCls (self, path_lst [index1][id_0], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
+
+        self.fr_img_movil= ResizeCls (self, path_lst [index1][id_1], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
+        else:
+            self.fr_img_movil .grid_forget()
+
+
+################################
+################################
+################################
+################################
+################################
+class TopDerCls(Frame):
+    def __init__(self, master, index1, id_0=None, id_1=None, id_2=None, id_3=None, id_4=None, id_5=None, id_6=None, id_7=None, path_lst=None, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
+        
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = ResizeCls (self, path_lst [index1][id_2], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = ResizeCls (self, path_lst [index1][id_3], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event):
+
+        winfo_x, winfo_y = self.master.winfo_width(), self.master.winfo_height() 
+        event_x, event_y = event.x, event.y
+        h = event_x / winfo_x * 100 
+        v = event_y / winfo_y * 100
+    
+        if int(h) >=0 and int(v) >=68 :  
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
+
+################################
+################################
+################################
+################################
+################################
+class TopStufCls(Frame):
+    def __init__(self, master, index1, id_0=None, id_1=None, id_2=None, id_3=None, id_4=None, id_5=None, id_6=None, id_7=None, path_lst=None, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
+        pass
+        
+        """ if len(path_lst) > index_1:
+            self.img = ResizeCls (self, path_lst [index_1])
+            self.img.grid(column=0, row=0, sticky='news')
+        
+        if len(path_lst) > index_2:
+            self.img2 = ResizeCls (self, path_lst [index_2])
+            self.img2.grid(column=0, row=1, sticky='news') """
+
+        # column 0 will use full width
+        ##self.grid_columnconfigure(0, weight=1)
+        # row 0 will use 1/2 height AND row 1 will use 1/2 height
+        ##self.grid_rowconfigure(0, weight=1)     
+        ##elf.grid_rowconfigure(1, weight=1)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ################################
 class B2_class(Frame):   # Frame contenedor de checkbuttons y labels
@@ -808,7 +1001,7 @@ class Toplevel_class(Toplevel):
         #_____________________________________________
         path = 'E:/1-RICHI/MovilesDB'
         #____Coleccion de imagenes:
-        self.Images_1 = self.generate_list (path, 'I')
+        #self.Images_1 = self.generate_list (path, 'I')
         #_____________________________________________
       
 

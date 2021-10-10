@@ -67,30 +67,29 @@ class Frame1Cls(Frame):
         self.Dragon_22 .grid (column= 10, row= 1, pady= 2, padx= (0,5))
 
     def bucle (self):
-        moviles = [['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub',
+        mobiles = [['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub',
                     'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage'],
                    ['Randomizer', 'Jolteon', 'Turtle', 'Armor', 'A.sate',
                     'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']]
 
-        mobiles2 = [['Fox','Knight','Jolteon','Barney','Dragon']]  
+        mobiles2 = ['Fox','Knight','Jolteon','Barney','Dragon']
     
         for index1, mobil in enumerate(mobiles):     # Iterador: (mobil) = 11 elementos: 1 sublista
             for index2, texto in enumerate(mobil):   # Iterador: (texto) = 1  elemento:  'Frog'
-                for mobil2 in (mobiles2):
-                    btn = CButton (self.frame_1, text=texto) #command=lambda:self.windows(
-                                 # lambda top1:ShowImage1(top1, index_1, index_2, self.path_lst),
-                                 # lambda top2:ShowImage2(top2, index_1, index_2, self.path_lst),
-                                 # lambda top3:ShowImage3(top3, index_1, index_2, self.path_lst)))   
-                    
-                    n1 = 5 if index2 == 0 else 0 
-                    n2 = 5 if index2 == 10 else 0
-                    btn .grid(column=index2 , row=index1 , pady=3 - index1, padx=(n1,n2)
+                btn = CButton (self.frame_1, text=texto, command=lambda:self.windows(
+                                 lambda top1:ShowImage1(top1, index_1, index_2, self.path_lst),
+                                 lambda top2:ShowImage2(top2, index_1, index_2, self.path_lst),
+                                 lambda top3:ShowImage3(top3, index_1, index_2, self.path_lst)))   
+                
+                n1 = 5 if index2 == 0 else 0 
+                n2 = 5 if index2 == 10 else 0
+                btn .grid(column=index2 , row=index1 , pady=3, padx=(n1,n2))
 
-                    if texto in mobil2: btn.config(fg='yellow', activebackground='#ebb015')
+                if texto in mobiles2: btn.config(fg='yellow', activebackground='#ebb015')
     
                   
 
 root = Tk()
-app = Frame1Cls (root)
+app = Frame1Cls (root, bg='#31343a', height=67)
 app .pack()
 root .mainloop()
