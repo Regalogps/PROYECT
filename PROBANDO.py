@@ -480,6 +480,8 @@ class B1_class(Frame):   # Frame contenedor de botones
         mobiles2 = ['Fox','Knight','Jolteon','Barney','Dragon'] 
         buttons = [] 
         id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, = 0, 1, 2, 3, 4, 5, 6, 7
+        n = ['0','1','2','3','4','5','6','7','8','9','10','11',
+             '12','13','14','15','16','17','18','19','20','21']
 
         for index1, mobil in enumerate(mobiles):     # Iterador: (mobil) = 11 elementos: 1 sublista
             for index2, texto in enumerate(mobil):   # Iterador: (texto) = 1  elemento:  'Frog'
