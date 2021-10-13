@@ -2,6 +2,7 @@ from tkinter import Tk, Widget, ttk, Toplevel, PhotoImage, Frame, Label, Button,
 from tkinter import Checkbutton, StringVar, IntVar, BooleanVar, DISABLED
 from tkinter import SINGLE, ANCHOR, END, S,N,E,W, NSEW, RIGHT, BOTTOM, BOTH, SE, TOP, LEFT
 #from tkinter.constants import NSEW
+#from tkinter import *
 from PIL import ImageTk, Image
 import cv2
 import imutils

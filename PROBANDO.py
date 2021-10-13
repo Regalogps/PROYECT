@@ -386,19 +386,20 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
 ################################
 class B1ButtonCls(Button):
     def __init__(self, master, *args, **kwargs):
-        kwargs = {"font":('Calibri',9,'bold'), 'bg': '#11161d', 'fg':'white', 'width':10, 'bd':0, 'activebackground':'#ebb015', **kwargs}
+        kwargs = {"font":('Calibri',9,'bold'), 'bg': '#11161d', 'fg':'white', 'width':10, 'bd':0, 'activebackground':'#bdfe04', **kwargs}
         super().__init__(master, *args, **kwargs)
 
 class B1_class(Frame):   # Frame contenedor de botones
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)
-
-        #_____C O N T E N E D O R E S:  [ 1 ]
-        self.frame_1 = Frame (self, bg='green')          # Color: Azul '#11161d'
+        #_____C O N T E N E D O R E S:   [ 1 ]
+        self.frame_1 = Frame (self, bg='#11161d')          # Color: Azul '#11161d'
         self.frame_1 .grid (padx=(10,10), pady=(6,6))
 
-        #self.mobile_button()
-        self.bucle()
+        self.creator_buttons()
+        #_____Variables de Control en los Botones
+        self.colors= None
+
 
     def mobile_button(self):   # Metodo que crea -22- Botones (moviles)  #command = lambda:images(1))
         
@@ -472,75 +473,46 @@ class B1_class(Frame):   # Frame contenedor de botones
         self.Barney_21 .grid (column= 9, row= 1, pady= 2, padx= (0,0))
         self.Dragon_22 .grid (column= 10, row= 1, pady= 3, padx= (0,5))
 
-    def bucle(self): 
+    def indices(self, ind):
+        # I N D I C E S :
+        arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, = 0, 1, 2, 3, 4, 5, 6, 7 
 
-
-        lam = []
-        for i in range(22):
-            PP = lambda : self.master.windows_123(
-                    lambda top1, a, i=i: TopIzqCls  (top1, i+a, id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, self.master.path_lst),
-                    lambda top2, a, i=i: TopDerCls  (top2, i+a, id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, self.master.path_lst),
-                    lambda top3, a, i=i: TopStufCls (top3, i+a, id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, self.master.path_lst))
-            lam.append(PP)
-
-
-
-        mobiles = [['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub',
-                    'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage'],
-                   ['Randomizer', 'Jolteon', 'Turtle', 'Armor', 'A.sate',
-                    'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']]
-        mobiles2 = ['Fox','Knight','Jolteon','Barney','Dragon'] 
-        buttons = [] 
-        id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, = 0, 1, 2, 3, 4, 5, 6, 7
-
-        #n = ['0','1','2','3','4','5','6','7','8','9','10','11',
-        #     '12','13','14','15','16','17','18','19','20','21']
-        #_________________
-        for index1, mobil in enumerate(mobiles):     # Iterador: (mobil) = 11 elementos: 1 sublistafffff
-            for index2, texto in enumerate(mobil):   # Iterador: (texto) = 1  elemento:  'Frog'
-                _11 = 11 if index1 == 1 else 0
-                btn = B1ButtonCls (self.frame_1, text=texto, command= lam[index2+_11])
-                
-                n1 = 5 if index2 == 0 else 0 
-                n2 = 5 if index2 == 10 else 0
-                btn .grid(column=index2 , row=index1 , pady=3, padx=(n1,n2))
-                if texto in mobiles2: btn.config(fg='yellow', activebackground='#ebb015')      
-                buttons.append(btn)
-        #______________
-   
-
-        """ #_________________
-        for index1, mobil in enumerate(mobiles):     # Iterador: (mobil) = 11 elementos: 1 sublista
-            for index2, texto in enumerate(mobil):   # Iterador: (texto) = 1  elemento:  'Frog'
-                _11 = 11 if index1 == 1 else 0
-                btn = B1ButtonCls (self.frame_1, text=texto, command= lambda: self.master.windows_123(
-                                   lambda top1: TopIzqCls  (top1, index2 + _11, id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, self.master.path_lst),
-                                   lambda top2: TopDerCls  (top2, index2 + _11, id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, self.master.path_lst),
-                                   lambda top3: TopStufCls (top3, index2 + _11, id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, self.master.path_lst)))
-                #print(index2, index2 + _11)
-                
-                n1 = 5 if index2 == 0 else 0 
-                n2 = 5 if index2 == 10 else 0
-                btn .grid(column=index2 , row=index1 , pady=3, padx=(n1,n2))
-                if texto in mobiles2: btn.config(fg='yellow', activebackground='#ebb015')      
-                buttons.append(btn)
-        #______________ """
-
-        """ buttons[0].config(command= lambda: self.master.windows_123(
-                         lambda top1: TopIzqCls  (top1, 0, id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, self.master.path_lst),
-                         lambda top2: TopDerCls  (top2, 0, id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, self.master.path_lst),
-                         lambda top3: TopStufCls (top3, 0, id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, self.master.path_lst)))
-        
-        buttons[1].config(command= lambda: self.master.windows_123(
-                         lambda top1: TopIzqCls  (top1, 1, id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, self.master.path_lst),
-                         lambda top2: TopDerCls  (top2, 1, id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, self.master.path_lst),
-                         lambda top3: TopStufCls (top3, 1, id_0, id_1, id_2, id_3, id_4, id_5, id_6, id_7, self.master.path_lst))) """
+        return  lambda: self.master.windows_123(
+                lambda top1: TopIzqCls  (top1, ind, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
+                lambda top2: TopDerCls  (top2, ind, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
+                lambda top3: TopStufCls (top3, ind, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
     
+    def creator_buttons(self):  
 
+        mobiles = [['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage'],
+                   ['Randomizer', 'Jolteon', 'Turtle', 'Armor', 'A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']]
+        mobiles2 = ['Fox','Knight','Jolteon','Barney','Dragon'] 
+        buttons = []
+        for index1, mobil in enumerate(mobiles):                # Iterador: (mobil) = 11 elementos: 1 sublistasssss
+            for index2, texto in enumerate(mobil):              # Iterador: (texto) = 1  elemento:  'Frog'
+                number = 11 if index1 == 1 else 0               # number: cambie su valor de 0 a 11 si su condicion se cumple
+                btn = B1ButtonCls (self.frame_1, text=texto, command= self.indices(index2 + number))             
+                n1 = 5 if index2 == 0 else 0        
+                n2 = 5 if index2 == 10 else 0
+                btn .grid(column=index2 , row=index1 , pady=3, padx=(n1,n2))
+                if texto in mobiles2: btn.config(fg='yellow')
+                btn.bind("<Enter>", self.mouse_move)
+                btn.bind("<Leave>", self.mouse_stop)
+                #btn.bind("<Button-1>", self.mouse_clic)   
+                buttons.append(btn)
 
+    def mouse_move(self, event):   # Cambia el color al pasar el mouse sobre el      # Color: Celeste apagado
+        event.widget.config(bg="#24364a")
 
+    def mouse_stop(self, event):   # Deja el color como estaba por defecto           # Color: Azul oscuro
+        event.widget.config(bg='#11161d')
+    #__________________aqui
+    def mouse_clic(self, event):   # Cambia el color por defecto al hacerle click
+        event.widget.config(state='disabled', disabledforeground='green', )#bg='#bdfe04', fg='black')
+        event.widget.configure(disabledbackground='red')
+        self.colors = True
 
-
+     
 class ResizeCls(Frame):
     def __init__(self, master, index, *args, **kwargs):
         Frame.__init__(self, master, *args, kwargs)
@@ -1126,7 +1098,7 @@ class RootCls(Tk, MoveGlobalCls):
         minimize = {'side':BOTTOM, 'pady':7}
         frame ={'side':RIGHT, 'fill':BOTH}
         
-        #self.resizable(0, 0)
+        #self.resizable(0, 0)                     # Deja un rastro de root en pantalla, no solucionado
         self.geometry('0x0+300+0')   
 
         self.toplevel_principal = Toplevel_class(self, close, minimize, frame, value_exception1=None, _exceptidon2=None)  # Toplevel Principal
