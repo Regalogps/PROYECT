@@ -415,7 +415,7 @@ class B1_class(Frame):   # Frame contenedor de botones
         mobiles = [['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage'],
                    ['Randomizer', 'Jolteon', 'Turtle', 'Armor', 'A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']]
         mobiles2 = ['Fox','Knight','Jolteon','Barney','Dragon'] 
-        buttons = []
+        self.buttons = []
         for index1, mobil in enumerate(mobiles):                # Iterador: (mobil) = 11 elementos: 1 sublistasssss
             for index2, texto in enumerate(mobil):              # Iterador: (texto) = 1  elemento:  'Frog'
                 number = 11 if index1 == 1 else 0               # number: cambie su valor de 0 a 11 si su condicion se cumple
@@ -427,33 +427,32 @@ class B1_class(Frame):   # Frame contenedor de botones
                 btn.bind("<Enter>", self.mouse_move)
                 btn.bind("<Leave>", self.mouse_stop)
                 #btn.bind("<Button-1>", self.mouse_clic)   
-                buttons.append(btn)
+                self.buttons.append(btn)
 
     def mouse_move(self, event):   # Cambia el color al pasar el mouse sobre el      # Color: Celeste apagado
         widget = event.widget
 
-        if widget in buttons:
+        if widget in self.buttons:
             self.bg = widget.cget(bg)
             self.fg = widget.cget(fg)
             widget.config(bg="#24364a")  # celeste
 
     def mouse_stop(self, event):   # Deja el color como estaba por defecto           # Color: Azul oscuro
-        if event.widget in buttons:
+        if event.widget in self.buttons:
             event.widget.config(bg='#11161d')  # azul
     #__________________aqui
     def mouse_clic(self, event):   # Cambia el color por defecto al hacerle click
 
         widget = event.widget
 
-        container = widget
-        buttons .remove(evento.widget)    # aquí puede q falte update_itsz()
+       # container = widget
+        buttons .remove(widget)    # aquí puede q falte update_itsz()
         container = widget
         widget .config(bg='#bdfe04', fg='black')
 
         if container not is None:
-            container.config (bg=self.bg, fg=self.fg)
-            buttons .append(container)  # recorrer lista con print y ordenar la lista si es preciso
-            
+            widget .config (bg=self.bg, fg=self.fg)
+            buttons .append(container)  # recorrer lista con print y ordenar la lista si es preciso           
         container = the_tbn
 
      
