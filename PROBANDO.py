@@ -396,82 +396,11 @@ class B1_class(Frame):   # Frame contenedor de botones
         self.frame_1 = Frame (self, bg='#11161d')          # Color: Azul '#11161d'
         self.frame_1 .grid (padx=(10,10), pady=(6,6))
 
+        #_____Métodos Llamados:
         self.creator_buttons()
-        #_____Variables de Control en los Botones
-        self.colors= None
 
-
-    def mobile_button(self):   # Metodo que crea -22- Botones (moviles)  #command = lambda:images(1))
-        
-        self.Frog_1 = Button        (self.frame_1, text='Frog', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04',
-                                     command= lambda: self.master.windows_123 (Frog_left_off, Frog_right, Frog_stuf)) 
-        self.Fox_2 = Button         (self.frame_1, text='Fox', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, activebackground='#ebb015',
-                                     command= lambda: self.master.windows_123 (Fox_left_off, Fox_right, Fox_stuf))         
-        self.Boomer_3 = Button      (self.frame_1, text='Boomer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
-                                     command= lambda: self.master.windows_123 (Boomer_left_off, Boomer_right, Boomer_stuf))             
-        self.Ice_4 = Button         (self.frame_1, text='Ice', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
-                                     command= lambda: self.master.windows_123 (Ice_left_off, Ice_right, Ice_stuf))
-        self.JD_5 = Button          (self.frame_1, text='J.D', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
-                                     command= lambda: self.master.windows_123 (Jd_left_off, Jd_right, Jd_stuf))
-        self.Grub_6 = Button        (self.frame_1, text='Grub', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
-                                     command= lambda: self.master.windows_123 (Grub_left_off, Grub_right, Grub_stuf))   
-        self.Lightning_7 = Button   (self.frame_1, text='Lightning', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width=10, bd=0, activebackground='#bdfe04', 
-                                     command= lambda: self.master.windows_123 (Lightning_left_off, Lightning_right, Lightning_stuf))
-        self.Aduka_8 = Button       (self.frame_1, text='Aduka', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
-                                     command= lambda: self.master.windows_123 (Aduka_left_off, Aduka_right, Aduka_stuf))      
-        self.Knight_9 = Button      (self.frame_1, text='Knight', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, activebackground='#ebb015', 
-                                     command= lambda: self.master.windows_123 (Knight_left_off, Knight_right, Knight_stuf))     
-        self.Kalsiddon_10 = Button  (self.frame_1, text='Kalsiddon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
-                                     command= lambda: self.master.windows_123 (Kalsiddon_left_off, Kalsiddon_right, Kalsiddon_stuf))
-        self.Mage_11 = Button       (self.frame_1, text='Mage', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
-                                     command= lambda: self.master.windows_123 (Mage_left_off, Mage_right, Mage_stuf))     
-
-        self.Randomizer_12 = Button (self.frame_1, text='Randomizer', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
-                                     command= lambda: self.master.windows_123 (Randomizer_left_off, Randomizer_right, Randomizer_stuf)) 
-        self.Jolteon_13 = Button    (self.frame_1, text='Jolteon', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, activebackground='#ebb015', 
-                                     command= lambda: self.master.windows_123 (Jolteon_left_off, Jolteon_right, Jolteon_stuf)) 
-        self.Turtle_14 = Button     (self.frame_1, text='Turtle', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
-                                     command= lambda: self.master.windows_123 (Turtle_left_off, Turtle_right, Turtle_stuf))
-        self.Armor_15 = Button      (self.frame_1, text='Armor', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
-                                     command= lambda: self.master.windows_123 (Armor_left_off, Armor_right, Armor_stuf))
-        self.Asate_16 = Button      (self.frame_1, text='A.Sate', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
-                                     command= lambda: self.master.windows_123 (Asate_left_off, Asate_right, Asate_stuf))
-        self.Raon_17 = Button       (self.frame_1, text='Raon', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
-                                     command= lambda: self.master.windows_123 (Raon_left_off, Raon_right, Raon_stuf)) 
-        self.Trico_18 = Button      (self.frame_1, text='Trico', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
-                                     command= lambda: self.master.windows_123 (Trico_left_off, Trico_right, Trico_stuf))
-        self.Nak_19 = Button        (self.frame_1, text='Nak', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
-                                     command= lambda: self.master.windows_123 (Nak_left_off, Nak_right, Nak_stuf)) 
-        self.Bigfoot_20 = Button    (self.frame_1, text='Bigfoot', font=('Calibri',9,'bold'), bg='#11161d', fg='white', width= 10, bd=0, activebackground='#bdfe04', 
-                                     command= lambda: self.master.windows_123 (Bigfoot_left_off, Bigfoot_right, Bigfoot_stuf)) 
-        self.Barney_21 = Button     (self.frame_1, text='Barney', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, activebackground='#ebb015', 
-                                     command= lambda: self.master.windows_123 (Barney_left_off, Barney_right, Barney_stuf)) 
-        self.Dragon_22 = Button     (self.frame_1, text='Dragon', font=('Calibri',9,'bold'), bg='#11161d', fg='yellow', width= 10, bd=0, activebackground='#ebb015', 
-                                     command= lambda: self.master.windows_123 (Dragon_left_off, Dragon_right, Dragon_stuf))
-                
-        self.Frog_1 .grid (column= 0, row= 0, pady= 3, padx= (5,0))
-        self.Fox_2 .grid (column= 1, row= 0, pady= 3, padx= (0,0))       
-        self.Boomer_3 .grid (column= 2, row= 0, pady= 3, padx= (0,0))           
-        self.Ice_4 .grid (column= 3, row= 0, pady= 3, padx= (0,0))
-        self.JD_5 .grid (column= 4, row= 0, pady= 3, padx= (0,0))
-        self.Grub_6 .grid (column= 5, row= 0, pady= 3, padx= (0,0))
-        self.Lightning_7 .grid (column= 6, row= 0, pady= 3, padx= (0,0))
-        self.Aduka_8 .grid (column= 7, row= 0, pady= 3, padx= (0,0))
-        self.Knight_9 .grid (column= 8, row= 0, pady= 3, padx= (0,0))
-        self.Kalsiddon_10 .grid (column= 9, row= 0, pady= 3, padx= (0,0))
-        self.Mage_11 .grid (column= 10, row= 0, pady= 3, padx= (0,5))
-
-        self.Randomizer_12 .grid (column= 0, row= 1, pady= 3, padx= (5,0))
-        self.Jolteon_13 .grid (column= 1, row= 1, pady= 2, padx= (0,0))
-        self.Turtle_14 .grid (column= 2, row= 1, pady= 2, padx= (0,0))
-        self.Armor_15 .grid (column= 3, row= 1, pady= 2, padx= (0,0))
-        self.Asate_16 .grid (column= 4, row= 1, pady= 2, padx= (0,0))
-        self.Raon_17 .grid (column= 5, row= 1, pady= 2, padx= (0,0))
-        self.Trico_18 .grid (column= 6, row= 1, pady= 2, padx= (0,0))
-        self.Nak_19 .grid (column= 7, row= 1, pady= 2, padx= (0,0))
-        self.Bigfoot_20 .grid (column= 8, row= 1, pady= 2, padx= (0,0))
-        self.Barney_21 .grid (column= 9, row= 1, pady= 2, padx= (0,0))
-        self.Dragon_22 .grid (column= 10, row= 1, pady= 3, padx= (0,5))
+        #_____Variables de Control para los Botones
+        self.container = None
 
     def indices(self, ind):
         # I N D I C E S :
@@ -483,7 +412,6 @@ class B1_class(Frame):   # Frame contenedor de botones
                 lambda top3: TopStufCls (top3, ind, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
     
     def creator_buttons(self):  
-
         mobiles = [['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage'],
                    ['Randomizer', 'Jolteon', 'Turtle', 'Armor', 'A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']]
         mobiles2 = ['Fox','Knight','Jolteon','Barney','Dragon'] 
@@ -502,15 +430,25 @@ class B1_class(Frame):   # Frame contenedor de botones
                 buttons.append(btn)
 
     def mouse_move(self, event):   # Cambia el color al pasar el mouse sobre el      # Color: Celeste apagado
-        event.widget.config(bg="#24364a")
+        if event.widget in buttons:
+            event.widget.config(bg="#24364a")
 
     def mouse_stop(self, event):   # Deja el color como estaba por defecto           # Color: Azul oscuro
-        event.widget.config(bg='#11161d')
+        if event.widget in buttons:
+            event.widget.config(bg='#11161d')
     #__________________aqui
     def mouse_clic(self, event):   # Cambia el color por defecto al hacerle click
-        event.widget.config(state='disabled', disabledforeground='green', )#bg='#bdfe04', fg='black')
-        event.widget.configure(disabledbackground='red')
-        self.colors = True
+
+        the_btn = event.widget
+        container = the_btn
+        buttons .remove(evento.widget)    # aquí puede q falte update_itsz()
+        the_btn .config(bg='#bdfe04', fg='black')
+
+        if container not is None:
+            container.config(
+            buttons .append(container)
+            
+        container = the_tbn
 
      
 class ResizeCls(Frame):
