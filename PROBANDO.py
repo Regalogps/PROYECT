@@ -430,22 +430,27 @@ class B1_class(Frame):   # Frame contenedor de botones
                 buttons.append(btn)
 
     def mouse_move(self, event):   # Cambia el color al pasar el mouse sobre el      # Color: Celeste apagado
-        if event.widget in buttons:
-            event.widget.config(bg="#24364a")
+        widget = event.widget
+        if widget in buttons:
+            self.bg = widget.cget(bg)
+            self.fg = widget.cget(fg)
+            widget.config(bg="#24364a")  # celeste
 
     def mouse_stop(self, event):   # Deja el color como estaba por defecto           # Color: Azul oscuro
         if event.widget in buttons:
-            event.widget.config(bg='#11161d')
+            event.widget.config(bg='#11161d')  # azul
     #__________________aqui
     def mouse_clic(self, event):   # Cambia el color por defecto al hacerle click
 
         the_btn = event.widget
+        bg = the_btn.cget(bg)
+        fg = the_btn.cget(fg)
         container = the_btn
         buttons .remove(evento.widget)    # aquí puede q falte update_itsz()
         the_btn .config(bg='#bdfe04', fg='black')
 
         if container not is None:
-            container.config(
+            container.config(bg=bg, fg=fg)
             buttons .append(container)
             
         container = the_tbn
