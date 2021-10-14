@@ -25,3 +25,49 @@
 
     def automatic_deletion(self):  # ACTIVA: ** SI ES LLAMADO POR OPEN_WINDOWS ** Y SI LA VARIABLE DE CONTROL NO ES NONE - LIMPIA SPINBOX
         self.spinboxx .delete(0, END)     
+
+
+class B1ButtonCls(Button):   # Opciones por defecto de los botones de Inteface
+    def __init__(self, master, *args, **kwargs):
+        kwargs = {"font":('Calibri',9,'bold'), 'bg': '#11161d', 'fg':'white', 'width':10, 'bd':0, 'activebackground':'#bdfe04', **kwargs}
+        super().__init__(master, *args, **kwargs)
+
+class B1_class(Frame):   # Frame contenedor de botones
+    def __init__(self, *args, **kwargs):
+        Frame.__init__(self, *args, **kwargs)
+        #_____C O N T E N E D O R E S:   [ 1 ]
+        self.frame_1 = Frame (self, bg='#11161d')          # Color: Azul '#11161d'
+        self.frame_1 .grid (padx=(10,10), pady=(6,6))
+
+        #_____Métodos Llamados:
+        self.creator_buttons()
+
+        #_____Variables de Control para los Botones
+        self.container = None
+
+    def indices(self, ind):
+        # I N D I C E S :
+        arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, = 0, 1, 2, 3, 4, 5, 6, 7 
+
+        return  lambda: self.master.windows_123(
+                lambda top1: TopIzqCls  (top1, ind, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
+                lambda top2: TopDerCls  (top2, ind, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
+                lambda top3: TopStufCls (top3, ind, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
+    
+    def creator_buttons(self):  
+        mobiles = [['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage'],
+                   ['Randomizer', 'Jolteon', 'Turtle', 'Armor', 'A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']]
+        mobiles2 = ['Fox','Knight','Jolteon','Barney','Dragon'] 
+        self.buttons = []                                       # Lista: Sirve para condicionar las funciones vinculadas a eventos: bind -->  mouse_move, mouse_stop, mouse_clic
+        for index1, mobil in enumerate(mobiles):                # Iterador: (mobil) = 11 elementos: 1 sublistasssss
+            for index2, texto in enumerate(mobil):              # Iterador: (texto) = 1  elemento:  'Frog'
+                number = 11 if index1 == 1 else 0               # number: cambie su valor de 0 a 11 si su condicion se cumple
+                btn = B1ButtonCls (self.frame_1, text=texto, command= self.indices(index2 + number))             
+                n1 = 5 if index2 == 0 else 0        
+                n2 = 5 if index2 == 10 else 0
+                btn .grid(column=index2 , row=index1 , pady=3, padx=(n1,n2))
+                if texto in mobiles2: btn.config(fg='yellow')
+                btn.bind("<Enter>", self.mouse_move)
+                btn.bind("<Leave>", self.mouse_stop)
+                btn.bind("<Button-1>", self.mouse_clic)   
+                self.buttons.append(btn)
