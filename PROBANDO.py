@@ -759,17 +759,17 @@ class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
                 lambda top3: TopStufCls (top3, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
                 break
 
-                self.master.windows_123(
+                """self.master.windows_123(
                 TopIzqCls  (index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
                 TopDerCls  (index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
                 TopStufCls (index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
-                break
+                break"""
 
-                self.funt = lambda: self.master.windows_123(
-                lambda top1: TopIzqCls  (top1, ind, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
-                lambda top2: TopDerCls  (top2, ind, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
-                lambda top3: TopStufCls (top3, ind, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
-    
+                """self.funt = lambda: self.master.windows_123(
+                lambda top1: TopIzqCls  (top1, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
+                lambda top2: TopDerCls  (top2, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
+                lambda top3: TopStufCls (top3, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
+                break"""
 
         if self._change is not None:
             self.after(10000, self.automatic_deletion) 
