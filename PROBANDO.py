@@ -125,6 +125,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         self.master.geometry (self.geo_principal.get())                   # TAMAÑO DE LA VENTANA
         self.master.resizable (1,1)                                       # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
         self.master.config (bg='magenta2')                                # CONFIGURA EL FONDO DE LA VENTANA, etc
+        self.master.transient()                                             # No funciona
         self.master.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
         self.master.wm_attributes ('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
 
@@ -193,7 +194,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
 
     def windows_123 (self, var_1, var_2, var_3):
 
-        close = {'side':RIGHT}
+        close = {'side':RIGHT, 'padx':2}
         minimize = {'side':RIGHT, 'padx':10}
         frame ={'side':TOP, 'fill':BOTH}
         
@@ -287,19 +288,16 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
 class A1_class(Frame):   # Frame contenedor de ash y gear
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)
-
-        path = 'E:/1-RICHI/MovilesDB'
-        #_____Coleccion de Imágenes         
-        self.Sublist= self.generate_list(path, 'S') 
         #_____C O N T E N E D O R E S:  [ 0 ]
 
+        self.initializer_images()
         self.controllers()
         
     def controllers(self):  # Botones
         #____B U T T O N S:  [2]:  Logo y rueda
-        self.btn_ash = Button (self, image=self.Sublist[0], bg='#11161d', bd=0, activebackground='#11161d' ,
+        self.btn_ash = Button (self, image=self.image_ash, bg='#11161d', bd=0, activebackground='#11161d' ,
                                command=self.minimize_windows)
-        self.btn_gear = Button (self, image=self.Sublist[1], bg='#11161d', bd=0, activebackground='#11161d',
+        self.btn_gear = Button (self, image=self.image_gear1, bg='#11161d', bd=0, activebackground='#11161d',
                                command=self.master.gear_stacking)                               
 
         self.btn_ash .grid (column=0, row=0, padx=(6,6), pady=0)
@@ -307,6 +305,8 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
 
         #____B I N D ():
         self.btn_ash .bind ('<Double-Button-3>', self.close_windows)  # Cierra Toplevel Secundarias
+        self.btn_gear.bind("<Enter>", self.change_image_gear1)
+        self.btn_gear.bind("<Leave>", self.change_image_gear2)
 
 
     def close_windows(self, event):   # ACTIVA: CON DOBLE CLICK DERECHO EN EL LOGO - CIERRA LAS VENTANAS 
@@ -368,23 +368,26 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
                 self.master._minimize = False
    
 
-    def generate_list(self, file, option):   # INICIALIZA IMAGENES
 
-        ouput = os.listdir(file)
-        empty = []              
-        if option == 'S':
-            for i in ouput: 
-                if 'SubList' in i :      
-                    full = file + '/' + i
-                    open = cv2.imread (full)
-                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
-                    array = Image.fromarray (RGB)
-                    img = ImageTk.PhotoImage (array)
-                    empty. append (img)
-            return empty
+    def change_image_gear1(self, event):   # Cambia el color al pasar el mouse sobre el      # Color: Celeste apagado
+        event.widget.config(image=self.image_gear2)  
+
+    def change_image_gear2(self, event):   # Deja el color como estaba por defecto           # Color: Azul oscuro
+        event.widget.config(image=self.image_gear1)
+
+    
+    def initializer_images(self):
+        ash = Image.open('E:/1-RICHI/MovilesDB/SubList__00.jpg')
+        gear1 = Image.open('E:/1-RICHI/MovilesDB/SubList__01.jpg')
+        gear2 = Image.open('E:/1-RICHI/MovilesDB/SubList__03.jpg')
+        
+        self.image_ash = ImageTk.PhotoImage(ash)
+        self.image_gear1 = ImageTk.PhotoImage(gear1)
+        self.image_gear2 = ImageTk.PhotoImage(gear2)
+
 
 ################################
-class B1ButtonCls(Button):
+class B1ButtonCls(Button):   # Opciones por defecto de los botones de Inteface
     def __init__(self, master, *args, **kwargs):
         kwargs = {"font":('Calibri',9,'bold'), 'bg': '#11161d', 'fg':'white', 'width':10, 'bd':0, 'activebackground':'#bdfe04', **kwargs}
         super().__init__(master, *args, **kwargs)
@@ -415,7 +418,7 @@ class B1_class(Frame):   # Frame contenedor de botones
         mobiles = [['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage'],
                    ['Randomizer', 'Jolteon', 'Turtle', 'Armor', 'A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']]
         mobiles2 = ['Fox','Knight','Jolteon','Barney','Dragon'] 
-        self.buttons = []
+        self.buttons = []                                       # Lista: Sirve para condicionar las funciones vinculadas a eventos: bind -->  mouse_move, mouse_stop, mouse_clic
         for index1, mobil in enumerate(mobiles):                # Iterador: (mobil) = 11 elementos: 1 sublistasssss
             for index2, texto in enumerate(mobil):              # Iterador: (texto) = 1  elemento:  'Frog'
                 number = 11 if index1 == 1 else 0               # number: cambie su valor de 0 a 11 si su condicion se cumple
@@ -426,36 +429,31 @@ class B1_class(Frame):   # Frame contenedor de botones
                 if texto in mobiles2: btn.config(fg='yellow')
                 btn.bind("<Enter>", self.mouse_move)
                 btn.bind("<Leave>", self.mouse_stop)
-                #btn.bind("<Button-1>", self.mouse_clic)   
+                btn.bind("<Button-1>", self.mouse_clic)   
                 self.buttons.append(btn)
 
     def mouse_move(self, event):   # Cambia el color al pasar el mouse sobre el      # Color: Celeste apagado
         widget = event.widget
-
         if widget in self.buttons:
-            self.bg = widget.cget(bg)
-            self.fg = widget.cget(fg)
-            widget.config(bg="#24364a")  # celeste
+            self.bg = widget.cget('bg')  # Color:  bg= #11161d       -->   Azul Marino / Defecto       
+            self.fg = widget.cget('fg')  # Color:  fg= white/yellow  -->   Blanco o Amarillo
+            widget.config(bg="#24364a")  # Color:  bg= #24364a       -->   Celeste apagado  
 
     def mouse_stop(self, event):   # Deja el color como estaba por defecto           # Color: Azul oscuro
         if event.widget in self.buttons:
-            event.widget.config(bg='#11161d')  # azul
-    #__________________aqui
+            event.widget.config(bg='#11161d')  # Color:  #11161d       -   Defecto  Azul Marino
+
     def mouse_clic(self, event):   # Cambia el color por defecto al hacerle click
 
-        widget = event.widget
+        widget1 = event.widget
 
-       # container = widget
-        buttons .remove(widget)    # aquí puede q falte update_itsz()
-        container = widget
-        widget .config(bg='#bdfe04', fg='black')
+        event.widget .config(bg='#bdfe04', fg='black')       # 0     # Color:  bg= #bdfe04  --> Verde  
+        self.buttons .remove(event.widget)                   # 1     # Remueve de la lista al boton presionado
+        if self.container is not None:
+            self.container .config (bg=self.bg, fg=self.fg)  # 3     # Cambia el color del boton: (bg y fg) que tenian por defecto
+            self.buttons .append(self.container)             # 4     # Agrega a la lista el boton anterior en la ultima posicion
+        self.container = widget1                             # 2     # Almacena el boton actual en otra variable
 
-        if container not is None:
-            widget .config (bg=self.bg, fg=self.fg)
-            buttons .append(container)  # recorrer lista con print y ordenar la lista si es preciso           
-        container = the_tbn
-
-     
 class ResizeCls(Frame):
     def __init__(self, master, index, *args, **kwargs):
         Frame.__init__(self, master, *args, kwargs)
@@ -875,19 +873,48 @@ class Frame_manager_class(Frame):
         self.initializer_images()
 
 
+    def type_button(self, pack_1, pack_2):
+        self.button_close = Button(self, image=self.image_close1, command=self.close, bd=0, bg='black', activebackground='black')
+        self.button_minimize = Button(self, image=self.image_minimize1, command=self.minimize, bd=0, bg='black', activebackground='black')
+
+        self.button_close .pack (pack_1)       # Orientacion del boton en el frame: Principal: (side=TOP, pady=7)    Secundario: (side=RIGHT) 
+        self.button_minimize .pack (pack_2)    # Orientacion del boton en el frame: Principal: (side=BOTTOM, pady=7) Secundario: (side=RIGHT, padx=10)            
+           # self.label_title = Label(self, text='', fg="white", bg="green")   
+           # self.label_title .pack(side=RIGHT, padx=0, pady=0)                  # Derecha """
+
+        self.button_close.bind("<Enter>", self.change_image_close1)
+        self.button_close.bind("<Leave>", self.change_image_close2)
+       # self.button_close.bind("<Button-1>", self.mouse_clic)  
+
+        self.button_minimize.bind("<Enter>", self.change_image_mini1)
+        self.button_minimize.bind("<Leave>", self.change_image_mini2)
+        #self.button_minimize.bind("<Button-1>", self.mouse_clic)
+
+
+    def change_image_close1(self, event):   # Cambia el color al pasar el mouse sobre el      # Color: Celeste apagado
+        event.widget.config(image=self.image_close2)  # Color:  bg= #24364a       -->   Celeste apagado
+
+    def change_image_close2(self, event):   # Deja el color como estaba por defecto           # Color: Azul oscuro
+        event.widget.config(image=self.image_close1)
+   
+    def change_image_mini1(self, event):   # Deja el color como estaba por defecto           # Color: Azul oscuro
+        event.widget.config(image=self.image_minimize2)
+
+    def change_image_mini2(self, event):   # Deja el color como estaba por defecto           # Color: Azul oscuro
+        event.widget.config(image=self.image_minimize1)
+
+
     def close(self):     # SOLUCIONAR SI QUEDAN PROCESOS ABIERTOS POR USO INADECUADO DE QUIT()
         # Cerrar:  Toplevel Principal 
         if self._exception1 is None:  # Default
             self.master.quit()                       # YO LO PUSE , utilidad por informarse todavia
             self.master.destroy()                    # Destruye Toplevel Principal
             self.master.master.destroy()             # Destruye root
-            print('top principal')
 
         # Cerrar:  Toplevel Secundarios
         if self._exception1 is not None:
             self.master.destroy()                    # Destruye Toplevel Secundarios
             #self.master.quit()                      # Elimina toda la aplicacion cuando hay 1 sola mainlopp()
-            print('top secundarias')
 
     def minimize(self):
         # Minimiza:  Toplevel Principal
@@ -901,24 +928,12 @@ class Frame_manager_class(Frame):
             self.master.overrideredirect(False)      # Dibuja el Gestor de Ventanas a Toplevel Secundarias
             self.master.state('iconic')              # Iconiza Toplevel Secundarias
 
-   
-    def type_button(self, pack_1, pack_2):
-        self.button_close = Button(self, image=self.image_close, command=self.close, bd=0, bg='black', activebackground='black')
-        self.button_minimize = Button(self, image=self.image_minimize, command=self.minimize, bd=0, bg='black', activebackground='black')
-
-        self.button_close .pack (pack_1)       # Orientacion del boton en el frame: Principal: (side=TOP, pady=7)    Secundario: (side=RIGHT) 
-        self.button_minimize .pack (pack_2)    # Orientacion del boton en el frame: Principal: (side=BOTTOM, pady=7) Secundario: (side=RIGHT, padx=10)
-
-            
-           # self.label_title = Label(self, text='', fg="white", bg="green")   
-           # self.label_title .pack(side=RIGHT, padx=0, pady=0)                  # Derecha """
-
 
     def initializer_images(self):
-        self.image_close = PhotoImage(file= '11.png')
-        self.image_maximize = PhotoImage(file= 'ma.png') 
-        self.image_minimize = PhotoImage(file= '22.png')
-        self.image_reduce = PhotoImage(file= 'ma2.png')
+        self.image_close1 = PhotoImage(file= 'E:/1-RICHI/MovilesDB/B_01.png')
+        self.image_minimize1 = PhotoImage(file= 'E:/1-RICHI/MovilesDB/B_02.png')
+        self.image_close2 = PhotoImage(file= 'E:/1-RICHI/MovilesDB/B_04.png')
+        self.image_minimize2 = PhotoImage(file= 'E:/1-RICHI/MovilesDB/B_03.png')
   
 
 ################################
@@ -935,12 +950,6 @@ class Toplevel_class(Toplevel):
         self._x = 0
         self._y = 0
 
-        #_____________________________________________
-        path = 'E:/1-RICHI/MovilesDB'
-        #____Coleccion de imagenes:
-        #self.Images_1 = self.generate_list (path, 'I')
-        #_____________________________________________
-      
 
         self.frame_manager = Frame_manager_class (self, bg="black", _exception1=value_exception1)       # Frame: Gestor de Ventanas
         self.frame_manager .pack (pack_3)
@@ -960,8 +969,8 @@ class Toplevel_class(Toplevel):
             #self.label_title .bind("<ButtonRelease-1>", self.stop_move)    # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
             #self.label_title .bind("<B1-Motion>", self.on_move)            # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
 
-        #self.master .bind("<Map>", self.deiconify_1)                          # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
-        #self.master .bind("<Unmap>", self.iconify_1)                          # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
+        #self.master .bind("<Map>", self.deiconify_1)                       # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
+        #self.master .bind("<Unmap>", self.iconify_1)                       # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
 
         # GLOSARIO:
             # _exception1: Es el argumento de la clase: Frame_manager_class que valida que tipo de funcion se va ejecutar en el Instancia creada
@@ -996,29 +1005,13 @@ class Toplevel_class(Toplevel):
             self.master.geometry(new_position)      # Mueve la ventana root
 
 
-    def configure_toplevel(self, title, size):
+    def configure_toplevel(self, title, size):  # Opciones de las Ventanas Secundarias
         self.title (title)
         self.geometry (size)
         self.resizable (1,1)
         self.wm_attributes ('-topmost', True)                     # FUNCIONA BIEN pero molesta para editar 
         #self.config (bg = 'magenta2')                            # FUNCIONA BIEN pero tiene mal aspecto
         #self.wm_attributes ('-transparentcolor', 'magenta2')     # FUNCIONA BIEN pero tiene mal aspecto
- 
-    def generate_list(self, file, option):      # INICIALIZA IMAGENES
-
-        ouput = os.listdir (file)
-        empty = []                    
-        if option == 'I': 
-            _lst = [[] for x in range(22)]
-            _str = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Kal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Dr1','Dr2']
-            for i in ouput:               
-                for index,iter in enumerate(_str):
-                    if iter in i: 
-                        full = file + '/' + i
-                        open = cv2.imread (full)
-                        RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
-                        _lst[index].append(RGB)               
-            return _lst 
 
     def mapped_manager(self, event=None):       # / SOLO SE EJECUTA PARA VENTANAS 1,2,3   
         self.update_idletasks()
@@ -1037,16 +1030,14 @@ class RootCls(Tk, MoveGlobalCls):
         Tk.__init__(self, *args, **kwargs)
         MoveGlobalCls.__init__(self)              # Inicializando las variables de control
 
-        close = {'side':TOP, 'pady':7}
-        minimize = {'side':BOTTOM, 'pady':7}
-        frame ={'side':RIGHT, 'fill':BOTH}
+        type_close = {'side':TOP, 'pady':6}
+        type_minimize = {'side':BOTTOM, 'pady':6}
+        type_frame ={'side':RIGHT, 'fill':BOTH}
         
         #self.resizable(0, 0)                     # Deja un rastro de root en pantalla, no solucionado
-        self.geometry('0x0+300+0')   
+        self.geometry('0x0+300+0')                # Tamaño de Root
 
-        self.toplevel_principal = Toplevel_class(self, close, minimize, frame, value_exception1=None, _exceptidon2=None)  # Toplevel Principal
-        self.toplevel_principal .geometry('830x65')
-        self.toplevel_principal .transient() 
+        self.toplevel_principal = Toplevel_class(self, type_close, type_minimize, type_frame, value_exception1=None, _exceptidon2=None)  # Toplevel Principal
 
         self.frame_principal = Interface(self.toplevel_principal)                                                         # Frame Principal
         self.frame_principal .pack(side=RIGHT, fill=BOTH)
