@@ -759,6 +759,12 @@ class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
                 lambda top3: TopStufCls (top3, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
                 break
 
+                self.master.windows_123(
+                TopIzqCls  (index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
+                TopDerCls  (index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
+                TopStufCls (index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
+                break
+
         if self._change is not None:
             self.after(10000, self.automatic_deletion) 
 
