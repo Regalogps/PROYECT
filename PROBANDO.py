@@ -176,6 +176,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         else:
             self.frame_configurer .pack_forget()
             if self.frame_configurer .ckbutton5.variable.get() == True:
+                self.frame_botones .active_reverse()                              # Desmarca el botón seleccionado
                 self.frame_listmode .pack (side=LEFT, fill=BOTH)
                 self.frame_listmode .spinboxx .focus_set()
                 self.master.geometry ('250x67')
@@ -447,13 +448,19 @@ class B1_class(Frame):   # Frame contenedor de botones
 
         widget1 = event.widget
 
-        event.widget .config(bg='#bdfe04', fg='black')       # 0     # Color:  bg= #bdfe04  --> Verde
-        if event.widget in self.buttons:
-            self.buttons .remove(widget1)                   # 1     # Remueve de la lista al boton presionado
+        widget1.config(bg='#bdfe04', fg='black')             # 0     # Color:  bg= #bdfe04  --> Verde
+        if widget1 in self.buttons:
+            self.buttons .remove(widget1)                    # 1     # Remueve de la lista al boton presionado
         if self.container is not None:
             self.container .config (bg=self.bg, fg=self.fg)  # 3     # Cambia el color del boton: (bg y fg) que tenian por defecto
             self.buttons .append(self.container)             # 4     # Agrega a la lista el boton anterior en la ultima posicion
         self.container = widget1                             # 2     # Almacena el boton actual en otra variable
+
+    def active_reverse(self):
+        if self.container is not None:
+            self.container .config (bg=self.bg, fg=self.fg)      # Cambia el color del boton: (bg y fg) que tenian por defecto
+            self.buttons .append(self.container)                 # Agrega a la lista el boton anterior en la ultima posicion
+            self.container = None
 
         # borrar el color verde cuando se marca modo lista y cuando se cierra las ventans
 
