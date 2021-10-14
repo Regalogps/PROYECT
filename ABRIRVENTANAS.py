@@ -24,26 +24,10 @@
             self.after(10000, self.automatic_deletion) 
 
     def automatic_deletion(self):  # ACTIVA: ** SI ES LLAMADO POR OPEN_WINDOWS ** Y SI LA VARIABLE DE CONTROL NO ES NONE - LIMPIA SPINBOX
-        self.spinboxx .delete(0, END)     
-
-
-class B1ButtonCls(Button):   # Opciones por defecto de los botones de Inteface
-    def __init__(self, master, *args, **kwargs):
-        kwargs = {"font":('Calibri',9,'bold'), 'bg': '#11161d', 'fg':'white', 'width':10, 'bd':0, 'activebackground':'#bdfe04', **kwargs}
-        super().__init__(master, *args, **kwargs)
-
-class B1_class(Frame):   # Frame contenedor de botones
-    def __init__(self, *args, **kwargs):
-        Frame.__init__(self, *args, **kwargs)
-        #_____C O N T E N E D O R E S:   [ 1 ]
-        self.frame_1 = Frame (self, bg='#11161d')          # Color: Azul '#11161d'
-        self.frame_1 .grid (padx=(10,10), pady=(6,6))
-
-        #_____Métodos Llamados:
+        self.spinboxx .delete(0, END)    
+ 
+##################
         self.creator_buttons()
-
-        #_____Variables de Control para los Botones
-        self.container = None
 
     def indices(self, ind):
         # I N D I C E S :
