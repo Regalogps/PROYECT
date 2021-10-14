@@ -280,6 +280,9 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         if number == 3: 
             self._open_3 = False
 
+        if not self._open_1 == True and not self._open_2 == True and not self._open_3:
+            self.frame_botones .active_reverse()
+
 ################################
 ################################
 ################################
@@ -761,12 +764,16 @@ class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
                 lambda top2: TopDerCls  (top2, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
                 lambda top3: TopStufCls (top3, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
                 break                                       # Sin breack el programa seguiria buscando coincidencias despues del enter, y guardaria un error
-
+        #self.after_cancel(self.fter)            
         if self._change is not None:  # almacena todas las llamadas si se da enter
-            self.after(10000, self.automatic_deletion) 
+           
+            self.fter = self.after(4000, self.automatic_deletion) 
+       
 
     def automatic_deletion(self):  # ACTIVA: ** SI ES LLAMADO POR OPEN_WINDOWS ** Y SI LA VARIABLE DE CONTROL NO ES NONE - LIMPIA SPINBOX
-        self.spinboxx .delete(0, END)     
+       # self.after_cancel(self.fter)
+        self.spinboxx .delete(0, END)
+        self.after_cancel(self.fter)
 
 
     def change_red_green(self, event):  # ACTIVA: CLICK IZQUIERDO EN RED_GREEN - CAMBIA IMAGEN ROJO-VERDE Y VICEVERSA
@@ -895,23 +902,21 @@ class Frame_manager_class(Frame):
 
         self.button_close.bind("<Enter>", self.change_image_close1)
         self.button_close.bind("<Leave>", self.change_image_close2)
-       # self.button_close.bind("<Button-1>", self.mouse_clic)  
 
         self.button_minimize.bind("<Enter>", self.change_image_mini1)
         self.button_minimize.bind("<Leave>", self.change_image_mini2)
-        #self.button_minimize.bind("<Button-1>", self.mouse_clic)
 
 
     def change_image_close1(self, event):   # Cambia el color al pasar el mouse sobre el      # Color: Celeste apagado
-        event.widget.config(image=self.image_close2)  # Color:  bg= #24364a       -->   Celeste apagado
+        event.widget.config(image=self.image_close2)
 
     def change_image_close2(self, event):   # Deja el color como estaba por defecto           # Color: Azul oscuro
         event.widget.config(image=self.image_close1)
    
-    def change_image_mini1(self, event):   # Deja el color como estaba por defecto           # Color: Azul oscuro
+    def change_image_mini1(self, event):    # Deja el color como estaba por defecto           # Color: Azul oscuro
         event.widget.config(image=self.image_minimize2)
 
-    def change_image_mini2(self, event):   # Deja el color como estaba por defecto           # Color: Azul oscuro
+    def change_image_mini2(self, event):    # Deja el color como estaba por defecto           # Color: Azul oscuro
         event.widget.config(image=self.image_minimize1)
 
 
@@ -926,6 +931,7 @@ class Frame_manager_class(Frame):
         if self._exception1 is not None:
             self.master.destroy()                    # Destruye Toplevel Secundarios
             #self.master.quit()                      # Elimina toda la aplicacion cuando hay 1 sola mainlopp()
+            #if not self._open_1 == True or not self._open_1 == True or not self._open_1:         
 
     def minimize(self):
         # Minimiza:  Toplevel Principal
@@ -943,8 +949,8 @@ class Frame_manager_class(Frame):
     def initializer_images(self):
         self.image_close1 = PhotoImage(file= 'E:/1-RICHI/MovilesDB/B_01.png')
         self.image_minimize1 = PhotoImage(file= 'E:/1-RICHI/MovilesDB/B_02.png')
-        self.image_close2 = PhotoImage(file= 'E:/1-RICHI/MovilesDB/B_04.png')
         self.image_minimize2 = PhotoImage(file= 'E:/1-RICHI/MovilesDB/B_03.png')
+        self.image_close2 = PhotoImage(file= 'E:/1-RICHI/MovilesDB/B_04.png')
   
 
 ################################
