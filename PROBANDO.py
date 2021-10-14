@@ -447,12 +447,15 @@ class B1_class(Frame):   # Frame contenedor de botones
 
         widget1 = event.widget
 
-        event.widget .config(bg='#bdfe04', fg='black')       # 0     # Color:  bg= #bdfe04  --> Verde  
-        self.buttons .remove(event.widget)                   # 1     # Remueve de la lista al boton presionado
+        event.widget .config(bg='#bdfe04', fg='black')       # 0     # Color:  bg= #bdfe04  --> Verde
+        if event.widget in self.buttons:
+            self.buttons .remove(widget1)                   # 1     # Remueve de la lista al boton presionado
         if self.container is not None:
             self.container .config (bg=self.bg, fg=self.fg)  # 3     # Cambia el color del boton: (bg y fg) que tenian por defecto
             self.buttons .append(self.container)             # 4     # Agrega a la lista el boton anterior en la ultima posicion
         self.container = widget1                             # 2     # Almacena el boton actual en otra variable
+
+        # borrar el color verde cuando se marca modo lista y cuando se cierra las ventans
 
 class ResizeCls(Frame):
     def __init__(self, master, index, *args, **kwargs):
@@ -741,37 +744,18 @@ class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
         self.open_windows() 
          
     def open_windows(self, event=None):  # ACTIVA: ** SI ES LLAMADO POR LISTBOX_SELECT ** - ABRE LAS VENTANAS
-        
-        #left = [Frog_left_off, Fox_left_off, Boomer_left_off, Ice_left_off, Jd_left_off, Grub_left_off, Lightning_left_off, Aduka_left_off, Knight_left_off, Kalsiddon_left_off, Mage_left_off, Randomizer_left_off, Jolteon_left_off, Turtle_left_off, Armor_left_off, Asate_left_off, Raon_left_off, Trico_left_off, Nak_left_off, Bigfoot_left_off, Barney_left_off, Dragon_left_off,]
-        #right = [Frog_right, Fox_right, Boomer_right, Ice_right, Jd_right, Grub_right, Lightning_right, Aduka_right, Knight_right, Kalsiddon_right, Mage_right, Randomizer_right, Jolteon_right, Turtle_right, Armor_right, Asate_right, Raon_right, Trico_right, Nak_right, Bigfoot_right, Barney_right, Dragon_right]
-        #stuf = [Frog_stuf, Fox_stuf, Boomer_stuf, Ice_stuf, Jd_stuf, Grub_stuf, Lightning_stuf, Aduka_stuf, Knight_stuf, Kalsiddon_stuf, Mage_stuf, Randomizer_stuf, Jolteon_stuf, Turtle_stuf, Armor_stuf, Asate_stuf, Raon_stuf, Trico_stuf, Nak_stuf, Bigfoot_stuf, Barney_stuf, Dragon_stuf]
-
         # I N D I C E S :
         arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, = 0, 1, 2, 3, 4, 5, 6, 7 
 
         for index, i in enumerate(self.spinbox_values):     
             if self.spinbox_variable.get() == i:            # ANTES DABA ERROR CON: self.spinboxx .!toplvel.!frame,etc
-                #self.master.windows_123(left[index], right[index], stuf[index]) 
-                #break                                       # Sin breack el programa seguiria buscando coincidencias despues del enter, y guardaria un error           
                 self.master.windows_123(
                 lambda top1: TopIzqCls  (top1, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
                 lambda top2: TopDerCls  (top2, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
                 lambda top3: TopStufCls (top3, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
-                break
+                break                                       # Sin breack el programa seguiria buscando coincidencias despues del enter, y guardaria un error
 
-                """self.master.windows_123(
-                TopIzqCls  (index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
-                TopDerCls  (index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
-                TopStufCls (index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
-                break"""
-
-                """self.funt = lambda: self.master.windows_123(
-                lambda top1: TopIzqCls  (top1, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
-                lambda top2: TopDerCls  (top2, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
-                lambda top3: TopStufCls (top3, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
-                break"""
-
-        if self._change is not None:
+        if self._change is not None:  # almacena todas las llamadas si se da enter
             self.after(10000, self.automatic_deletion) 
 
     def automatic_deletion(self):  # ACTIVA: ** SI ES LLAMADO POR OPEN_WINDOWS ** Y SI LA VARIABLE DE CONTROL NO ES NONE - LIMPIA SPINBOX
