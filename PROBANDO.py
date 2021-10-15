@@ -209,11 +209,11 @@ class Interface(Frame):
 #_______G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S_______#
 
     def windows_123 (self, var_1, var_2, var_3):
-
+        
         close = {'side':RIGHT, 'padx':2}
         minimize = {'side':RIGHT, 'padx':10}
         frame ={'side':TOP, 'fill':BOTH}
-        
+
         #________________________V E N T A N A:   1________________________________________________________________
         #__________________________________________________________________________________________________________
         if not self._open_1:   # ----> not self._open_1 == True:
@@ -227,13 +227,6 @@ class Interface(Frame):
         self._frame_1 = container_frame_left
         self._frame_1 .pack()
         
-        #____S I Z E G R I P ():
-        self.grip = ttk.Sizegrip(self._frame_1, style='TSizegrip')
-        self.grip .place (relx=1.0, rely=1.0, anchor='center')
-        ttk.Style().configure('TSizegrip', bg='black')
-              
-        self.toplevel_LEFT.bind('<Destroy>', lambda event: self.closing_toplevel(1, event))    
-
 
         #________________________V E N T A N A:   2________________________________________________________________
         #__________________________________________________________________________________________________________
@@ -247,13 +240,6 @@ class Interface(Frame):
             self._frame_2 .destroy()
         self._frame_2 = container_frame_right
         self._frame_2 .pack()
-
-        #____S I Z E G R I P ():
-        self.grip = ttk.Sizegrip(self._frame_2, style='TSizegrip')
-        self.grip .place (relx=1.0, rely=1.0, anchor='center')
-        ttk.Style().configure('TSizegrip', bg='black')
-    
-        self.toplevel_RIGHT.bind('<Destroy>', lambda event: self.closing_toplevel(2, event))
         
 
         #________________________V E N T A N A:   3________________________________________________________________
@@ -269,14 +255,26 @@ class Interface(Frame):
         self._frame_3 = container_frame_stuf
         self._frame_3 .pack()
 
-        #____S I Z E G R I P ():
+
+        #____S I Z E G R I P ():  Inquierda
+        self.grip = ttk.Sizegrip(self._frame_1, style='TSizegrip')
+        self.grip .place (relx=1.0, rely=1.0, anchor='center')
+        ttk.Style().configure('TSizegrip', bg='black')  
+
+        #____S I Z E G R I P ():  Derecha
+        self.grip = ttk.Sizegrip(self._frame_2, style='TSizegrip')
+        self.grip .place (relx=1.0, rely=1.0, anchor='center')
+        ttk.Style().configure('TSizegrip', bg='black')
+
+        #____S I Z E G R I P ():  Stuff
         """ self.grip = ttk.Sizegrip(self._frame_3, style='TSizegrip')
         self.grip .place (relx=1.0, rely=1.0, anchor='center')
         ttk.Style().configure('TSizegrip', bg='black') """  # NO TIENE FRAME O IMAGEN TODAVIA
 
+        # Este destroy no se ejecuta en la primera llamada o la primera vex que se da clic a un boton es lo mismo
+        self.toplevel_LEFT.bind('<Destroy>', lambda event: self.closing_toplevel(1, event))  
+        self.toplevel_RIGHT.bind('<Destroy>', lambda event: self.closing_toplevel(2, event))
         self.toplevel_STUF.bind('<Destroy>', lambda event: self.closing_toplevel(3, event))
-
-
         #___________________________________________________________________________________________________________
         self._open_1 = True
         self._open_2 = True
@@ -292,15 +290,19 @@ class Interface(Frame):
     # 1- Permitir la apertura de las ventanas secundarias en la siguiente llamada
     # 2- Desactiva la seleccion del boton en la interface de botones
     def closing_toplevel(self,  number, event):
-        if number == 1:
-            self._open_1 = False
-        if number == 2:
-            self._open_2 = False
-        if number == 3: 
-            self._open_3 = False
-        print(self._open_1)
-        if not self._open_1 == True and not self._open_2 == True and not self._open_3:
-            self.frame_botones .active_reverse()
+
+        if isinstance(event.widget, Toplevel):
+            if number == 1:
+                self._open_1 = False
+            if number == 2:
+                self._open_2 = False
+            if number == 3: 
+                self._open_3 = False
+
+            if not self._open_1 == True and not self._open_2 == True and not self._open_3:
+                try:  # Esto se ejecuta ademas de la condicion, cuando cierra de emproviso la aplicacion con ventanas secundarias. abiertas
+                    self.frame_botones .active_reverse()
+                except: pass
             
 
 ################################
@@ -440,7 +442,7 @@ class B1_class(Frame):
 
         #_____Variables de Control para los Botones
         self.container = None
-
+        
 
     # Manda los indices para abrir las imagenes en las ventanas:
     def indices(self, ind):
@@ -452,7 +454,7 @@ class B1_class(Frame):
                 lambda top2: TopDerCls  (top2, ind, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
                 lambda top3: TopStufCls (top3, ind, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
 
-
+        
     # Crea los 22 botones y las posiciona:
     def creator_buttons(self):  
         mobiles = [['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage'],
@@ -489,17 +491,15 @@ class B1_class(Frame):
     # Cambia el color por defecto al hacerle click, en este caso: [ Verde ]
     def mouse_clic(self, event):
         widget1 = event.widget
-        
+        #if self.master._open_1==True:
+   
         widget1.config(bg='#bdfe04', fg='black')             # 0     # Color:  bg= #bdfe04  --> Verde
-        if widget1 in self.buttons:
-            self.buttons .remove(widget1)                    # 1     # Remueve de la lista al boton presionado
-        if self.container is not None:
+        if event.widget in self.buttons:
+            self.buttons .remove(event.widget)                    # 1     # Remueve de la lista al boton presionado
+        if self.container is not None and self.container != event.widget:
             self.container .config (bg=self.bg, fg=self.fg)  # 3     # Cambia el color del boton: (bg y fg) que tenian por defecto
             self.buttons .append(self.container)             # 4     # Agrega a la lista el boton anterior en la ultima posicion
         self.container = widget1                             # 2     # Almacena el boton actual en otra variable
-
-        #if self._open_1 is not None:
-        #    widget1.config(bg=self.bg, fg=self.fg)
 
     # Deja el color como estaba por defecto, y reintegra el boton a la lista
     def active_reverse(self):
