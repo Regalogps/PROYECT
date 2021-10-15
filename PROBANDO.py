@@ -47,7 +47,7 @@ class MoveAllCls():
 
 # Se encarga de:
 # 1- Controlar las demas clases
-# 2- Dar y mandar el tamaño y posicion a todas las ventanas a excepcion de root
+# 2- Asignar el tamaño y posicion a todas las ventanas a excepcion de root
 class Interface(Frame):
     def __init__(self, master=None, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
