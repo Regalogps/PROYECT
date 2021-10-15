@@ -43,11 +43,11 @@ class MoveAllCls():
 
 ################################
 ################################
-################################
+###############################
 
 # Se encarga de:
-# 1- Controlar las demas clases
-# 2- Asignar el tamaño y posicion a todas las ventanas a excepcion de root
+# 1- Asignar el tamaño y posicion a todas las ventanas a excepcion de root
+# 2- Gestiona toda la aplicacion
 class Interface(Frame):
     def __init__(self, master=None, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
@@ -81,7 +81,7 @@ class Interface(Frame):
         self.widgets()
 
 
-    # Tamaño - Posicion de Todas las Ventanas  
+    # Asigna el tamaño y posicion de todas las ventanas  
     def size_position(self):
         screen_x = self.master.winfo_screenwidth()      # 1280
         screen_y = self.master.winfo_screenheight()     # 768
@@ -152,8 +152,8 @@ class Interface(Frame):
 
 
     # Inicializa instancias:
-    # 1- self.frame_controller : Frame contenedor de ash y gear
-    # 2- self.frame_botones    : Frame contenedor de botones
+    # 1- self.frame_controller : Frame contenedor de 2 botones, Logo y rueda de config.
+    # 2- self.frame_botones    : Frame contenedor de 22 botones
     # 3- self.frame_configurer : Frame contenedor de checkbuttons y labels
     # 4- self.frame_listmode   : Frame Contenedor de Spinbox y Listbox
     def widgets(self):
