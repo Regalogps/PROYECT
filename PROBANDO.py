@@ -3,8 +3,9 @@ from A_import import *
 #from A_frames import *
 #from B_Frames import *
 
-
-class MoveGlobalCls():
+# Se encarga de:
+# 1- Mover todas las ventanas a excepcion de root, sin importar donde se de clic, existen algunas excepciones
+class MoveAllCls():
     def __init__(self):
         self._x = 0
         self._y = 0
@@ -39,20 +40,21 @@ class MoveGlobalCls():
 
 
  
+
 ################################
 ################################
 ################################
-################################
-################################
-class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPAL
+
+# Se encarga de:
+# 1- Controlar las demas clases
+# 2- Dar y mandar el tamaño y posicion a todas las ventanas a excepcion de root
+class Interface(Frame):
     def __init__(self, master=None, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
 
-        #_____________________________________________
         path = 'E:/1-RICHI/MovilesDB'
-        #____Coleccion de imagenes:
+        #_____Coleccion de Imagenes:
         self.path_lst = self.generate_list (path, 'I')
-        #print(len(self.Images_1))
         
         #_____Variables de control para las ventanas:  [ 1,2,3 ]
         self._frame_1 = None
@@ -67,7 +69,6 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         self._gear = False
         self._minimize = False
 
-
         #_____Variables de Control de Tamaño y Posición de Todas las Ventanas:
         self.geo_principal = StringVar()
         self.geo_izq = StringVar()
@@ -80,12 +81,13 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         self.widgets()
 
 
-    def size_position(self):  # Tamaño - Posicion de Todas las Ventanas  
+    # Tamaño - Posicion de Todas las Ventanas  
+    def size_position(self):
         screen_x = self.master.winfo_screenwidth()      # 1280
         screen_y = self.master.winfo_screenheight()     # 768
         #print('    ancho total:', screen_x,'    alto total:', screen_y )
 
-        #____V E N T A N A  P R I N C I P A L:
+        #____V E N T A N A___P R I N C I P A L:
         width_0 = 830                                   # Ancho
         height_0 = 67                                   # Alto
         posx_0 = screen_x // 2 - width_0 // 2           # Posicion  eje X : horizontal    ----> 1280 / 2 - 830 / 2
@@ -94,7 +96,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         self.geo_principal .set(window_0)
 
 
-        #____Ventana  Secundaria  Izquierda:
+        #____V E N T A N A___I Z Q U I E R D A:
         width_1 = int(screen_x * 15.6 / 100)            # Ancho   Aprox: 199
         height_1 = screen_y - 74                        # Alto    Aprox: 694
         posx_1 = 0                                      # Posición  eje X : horizontal 
@@ -103,22 +105,23 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         self.geo_izq .set(window_1)
 
 
-        #____Ventana  Secundaria  Derecha:
+        #____V E N T A N A___D E R E C H A:
         posx_2 = screen_x - width_1                     # Posición  eje X : horizontal    ----> 1280 - 199
         window_2 = '{}x{}+{}+{}'.format(width_1, height_1, posx_2, posy_1)
         self.geo_der .set(window_2)
 
 
-        #____Ventana  Secundaria  Stuff:
-        width_3 = 860                                   # Ancho   Aprox: 
-        height_3 = 75                                   # Alto    Aprox: 
+        #____V E N T A N A___S T U F:
+        width_3 = 860                                   # Ancho   Aprox: 860
+        height_3 = 75                                   # Alto    Aprox: 75
         posx_3 = screen_x // 2 - width_3 // 2           # Posicion  eje X : horizontal    ----> 1280 / 2 - 860 / 2
         posy_3 = screen_y - height_3 - 40               # Posición  eje Y : vertical      ----> 768 - 75 - 40
         window_3 = '{}x{}+{}+{}'.format(width_3, height_3, posx_3, posy_3)
         self.geo_stuf .set(window_3)
 
- 
-    def configure_interface(self):   # CONFIGURA TOPLEVEL PRINCIPA + FALTAA POSICIONAR LA VENTANA EN INICIACION
+
+    # Configuracion de la ventana principal
+    def configure_interface(self):
         
         # MASTER REFIERE A TOPLEVEL: PRINCIPAL
         self.master.title ('_AshmanBot_')
@@ -129,7 +132,9 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         self.master.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
         self.master.wm_attributes ('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
 
-    def generate_list(self, file, option):   # INICIALIZA IMAGENES + NO SE SABE DONDE POSICIONAR ESTA FUNCION
+
+    # Inicializa las imagenes que se mandan a las ventanas
+    def generate_list(self, file, option):
 
         ouput = os.listdir (file)
         empty = []                    
@@ -144,14 +149,19 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
                         RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
                         _lst[index].append(RGB)               
             return _lst        
-       
-    def widgets(self):
 
+
+    # Inicializa instancias:
+    # 1- self.frame_controller : Frame contenedor de ash y gear
+    # 2- self.frame_botones    : Frame contenedor de botones
+    # 3- self.frame_configurer : Frame contenedor de checkbuttons y labels
+    # 4- self.frame_listmode   : Frame Contenedor de Spinbox y Listbox
+    def widgets(self):
         #____I N S T A N C I A S:  [ 4 ]
-        self.frame_controller = A1_class (self, bg='#11161d', width=60, height=67)   # POSICIONADO     # Color: Azul         --- Frame contenedor de ash y gear
-        self.frame_botones = B1_class (self, bg='#31343a', width=756, height=67)     # POSICIONADO     # Color: Plomo        --- Frame contenedor de botones
-        self.frame_configurer = B2_class (self, bg='#31343a', width=756, height=67)  # NO POSICIONADO  # Color: Plomo        --- Frame contenedor de checkbuttons y labels
-        self.frame_listmode = B3_class (self)                                        # NO POSICIONADO  # Color: Azul y Plomo --- Frame Contenedor de Spinbox y Listbox
+        self.frame_controller = A1_class (self, bg='#11161d', width=60, height=67)   # Posicionado     # Color: Azul
+        self.frame_botones = B1_class (self, bg='#31343a', width=756, height=67)     # Posicionado     # Color: Plomo
+        self.frame_configurer = B2_class (self, bg='#31343a', width=756, height=67)  # No posicionado  # Color: Plomo
+        self.frame_listmode = B3_class (self)                                        # No posicionado  # Color: Azul y Plomo
          
         #____P A C K ():
         self.frame_controller .pack (side=LEFT, fill=BOTH)
@@ -161,13 +171,18 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         self.frame_controller .pack_propagate (False)
         self.frame_botones .pack_propagate (False)
 
+
+    # 1- Posiciona y quita las instancias de clase
+    # 2- Redimenciona la ventana principal
+    # 3- Desactiva la seleccion del boton en la interface de botones
+    # 4- Cambia el foco 
     def gear_stacking(self):   # ON: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
 
-        if  not self._gear:                                                      # PREDETERMINADO: TRUE
-            self.frame_botones .pack_forget()                                    # BOTONES
-            self.frame_listmode .pack_forget()                                   # MODO LISTA
+        if  not self._gear:                                                      # Predeterminado: TRUE
+            self.frame_botones .pack_forget()                                    # Modo Botones
+            self.frame_listmode .pack_forget()                                   # Modo Lista
 
-            self.frame_configurer .focus_set()                                   # MODO CONFIGURACION
+            self.frame_configurer .focus_set()                                   # Modo Configuracion
             self.frame_configurer .pack (side=LEFT, fill=BOTH, expand=True)
             self.master.geometry ('830x67')
 
@@ -176,7 +191,7 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         else:
             self.frame_configurer .pack_forget()
             if self.frame_configurer .ckbutton5.variable.get() == True:
-                self.frame_botones .active_reverse()                              # Desmarca el botón seleccionado
+                self.frame_botones .active_reverse()                             # Desmarca el botón seleccionado
                 self.frame_listmode .pack (side=LEFT, fill=BOTH)
                 self.frame_listmode .spinboxx .focus_set()
                 self.master.geometry ('250x67')
@@ -272,16 +287,21 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
         #self.toplevel_STUF .mainloop()
         #___________________________________________________________________________________________________________
 
-    def closing_toplevel(self,  number, event=None):
+
+    # Se encarga de:
+    # 1- Permitir la apertura de las ventanas secundarias en la siguiente llamada
+    # 2- Desactiva la seleccion del boton en la interface de botones
+    def closing_toplevel(self,  number, event):
         if number == 1:
             self._open_1 = False
         if number == 2:
             self._open_2 = False
         if number == 3: 
             self._open_3 = False
-
+        print(self._open_1)
         if not self._open_1 == True and not self._open_2 == True and not self._open_3:
             self.frame_botones .active_reverse()
+            
 
 ################################
 ################################
@@ -289,7 +309,9 @@ class Interface(Frame):  #--------------------------> FRAME CONTROLADOR PRINCIPA
 ################################
 ################################
 ################################
-class A1_class(Frame):   # Frame contenedor de ash y gear
+
+# Frame Contenedor de los botones: Ash y Gear
+class A1_class(Frame):
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)
         #_____C O N T E N E D O R E S:  [ 0 ]
@@ -313,7 +335,8 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
         self.btn_gear.bind("<Leave>", self.change_image_gear2)
 
 
-    def close_windows(self, event):   # ACTIVA: CON DOBLE CLICK DERECHO EN EL LOGO - CIERRA LAS VENTANAS 
+    # Cierra las ventanas secundarias:
+    def close_windows(self, event):   # ACTIVA: CON DOBLE CLICK DERECHO EN EL LOGO 
     
         try:
             self.master.toplevel_LEFT .destroy() 
@@ -327,15 +350,15 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
         except: 
             pass
             
-
-    def minimize_windows(self):   # ACTIVA: CON CLICK IZQUIERDO AL LOGO - MINIMIZA LAS VENTANAS
+    # Minimiza las ventanas secundarias:
+    def minimize_windows(self):   # ACTIVA: CON CLICK IZQUIERDO AL LOGO 
  
         if self.master._open_1 == True or self.master._open_2 == True or self.master._open_3 == True:
 
             # OCULTAR VENTANAS
             if not self.master._minimize:
                 if self.master._open_1:  
-                    #self.master.toplevel_LEFT .withdraw()                            # Esto distorciona el tamaño del icono, cuando el mouse se posiciona encima
+                    #self.master.toplevel_LEFT .withdraw()                            # Esto distorciona el tamaño del icono en la barra de tareas, cuando el mouse se posiciona encima
                     self.master.toplevel_LEFT .frame_manager .minimize()              # Metodo de Toplevel_class
 
                 if self.master._open_2:
@@ -372,11 +395,12 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
                 self.master._minimize = False
    
 
+    # Cambia la imagen al pasar el mouse sobre el boton:
+    def change_image_gear1(self, event):   
+        event.widget.config(image=self.image_gear2) 
 
-    def change_image_gear1(self, event):   # Cambia el color al pasar el mouse sobre el      # Color: Celeste apagado
-        event.widget.config(image=self.image_gear2)  
-
-    def change_image_gear2(self, event):   # Deja el color como estaba por defecto           # Color: Azul oscuro
+    # Deja la imagen que estaba por defecto:
+    def change_image_gear2(self, event):
         event.widget.config(image=self.image_gear1)
 
     
@@ -391,12 +415,20 @@ class A1_class(Frame):   # Frame contenedor de ash y gear
 
 
 ################################
-class B1ButtonCls(Button):   # Opciones por defecto de los botones de Inteface
+################################
+################################
+
+# Se encarga de:
+# 1- Servir de molde para crear los botones con la configuacion que se desea
+class B1ButtonCls(Button):
     def __init__(self, master, *args, **kwargs):
         kwargs = {"font":('Calibri',9,'bold'), 'bg': '#11161d', 'fg':'white', 'width':10, 'bd':0, 'activebackground':'#bdfe04', **kwargs}
         super().__init__(master, *args, **kwargs)
 
-class B1_class(Frame):   # Frame contenedor de botones
+# Se encarga de:
+# 1- Crear los 22 botones
+# 2- Abrir las Ventanas Secundarias con los indices que se indican
+class B1_class(Frame):
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, **kwargs)
         #_____C O N T E N E D O R E S:   [ 1 ]
@@ -409,6 +441,8 @@ class B1_class(Frame):   # Frame contenedor de botones
         #_____Variables de Control para los Botones
         self.container = None
 
+
+    # Manda los indices para abrir las imagenes en las ventanas:
     def indices(self, ind):
         # I N D I C E S :
         arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, = 0, 1, 2, 3, 4, 5, 6, 7 
@@ -417,7 +451,9 @@ class B1_class(Frame):   # Frame contenedor de botones
                 lambda top1: TopIzqCls  (top1, ind, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
                 lambda top2: TopDerCls  (top2, ind, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
                 lambda top3: TopStufCls (top3, ind, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
-    
+
+
+    # Crea los 22 botones y las posiciona:
     def creator_buttons(self):  
         mobiles = [['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage'],
                    ['Randomizer', 'Jolteon', 'Turtle', 'Armor', 'A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']]
@@ -436,21 +472,24 @@ class B1_class(Frame):   # Frame contenedor de botones
                 btn.bind("<Button-1>", self.mouse_clic)   
                 self.buttons.append(btn)
 
-    def mouse_move(self, event):   # Cambia el color al pasar el mouse sobre el      # Color: Celeste apagado
+
+    # Cambia el color al pasar el mouse sobre el, en este caso: [ Celeste Apagado ]
+    def mouse_move(self, event):
         widget = event.widget
         if widget in self.buttons:
             self.bg = widget.cget('bg')  # Color:  bg= #11161d       -->   Azul Marino / Defecto       
             self.fg = widget.cget('fg')  # Color:  fg= white/yellow  -->   Blanco o Amarillo
             widget.config(bg="#24364a")  # Color:  bg= #24364a       -->   Celeste apagado  
 
-    def mouse_stop(self, event):   # Deja el color como estaba por defecto           # Color: Azul oscuro
+    # Deja el color como estaba por defecto, en este caso: [ Azul Marino]
+    def mouse_stop(self, event):
         if event.widget in self.buttons:
             event.widget.config(bg='#11161d')  # Color:  #11161d       -   Defecto  Azul Marino
 
-    def mouse_clic(self, event):   # Cambia el color por defecto al hacerle click
-
+    # Cambia el color por defecto al hacerle click, en este caso: [ Verde ]
+    def mouse_clic(self, event):
         widget1 = event.widget
-
+        
         widget1.config(bg='#bdfe04', fg='black')             # 0     # Color:  bg= #bdfe04  --> Verde
         if widget1 in self.buttons:
             self.buttons .remove(widget1)                    # 1     # Remueve de la lista al boton presionado
@@ -459,14 +498,22 @@ class B1_class(Frame):   # Frame contenedor de botones
             self.buttons .append(self.container)             # 4     # Agrega a la lista el boton anterior en la ultima posicion
         self.container = widget1                             # 2     # Almacena el boton actual en otra variable
 
+        #if self._open_1 is not None:
+        #    widget1.config(bg=self.bg, fg=self.fg)
+
+    # Deja el color como estaba por defecto, y reintegra el boton a la lista
     def active_reverse(self):
         if self.container is not None:
             self.container .config (bg=self.bg, fg=self.fg)      # Cambia el color del boton: (bg y fg) que tenian por defecto
             self.buttons .append(self.container)                 # Agrega a la lista el boton anterior en la ultima posicion
             self.container = None
 
-        # borrar el color verde cuando se marca modo lista y cuando se cierra las ventans
+################################
+################################
+################################
 
+# Se encarga de:
+# 1- Redimensionar las imagenes que le pasan:
 class ResizeCls(Frame):
     def __init__(self, master, index, *args, **kwargs):
         Frame.__init__(self, master, *args, kwargs)
@@ -491,11 +538,12 @@ class ResizeCls(Frame):
 
 
 
-################################                           ################################
-################################            EL             ################################ 
-################################          INICIO           ################################ 
-################################   F R A M E  " F R O G "  ################################  
-################################                           ################################
+######################################################################################################################################
+######################################################################################################################################
+######################################################################################################################################
+######################################################################################################################################
+
+#____V E N T A N A___I Z Q U I E R D A:
 class TopIzqCls(Frame):
     def __init__(self, master, index1, id_0=None, id_1=None, id_2=None, id_3=None, id_4=None, id_5=None, id_6=None, id_7=None, path_lst=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
@@ -522,11 +570,12 @@ class TopIzqCls(Frame):
             self.fr_img_movil .grid_forget()
 
 
-################################
-################################
-################################
-################################
-################################
+######################################################################################################################################
+######################################################################################################################################
+######################################################################################################################################
+######################################################################################################################################
+
+#____V E N T A N A___D E R E C H A:
 class TopDerCls(Frame):
     def __init__(self, master, index1, id_0=None, id_1=None, id_2=None, id_3=None, id_4=None, id_5=None, id_6=None, id_7=None, path_lst=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
@@ -556,11 +605,13 @@ class TopDerCls(Frame):
             else:
                 self.fr_img_77 . grid_forget()
 
-################################
-################################
-################################
-################################
-################################
+
+######################################################################################################################################
+######################################################################################################################################
+######################################################################################################################################
+######################################################################################################################################
+
+#____V E N T A N A___S T U F:
 class TopStufCls(Frame):
     def __init__(self, master, index1, id_0=None, id_1=None, id_2=None, id_3=None, id_4=None, id_5=None, id_6=None, id_7=None, path_lst=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
@@ -583,24 +634,12 @@ class TopStufCls(Frame):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 ################################
-class B2_class(Frame):   # Frame contenedor de checkbuttons y labels
+################################
+################################
+
+# Frame contenedor de checkbuttons y labels
+class B2_class(Frame):
     def __init__(self, *args, **kwargs):
         Frame.__init__(self, *args, kwargs)
 
@@ -620,20 +659,21 @@ class B2_class(Frame):   # Frame contenedor de checkbuttons y labels
     def create_label(self):
 
         label_option1 = Label (self, text= 'Activar Aimbot :' , font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        label_option2 = Label (self, text= 'Activar aimbot :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        label_option2 = Label (self, text= 'Modo Lista :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
         label_option3 = Label (self, text= 'Activar ddd ', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
         label_option4 = Label (self, text= 'Activar Modo On :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
         label_option5 = Label (self, text= 'Activar Modo Lista :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
         label_option6 = Label (self, text= 'Activar Modo Guía :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        label_option7 = Label (self, text= 'Recordar Configuracion :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        label_option7 = Label (self, text= 'Guargar Configuracion :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        label_option8 = Label (self, text= 'Guargar Configuracion :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
 
-        label_option1 .grid (column=0, row=0, padx= (30,10), pady=(10,0), sticky=W)
-        label_option2 .grid (column=0, row=1, padx= (30,10), pady=(0,0), sticky=W)
-        label_option3 .grid (column=2, row=0, padx= (30,10), pady=(10,0), sticky=W)
-        label_option4 .grid (column=2, row=1, padx= (30,10), pady=(0,0), sticky=W)
-        label_option5 .grid (column=4, row=0, padx= (30,10), pady=(10,0), sticky=W)
-        label_option6 .grid (column=4, row=1, padx= (30,10), pady=(0,0), sticky=W)   
-        label_option7 .grid (column=6, row=0, padx= (30,10), pady=(10,0), sticky=W)
+        label_option1 .grid (column=0, row=0, padx= (30,5), pady=(10,0), sticky=W)
+        label_option2 .grid (column=0, row=1, padx= (30,5), pady=(0,0), sticky=W)
+        label_option3 .grid (column=2, row=0, padx= (30,5), pady=(10,0), sticky=W)
+        label_option4 .grid (column=2, row=1, padx= (30,5), pady=(0,0), sticky=W)
+        label_option5 .grid (column=4, row=0, padx= (30,5), pady=(10,0), sticky=W)
+        label_option6 .grid (column=4, row=1, padx= (30,5), pady=(0,0), sticky=W)   
+        label_option7 .grid (column=6, row=0, padx= (30,5), pady=(10,0), sticky=W)
     
     def create_checkbutton(self):
 
@@ -653,8 +693,13 @@ class B2_class(Frame):   # Frame contenedor de checkbuttons y labels
         self.ckbutton6 .grid (column=5, row=1, pady=(0,0))
         self.ckbutton7 .grid (column=7, row=0, padx=(0,200), pady=(10,0),)
 
-################################          
-class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
+
+################################ 
+################################ 
+################################ 
+
+# Frame Contenedor de Spinbox y Listbox
+class B3_class(Frame):
     def __init__(self, master, *args, **kwargs):
         Frame.__init__(self, master, *args, kwargs)
 
@@ -764,6 +809,7 @@ class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
                 lambda top2: TopDerCls  (top2, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
                 lambda top3: TopStufCls (top3, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
                 break                                       # Sin breack el programa seguiria buscando coincidencias despues del enter, y guardaria un error
+        
         #self.after_cancel(self.fter)            
         if self._change is not None:  # almacena todas las llamadas si se da enter
            
@@ -773,7 +819,7 @@ class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
     def automatic_deletion(self):  # ACTIVA: ** SI ES LLAMADO POR OPEN_WINDOWS ** Y SI LA VARIABLE DE CONTROL NO ES NONE - LIMPIA SPINBOX
        # self.after_cancel(self.fter)
         self.spinboxx .delete(0, END)
-        self.after_cancel(self.fter)
+        #self.after_cancel(self.fter)
 
 
     def change_red_green(self, event):  # ACTIVA: CLICK IZQUIERDO EN RED_GREEN - CAMBIA IMAGEN ROJO-VERDE Y VICEVERSA
@@ -856,7 +902,8 @@ class B3_class(Frame):   # Frame Contenedor de Spinbox y Listbox
 ################################
 ################################
 ################################
-################################
+
+# Frame Contenedor de Checkbutton
 class Checkbutton_class(Checkbutton):   
     def __init__(self, *args, **kwargs):
         Checkbutton.__init__(self, *args, **kwargs)
@@ -883,7 +930,7 @@ class Checkbutton_class(Checkbutton):
 ################################
 ################################
 ################################
-class Frame_manager_class(Frame):
+class FrameManagerClass(Frame):
     def __init__(self, master=None, _exception1=None, **kwargs):
         Frame.__init__(self, master, **kwargs)
         self._exception1 = _exception1
@@ -968,7 +1015,7 @@ class Toplevel_class(Toplevel):
         self._y = 0
 
 
-        self.frame_manager = Frame_manager_class (self, bg="black", _exception1=value_exception1)       # Frame: Gestor de Ventanas
+        self.frame_manager = FrameManagerClass (self, bg="black", _exception1=value_exception1)       # Frame: Gestor de Ventanas
         self.frame_manager .pack (pack_3)
     
         #self.frame_manager .bind("<ButtonPress-1>", self.start_move)       # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
@@ -1042,10 +1089,10 @@ class Toplevel_class(Toplevel):
 ################################
 ################################
 ################################
-class RootCls(Tk, MoveGlobalCls):
+class RootCls(Tk, MoveAllCls):
     def __init__(self, *args, **kwargs):
         Tk.__init__(self, *args, **kwargs)
-        MoveGlobalCls.__init__(self)              # Inicializando las variables de control
+        MoveAllCls.__init__(self)              # Inicializando las variables de control
 
         type_close = {'side':TOP, 'pady':6}
         type_minimize = {'side':BOTTOM, 'pady':6}
