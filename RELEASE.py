@@ -35,7 +35,7 @@
     
 
     def release_mouse(self, event):
-        widget1 = event.widget
+        widget1 = event.widget    # Este event.widget tiene q detectar al WIDGET que precisamente esta debajo del mouse cuando este es soltado, para compararlo con el último botón presionado
         if self.container1 is not None and self.widget1 != widget1:
             if self.widget1 .cget('text') in self.mobiles2:
                     widget1 .config (bg='#11161d', fg='yellow')         
