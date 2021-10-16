@@ -36,7 +36,7 @@
 
     def release_mouse(self, event):
         widget1 = event.widget
-        if widget1 != self.widget1:
+        if self.container1 is not None and widget1 != self.widget1:
             if widget1 .cget('text') in self.mobiles2:
                     widget1 .config (bg='#11161d', fg='yellow')         
             else:
