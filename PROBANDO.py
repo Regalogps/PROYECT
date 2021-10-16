@@ -441,8 +441,8 @@ class B1_class(Frame):
         self.creator_buttons()
 
         #_____Variables de Control para los Botones
-        self.container = None
-        
+        self.container1 = None
+        self.container2 = None
 
     # Manda los indices para abrir las imagenes en las ventanas:
     def indices(self, ind):
@@ -458,9 +458,10 @@ class B1_class(Frame):
     # Crea los 22 botones y las posiciona:
     def creator_buttons(self):  
         mobiles = [['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage'],
-                   ['Randomizer', 'Jolteon', 'Turtle', 'Armor', 'A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']]
-        mobiles2 = ['Fox','Knight','Jolteon','Barney','Dragon'] 
-        self.buttons = []                                       # Lista: Sirve para condicionar las funciones vinculadas a eventos: bind -->  mouse_move, mouse_stop, mouse_clic
+                   ['Randomizer', 'Jolteon', 'Turtle', 'Armor', 'A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']]                  
+        self.mobiles2 = ['Fox','Knight','Jolteon','Barney','Dragon'] 
+
+        self.buttons22 = []                                       # Lista: Sirve para condicionar las funciones vinculadas a eventos: bind -->  mouse_move, mouse_stop, mouse_clic  
         for index1, mobil in enumerate(mobiles):                # Iterador: (mobil) = 11 elementos: 1 sublistasssss
             for index2, texto in enumerate(mobil):              # Iterador: (texto) = 1  elemento:  'Frog'
                 number = 11 if index1 == 1 else 0               # number: cambie su valor de 0 a 11 si su condicion se cumple
@@ -468,45 +469,62 @@ class B1_class(Frame):
                 n1 = 5 if index2 == 0 else 0        
                 n2 = 5 if index2 == 10 else 0
                 btn .grid(column=index2 , row=index1 , pady=3, padx=(n1,n2))
-                if texto in mobiles2: btn.config(fg='yellow')
-                btn.bind("<Enter>", self.mouse_move)
-                btn.bind("<Leave>", self.mouse_stop)
-                btn.bind("<Button-1>", self.mouse_clic)   
-                self.buttons.append(btn)
+
+                btn.bind("<Enter>", self.enter_mouse)
+                btn.bind("<Leave>", self.leave_mouse)
+                btn.bind("<Button-1>", self.clic_mouse)
+                btn.bind("<B1-Motion>", self.motion_mouse)
+
+                if texto in self.mobiles2: btn.config(fg='yellow')
+                self.buttons22.append(btn)   # Examinar si borrar porque no tiene uso la lista
 
 
-    # Cambia el color al pasar el mouse sobre el, en este caso: [ Celeste Apagado ]
-    def mouse_move(self, event):
-        widget = event.widget
-        if widget in self.buttons:
-            self.bg = widget.cget('bg')  # Color:  bg= #11161d       -->   Azul Marino / Defecto       
-            self.fg = widget.cget('fg')  # Color:  fg= white/yellow  -->   Blanco o Amarillo
-            widget.config(bg="#24364a")  # Color:  bg= #24364a       -->   Celeste apagado  
 
-    # Deja el color como estaba por defecto, en este caso: [ Azul Marino]
-    def mouse_stop(self, event):
-        if event.widget in self.buttons:
-            event.widget.config(bg='#11161d')  # Color:  #11161d       -   Defecto  Azul Marino
+    # Cambia el color al pasar el mouse sobre el, en este caso: [ Celeste Apagado ]  AL ENTRAR
+    def enter_mouse(self, event):
+        widget1 = event.widget
+        if not widget1 .cget('bg') == '#bdfe04':                            # Si el background no es verde:    
+            widget1 .config(bg="#24364a")                                   # Color:  bg= #24364a  -->  Celeste apagado
+
+ 
+    # Deja el color como estaba por defecto, en este caso: [ Azul Marino]  AL SALIR
+    def leave_mouse(self, event):
+        if not event.widget .cget('bg') == '#bdfe04':                       # Si el background no es verde:  
+            event.widget.config(bg='#11161d')                               # Color:  #11161d   -   Defecto  Azul Marino
+
 
     # Cambia el color por defecto al hacerle click, en este caso: [ Verde ]
-    def mouse_clic(self, event):
+    def clic_mouse(self, event):
         widget1 = event.widget
-        #if self.master._open_1==True:
-   
-        widget1.config(bg='#bdfe04', fg='black')             # 0     # Color:  bg= #bdfe04  --> Verde
-        if event.widget in self.buttons:
-            self.buttons .remove(event.widget)                    # 1     # Remueve de la lista al boton presionado
-        if self.container is not None and self.container != event.widget:
-            self.container .config (bg=self.bg, fg=self.fg)  # 3     # Cambia el color del boton: (bg y fg) que tenian por defecto
-            self.buttons .append(self.container)             # 4     # Agrega a la lista el boton anterior en la ultima posicion
-        self.container = widget1                             # 2     # Almacena el boton actual en otra variable
+        widget1.config(bg='#bdfe04', fg='black')                            # Color:  bg= #bdfe04  --> Verde
+            
+        if self.container1 is not None and self.container1 != widget1:
+            if self.container1 .cget('text') in self.mobiles2:
+                self.container1 .config (bg='#11161d', fg='yellow')         # Cambia el color del boton: (bg y fg) que tenian por defecto
+            else:
+                self.container1 .config (bg='#11161d', fg='white')          # Cambia el color del boton: (bg y fg) que tenian por defecto
+        self.container1 = widget1                                           # Almacena el boton actual en otra variable
+    
+
+    def motion_mouse(self, event):
+        widget1 = event.widget
+        if self.container2 != widget1:
+            if widget1 .cget('text') in self.mobiles2:
+                    widget1 .config (bg='#11161d', fg='yellow')         
+            else:
+                widget1 .config (bg='#11161d', fg='white')
+        self.container2 = widget1
+
 
     # Deja el color como estaba por defecto, y reintegra el boton a la lista
     def active_reverse(self):
-        if self.container is not None:
-            self.container .config (bg=self.bg, fg=self.fg)      # Cambia el color del boton: (bg y fg) que tenian por defecto
-            self.buttons .append(self.container)                 # Agrega a la lista el boton anterior en la ultima posicion
-            self.container = None
+        if self.container1 is not None:
+            if self.container1 .cget('text') in self.mobiles2:
+                self.container1 .config (bg='#11161d', fg='yellow')         # Cambia el color del boton: (bg y fg) que tenian por defecto
+            else:
+                self.container1 .config (bg='#11161d', fg='white')          # Cambia el color del boton: (bg y fg) que tenian por defecto
+        self.container1 = None
+
 
 ################################
 ################################
