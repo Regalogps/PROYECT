@@ -465,6 +465,7 @@ class B1_class(Frame):
         for index1, mobil in enumerate(mobiles):                # Iterador: (mobil) = 11 elementos: 1 sublistasssss
             for index2, texto in enumerate(mobil):              # Iterador: (texto) = 1  elemento:  'Frog'
                 number = 11 if index1 == 1 else 0               # number: cambie su valor de 0 a 11 si su condicion se cumple
+
                 btn = B1ButtonCls (self.frame_1, text=texto, command= self.indices(index2 + number))             
                 n1 = 5 if index2 == 0 else 0        
                 n2 = 5 if index2 == 10 else 0
