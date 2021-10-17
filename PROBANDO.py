@@ -437,6 +437,8 @@ class B1_class(Frame):
         self.frame_1 = Frame (self, bg='#11161d')          # Color: Azul '#11161d'
         self.frame_1 .grid (padx=(10,10), pady=(6,6))
 
+        self.bind_all("<B1-Motion>", self.motion_all_mouse)
+
         #_____Métodos Llamados:
         self.creator_buttons()
 
@@ -445,14 +447,14 @@ class B1_class(Frame):
         self.container2 = None
 
     # Manda los indices para abrir las imagenes en las ventanas:
-    def indices(self, ind):
+    def indices(self, indice):
         # I N D I C E S :
         arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, = 0, 1, 2, 3, 4, 5, 6, 7 
 
         return  lambda: self.master.windows_123(
-                lambda top1: TopIzqCls  (top1, ind, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
-                lambda top2: TopDerCls  (top2, ind, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
-                lambda top3: TopStufCls (top3, ind, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
+                lambda top1: TopIzqCls  (top1, indice, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
+                lambda top2: TopDerCls  (top2, indice, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
+                lambda top3: TopStufCls (top3, indice, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
 
         
     # Crea los 22 botones y las posiciona:
@@ -474,7 +476,6 @@ class B1_class(Frame):
                 btn.bind("<Enter>", self.enter_mouse)
                 btn.bind("<Leave>", self.leave_mouse)
                 btn.bind("<Button-1>", self.clic_mouse)
-                btn.bind("<B1-Motion>", self.motion_mouse)
 
                 if texto in self.mobiles2: btn.config(fg='yellow')
                 self.buttons22.append(btn)   # Examinar si borrar porque no tiene uso la lista
@@ -483,9 +484,8 @@ class B1_class(Frame):
 
     # Cambia el color al pasar el mouse sobre el, en este caso: [ Celeste Apagado ]  AL ENTRAR
     def enter_mouse(self, event):
-        widget1 = event.widget
-        if not widget1 .cget('bg') == '#bdfe04':                            # Si el background no es verde:    
-            widget1 .config(bg="#24364a")                                   # Color:  bg= #24364a  -->  Celeste apagado
+        if not event.widget .cget('bg') == '#bdfe04':                            # Si el background no es verde:    
+            event.widget .config(bg="#24364a")                                   # Color:  bg= #24364a  -->  Celeste apagado
 
  
     # Deja el color como estaba por defecto, en este caso: [ Azul Marino]  AL SALIR
@@ -496,19 +496,22 @@ class B1_class(Frame):
 
     # Cambia el color por defecto al hacerle click, en este caso: [ Verde ]
     def clic_mouse(self, event):
-        widget1 = event.widget
-        widget1.config(bg='#bdfe04', fg='black')                            # Color:  bg= #bdfe04  --> Verde
+        widget = event.widget
+        widget.config(bg='#bdfe04', fg='black')                             # Color:  bg= #bdfe04  --> Verde
             
-        if self.container1 is not None and self.container1 != widget1:
+        if self.container1 is not None and self.container1 != widget:
             if self.container1 .cget('text') in self.mobiles2:
                 self.container1 .config (bg='#11161d', fg='yellow')         # Cambia el color del boton: (bg y fg) que tenian por defecto
             else:
                 self.container1 .config (bg='#11161d', fg='white')          # Cambia el color del boton: (bg y fg) que tenian por defecto
-        self.container1 = widget1                                           # Almacena el boton actual en otra variable
+        self.container1 = widget                                            # Almacena el boton actual en otra variable
     
 
-    def motion_mouse(self, event):
-        widget1 = event.widget
+    def motion_all_mouse(self, event):
+        widget = event.widget
+        widget.winfo_containing(
+
+
         if self.container2 != widget1:
             if widget1 .cget('text') in self.mobiles2:
                     widget1 .config (bg='#11161d', fg='yellow')         
