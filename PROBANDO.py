@@ -431,13 +431,11 @@ class B1ButtonCls(Button):
 # 1- Crear los 22 botones
 # 2- Abrir las Ventanas Secundarias con los indices que se indican
 class B1_class(Frame):
-    def __init__(self, *args, **kwargs):
-        Frame.__init__(self, *args, **kwargs)
+    def __init__(self, master, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
         #_____C O N T E N E D O R E S:   [ 1 ]
         self.frame_1 = Frame (self, bg='#11161d')          # Color: Azul '#11161d'
         self.frame_1 .grid (padx=(10,10), pady=(6,6))
-
-        self.bind_all("<B1-Motion>", self.motion_all_mouse)
 
         #_____Métodos Llamados:
         self.creator_buttons()
@@ -446,6 +444,10 @@ class B1_class(Frame):
         self.container1 = None
         self.container2 = None
 
+
+        self.frame_1.bind_all("<B1-Motion>", self.mot)
+
+        
     # Manda los indices para abrir las imagenes en las ventanas:
     def indices(self, indice):
         # I N D I C E S :
@@ -463,7 +465,7 @@ class B1_class(Frame):
                    ['Randomizer', 'Jolteon', 'Turtle', 'Armor', 'A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']]                  
         self.mobiles2 = ['Fox','Knight','Jolteon','Barney','Dragon'] 
 
-        self.buttons22 = []                                       # Lista: Sirve para condicionar las funciones vinculadas a eventos: bind -->  mouse_move, mouse_stop, mouse_clic  
+        self.buttons22 = []                                     # Lista: Sirve para condicionar las funciones vinculadas a eventos: bind -->  mouse_move, mouse_stop, mouse_clic  
         for index1, mobil in enumerate(mobiles):                # Iterador: (mobil) = 11 elementos: 1 sublistasssss
             for index2, texto in enumerate(mobil):              # Iterador: (texto) = 1  elemento:  'Frog'
                 number = 11 if index1 == 1 else 0               # number: cambie su valor de 0 a 11 si su condicion se cumple
@@ -507,18 +509,14 @@ class B1_class(Frame):
         self.container1 = widget                                            # Almacena el boton actual en otra variable
     
 
-    def motion_all_mouse(self, event):
-        widget = event.widget
-        widget.winfo_containing(
+    def mot(self, event):
+        
+        widget = self.winfo_containing(event.x_root, event.y_root)
+        print(4545454)
 
+        #print('1111111111', event.widget)
 
-        if self.container2 != widget1:
-            if widget1 .cget('text') in self.mobiles2:
-                    widget1 .config (bg='#11161d', fg='yellow')         
-            else:
-                widget1 .config (bg='#11161d', fg='white')
-        self.container2 = widget1
-
+    
 
     # Deja el color como estaba por defecto, y reintegra el boton a la lista
     def active_reverse(self):
