@@ -274,7 +274,7 @@ class Interface(Frame, MoveAllCls):
         #________________________V E N T A N A:   1________________________________________________________________
         #__________________________________________________________________________________________________________
         if not self._open_1:   # ----> not self._open_1 == True:
-            self.toplevel_LEFT = Toplevel_class (self, close, minimize, frame, value_exception1='btn', _exception2='frm')
+            self.toplevel_LEFT = ToplevelCls (self, close, minimize, frame, value_exception1='btn', _exception2='frm')
             self.toplevel_LEFT .configure_toplevel ('Hoja Izquierda', self.geo_izq.get())
                                 
         container_frame_left = var_1 (self.toplevel_LEFT)  #  var_1 es un frame
@@ -288,7 +288,7 @@ class Interface(Frame, MoveAllCls):
         #________________________V E N T A N A:   2________________________________________________________________
         #__________________________________________________________________________________________________________
         if not self._open_2:
-            self.toplevel_RIGHT = Toplevel_class (self, close, minimize, frame, value_exception1='btn', _exception2='frm')
+            self.toplevel_RIGHT = ToplevelCls (self, close, minimize, frame, value_exception1='btn', _exception2='frm')
             self.toplevel_RIGHT .configure_toplevel ('Hoja Derecha', self.geo_der.get())
 
         container_frame_right = var_2 (self.toplevel_RIGHT) 
@@ -302,7 +302,7 @@ class Interface(Frame, MoveAllCls):
         #________________________V E N T A N A:   3________________________________________________________________
         #__________________________________________________________________________________________________________
         if not self._open_3:
-            self.toplevel_STUF = Toplevel_class (self, close, minimize, frame, value_exception1='btn', _exception2='frm') 
+            self.toplevel_STUF = ToplevelCls (self, close, minimize, frame, value_exception1='btn', _exception2='frm') 
             self.toplevel_STUF .configure_toplevel ('Game Stuff', self.geo_stuf.get())
 
         container_frame_stuf = var_3 (self.toplevel_STUF) 
@@ -1098,7 +1098,7 @@ class FrameManagerClass(Frame):
 ################################
 ################################
 ################################
-class Toplevel_class(Toplevel):
+class ToplevelCls(Toplevel):
     def __init__(self, master=None, posy_close=None, posy_minimize=None, pack_3=None, value_exception1=None, _exception2=None, **kwargs):
         Toplevel.__init__(self, master, **kwargs)
         self._exception2 = _exception2 # falta temrinar de borrar abajo
@@ -1182,9 +1182,9 @@ class Toplevel_class(Toplevel):
 ################################
 ################################
 ################################
-class RootCls(Tk, MoveAllCls):
+class RootCls(Tk):
     def __init__(self, *args, **kwargs):
-        Tk.__init__(self, *args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         type_close = {'side':TOP, 'pady':6}
         type_minimize = {'side':BOTTOM, 'pady':6}
@@ -1193,7 +1193,7 @@ class RootCls(Tk, MoveAllCls):
         #self.resizable(0, 0)                     # Deja un rastro de root en pantalla, no solucionado
         self.geometry('0x0+300+0')                # Tamaño de Root
 
-        self.toplevel_principal = Toplevel_class(self, type_close, type_minimize, type_frame, value_exception1=None, _exceptidon2=None)  # Toplevel Principal
+        self.toplevel_principal = ToplevelCls(self, type_close, type_minimize, type_frame, value_exception1=None, _exceptidon2=None)  # Toplevel Principal
 
         self.frame_principal = Interface(self.toplevel_principal)                                                         # Frame Principal
         self.frame_principal .pack(side=RIGHT, fill=BOTH)
