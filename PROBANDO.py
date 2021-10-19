@@ -3,6 +3,13 @@ from A_import import *
 #from A_frames import *
 #from B_Frames import *
 
+#########################
+###########  #  #########
+#########  ###  ##########
+##############  ##########
+##############  ##########
+##############  ##########
+
 # TAREAS:
 #_______1- Mover todas las ventanas a excepcion de root, sin importar donde se de clic, existen algunas excepciones
 class MoveAllCls():
@@ -129,7 +136,7 @@ class Interface(Frame, MoveAllCls):
         self.geo_stuf .set(window_3)
 
     # Tarea:
-    clas- Configurar la ventana principal
+    # 1- Configurar la ventana principal
     def configure_interface(self):
         
         # MASTER REFIERE A TOPLEVEL: PRINCIPAL
