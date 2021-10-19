@@ -82,9 +82,9 @@ class Interface(Frame, MoveAllCls):
         self.widgets()
 
         #_____Enlaces para Mover las Ventanas Globalmente:
-        self.bind_all("<ButtonPress-1>", self.start_move_all)           # Punto inicial    
-        self.bind_all("<ButtonRelease-1>", self.stop_move_all)          # Punto final
-        self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)     # Puntos de movimiento
+        self.bind_all("<ButtonPress-1>", self.start_move_all)             # Punto inicial    
+        self.bind_all("<ButtonRelease-1>", self.stop_move_all)            # Punto final
+        self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)    # Puntos de movimiento
 
         #_____Métodos Llamados de Otras Clases:
         self.make_movable(self.frame_controller.btn_ash)                # Metodo de MoveGlobalCls: añade a la lista de widget, que permiten mover la ventana
