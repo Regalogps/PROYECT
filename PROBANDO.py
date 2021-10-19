@@ -238,7 +238,7 @@ class Interface(Frame, MoveAllCls):
                 self.master.geometry ('250x67')                                # -2.°
             else:                                                              # -3
                 self.frame_botones .pack (side=LEFT, fill=BOTH)                # -3.1
-                self.frame_listmode .forget()                                  # -3.2
+                self.frame_listmode .pack_forget()                             # -3.2     Aquí le aumente pack_ a esta linea
                 self.frame_listmode .change_red_green()                        # -3.
 
             #  Cada vez que se presiona la rueda:
@@ -250,7 +250,7 @@ class Interface(Frame, MoveAllCls):
 
                 # 3-  Si (ckbutton5.variable.get) es False:
                     # 3.1- Posiciona la interface de botones
-                    # 3.2- Quita la interface de lista y
+                    # 3.2- Quita la interface de lista
                     # 3.3- 
   
    
