@@ -901,18 +901,31 @@ class B3_class(Frame):
     def change_red_green(self, event=None):  # ACTIVA: CLICK IZQUIERDO EN RED_GREEN - CAMBIA IMAGEN ROJO-VERDE Y VICEVERSA
         if self._change is None:
             self._change = True
-            self.red_green .config (image=self.Miniatures[24]) 
+
+            self.lbl_toogle .config (image=self.Miniatures[24])                           # -1
 
             self.unbind("",self.master._stop)                                             # Desactiva el enlace de movimiento global 
             #self.master.frame_configurer .ckbutton7 .check()
             print('unbind')
+
+            # Cada vez que se hace clic en el label:
+                # 1- Cambia la imagen
+                # 2-
+                # 3-
+
         else:
             self._change = None
-            self.red_green .config (image=self.Miniatures[23])
+
+            self.lbl_toogle .config (image=self.Miniatures[23])
 
             self.master._stop = self.bind_all("<B1-Motion>", self.master.on_move_all)     # Activa el enlace de movimiento global 
             #self.master.frame_configurer .ckbutton7 .uncheck()
             print('bind')
+
+            # Cada vez que se hace clic en el label:
+                # 1- 
+                # 2-
+                #
 
     
 
@@ -950,7 +963,7 @@ class B3_class(Frame):
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # INSERTA EL VALOR OBTENIDO EN MAYUSCULA EL PRIMER STRING
 
     def create_listbox(self, **kwargs):     
-        self.red_green = Label (self.container_2w, image= self.Miniatures[23], width=11, bd=0) 
+        self.lbl_toogle = Label (self.container_2w, image= self.Miniatures[23], width=11, bd=0) 
 
         self.listboxx = Listbox (self.container_2w, **kwargs)
         self.listboxx .config (font=('Calibri',9,'bold'),
@@ -966,7 +979,7 @@ class B3_class(Frame):
                               selectmode=SINGLE,
                               takefocus=0)
 
-        self.red_green .bind ("<Button-1>", self.change_red_green)
+        self.lbl_toogle .bind ("<Button-1>", self.change_red_green)
         self.listboxx .bind ('<<ListboxSelect>>', self.listbox_select)   # ACTIVA: CON CLICK IZQUIERDO EN EL LISTBOX - SELECCIONA 1 ITEM
 
     def generate_list (self, file, option):   # INICIALIZA IMAGENES
