@@ -45,9 +45,9 @@ class MoveAllCls():
 ################################
 ###############################
 
-# Se encarga de:
-# 1- Asignar el tamaño y posicion a todas las ventanas a excepcion de root
-# 2- Gestiona toda la aplicacion
+# TAREAS:
+#_______1- Asignar el tamaño y posicion a todas las ventanas a excepcion de root
+#_______2- Gestiona toda la aplicacion
 class Interface(Frame, MoveAllCls):
     def __init__(self, master=None, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
@@ -87,7 +87,7 @@ class Interface(Frame, MoveAllCls):
         self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)    # Puntos de movimiento
 
         #_____Métodos Llamados de Otras Clases:
-        self.make_movable(self.frame_controller.btn_ash)                # Metodo de MoveGlobalCls: añade a la lista de widget, que permiten mover la ventana
+        self.make_movable(self.frame_controller.btn_ash)                  # Metodo de MoveAllCls: añade a la lista de widget, que permiten mover la ventana
 
 
     # Asigna el tamaño y posicion de todas las ventanas  
