@@ -1023,9 +1023,9 @@ class Checkbutton_class(Checkbutton):
 ################################
 ################################
 ################################
-class FrameManagerClass(Frame):
+class FrameManagerCls(Frame):
     def __init__(self, master=None, _exception1=None, **kwargs):
-        Frame.__init__(self, master, **kwargs)
+        super().__init__(master, **kwargs)
         self._exception1 = _exception1
         self.master = master
         self.initializer_images()
@@ -1100,7 +1100,7 @@ class FrameManagerClass(Frame):
 ################################
 class ToplevelCls(Toplevel):
     def __init__(self, master=None, posy_close=None, posy_minimize=None, pack_3=None, value_exception1=None, _exception2=None, **kwargs):
-        Toplevel.__init__(self, master, **kwargs)
+        super().__init__(master, **kwargs)
         self._exception2 = _exception2 # falta temrinar de borrar abajo
         self.master = master
         self.overrideredirect(True)
@@ -1108,7 +1108,7 @@ class ToplevelCls(Toplevel):
         self._y = 0
 
 
-        self.frame_manager = FrameManagerClass (self, bg="black", _exception1=value_exception1)       # Frame: Gestor de Ventanas
+        self.frame_manager = FrameManagerCls (self, bg="black", _exception1=value_exception1)       # Frame: Gestor de Ventanas
         self.frame_manager .pack (pack_3)
     
         self.frame_manager .bind("<ButtonPress-1>", self.start_move)       # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
