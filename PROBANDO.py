@@ -84,7 +84,7 @@ class Interface(Frame, MoveAllCls):
         #_____Enlaces para Mover las Ventanas Globalmente:
         self.bind_all("<ButtonPress-1>", self.start_move_all)           # Punto inicial    
         self.bind_all("<ButtonRelease-1>", self.stop_move_all)          # Punto final
-        self._stop = self.bind_all("<B1-Motion>", self.on_move_all)     # Puntos de movimiento
+        self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)     # Puntos de movimiento
 
         #_____Métodos Llamados de Otras Clases:
         self.make_movable(self.frame_controller.btn_ash)                # Metodo de MoveGlobalCls: añade a la lista de widget, que permiten mover la ventana
@@ -881,7 +881,7 @@ class B3_class(Frame):
 
 
         #self.after_cancel(self.fter)            
-        if self._change is not None:  # almacena todas las llamadas si se da enter
+        if self._swich is not None:  # almacena todas las llamadas si se da enter
            
             self.fter = self.after(4000, self.automatic_deletion) 
             #print(self.master.master.master.a)
@@ -898,13 +898,13 @@ class B3_class(Frame):
 
 
 
-    def change_red_green(self, event=None):  # ACTIVA: CLICK IZQUIERDO EN RED_GREEN - CAMBIA IMAGEN ROJO-VERDE Y VICEVERSA
-        if self._change is None:
-            self._change = True
+    def change_toogle(self, event=None):  # ACTIVA: CLICK IZQUIERDO EN RED_GREEN - CAMBIA IMAGEN ROJO-VERDE Y VICEVERSA
+        if not self._swich == True:
+            self._swich = True
 
             self.lbl_toogle .config (image=self.Miniatures[24])                           # -1
 
-            self.unbind("",self.master._stop)                                             # Desactiva el enlace de movimiento global 
+            self.unbind("",self.master.off_move)                                             # Desactiva el enlace de movimiento global 
             #self.master.frame_configurer .ckbutton7 .check()
             print('unbind')
 
@@ -914,11 +914,11 @@ class B3_class(Frame):
                 # 3-
 
         else:
-            self._change = None
+            self._swich = False
 
             self.lbl_toogle .config (image=self.Miniatures[23])
 
-            self.master._stop = self.bind_all("<B1-Motion>", self.master.on_move_all)     # Activa el enlace de movimiento global 
+            self.master.off_move = self.bind_all("<B1-Motion>", self.master.on_move_all)     # Activa el enlace de movimiento global 
             #self.master.frame_configurer .ckbutton7 .uncheck()
             print('bind')
 
@@ -979,7 +979,7 @@ class B3_class(Frame):
                               selectmode=SINGLE,
                               takefocus=0)
 
-        self.lbl_toogle .bind ("<Button-1>", self.change_red_green)
+        self.lbl_toogle .bind ("<Button-1>", self.change_toogle)
         self.listboxx .bind ('<<ListboxSelect>>', self.listbox_select)   # ACTIVA: CON CLICK IZQUIERDO EN EL LISTBOX - SELECCIONA 1 ITEM
 
     def generate_list (self, file, option):   # INICIALIZA IMAGENES
