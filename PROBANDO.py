@@ -35,9 +35,9 @@ from A_import import *
 ################################
 
 # Frame Contenedor de los botones: Ash y Gear
-class A1_class(Frame):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+class A1FrameCls(Frame):
+    def __init__(self, master, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
         #_____C O N T E N E D O R E S:  [ 0 ]
 
         self.initializer_images()
@@ -144,7 +144,7 @@ class A1_class(Frame):
 
 # Se encarga de:
 # 1- Servir de molde para crear los botones con la configuacion que se desea
-class B1ButtonCls(Button):
+class DefaultButtonCls(Button):
     def __init__(self, master, *args, **kwargs):
         kwargs = {"font":('Calibri',9,'bold'), 'bg': '#11161d', 'fg':'white', 'width':10, 'bd':0, 'activebackground':'#bdfe04', **kwargs}
         super().__init__(master, *args, **kwargs)
@@ -152,7 +152,7 @@ class B1ButtonCls(Button):
 # Se encarga de:
 # 1- Crear los 22 botones
 # 2- Abrir las Ventanas Secundarias con los indices que se indican
-class B1_class(Frame):
+class B1FrameCls(Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         #_____C O N T E N E D O R E S:   [ 1 ]
@@ -189,7 +189,7 @@ class B1_class(Frame):
             for index2, texto in enumerate(mobil):              # Iterador: (texto) = 1  elemento:  'Frog'
                 number = 11 if index1 == 1 else 0               # number: cambie su valor de 0 a 11 si su condicion se cumple
 
-                btn = B1ButtonCls (self.frame_1, text=texto, command= self.indices(index2 + number))             
+                btn = DefaultButtonCls (self.frame_1, text=texto, command= self.indices(index2 + number))             
                 n1 = 5 if index2 == 0 else 0        
                 n2 = 5 if index2 == 10 else 0
                 btn .grid(column=index2 , row=index1 , pady=3, padx=(n1,n2))
@@ -259,9 +259,9 @@ class B1_class(Frame):
 ################################
 
 # Frame contenedor de checkbuttons y labels
-class B2_class(Frame):
-    def __init__(self, *args, **kwargs):
-        Frame.__init__(self, *args, kwargs)
+class B2FrameCls(Frame):
+    def __init__(self, master, *args, **kwargs):
+        super().__init__(master, *args, kwargs)
 
         #_____C O N T E N E D O R E S:  [ 0 ]
  
@@ -323,7 +323,7 @@ class B2_class(Frame):
 ################################ 
 
 # Frame Contenedor de Spinbox y Listbox
-class B3_class(Frame):
+class B3FrameCls(Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, kwargs)
 
@@ -556,8 +556,8 @@ class B3_class(Frame):
 
 # Frame Contenedor de Checkbutton
 class Checkbutton_class(Checkbutton):   
-    def __init__(self, *args, **kwargs):
-        Checkbutton.__init__(self, *args, **kwargs)
+    def __init__(self, master, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
 
         self.variable = BooleanVar()
         self.configure(variable=self.variable)
@@ -581,7 +581,7 @@ class Checkbutton_class(Checkbutton):
 # 1- Redimensionar las imagenes que le pasan:
 class ResizeCls(Frame):
     def __init__(self, master, index, *args, **kwargs):
-        Frame.__init__(self, master, *args, kwargs)
+        super().__init__(master, *args, kwargs)
         
         self.image = Image.fromarray (index)
         self.image_copy = self.image .copy()
@@ -911,7 +911,7 @@ class RootCls(Tk):
         type_frame ={'side':RIGHT, 'fill':BOTH}
         
         #self.resizable(0, 0)                     # Deja un rastro de root en pantalla, no solucionado
-        self.geometry('0x0+300+0')                # Tamaño de Root
+        self.geometry('0x0+350+0')                # Tamaño de Root
 
         self.toplevel_principal = ToplevelCls(self, type_close, type_minimize, type_frame, value_exception1=None, _exceptidon2=None)  # Toplevel Principal
 
@@ -1054,10 +1054,10 @@ class Interface(Frame, MoveAllCls):
     #______1.4- self.frame_listmode   : Frame Contenedor de Spinbox y Listbox
     def widgets(self):
         #____I N S T A N C I A S:  [ 4 ]
-        self.frame_controller = A1_class (self, bg='#11161d', width=60, height=67)   # Posicionado     # Color: Azul
-        self.frame_botones = B1_class (self, bg='#31343a', width=756, height=67)     # Posicionado     # Color: Plomo
-        self.frame_configurer = B2_class (self, bg='#31343a', width=756, height=67)  # No posicionado  # Color: Plomo
-        self.frame_listmode = B3_class (self)                                        # No posicionado  # Color: Azul y Plomo
+        self.frame_controller = A1FrameCls (self, bg='#11161d', width=60, height=67)   # Posicionado     # Color: Azul
+        self.frame_botones =    B1FrameCls (self, bg='#31343a', width=756, height=67)     # Posicionado     # Color: Plomo
+        self.frame_configurer = B2FrameCls (self, bg='#31343a', width=756, height=67)  # No posicionado  # Color: Plomo
+        self.frame_listmode =   B3FrameCls (self)                                        # No posicionado  # Color: Azul y Plomo
          
         #____P A C K ():
         self.frame_controller .pack (side=LEFT, fill=BOTH)
