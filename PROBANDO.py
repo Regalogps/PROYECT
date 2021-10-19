@@ -1235,6 +1235,323 @@ class RootCls(Tk):
         self.toplevel_principal.deiconify()
 
 
+################################
+################################
+###############################
+
+# TAREAS:
+#_______1- Asignar el tamaño y posicion a todas las ventanas a excepcion de root
+#_______2- Gestiona toda la aplicacion
+class Interface(Frame, MoveAllCls):
+    def __init__(self, master=None, *args, **kwargs):
+        Frame.__init__(self, master, *args, **kwargs)
+        MoveAllCls.__init__(self)   # Inicializando las variables de control
+
+        path = 'E:/1-RICHI/MovilesDB'
+        #_____Coleccion de Imagenes:
+        self.path_lst = self.generate_list (path, 'I')
+        
+        #_____Variables de control para las ventanas:  [ 1,2,3 ]
+        self._frame_1 = None
+        self._frame_2 = None
+        self._frame_3 = None
+
+        self._open_1 = False  
+        self._open_2 = False 
+        self._open_3 = False
+
+        #_____Variables de Control Secundarias:
+        self._gear = False
+        self._minimize = False
+
+        #_____Variables de Control de Tamaño y Posición de Todas las Ventanas:
+        self.geo_principal = StringVar()
+        self.geo_izq = StringVar()
+        self.geo_der = StringVar()
+        self.geo_stuf = StringVar()
+        
+        #_____Métodos Llamados:
+        self.size_position()
+        self.configure_interface()
+        self.widgets()
+
+        #_____Enlaces para Mover las Ventanas Globalmente:
+        self.bind_all("<ButtonPress-1>", self.start_move_all)             # Punto inicial    
+        self.bind_all("<ButtonRelease-1>", self.stop_move_all)            # Punto final
+        self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)    # Puntos de movimiento
+
+        #_____Métodos Llamados de Otras Clases:
+        self.make_movable(self.frame_controller.btn_ash)                  # Metodo de MoveAllCls: añade a la lista de widget, que permiten mover la ventana
+
+    # Tarea:
+    #___1- Asignar el tamaño y posicion de todas las ventanas a excepción de root 
+    def size_position(self):
+        screen_x = self.master.winfo_screenwidth()      # 1280
+        screen_y = self.master.winfo_screenheight()     # 768
+        #print('    ancho total:', screen_x,'    alto total:', screen_y )
+
+        #____V E N T A N A___P R I N C I P A L:
+        width_0 = 830                                   # Ancho
+        height_0 = 67                                   # Alto
+        posx_0 = screen_x // 2 - width_0 // 2           # Posicion  eje X : horizontal    ----> 1280 / 2 - 830 / 2
+        posy_0 = 0                                      # Posición  eje Y : vertical
+        window_0 = '{}x{}+{}+{}'.format(width_0, height_0, posx_0, posy_0)  
+        self.geo_principal .set(window_0)
+
+
+        #____V E N T A N A___I Z Q U I E R D A:
+        width_1 = int(screen_x * 15.6 / 100)            # Ancho   Aprox: 199
+        height_1 = screen_y - 74                        # Alto    Aprox: 694
+        posx_1 = 0                                      # Posición  eje X : horizontal 
+        posy_1 = 35                                     # Posición  eje Y : vertical
+        window_1 = '{}x{}+{}+{}'.format(width_1, height_1, posx_1, posy_1)
+        self.geo_izq .set(window_1)
+
+
+        #____V E N T A N A___D E R E C H A:
+        posx_2 = screen_x - width_1                     # Posición  eje X : horizontal    ----> 1280 - 199
+        window_2 = '{}x{}+{}+{}'.format(width_1, height_1, posx_2, posy_1)
+        self.geo_der .set(window_2)
+
+
+        #____V E N T A N A___S T U F:
+        width_3 = 860                                   # Ancho   Aprox: 860
+        height_3 = 75                                   # Alto    Aprox: 75
+        posx_3 = screen_x // 2 - width_3 // 2           # Posicion  eje X : horizontal    ----> 1280 / 2 - 860 / 2
+        posy_3 = screen_y - height_3 - 40               # Posición  eje Y : vertical      ----> 768 - 75 - 40
+        window_3 = '{}x{}+{}+{}'.format(width_3, height_3, posx_3, posy_3)
+        self.geo_stuf .set(window_3)
+
+    # Tarea:
+    # 1- Configurar la ventana principal
+    def configure_interface(self):
+        
+        # MASTER REFIERE A TOPLEVEL: PRINCIPAL
+        self.master.title ('_AshmanBot_')
+        self.master.geometry (self.geo_principal.get())                   # TAMAÑO DE LA VENTANA
+        self.master.resizable (1,1)                                       # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
+        self.master.config (bg='magenta2')                                # CONFIGURA EL FONDO DE LA VENTANA, etc
+        self.master.transient()                                             # No funciona
+        self.master.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
+        self.master.wm_attributes ('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
+
+    # Tarea:
+    #___1- Inicializa las imagenes que se mandan a las ventanas
+    def generate_list(self, file, option):
+
+        ouput = os.listdir (file)
+        empty = []                    
+        if option == 'I': 
+            _lst = [[] for x in range(22)]
+            _str = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Kal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Dr1','Dr2']
+            for i in ouput:               
+                for index,iter in enumerate(_str):
+                    if iter in i: 
+                        full = file + '/' + i
+                        open = cv2.imread (full)
+                        RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
+                        _lst[index].append(RGB)               
+            return _lst        
+
+    # Tarea:
+    #___1- Crea las interfaces de control: (4 instancias de clase)
+    #______1.1- self.frame_controller : Frame contenedor de 2 botones, logo y la rueda de configuracion
+    #______1.2- self.frame_botones    : Frame contenedor de 22 botones
+    #______1.3- self.frame_configurer : Frame contenedor de checkbuttons y labels
+    #______1.4- self.frame_listmode   : Frame Contenedor de Spinbox y Listbox
+    def widgets(self):
+        #____I N S T A N C I A S:  [ 4 ]
+        self.frame_controller = A1_class (self, bg='#11161d', width=60, height=67)   # Posicionado     # Color: Azul
+        self.frame_botones = B1_class (self, bg='#31343a', width=756, height=67)     # Posicionado     # Color: Plomo
+        self.frame_configurer = B2_class (self, bg='#31343a', width=756, height=67)  # No posicionado  # Color: Plomo
+        self.frame_listmode = B3_class (self)                                        # No posicionado  # Color: Azul y Plomo
+         
+        #____P A C K ():
+        self.frame_controller .pack (side=LEFT, fill=BOTH)
+        self.frame_botones .pack (side=LEFT, fill=BOTH) 
+
+        #____P A C K___P R O P A G A T E ():
+        self.frame_controller .pack_propagate (False)
+        self.frame_botones .pack_propagate (False)
+
+    # Tarea:
+    # 1- Posiciona y quita las instancias de clase
+    def gear_stacking(self):   # ON: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
+
+        if  not self._gear:                                                               # Predeterminado: TRUE
+            self._gear = True
+            self.frame_botones .pack_forget()                                   # -1      # Modo Botones
+            self.frame_listmode .pack_forget()                                  # -2      # Modo Lista
+
+            self.frame_configurer .pack (side=LEFT, fill=BOTH, expand=True)     # -3
+            self.frame_configurer .focus_set()                                  # -3      # Modo Configuracion
+            self.master.geometry ('830x67')                                     # -°
+
+
+
+            #self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)     # Puntos de movimiento
+
+
+
+
+            """ if self.frame_configurer .ckbutton7.variable.get() == True:
+                print(111)
+                self.frame_listmode.change_toggle() """
+
+            #  Cada vez que se presiona la rueda:  TRUE
+                # 1-  Quita la interface de botones
+                # 2-  Quita la interface de lista
+                # 3-  Posiciona la interface de configuracion y le da el foco
+                # °   Ajusta el tamaño de la ventana principal 
+
+        else:
+            self._gear = False
+            self.frame_configurer .pack_forget()                                # -1
+
+            #self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)     # Puntos de movimiento
+
+
+            #if self.frame_configurer .ckbutton7.variable.get() == True:
+            #    print(222)
+            #    self.frame_listmode.change_toggle()
+
+            """ self.unbind("",self.off_move)                                             # Desactiva el enlace de movimiento global
+            else:
+                self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)  """           # Activa el enlace de movimiento global 
+
+
+
+            if self.frame_configurer .ckbutton5.variable.get() == True:        # -2
+                self.frame_botones .active_reverse()                           # -2.1      # Desmarca el botón seleccionado
+                #self.frame_listmode .change_toggle()
+                self.frame_listmode .pack (side=LEFT, fill=BOTH)               # -2.2
+                self.frame_listmode .spinboxx .focus_set()                     # -2.2
+                self.master.geometry ('250x67')                                # -2.°
+            else:                                                              # -3
+                self.frame_botones .pack (side=LEFT, fill=BOTH)                # -3.1
+                self.frame_listmode .pack_forget()                             # -3.2     Aquí le aumente pack_ a esta linea
+                self.frame_listmode .change_toggle()                        # -3.
+
+            #  Cada vez que se presiona la rueda:  FALSE
+                # 1-  Quita la interface de configuracion
+                # 2-  Si (ckbutton5.variable.get) es True:
+                    # 2.1-  Desmarca el boton seleccionado en la interface de botones
+                    # 2.2-  Posiciona la interface de lista y le da el foco a su widget, spinbox
+                    # 2.°-  Ajusta el tamaño de la ventana principal 
+
+                # 3-  Si (ckbutton5.variable.get) es False:
+                    # 3.1- Posiciona la interface de botones
+                    # 3.2- Quita la interface de lista
+                    # 3.3- 
+  
+   
+#########################################################################
+#########################################################################
+#########################################################################
+#########################################################################
+#_______G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S_______#
+
+    def windows_123 (self, var_1, var_2, var_3):
+        
+        close = {'side':RIGHT, 'padx':2}
+        minimize = {'side':RIGHT, 'padx':10}
+        frame ={'side':TOP, 'fill':BOTH}
+
+        #________________________V E N T A N A:   1________________________________________________________________
+        #__________________________________________________________________________________________________________
+        if not self._open_1:   # ----> not self._open_1 == True:
+            self.toplevel_LEFT = ToplevelCls (self, close, minimize, frame, value_exception1='btn', _exception2='frm')
+            self.toplevel_LEFT .configure_toplevel ('Hoja Izquierda', self.geo_izq.get())
+                                
+        container_frame_left = var_1 (self.toplevel_LEFT)  #  var_1 es un frame
+
+        if self._frame_1 is not None:  
+            self._frame_1 .destroy()
+        self._frame_1 = container_frame_left
+        self._frame_1 .pack()
+        
+
+        #________________________V E N T A N A:   2________________________________________________________________
+        #__________________________________________________________________________________________________________
+        if not self._open_2:
+            self.toplevel_RIGHT = ToplevelCls (self, close, minimize, frame, value_exception1='btn', _exception2='frm')
+            self.toplevel_RIGHT .configure_toplevel ('Hoja Derecha', self.geo_der.get())
+
+        container_frame_right = var_2 (self.toplevel_RIGHT) 
+
+        if self._frame_2 is not None:
+            self._frame_2 .destroy()
+        self._frame_2 = container_frame_right
+        self._frame_2 .pack()
+        
+
+        #________________________V E N T A N A:   3________________________________________________________________
+        #__________________________________________________________________________________________________________
+        if not self._open_3:
+            self.toplevel_STUF = ToplevelCls (self, close, minimize, frame, value_exception1='btn', _exception2='frm') 
+            self.toplevel_STUF .configure_toplevel ('Game Stuff', self.geo_stuf.get())
+
+        container_frame_stuf = var_3 (self.toplevel_STUF) 
+
+        if self._frame_3 is not None:
+            self._frame_3 .destroy()
+        self._frame_3 = container_frame_stuf
+        self._frame_3 .pack()
+
+
+        #____S I Z E G R I P ():  Inquierda
+        self.grip = ttk.Sizegrip(self._frame_1, style='TSizegrip')
+        self.grip .place (relx=1.0, rely=1.0, anchor='center')
+        ttk.Style().configure('TSizegrip', bg='black')  
+
+        #____S I Z E G R I P ():  Derecha
+        self.grip = ttk.Sizegrip(self._frame_2, style='TSizegrip')
+        self.grip .place (relx=1.0, rely=1.0, anchor='center')
+        ttk.Style().configure('TSizegrip', bg='black')
+
+        #____S I Z E G R I P ():  Stuff
+        """ self.grip = ttk.Sizegrip(self._frame_3, style='TSizegrip')
+        self.grip .place (relx=1.0, rely=1.0, anchor='center')
+        ttk.Style().configure('TSizegrip', bg='black') """  # NO TIENE FRAME O IMAGEN TODAVIA
+
+        # Este destroy no se ejecuta en la primera llamada o la primera vex que se da clic a un boton es lo mismo
+        self.toplevel_LEFT.bind('<Destroy>', lambda event: self.closing_toplevel(1, event))  
+        self.toplevel_RIGHT.bind('<Destroy>', lambda event: self.closing_toplevel(2, event))
+        self.toplevel_STUF.bind('<Destroy>', lambda event: self.closing_toplevel(3, event))
+        #___________________________________________________________________________________________________________
+        self._open_1 = True
+        self._open_2 = True
+        self._open_3 = True
+        #_______________________________
+        #self.toplevel_LEFT .mainloop()   # Funcionaba el principio
+        #self.toplevel_RIGHT .mainloop()
+        #self.toplevel_STUF .mainloop()
+        #___________________________________________________________________________________________________________
+
+
+    # Se encarga de:
+    # 1- Permitir la apertura de las ventanas secundarias en la siguiente llamada
+    # 2- Desactiva la seleccion del boton en la interface de botones
+    def closing_toplevel(self,  number, event):
+
+        if isinstance(event.widget, Toplevel):
+            if number == 1:
+                self._open_1 = False
+            if number == 2:
+                self._open_2 = False
+            if number == 3: 
+                self._open_3 = False
+
+            if not self._open_1 == True and not self._open_2 == True and not self._open_3:
+                try:  # Esto se ejecuta ademas de la condicion, cuando cierra de emproviso la aplicacion con ventanas secundarias. abiertas
+                    self.frame_botones .active_reverse()
+                except: pass
+            
+
+
+
+
+
 def main (): #------------------------------------------------------------NO TOCAR
 
     root = RootCls()
