@@ -198,16 +198,16 @@ class Interface(Frame, MoveAllCls):
 
 
 
-            #self._stop = self.bind_all("<B1-Motion>", self.on_move_all)     # Puntos de movimiento
+            #self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)     # Puntos de movimiento
 
 
 
 
             """ if self.frame_configurer .ckbutton7.variable.get() == True:
                 print(111)
-                self.frame_listmode.change_red_green() """
+                self.frame_listmode.change_toggle() """
 
-            #  Cada vez que se presiona la rueda:
+            #  Cada vez que se presiona la rueda:  TRUE
                 # 1-  Quita la interface de botones
                 # 2-  Quita la interface de lista
                 # 3-  Posiciona la interface de configuracion y le da el foco
@@ -217,31 +217,31 @@ class Interface(Frame, MoveAllCls):
             self._gear = False
             self.frame_configurer .pack_forget()                                # -1
 
-            #self._stop = self.bind_all("<B1-Motion>", self.on_move_all)     # Puntos de movimiento
+            #self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)     # Puntos de movimiento
 
 
             #if self.frame_configurer .ckbutton7.variable.get() == True:
             #    print(222)
-            #    self.frame_listmode.change_red_green()
+            #    self.frame_listmode.change_toggle()
 
-            """ self.unbind("",self._stop)                                             # Desactiva el enlace de movimiento global
+            """ self.unbind("",self.off_move)                                             # Desactiva el enlace de movimiento global
             else:
-                self._stop = self.bind_all("<B1-Motion>", self.on_move_all)  """           # Activa el enlace de movimiento global 
+                self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)  """           # Activa el enlace de movimiento global 
 
 
 
             if self.frame_configurer .ckbutton5.variable.get() == True:        # -2
                 self.frame_botones .active_reverse()                           # -2.1      # Desmarca el botón seleccionado
-                #self.frame_listmode .change_red_green()
+                #self.frame_listmode .change_toggle()
                 self.frame_listmode .pack (side=LEFT, fill=BOTH)               # -2.2
                 self.frame_listmode .spinboxx .focus_set()                     # -2.2
                 self.master.geometry ('250x67')                                # -2.°
             else:                                                              # -3
                 self.frame_botones .pack (side=LEFT, fill=BOTH)                # -3.1
                 self.frame_listmode .pack_forget()                             # -3.2     Aquí le aumente pack_ a esta linea
-                self.frame_listmode .change_toogle()                        # -3.
+                self.frame_listmode .change_toggle()                        # -3.
 
-            #  Cada vez que se presiona la rueda:
+            #  Cada vez que se presiona la rueda:  FALSE
                 # 1-  Quita la interface de configuracion
                 # 2-  Si (ckbutton5.variable.get) es True:
                     # 2.1-  Desmarca el boton seleccionado en la interface de botones
@@ -811,7 +811,7 @@ class B3_class(Frame):
         self.container_2w .grid_propagate(False)
         
         #_____Variables de control:
-        self._swich = False
+        self._switch = False
    
 
     def change_variable(self, *args):  # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
@@ -881,7 +881,7 @@ class B3_class(Frame):
 
 
         #self.after_cancel(self.fter)            
-        if self._swich is not None:  # almacena todas las llamadas si se da enter
+        if self._switch is not None:  # almacena todas las llamadas si se da enter
            
             self.fter = self.after(4000, self.automatic_deletion) 
             #print(self.master.master.master.a)
@@ -898,31 +898,31 @@ class B3_class(Frame):
 
 
 
-    def change_toogle(self, event=None):  # ACTIVA: CLICK IZQUIERDO EN RED_GREEN - CAMBIA IMAGEN ROJO-VERDE Y VICEVERSA
-        if not self._swich == True:
-            self._swich = True
+    def change_toggle(self, event=None):  # ACTIVA: CLICK IZQUIERDO EN RED_GREEN - CAMBIA IMAGEN ROJO-VERDE Y VICEVERSA
+        if not self._switch == True:
+            self._switch = True
 
-            self.lbl_toogle .config (image=self.Miniatures[24])                           # -1
+            self.lbl_toggle .config (image=self.Miniatures[24])                           # -1
 
             self.unbind("",self.master.off_move)                                             # Desactiva el enlace de movimiento global 
             #self.master.frame_configurer .ckbutton7 .check()
             print('unbind')
 
-            # Cada vez que se hace clic en el label:
+            # Cada vez que se hace clic en el lbl_toggle:
                 # 1- Cambia la imagen
                 # 2-
                 # 3-
 
         else:
-            self._swich = False
+            self._switch = False
 
-            self.lbl_toogle .config (image=self.Miniatures[23])
+            self.lbl_toggle .config (image=self.Miniatures[23])
 
             self.master.off_move = self.bind_all("<B1-Motion>", self.master.on_move_all)     # Activa el enlace de movimiento global 
             #self.master.frame_configurer .ckbutton7 .uncheck()
             print('bind')
 
-            # Cada vez que se hace clic en el label:
+            # Cada vez que se hace clic en el lbl_toggle:
                 # 1- 
                 # 2-
                 #
@@ -963,7 +963,7 @@ class B3_class(Frame):
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # INSERTA EL VALOR OBTENIDO EN MAYUSCULA EL PRIMER STRING
 
     def create_listbox(self, **kwargs):     
-        self.lbl_toogle = Label (self.container_2w, image= self.Miniatures[23], width=11, bd=0) 
+        self.lbl_toggle = Label (self.container_2w, image= self.Miniatures[23], width=11, bd=0) 
 
         self.listboxx = Listbox (self.container_2w, **kwargs)
         self.listboxx .config (font=('Calibri',9,'bold'),
@@ -979,7 +979,7 @@ class B3_class(Frame):
                               selectmode=SINGLE,
                               takefocus=0)
 
-        self.lbl_toogle .bind ("<Button-1>", self.change_toogle)
+        self.lbl_toggle .bind ("<Button-1>", self.change_toggle)
         self.listboxx .bind ('<<ListboxSelect>>', self.listbox_select)   # ACTIVA: CON CLICK IZQUIERDO EN EL LISTBOX - SELECCIONA 1 ITEM
 
     def generate_list (self, file, option):   # INICIALIZA IMAGENES
