@@ -187,7 +187,8 @@ class Interface(Frame, MoveAllCls):
     # 4- Cambia el foco 
     def gear_stacking(self):   # ON: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
 
-        if  not self._gear:                                                               # Predeterminado: TRUE 
+        if  not self._gear:                                                               # Predeterminado: TRUE
+            self._gear = True
             self.frame_botones .pack_forget()                                   # -1      # Modo Botones
             self.frame_listmode .pack_forget()                                  # -2      # Modo Lista
 
@@ -206,17 +207,14 @@ class Interface(Frame, MoveAllCls):
                 print(111)
                 self.frame_listmode.change_red_green() """
 
-
-            self._gear = True
-
             #  Cada vez que se presiona la rueda:
                 # 1-  Quita la interface de botones
                 # 2-  Quita la interface de lista
                 # 3-  Posiciona la interface de configuracion y le da el foco
                 # °   Ajusta el tamaño de la ventana principal 
 
-
         else:
+            self._gear = False
             self.frame_configurer .pack_forget()                                # -1
 
             #self._stop = self.bind_all("<B1-Motion>", self.on_move_all)     # Puntos de movimiento
@@ -232,31 +230,28 @@ class Interface(Frame, MoveAllCls):
 
 
 
-
             if self.frame_configurer .ckbutton5.variable.get() == True:        # -2
                 self.frame_botones .active_reverse()                           # -2.1      # Desmarca el botón seleccionado
                 #self.frame_listmode .change_red_green()
-                self.frame_listmode .pack (side=LEFT, fill=BOTH)
-                self.frame_listmode .spinboxx .focus_set()
-                self.master.geometry ('250x67')
-            else:
-                self.frame_botones .pack (side=LEFT, fill=BOTH) 
-                self.frame_listmode .forget()
-                self.frame_listmode .change_red_green()                          # Si
-
-            self._gear = False 
+                self.frame_listmode .pack (side=LEFT, fill=BOTH)               # -2.2
+                self.frame_listmode .spinboxx .focus_set()                     # -2.2
+                self.master.geometry ('250x67')                                # -2.°
+            else:                                                              # -3
+                self.frame_botones .pack (side=LEFT, fill=BOTH)                # -3.1
+                self.frame_listmode .forget()                                  # -3.2
+                self.frame_listmode .change_red_green()                        # -3.
 
             #  Cada vez que se presiona la rueda:
                 # 1-  Quita la interface de configuracion
                 # 2-  Si (ckbutton5.variable.get) es True:
                     # 2.1-  Desmarca el boton seleccionado en la interface de botones
                     # 2.2-  Posiciona la interface de lista y le da el foco a su widget, spinbox
-                    # 2.3-  Ajusta el tamaño de la ventana principal 
+                    # 2.°-  Ajusta el tamaño de la ventana principal 
 
                 # 3-  Si (ckbutton5.variable.get) es False:
-                    #
-                    #
-                    #
+                    # 3.1- Posiciona la interface de botones
+                    # 3.2- Quita la interface de lista y
+                    # 3.3- 
   
    
 #########################################################################
