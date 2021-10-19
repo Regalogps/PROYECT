@@ -3,8 +3,8 @@ from A_import import *
 #from A_frames import *
 #from B_Frames import *
 
-# Se encarga de:
-# 1- Mover todas las ventanas a excepcion de root, sin importar donde se de clic, existen algunas excepciones
+# TAREAS:
+#_______1- Mover todas las ventanas a excepcion de root, sin importar donde se de clic, existen algunas excepciones
 class MoveAllCls():
     def __init__(self):
         self._x = 0
@@ -89,8 +89,8 @@ class Interface(Frame, MoveAllCls):
         #_____Métodos Llamados de Otras Clases:
         self.make_movable(self.frame_controller.btn_ash)                  # Metodo de MoveAllCls: añade a la lista de widget, que permiten mover la ventana
 
-
-    # Asigna el tamaño y posicion de todas las ventanas  
+    # Tarea:
+    #___1- Asignar el tamaño y posicion de todas las ventanas a excepción de root 
     def size_position(self):
         screen_x = self.master.winfo_screenwidth()      # 1280
         screen_y = self.master.winfo_screenheight()     # 768
@@ -128,8 +128,8 @@ class Interface(Frame, MoveAllCls):
         window_3 = '{}x{}+{}+{}'.format(width_3, height_3, posx_3, posy_3)
         self.geo_stuf .set(window_3)
 
-
-    # Configuracion de la ventana principal
+    # Tarea:
+    clas- Configurar la ventana principal
     def configure_interface(self):
         
         # MASTER REFIERE A TOPLEVEL: PRINCIPAL
@@ -141,8 +141,8 @@ class Interface(Frame, MoveAllCls):
         self.master.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
         self.master.wm_attributes ('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
 
-
-    # Inicializa las imagenes que se mandan a las ventanas
+    # Tarea:
+    #___1- Inicializa las imagenes que se mandan a las ventanas
     def generate_list(self, file, option):
 
         ouput = os.listdir (file)
@@ -159,12 +159,12 @@ class Interface(Frame, MoveAllCls):
                         _lst[index].append(RGB)               
             return _lst        
 
-
-    # Inicializa instancias:
-    # 1- self.frame_controller : Frame contenedor de 2 botones, Logo y rueda de config.
-    # 2- self.frame_botones    : Frame contenedor de 22 botones
-    # 3- self.frame_configurer : Frame contenedor de checkbuttons y labels
-    # 4- self.frame_listmode   : Frame Contenedor de Spinbox y Listbox
+    # Tarea:
+    #___1- Crea las interfaces de control: (4 instancias de clase)
+    #______1.1- self.frame_controller : Frame contenedor de 2 botones, logo y la rueda de configuracion
+    #______1.2- self.frame_botones    : Frame contenedor de 22 botones
+    #______1.3- self.frame_configurer : Frame contenedor de checkbuttons y labels
+    #______1.4- self.frame_listmode   : Frame Contenedor de Spinbox y Listbox
     def widgets(self):
         #____I N S T A N C I A S:  [ 4 ]
         self.frame_controller = A1_class (self, bg='#11161d', width=60, height=67)   # Posicionado     # Color: Azul
@@ -180,11 +180,8 @@ class Interface(Frame, MoveAllCls):
         self.frame_controller .pack_propagate (False)
         self.frame_botones .pack_propagate (False)
 
-
+    # Tarea:
     # 1- Posiciona y quita las instancias de clase
-    # 2- Redimenciona la ventana principal
-    # 3- Desactiva la seleccion del boton en la interface de botones
-    # 4- Cambia el foco 
     def gear_stacking(self):   # ON: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
 
         if  not self._gear:                                                               # Predeterminado: TRUE
