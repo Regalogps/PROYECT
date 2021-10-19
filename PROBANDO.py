@@ -239,7 +239,7 @@ class Interface(Frame, MoveAllCls):
             else:                                                              # -3
                 self.frame_botones .pack (side=LEFT, fill=BOTH)                # -3.1
                 self.frame_listmode .pack_forget()                             # -3.2     Aquí le aumente pack_ a esta linea
-                self.frame_listmode .change_red_green()                        # -3.
+                self.frame_listmode .change_toogle()                        # -3.
 
             #  Cada vez que se presiona la rueda:
                 # 1-  Quita la interface de configuracion
@@ -811,7 +811,7 @@ class B3_class(Frame):
         self.container_2w .grid_propagate(False)
         
         #_____Variables de control:
-        self._change = None
+        self._swich = False
    
 
     def change_variable(self, *args):  # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
