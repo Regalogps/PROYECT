@@ -10,29 +10,29 @@ class MoveAllCls():
         self._x = 0
         self._y = 0
         self.movable = []
-        
+          
     def make_movable(self, *widgets):
         self.movable.extend(widgets)
         
     def is_movable(self, widget):
         return widget in self.movable
     
-    def start_move_global(self, event):        
+    def start_move_all(self, event):        
         self._x = event.x
         self._y = event.y
    
-    def stop_move_global(self, event):
+    def stop_move_all(self, event):
         self._x = None
         self._y = None
 
-    def on_move_global(self, event):
+    def on_move_all(self, event):
         deltax = event.x - self._x
         deltay = event.y - self._y     
         _event = event.widget
         _tops = event.widget.winfo_toplevel()
 
         new_position = "+{}+{}".format (_tops.winfo_x() + deltax, _tops.winfo_y() + deltay)
-         
+        
         if not isinstance(_event, (Button, ttk.Sizegrip)) == True or self.is_movable(_event):                 # NOTA: self._is_movable(_event): Devuelve True 
             _tops.geometry(new_position)                                                                      # Mueve todas las ventanas en general menos root 
         if isinstance(_tops.master, Tk)== True and not isinstance(_event, (Button, ttk.Sizegrip)) or self.is_movable(_event):                                                           # otro: if _tops.master == RootCls:
@@ -48,9 +48,10 @@ class MoveAllCls():
 # Se encarga de:
 # 1- Asignar el tamaño y posicion a todas las ventanas a excepcion de root
 # 2- Gestiona toda la aplicacion
-class Interface(Frame):
+class Interface(Frame, MoveAllCls):
     def __init__(self, master=None, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
+        MoveAllCls.__init__(self)   # Inicializando las variables de control
 
         path = 'E:/1-RICHI/MovilesDB'
         #_____Coleccion de Imagenes:
@@ -79,6 +80,14 @@ class Interface(Frame):
         self.size_position()
         self.configure_interface()
         self.widgets()
+
+        #_____Enlaces para Mover las Ventanas Globalmente:
+        self.bind_all("<ButtonPress-1>", self.start_move_all)           # Punto inicial    
+        self.bind_all("<ButtonRelease-1>", self.stop_move_all)          # Punto final
+        self._stop = self.bind_all("<B1-Motion>", self.on_move_all)     # Puntos de movimiento
+
+        #_____Métodos Llamados de Otras Clases:
+        self.make_movable(self.frame_controller.btn_ash)                # Metodo de MoveGlobalCls: añade a la lista de widget, que permiten mover la ventana
 
 
     # Asigna el tamaño y posicion de todas las ventanas  
@@ -178,28 +187,76 @@ class Interface(Frame):
     # 4- Cambia el foco 
     def gear_stacking(self):   # ON: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
 
-        if  not self._gear:                                                      # Predeterminado: TRUE
-            self.frame_botones .pack_forget()                                    # Modo Botones
-            self.frame_listmode .pack_forget()                                   # Modo Lista
+        if  not self._gear:                                                               # Predeterminado: TRUE 
+            self.frame_botones .pack_forget()                                   # -1      # Modo Botones
+            self.frame_listmode .pack_forget()                                  # -2      # Modo Lista
 
-            self.frame_configurer .focus_set()                                   # Modo Configuracion
-            self.frame_configurer .pack (side=LEFT, fill=BOTH, expand=True)
-            self.master.geometry ('830x67')
+            self.frame_configurer .pack (side=LEFT, fill=BOTH, expand=True)     # -3
+            self.frame_configurer .focus_set()                                  # -3      # Modo Configuracion
+            self.master.geometry ('830x67')                                     # -°
+
+
+
+            #self._stop = self.bind_all("<B1-Motion>", self.on_move_all)     # Puntos de movimiento
+
+
+
+
+            """ if self.frame_configurer .ckbutton7.variable.get() == True:
+                print(111)
+                self.frame_listmode.change_red_green() """
+
 
             self._gear = True
- 
+
+            #  Cada vez que se presiona la rueda:
+                # 1-  Quita la interface de botones
+                # 2-  Quita la interface de lista
+                # 3-  Posiciona la interface de configuracion y le da el foco
+                # °   Ajusta el tamaño de la ventana principal 
+
+
         else:
-            self.frame_configurer .pack_forget()
-            if self.frame_configurer .ckbutton5.variable.get() == True:
-                self.frame_botones .active_reverse()                             # Desmarca el botón seleccionado
+            self.frame_configurer .pack_forget()                                # -1
+
+            #self._stop = self.bind_all("<B1-Motion>", self.on_move_all)     # Puntos de movimiento
+
+
+            #if self.frame_configurer .ckbutton7.variable.get() == True:
+            #    print(222)
+            #    self.frame_listmode.change_red_green()
+
+            """ self.unbind("",self._stop)                                             # Desactiva el enlace de movimiento global
+            else:
+                self._stop = self.bind_all("<B1-Motion>", self.on_move_all)  """           # Activa el enlace de movimiento global 
+
+
+
+
+            if self.frame_configurer .ckbutton5.variable.get() == True:        # -2
+                self.frame_botones .active_reverse()                           # -2.1      # Desmarca el botón seleccionado
+                #self.frame_listmode .change_red_green()
                 self.frame_listmode .pack (side=LEFT, fill=BOTH)
                 self.frame_listmode .spinboxx .focus_set()
                 self.master.geometry ('250x67')
             else:
                 self.frame_botones .pack (side=LEFT, fill=BOTH) 
                 self.frame_listmode .forget()
+                self.frame_listmode .change_red_green()                          # Si
 
             self._gear = False 
+
+            #  Cada vez que se presiona la rueda:
+                # 1-  Quita la interface de configuracion
+                # 2-  Si (ckbutton5.variable.get) es True:
+                    # 2.1-  Desmarca el boton seleccionado en la interface de botones
+                    # 2.2-  Posiciona la interface de lista y le da el foco a su widget, spinbox
+                    # 2.3-  Ajusta el tamaño de la ventana principal 
+
+                # 3-  Si (ckbutton5.variable.get) es False:
+                    #
+                    #
+                    #
   
    
 #########################################################################
@@ -444,9 +501,6 @@ class B1_class(Frame):
         self.container1 = None
         self.container2 = None
 
-
-        self.frame_1.bind_all("<B1-Motion>", self.mot)
-
         
     # Manda los indices para abrir las imagenes en las ventanas:
     def indices(self, indice):
@@ -477,7 +531,8 @@ class B1_class(Frame):
 
                 btn.bind("<Enter>", self.enter_mouse)
                 btn.bind("<Leave>", self.leave_mouse)
-                btn.bind("<Button-1>", self.clic_mouse)
+                btn.bind("<ButtonPress-1>", self.press_mouse)
+                btn.bind("<ButtonRelease-1>", self.release_mouse)
 
                 if texto in self.mobiles2: btn.config(fg='yellow')
                 self.buttons22.append(btn)   # Examinar si borrar porque no tiene uso la lista
@@ -497,26 +552,26 @@ class B1_class(Frame):
 
 
     # Cambia el color por defecto al hacerle click, en este caso: [ Verde ]
-    def clic_mouse(self, event):
-        widget = event.widget
-        widget.config(bg='#bdfe04', fg='black')                             # Color:  bg= #bdfe04  --> Verde
+    def press_mouse(self, event):
+        self.press_widget = event.widget
+        self.press_widget .config(bg='#bdfe04', fg='black')                             # Color:  bg= #bdfe04  --> Verde
             
-        if self.container1 is not None and self.container1 != widget:
+        if self.container1 is not None and self.container1 != self.press_widget:
             if self.container1 .cget('text') in self.mobiles2:
                 self.container1 .config (bg='#11161d', fg='yellow')         # Cambia el color del boton: (bg y fg) que tenian por defecto
             else:
                 self.container1 .config (bg='#11161d', fg='white')          # Cambia el color del boton: (bg y fg) que tenian por defecto
-        self.container1 = widget                                            # Almacena el boton actual en otra variable
+        self.container1 = self.press_widget                                            # Almacena el boton actual en otra variable
     
 
-    def mot(self, event):
+    def release_mouse(self, event):
+        release = event.widget.winfo_containing(event.x_root, event.y_root)
+        if release != self.press_widget:
+            if self.press_widget .cget('text') in self.mobiles2:
+                self.press_widget .config (bg='#11161d', fg='yellow')
+            else:
+                self.press_widget .config (bg='#11161d', fg='white')
         
-        widget = self.winfo_containing(event.x_root, event.y_root)
-        print(4545454)
-
-        #print('1111111111', event.widget)
-
-    
 
     # Deja el color como estaba por defecto, y reintegra el boton a la lista
     def active_reverse(self):
@@ -684,7 +739,7 @@ class B2_class(Frame):
         label_option4 = Label (self, text= 'Activar Modo On :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
         label_option5 = Label (self, text= 'Activar Modo Lista :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
         label_option6 = Label (self, text= 'Activar Modo Guía :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
-        label_option7 = Label (self, text= 'Guargar Configuracion :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
+        label_option7 = Label (self, text= 'Desactivar Movimiento :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
         label_option8 = Label (self, text= 'Guargar Configuracion :', font=('Calibri',9,'bold'), bg='#31343a', fg='white', bd=0)
 
         label_option1 .grid (column=0, row=0, padx= (30,5), pady=(10,0), sticky=W)
@@ -694,6 +749,8 @@ class B2_class(Frame):
         label_option5 .grid (column=4, row=0, padx= (30,5), pady=(10,0), sticky=W)
         label_option6 .grid (column=4, row=1, padx= (30,5), pady=(0,0), sticky=W)   
         label_option7 .grid (column=6, row=0, padx= (30,5), pady=(10,0), sticky=W)
+        label_option8 .grid (column=6, row=1, padx= (30,5), pady=(0,0), sticky=W)
+        
     
     def create_checkbutton(self):
 
@@ -704,6 +761,7 @@ class B2_class(Frame):
         self.ckbutton5 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
         self.ckbutton6 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
         self.ckbutton7 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        self.ckbutton8 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
     
         self.ckbutton1 .grid (column=1, row=0, pady=(10,0))
         self.ckbutton2 .grid (column=1, row=1, pady=(0,0))
@@ -712,6 +770,7 @@ class B2_class(Frame):
         self.ckbutton5 .grid (column=5, row=0, pady=(10,0))
         self.ckbutton6 .grid (column=5, row=1, pady=(0,0))
         self.ckbutton7 .grid (column=7, row=0, padx=(0,200), pady=(10,0),)
+        self.ckbutton8 .grid (column=7, row=1, padx=(0,200), pady=(0,0),)
 
 
 ################################ 
@@ -721,7 +780,7 @@ class B2_class(Frame):
 # Frame Contenedor de Spinbox y Listbox
 class B3_class(Frame):
     def __init__(self, master, *args, **kwargs):
-        Frame.__init__(self, master, *args, kwargs)
+        super().__init__(master, *args, kwargs)
 
         path = 'E:/1-RICHI/MovilesDB'
         #_____Coleccion de imagenes  
@@ -761,7 +820,6 @@ class B3_class(Frame):
    
 
     def change_variable(self, *args):  # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
-
         spin = self.spinboxx.get().capitalize()
 
         if spin == '':
@@ -784,8 +842,7 @@ class B3_class(Frame):
         if self.listboxx.get(0) != spin and self.listboxx.get(0) != '' or spin == '': 
             self.miniature_mobil .config(image= self.Miniatures[22])
         
-    def update(self, list):  # ACTIVA: ** SI ES LLAMADO POR CHANGE_VARIABLE ** - BORRA LA LISTA DE LISTBOX EXISTENTE, AGREGA NUEVOS VALORES A LISTA Y BORRA DE NUEVO SI SE CUMPLE LA CONDICION
-    
+    def update(self, list):  # ACTIVA: ** SI ES LLAMADO POR CHANGE_VARIABLE ** - BORRA LA LISTA DE LISTBOX EXISTENTE, AGREGA NUEVOS VALORES A LISTA Y BORRA DE NUEVO SI SE CUMPLE LA CONDICION    
         self.listboxx .delete(0, END)                                    # 1- BORRA LA LISTA DE LISTBOX
         for i in list:                                                  # 1- ITERANDO: 'list_new'.  2- INSERTANDO ITERADOR 'i' A LISTBOX.  
             self.listboxx .insert(END, i)
@@ -793,8 +850,7 @@ class B3_class(Frame):
             self.listboxx .delete(0, END) 
 
 
-    def listbox_select(self,event):  # ACTIVA: CON CLICK IZQUIERDO EN LISTBOX - 
-       
+    def listbox_select(self,event):  # ACTIVA: CON CLICK IZQUIERDO EN LISTBOX -        
         selection = self.listboxx .get(ANCHOR)                                                           # 1- BORRA EL CONTENIDO DE SPINBOX.  2- INSERTA EL ITEM SELECCIONADO DEL LISTBOX A SPINBOX                         
         
         if self.listboxx.get(0,END) != ():      
@@ -804,11 +860,8 @@ class B3_class(Frame):
  
         self.after(100, lambda: self.spinboxx.focus_set())
 
-        #print('numero',self.listboxx.size())
-          
 
-    def listbox_enter(self, event):  # ACTIVA: CON TECLA ENTER - INSERTA EL VALOR DE LISTBOX A SPINBOX, MANDA LLAMAR A OPEN_WINDOWS  Y ABREN LAS VENTANAS
- 
+    def listbox_enter(self, event):  # ACTIVA: CON TECLA ENTER - INSERTA EL VALOR DE LISTBOX A SPINBOX, MANDA LLAMAR A OPEN_WINDOWS  Y ABREN LAS VENTANAS 
         listbx = self.listboxx.get(0)
         spinbx = self.spinboxx.get()
 
@@ -830,11 +883,13 @@ class B3_class(Frame):
                 lambda top3: TopStufCls (top3, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
                 break                                       # Sin breack el programa seguiria buscando coincidencias despues del enter, y guardaria un error
         
+
+
         #self.after_cancel(self.fter)            
         if self._change is not None:  # almacena todas las llamadas si se da enter
            
             self.fter = self.after(4000, self.automatic_deletion) 
-       
+            #print(self.master.master.master.a)
 
     def automatic_deletion(self):  # ACTIVA: ** SI ES LLAMADO POR OPEN_WINDOWS ** Y SI LA VARIABLE DE CONTROL NO ES NONE - LIMPIA SPINBOX
        # self.after_cancel(self.fter)
@@ -842,23 +897,42 @@ class B3_class(Frame):
         #self.after_cancel(self.fter)
 
 
-    def change_red_green(self, event):  # ACTIVA: CLICK IZQUIERDO EN RED_GREEN - CAMBIA IMAGEN ROJO-VERDE Y VICEVERSA
 
+
+
+
+
+
+    def change_red_green(self, event=None):  # ACTIVA: CLICK IZQUIERDO EN RED_GREEN - CAMBIA IMAGEN ROJO-VERDE Y VICEVERSA
         if self._change is None:
-            self.red_green .config (image=self.Miniatures[24])  
             self._change = True
+            self.red_green .config (image=self.Miniatures[24]) 
+
+            self.unbind("",self.master._stop)                                             # Desactiva el enlace de movimiento global 
+            #self.master.frame_configurer .ckbutton7 .check()
+            print('unbind')
         else:
-            self.red_green .config (image=self.Miniatures[23])
             self._change = None
+            self.red_green .config (image=self.Miniatures[23])
+
+            self.master._stop = self.bind_all("<B1-Motion>", self.master.on_move_all)     # Activa el enlace de movimiento global 
+            #self.master.frame_configurer .ckbutton7 .uncheck()
+            print('bind')
+
+    
+
+
+
+
+
+
 
     def validate_text(self, text, arg): # SIEMPRE QUE INSERTE TEXTO EN SPINBOX - NO PERMITE NUMEROS,SIMBOLOS,ESPACIOS Y CONTROLA LA CANTIDAD
-
         if all (i not in "0123456789[{!¡¿?<>(|#$%&),_-°'´}] +-*/=" for i in text) and len(text) < 14:   
                 return True                                                 
         return False  
 
-    def create_spinbox(self, **args):
-        
+    def create_spinbox(self, **args):        
         self.spinboxx = Spinbox (self.frame_1, **args)
         
         self.spinbox_variable = StringVar()
@@ -880,8 +954,7 @@ class B3_class(Frame):
         self.spinbox_variable .trace_add ('write', self.change_variable)  
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # INSERTA EL VALOR OBTENIDO EN MAYUSCULA EL PRIMER STRING
 
-    def create_listbox(self, **kwargs):
-     
+    def create_listbox(self, **kwargs):     
         self.red_green = Label (self.container_2w, image= self.Miniatures[23], width=11, bd=0) 
 
         self.listboxx = Listbox (self.container_2w, **kwargs)
@@ -1038,9 +1111,9 @@ class Toplevel_class(Toplevel):
         self.frame_manager = FrameManagerClass (self, bg="black", _exception1=value_exception1)       # Frame: Gestor de Ventanas
         self.frame_manager .pack (pack_3)
     
-        #self.frame_manager .bind("<ButtonPress-1>", self.start_move)       # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
-        #self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)      # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
-        #self.frame_manager .bind("<B1-Motion>", self.on_move)              # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
+        self.frame_manager .bind("<ButtonPress-1>", self.start_move)       # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
+        self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)      # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
+        self.frame_manager .bind("<B1-Motion>", self.on_move)              # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
         self.frame_manager .type_button (posy_close, posy_minimize)                                     # Llama al metodo para dibujar los botones
         
         if self._exception2 is not None:  # Toplevel Secundarias
@@ -1049,9 +1122,9 @@ class Toplevel_class(Toplevel):
             self.label_title = Label(self.frame_manager, text='', fg="white", bg="green")   
             self.label_title .pack(side=RIGHT, padx=0, pady=0)                                          # Derecha 
 
-            #self.label_title .bind("<ButtonPress-1>", self.start_move)     # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
-            #self.label_title .bind("<ButtonRelease-1>", self.stop_move)    # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
-            #self.label_title .bind("<B1-Motion>", self.on_move)            # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
+            self.label_title .bind("<ButtonPress-1>", self.start_move)     # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
+            self.label_title .bind("<ButtonRelease-1>", self.stop_move)    # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
+            self.label_title .bind("<B1-Motion>", self.on_move)            # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
 
         #self.master .bind("<Map>", self.deiconify_1)                       # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
         #self.master .bind("<Unmap>", self.iconify_1)                       # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
@@ -1071,15 +1144,15 @@ class Toplevel_class(Toplevel):
         self.deiconify()
 
 
-    def start_move(self, event=None):   # Desactivado temporalmente:  Razon: Arriba lo dice  
+    def start_move(self, event=None):   # Activado temporalmente:  Razon: Arriba lo dice  
         self._x = event.x
         self._y = event.y
 
-    def stop_move(self, event=None):    # Desactivado temporalmente:  Razon: Arriba lo dice
+    def stop_move(self, event=None):    # Activado temporalmente:  Razon: Arriba lo dice
         self._x = None
         self._y = None
 
-    def on_move(self, event=None):      # Desactivado temporalmente:  Razon: Arriba lo dice
+    def on_move(self, event=None):      # Activado temporalmente:  Razon: Arriba lo dice
         deltax = event.x - self._x
         deltay = event.y - self._y
         new_position = "+{}+{}".format(self.winfo_x() + deltax, self.winfo_y() + deltay)
@@ -1112,7 +1185,6 @@ class Toplevel_class(Toplevel):
 class RootCls(Tk, MoveAllCls):
     def __init__(self, *args, **kwargs):
         Tk.__init__(self, *args, **kwargs)
-        MoveAllCls.__init__(self)              # Inicializando las variables de control
 
         type_close = {'side':TOP, 'pady':6}
         type_minimize = {'side':BOTTOM, 'pady':6}
@@ -1128,18 +1200,13 @@ class RootCls(Tk, MoveAllCls):
 
         self.bind("<Map>", self.deiconify_on)  # Deiconiza Toplevel Principal
         self.bind("<Unmap>", self.iconify_on)  # Iconiza Toplevel Principal
-     
-        self.bind_all("<ButtonPress-1>", self.start_move_global)     # Mueve las ventanas globalmente   
-        self.bind_all("<B1-Motion>", self.on_move_global)            # Mueve las ventanas globalmente     
-        self.bind_all("<ButtonRelease-1>", self.stop_move_global)    # Mueve las ventanas globalmente 
-
-        self.make_movable(self.frame_principal.frame_controller.btn_ash)  # Metodo de MoveGlobalCls
 
     def iconify_on(self, event):
         self.toplevel_principal.withdraw()
 
     def deiconify_on(self, event):
         self.toplevel_principal.deiconify()
+
 
 def main (): #------------------------------------------------------------NO TOCAR
 
