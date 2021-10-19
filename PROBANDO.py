@@ -252,126 +252,6 @@ class B1_class(Frame):
 ################################
 ################################
 
-# Se encarga de:
-# 1- Redimensionar las imagenes que le pasan:
-class ResizeCls(Frame):
-    def __init__(self, master, index, *args, **kwargs):
-        Frame.__init__(self, master, *args, kwargs)
-        
-        self.image = Image.fromarray (index)
-        self.image_copy = self.image .copy()
-
-        self.background = ImageTk.PhotoImage (self.image)
-
-        self.img = Label (self, image= self.background)
-        self.img .pack (fill= 'both', expand= True)
-        self.img .bind ('<Configure>', self.resize)
-
-    def resize(self, event):
-        #self.xx, self.yy = self.
-        
-        self.image2 = self.image_copy .resize ((self.master .winfo_width(), self.master .winfo_height()))
-        
-        self.background2 = ImageTk.PhotoImage (self.image2)
-        self.img .config (image= self.background2)
-        #self.img .image = self.backgroundd
-
-
-
-######################################################################################################################################
-######################################################################################################################################
-######################################################################################################################################
-######################################################################################################################################
-
-#____V E N T A N A___I Z Q U I E R D A:
-class TopIzqCls(Frame):
-    def __init__(self, master, index1, id_0=None, id_1=None, id_2=None, id_3=None, id_4=None, id_5=None, id_6=None, id_7=None, path_lst=None, *args, **kwargs):
-        super().__init__(master, *args, **kwargs)
-        
-
-        self.fr_img_delay = ResizeCls (self, path_lst [index1][id_0], bd=0)
-        self.fr_img_delay .grid(column=0,row=0)
-
-        self.fr_img_movil= ResizeCls (self, path_lst [index1][id_1], bd=0)  
-
-        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
-        self.lbl_guia . bind('<Button-1>', self.position_img)
-        self.lbl_guia . place(x= 2, y= 48)    
- 
-
-        self.grid_columnconfigure(0,weight=1)
-        self.grid_rowconfigure(0,weight=1)
-
-    def position_img(self, event): 
-
-        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.fr_img_movil .grid (column= 0, row= 0)
-        else:
-            self.fr_img_movil .grid_forget()
-
-
-######################################################################################################################################
-######################################################################################################################################
-######################################################################################################################################
-######################################################################################################################################
-
-#____V E N T A N A___D E R E C H A:
-class TopDerCls(Frame):
-    def __init__(self, master, index1, id_0=None, id_1=None, id_2=None, id_3=None, id_4=None, id_5=None, id_6=None, id_7=None, path_lst=None, *args, **kwargs):
-        super().__init__(master, *args, **kwargs)
-        
-
-        self.master.bind("<Button-1>", self.position_img)
- 
-        self.fr_img_base = ResizeCls (self, path_lst [index1][id_2], bd=0)
-        self.fr_img_base . grid (column=0, row=0)
-        self.fr_img_base . grid_propagate(0)
-
-        self.fr_img_77 = ResizeCls (self, path_lst [index1][id_3], bd=0)       
- 
-        self.grid_columnconfigure (0,weight=1)
-        self.grid_rowconfigure (0,weight=1)
-
-    def position_img(self, event):
-
-        winfo_x, winfo_y = self.master.winfo_width(), self.master.winfo_height() 
-        event_x, event_y = event.x, event.y
-        h = event_x / winfo_x * 100 
-        v = event_y / winfo_y * 100
-    
-        if int(h) >=0 and int(v) >=68 :  
-            if self.fr_img_77 . grid_info() == {}:
-                self.fr_img_77 . grid(column=0, row=0)                            
-            else:
-                self.fr_img_77 . grid_forget()
-
-
-######################################################################################################################################
-######################################################################################################################################
-######################################################################################################################################
-######################################################################################################################################
-
-#____V E N T A N A___S T U F:
-class TopStufCls(Frame):
-    def __init__(self, master, index1, id_0=None, id_1=None, id_2=None, id_3=None, id_4=None, id_5=None, id_6=None, id_7=None, path_lst=None, *args, **kwargs):
-        super().__init__(master, *args, **kwargs)
-        pass
-        
-        """ if len(path_lst) > index_1:
-            self.img = ResizeCls (self, path_lst [index_1])
-            self.img.grid(column=0, row=0, sticky='news')
-        
-        if len(path_lst) > index_2:
-            self.img2 = ResizeCls (self, path_lst [index_2])
-            self.img2.grid(column=0, row=1, sticky='news') """
-
-        # column 0 will use full width
-        ##self.grid_columnconfigure(0, weight=1)
-        # row 0 will use 1/2 height AND row 1 will use 1/2 height
-        ##self.grid_rowconfigure(0, weight=1)     
-        ##elf.grid_rowconfigure(1, weight=1)
-
-
 
 
 ################################
@@ -695,6 +575,130 @@ class Checkbutton_class(Checkbutton):
         if self.variable .get() == True: 
             pass  
  
+########
+
+# Se encarga de:
+# 1- Redimensionar las imagenes que le pasan:
+class ResizeCls(Frame):
+    def __init__(self, master, index, *args, **kwargs):
+        Frame.__init__(self, master, *args, kwargs)
+        
+        self.image = Image.fromarray (index)
+        self.image_copy = self.image .copy()
+
+        self.background = ImageTk.PhotoImage (self.image)
+
+        self.img = Label (self, image= self.background)
+        self.img .pack (fill= 'both', expand= True)
+        self.img .bind ('<Configure>', self.resize)
+
+    def resize(self, event):
+        #self.xx, self.yy = self.
+        
+        self.image2 = self.image_copy .resize ((self.master .winfo_width(), self.master .winfo_height()))
+        
+        self.background2 = ImageTk.PhotoImage (self.image2)
+        self.img .config (image= self.background2)
+        #self.img .image = self.backgroundd
+
+
+
+######################################################################################################################################
+######################################################################################################################################
+######################################################################################################################################
+######################################################################################################################################
+
+#____V E N T A N A___I Z Q U I E R D A:
+class TopIzqCls(Frame):
+    def __init__(self, master, index1, id_0=None, id_1=None, id_2=None, id_3=None, id_4=None, id_5=None, id_6=None, id_7=None, path_lst=None, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
+        
+
+        self.fr_img_delay = ResizeCls (self, path_lst [index1][id_0], bd=0)
+        self.fr_img_delay .grid(column=0,row=0)
+
+        self.fr_img_movil= ResizeCls (self, path_lst [index1][id_1], bd=0)  
+
+        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
+        self.lbl_guia . bind('<Button-1>', self.position_img)
+        self.lbl_guia . place(x= 2, y= 48)    
+ 
+
+        self.grid_columnconfigure(0,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+
+    def position_img(self, event): 
+
+        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.fr_img_movil .grid (column= 0, row= 0)
+        else:
+            self.fr_img_movil .grid_forget()
+
+
+######################################################################################################################################
+######################################################################################################################################
+######################################################################################################################################
+######################################################################################################################################
+
+#____V E N T A N A___D E R E C H A:
+class TopDerCls(Frame):
+    def __init__(self, master, index1, id_0=None, id_1=None, id_2=None, id_3=None, id_4=None, id_5=None, id_6=None, id_7=None, path_lst=None, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
+        
+
+        self.master.bind("<Button-1>", self.position_img)
+ 
+        self.fr_img_base = ResizeCls (self, path_lst [index1][id_2], bd=0)
+        self.fr_img_base . grid (column=0, row=0)
+        self.fr_img_base . grid_propagate(0)
+
+        self.fr_img_77 = ResizeCls (self, path_lst [index1][id_3], bd=0)       
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+    def position_img(self, event):
+
+        winfo_x, winfo_y = self.master.winfo_width(), self.master.winfo_height() 
+        event_x, event_y = event.x, event.y
+        h = event_x / winfo_x * 100 
+        v = event_y / winfo_y * 100
+    
+        if int(h) >=0 and int(v) >=68 :  
+            if self.fr_img_77 . grid_info() == {}:
+                self.fr_img_77 . grid(column=0, row=0)                            
+            else:
+                self.fr_img_77 . grid_forget()
+
+
+######################################################################################################################################
+######################################################################################################################################
+######################################################################################################################################
+######################################################################################################################################
+
+#____V E N T A N A___S T U F:
+class TopStufCls(Frame):
+    def __init__(self, master, index1, id_0=None, id_1=None, id_2=None, id_3=None, id_4=None, id_5=None, id_6=None, id_7=None, path_lst=None, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
+        pass
+        
+        """ if len(path_lst) > index_1:
+            self.img = ResizeCls (self, path_lst [index_1])
+            self.img.grid(column=0, row=0, sticky='news')
+        
+        if len(path_lst) > index_2:
+            self.img2 = ResizeCls (self, path_lst [index_2])
+            self.img2.grid(column=0, row=1, sticky='news') """
+
+        # column 0 will use full width
+        ##self.grid_columnconfigure(0, weight=1)
+        # row 0 will use 1/2 height AND row 1 will use 1/2 height
+        ##self.grid_rowconfigure(0, weight=1)     
+        ##elf.grid_rowconfigure(1, weight=1)
+
+
+
+
 
 
 # TAREAS:
