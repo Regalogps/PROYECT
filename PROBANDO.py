@@ -1193,15 +1193,15 @@ class Interface(Frame, MoveAllCls):
                 # 1.7-  Activa el enlace que aumenta el alcance
                 #       que permite mover de las ventanas
 
-        else:      
-            self._gear = False
-            self.frame_configurer .pack_forget()                                        # -1
+        else:                                                                         # -1
+            self._gear = False                                                          # -1
+            self.frame_configurer .pack_forget()                                        # -2
 
-            if self.frame_configurer .ckbutton5.variable.get() == True:                 # -2      # Modo lista
-                self.frame_botones .active_reverse()                                    # -2.1    # Desmarca el botón seleccionado
+            if self.frame_configurer .ckbutton5.variable.get() == True:                 # -3      # Modo lista
+                self.frame_botones .active_reverse()                                    # -3.1    # Desmarca el botón seleccionado
 
-                self.frame_listmode .pack (side=LEFT, fill=BOTH)                        # -2.2
-                self.frame_listmode .spinboxx .focus_set()                              # -2.2
+                self.frame_listmode .pack (side=LEFT, fill=BOTH)                        # -3.2
+                self.frame_listmode .spinboxx .focus_set()                              # -3.2
                 self.master.geometry ('250x67')   
 
                 if not self.frame_listmode. _switch == True:
@@ -1219,14 +1219,21 @@ class Interface(Frame, MoveAllCls):
                     self.unbind("",self.off_move)
 
 
-            # 1- Cada vez que se presiona la rueda:  FALSE
-                # 1-  Quita la interface de configuracion
-                # 2-  Si (ckbutton5.variable.get) es True:
-                    # 2.1-  Desmarca el boton seleccionado en la interface de botones
-                    # 2.2-  Posiciona la interface de lista y le da el foco a su widget, spinbox
-                    # 2.°-  Ajusta el tamaño de la ventana principal 
+            # 1- Si self._gear es True:
+                # 1.1-  Asigna self._gear = False
+                # 1.2-  Quita la interface de configuracion
 
-                # 3-  Si (ckbutton5.variable.get) es False:
+                # 1.3-  Si (ckbutton5.variable.get) es True:
+                    # 1.3.1-  Desmarca el boton seleccionado en la interface de botones
+                    # 1.3.2-  Posiciona la interface de lista
+                    # 1.3.3-  Le da el foco a spinbox, widget de la interface de lista
+                    # 1.3.4-  Ajusta el tamaño de la ventana principal
+
+                    # 1.3.5-  Si la variable de control de la interface de lista,
+                    #         self._toogle es False:  [ Predeterminado False ]
+                        # 1.3.5.1-  Q
+
+                    # 3-  Si (ckbutton5.variable.get) es False:
                     # 3.1- Posiciona la interface de botones
                     # 3.2- Quita la interface de lista
                     # 3.3- Activa el enlace de movimiento global  nuevo
