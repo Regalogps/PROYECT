@@ -250,7 +250,7 @@ class B1FrameCls(Frame):
         self.container1 = self.widget_press                                            # Almacena el boton actual en otra variable
     
 
-    def uncheck_selection(self, event):
+    def release_mouse(self, event):
         widget_release = event.widget.winfo_containing(event.x_root, event.y_root)
         if widget_release != self.widget_press:
             if self.widget_press .cget('text') in self.mobiles2:
@@ -260,12 +260,12 @@ class B1FrameCls(Frame):
 
 
             if self.container2 is not None:
-                self.container1 .config(bg='#bdfe04', fg='black')
+                self.container2 .config(bg='#bdfe04', fg='black')
         self.container2 = self.container1
 
 
     # Deja el color como estaba por defecto, y reintegra el boton a la lista
-    def active_reverse(self):
+    def uncheck_selection(self):
         if self.container1 is not None:
             if self.container1 .cget('text') in self.mobiles2:
                 self.container1 .config (bg='#11161d', fg='yellow')         # Cambia el color del boton: (bg y fg) que tenian por defecto
