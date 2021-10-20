@@ -1191,7 +1191,7 @@ class Interface(Frame, MoveAllCls):
                 # 1.5-  Le da el foco a la interfaces de configuracion
                 # 1.6-  Ajusta el tamaño de la ventana principal
                 # 1.7-  Activa el enlace que aumenta el alcance
-                # ++++  que permite mover de las ventanas
+                # 1.7-  que permite mover de las ventanas
 
         else:                                                                         # -1
             self._gear = False                                                          # -1
@@ -1210,8 +1210,8 @@ class Interface(Frame, MoveAllCls):
                     self.unbind("",self.off_move) 
 
             else:                                                                       # -3
+                self.frame_listmode .pack_forget()
                 self.frame_botones .pack (side=LEFT, fill=BOTH)                         # -3.1
-                self.frame_listmode .pack_forget()                                      # -3.2     Aquí le aumente pack_ a esta linea
 
                 if not self.frame_configurer .ckbutton7.variable.get() == True:
                     self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)                 # Activa el enlace de movimiento global
@@ -1219,7 +1219,7 @@ class Interface(Frame, MoveAllCls):
                     self.unbind("",self.off_move)
 
 
-            # 1- Si self._gear es True:
+            # 1- Entonces si self._gear es True:
                 # 1.1-  Asigna self._gear = False
                 # 1.2-  Quita la interface de configuracion
 
@@ -1229,16 +1229,21 @@ class Interface(Frame, MoveAllCls):
                     # 1.3.3-  Le da el foco a spinbox, widget de la interface de lista
                     # 1.3.4-  Ajusta el tamaño de la ventana principal
 
-                    # 1.3.5   ( Si la variable de control de la interface de lista,-
-                    # 1.3.5   self._toogle es False ):  [ Predeterminado False ]
-                        # 1.3.5.1-  Activa el enlace que aumenta el alcance
-                        # ++++++++  que permite mover de las ventanas
-                    # 1.3.6-  Si 
+                    # 1.3.5   Si la variable de control de la interface de lista,
+                    # 1.3.5   self._toogle es False:  [ Predeterminado False ]
+                        # 1.3.5.1-  Activa el enlace self.on_move_all
+                    # 1.3.6-  Entonces si la variable de control de la interface de lista,
+                    # 1.3.6   self._toogle es True:
+                        # 1.3.6.1-  Desactiva el enlace self.on_move_all
 
-                    # 3-  Si (ckbutton5.variable.get) es False:
-                    # 3.1- Posiciona la interface de botones
-                    # 3.2- Quita la interface de lista
-                    # 3.3- Activa el enlace de movimiento global  nuevo
+                # 1.4-  Entonces si (ckbutton5.variable.get) es False:     
+                    # 1.4.1-  Quita la interface de lista
+                    # 1.4.2-  Posiciona la interface de botones
+
+                    # 1.4.3-  Si (ckbutton7.variable.get) es False:
+                        # 1.4.3.1-  Activa el enlace self.on_move_all
+                    # 1.4.4-  Entonces (ckbutton7.variable.get) es True:
+                        # 1.4.4.1-  Desactiva el enlace -self.on_move_all
   
    
     #############################################################
