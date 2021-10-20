@@ -1228,9 +1228,9 @@ class Interface(Frame, MoveAllCls):
                     # 1.3.3-  Le da el foco a spinbox, widget de la interface de lista
                     # 1.3.4-  Ajusta el tamaño de la ventana principal
 
-                    # 1.3.5-  Si self._toggle es False:  [ Predeterminado False ]
+                    # 1.3.5-  Si self._switch es False:  [ Predeterminado False ]
                         # 1.3.5.1-  Activa el enlace self.on_move_all
-                    # 1.3.6-  Entonces si self._toggle es True:
+                    # 1.3.6-  Entonces si self._switch es True:
                         # 1.3.6.1-  Desactiva el enlace self.on_move_all
 
                 # 1.4-  Entonces si (ckbutton5.variable.get) es False:     
@@ -1243,7 +1243,7 @@ class Interface(Frame, MoveAllCls):
                         # 1.4.4.1-  Desactiva el enlace self.on_move_all
 
             # NOTAS:
-            # 1. self._toggle es una variable de control de la interface de lista
+            # 1. self._switch es una variable de control de la interface de lista
   
    
     #############################################################
