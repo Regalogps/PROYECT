@@ -1204,18 +1204,18 @@ class Interface(Frame, MoveAllCls):
                 self.master.geometry ('250x67')                                              # -1.3.4
 
                 if not self.frame_listmode. _switch == True:                                 # -1.3.5
-                    self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)                # Actig iento g
-                else:
-                    self.unbind("",self.off_move) 
+                    self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)              # -1.3.5.1
+                else:                                                                        # -1.3.6
+                    self.unbind("",self.off_move)                                               # -1.3.6.1
 
-            else:                                                                       # -3
-                self.frame_listmode .pack_forget()
-                self.frame_botones .pack (side=LEFT, fill=BOTH)                         # -3.1
+            else:                                                                         # -1.4
+                self.frame_listmode .pack_forget()                                           # -1.4.1
+                self.frame_botones .pack (side=LEFT, fill=BOTH)                              # -1.4.2
 
-                if not self.frame_configurer .ckbutton7.variable.get() == True:
-                    self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)                 # Activa el enlace de movimiento global
-                else:
-                    self.unbind("",self.off_move)
+                if not self.frame_configurer .ckbutton7.variable.get() == True:              # -1.4.3
+                    self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)              # -1.4.3.1
+                else:                                                                        # -1.4.4
+                    self.unbind("",self.off_move)                                               # -1.4.4.1
 
 
             # 1- Entonces si self._gear es True:
