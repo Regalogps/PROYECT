@@ -1191,7 +1191,7 @@ class Interface(Frame, MoveAllCls):
                 # 1.5-  Le da el foco a la interfaces de configuracion
                 # 1.6-  Ajusta el tamaño de la ventana principal
                 # 1.7-  Activa el enlace que aumenta el alcance
-                #       que permite mover de las ventanas
+                # ++++  que permite mover de las ventanas
 
         else:                                                                         # -1
             self._gear = False                                                          # -1
@@ -1229,9 +1229,11 @@ class Interface(Frame, MoveAllCls):
                     # 1.3.3-  Le da el foco a spinbox, widget de la interface de lista
                     # 1.3.4-  Ajusta el tamaño de la ventana principal
 
-                    # 1.3.5-  Si la variable de control de la interface de lista,
-                    #         self._toogle es False:  [ Predeterminado False ]
-                        # 1.3.5.1-  Q
+                    # 1.3.5   ( Si la variable de control de la interface de lista,-
+                    # 1.3.5   self._toogle es False ):  [ Predeterminado False ]
+                        # 1.3.5.1-  Activa el enlace que aumenta el alcance
+                        # ++++++++  que permite mover de las ventanas
+                    # 1.3.6-  Si 
 
                     # 3-  Si (ckbutton5.variable.get) es False:
                     # 3.1- Posiciona la interface de botones
