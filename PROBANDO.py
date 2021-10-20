@@ -1171,16 +1171,16 @@ class Interface(Frame, MoveAllCls):
     #   1- Posiciona y quita las instancias de clase
     def gear_stacking(self):   # ON: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
 
-        if  not self._gear:                                                           # -1
-            self._gear = True                                                           # -1.1
-            self.frame_botones .pack_forget()                                           # -1.2
-            self.frame_listmode .pack_forget()                                          # -1.3
+        if  not self._gear:                                                            # -1
+            self._gear = True                                                             # -1.1
+            self.frame_botones .pack_forget()                                             # -1.2
+            self.frame_listmode .pack_forget()                                            # -1.3
 
-            self.frame_configurer .pack (side=LEFT, fill=BOTH, expand=True)             # -1.4
-            self.frame_configurer .focus_set()                                          # -1.5
-            self.master.geometry ('830x67')                                             # -1.6
+            self.frame_configurer .pack (side=LEFT, fill=BOTH, expand=True)               # -1.4
+            self.frame_configurer .focus_set()                                            # -1.5
+            self.master.geometry ('830x67')                                               # -1.6
 
-            self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)              # -1.7
+            self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)                # -1.7
 
 
             # 1- Si self._gear es False:  [ Predeterminado False ]
@@ -1190,22 +1190,21 @@ class Interface(Frame, MoveAllCls):
                 # 1.4-  Posiciona la interface de configuracion
                 # 1.5-  Le da el foco a la interfaces de configuracion
                 # 1.6-  Ajusta el tamaño de la ventana principal
-                # 1.7-  Activa el enlace que aumenta el alcance
-                # 1.7-  que permite mover de las ventanas
+                # 1.7-  Activa el enlace self.on_move_all
 
-        else:                                                                         # -1
-            self._gear = False                                                          # -1
-            self.frame_configurer .pack_forget()                                        # -2
+        else:                                                                          # -1
+            self._gear = False                                                            # -1.1
+            self.frame_configurer .pack_forget()                                          # -1.2
 
-            if self.frame_configurer .ckbutton5.variable.get() == True:                 # -3      # Modo lista
-                self.frame_botones .active_reverse()                                    # -3.1    # Desmarca el botón seleccionado
+            if self.frame_configurer .ckbutton5.variable.get() == True:                   # -1.3
+                self.frame_botones .active_reverse()                                         # -1.3.1
 
-                self.frame_listmode .pack (side=LEFT, fill=BOTH)                        # -3.2
-                self.frame_listmode .spinboxx .focus_set()                              # -3.2
-                self.master.geometry ('250x67')   
+                self.frame_listmode .pack (side=LEFT, fill=BOTH)                             # -1.3.2
+                self.frame_listmode .spinboxx .focus_set()                                   # -1.3.3
+                self.master.geometry ('250x67')                                              # -1.3.4
 
-                if not self.frame_listmode. _switch == True:
-                    self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)                # Activa el enlace de movimiento global
+                if not self.frame_listmode. _switch == True:                                 # -1.3.5
+                    self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)                # Actig iento g
                 else:
                     self.unbind("",self.off_move) 
 
@@ -1229,11 +1228,9 @@ class Interface(Frame, MoveAllCls):
                     # 1.3.3-  Le da el foco a spinbox, widget de la interface de lista
                     # 1.3.4-  Ajusta el tamaño de la ventana principal
 
-                    # 1.3.5   Si la variable de control de la interface de lista,
-                    # 1.3.5   self._toogle es False:  [ Predeterminado False ]
+                    # 1.3.5-  Si self._toggle es False:  [ Predeterminado False ]
                         # 1.3.5.1-  Activa el enlace self.on_move_all
-                    # 1.3.6-  Entonces si la variable de control de la interface de lista,
-                    # 1.3.6   self._toogle es True:
+                    # 1.3.6-  Entonces si self._toggle es True:
                         # 1.3.6.1-  Desactiva el enlace self.on_move_all
 
                 # 1.4-  Entonces si (ckbutton5.variable.get) es False:     
@@ -1243,7 +1240,10 @@ class Interface(Frame, MoveAllCls):
                     # 1.4.3-  Si (ckbutton7.variable.get) es False:
                         # 1.4.3.1-  Activa el enlace self.on_move_all
                     # 1.4.4-  Entonces (ckbutton7.variable.get) es True:
-                        # 1.4.4.1-  Desactiva el enlace -self.on_move_all
+                        # 1.4.4.1-  Desactiva el enlace self.on_move_all
+
+            # NOTAS:
+            # 1. self._toggle es una variable de control de la interface de lista
   
    
     #############################################################
