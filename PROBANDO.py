@@ -239,24 +239,24 @@ class B1FrameCls(Frame):
 
     # Cambia el color por defecto al hacerle click, en este caso: [ Verde ]
     def press_mouse(self, event):
-        self.press_widget = event.widget
-        self.press_widget .config(bg='#bdfe04', fg='black')                             # Color:  bg= #bdfe04  --> Verde
+        self.widget_press = event.widget
+        self.widget_press .config(bg='#bdfe04', fg='black')                             # Color:  bg= #bdfe04  --> Verde
             
-        if self.container1 is not None and self.container1 != self.press_widget:
+        if self.container1 is not None and self.container1 != self.widget_press:
             if self.container1 .cget('text') in self.mobiles2:
                 self.container1 .config (bg='#11161d', fg='yellow')         # Cambia el color del boton: (bg y fg) que tenian por defecto
             else:
                 self.container1 .config (bg='#11161d', fg='white')          # Cambia el color del boton: (bg y fg) que tenian por defecto
-        self.container1 = self.press_widget                                            # Almacena el boton actual en otra variable
+        self.container1 = self.widget_press                                            # Almacena el boton actual en otra variable
     
 
-    def release_mouse(self, event):
-        release = event.widget.winfo_containing(event.x_root, event.y_root)
-        if release != self.press_widget:
-            if self.press_widget .cget('text') in self.mobiles2:
-                self.press_widget .config (bg='#11161d', fg='yellow')
+    def _mouse(self, event):
+        widget_release = event.widget.winfo_containing(event.x_root, event.y_root)
+        if widget_release != self.widget_press:
+            if self.widget_press .cget('text') in self.mobiles2:
+                self.widget_press .config (bg='#11161d', fg='yellow')
             else:
-                self.press_widget .config (bg='#11161d', fg='white')
+                self.widget_press .config (bg='#11161d', fg='white')
 
 
             if self.container2 is not None:
