@@ -1171,23 +1171,24 @@ class Interface(Frame, MoveAllCls):
     #   1- Posiciona y quita las instancias de clase
     def gear_stacking(self):   # ON: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
 
-        if  not self._gear:                                                                       # Predeterminado: FALSE
-            self._gear = True
-            self.frame_botones .pack_forget()                                           # -1      # Modo Botones
-            self.frame_listmode .pack_forget()                                          # -2      # Modo Lista
+        if  not self._gear:                                                        #           # Predeterminado: FALSE
+            self._gear = True                                                           # -1.1
+            self.frame_botones .pack_forget()                                           # -1.2      # Modo Botones
+            self.frame_listmode .pack_forget()                                          # -3      # Modo Lista
 
-            self.frame_configurer .pack (side=LEFT, fill=BOTH, expand=True)             # -3
-            self.frame_configurer .focus_set()                                          # -3      # Modo Configuracion
+            self.frame_configurer .pack (side=LEFT, fill=BOTH, expand=True)             # -4
+            self.frame_configurer .focus_set()                                          # -4      # Modo Configuracion
             self.master.geometry ('830x67')                                             # -°
 
             self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)              #         # Activa el enlace de movimiento global
 
 
-            #  Cada vez que se presiona la rueda:  TRUE
-                # 1-  Quita la interface de botones
-                # 2-  Quita la interface de lista
-                # 3-  Posiciona la interface de configuracion y le da el foco
-                # °   Ajusta el tamaño de la ventana principal 
+            # 1- Si self._gear es False:  [ Predeterminado False ]
+                # 1.1-  Asigna self._gear = True
+                # 1.2-  Quita la interface de botones
+                # 1.3-  Quita la interface de lista
+                # 1.4-  Posiciona la interface de configuracion y le da el foco
+                # 1.°-  Ajusta el tamaño de la ventana principal 
 
         else:      
             self._gear = False
