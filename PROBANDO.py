@@ -477,38 +477,26 @@ class B3FrameCls(Frame):
 
 
 
-
-
-
     def change_toggle(self, event=None):  # ACTIVA: CLICK IZQUIERDO EN RED_GREEN - CAMBIA IMAGEN ROJO-VERDE Y VICEVERSA
-        if not self._switch == True:                                                                 # Predeterminado: False
-            self._switch = True
-
-            self.lbl_toggle .config(image=self.Miniatures[24])                               # -1     # Toggle color Verde
-            self.unbind('',self.master.off_move)                                             # -2     # Desactiva el enlace de movimiento global 
+        if not self._switch == True:                                                         # -1
+            self._switch = True                                                                 # -1.1
+            self.lbl_toggle .config(image=self.Miniatures[24])                                  # -1.2
+            self.unbind('',self.master.off_move)                                                # -1.3
             
-            # Cada vez que se hace clic en el lbl_toggle:
-                # 1- 
-                # 2-
-                #
+            # 1- Si self._switch es False:   [ Predeterminado False ]
+                # 1.1-  Asiga self._switch = True
+                # 1.2-  Cambia la imagen en el label por el color verde
+                # 1.3-  Desactiva el enlace self.on_move_all
    
-        else:
-            self._switch = False
-            
-            self.lbl_toggle .config (image=self.Miniatures[23])                              # -1    # Toggle color Rojo
-            self.master.off_move = self.bind_all("<B1-Motion>", self.master.on_move_all)     # -2    # Activa el enlace de movimiento global 
+        else:                                                                                # -1
+            self._switch = False                                                                # -1.1
+            self.lbl_toggle .config (image=self.Miniatures[23])                                 # -1.2
+            self.master.off_move = self.bind_all("<B1-Motion>", self.master.on_move_all)        # -1.3
 
-            # Cada vez que se hace clic en el lbl_toggle:
-                # 1- 
-                # 2-
-                #
-
-    
-
-
-
-
-
+            # 1- Entonces si self._switch es True:
+                # 1.1-  Asiga self._switch = False
+                # 1.2-  Cambia la imagen en el label por el color rojo
+                # 1.3-  Activa el enlace self.on_move_all
 
 
     def validate_text(self, text, arg): # SIEMPRE QUE INSERTE TEXTO EN SPINBOX - NO PERMITE NUMEROS,SIMBOLOS,ESPACIOS Y CONTROLA LA CANTIDAD
