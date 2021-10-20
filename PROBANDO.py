@@ -257,7 +257,12 @@ class B1FrameCls(Frame):
                 self.press_widget .config (bg='#11161d', fg='yellow')
             else:
                 self.press_widget .config (bg='#11161d', fg='white')
-        
+
+
+            if self.container2 is not None:
+                self.container1 .config(bg='#bdfe04', fg='black')
+        self.container2 = self.container1
+
 
     # Deja el color como estaba por defecto, y reintegra el boton a la lista
     def active_reverse(self):
