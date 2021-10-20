@@ -250,7 +250,7 @@ class B1FrameCls(Frame):
         self.container1 = self.widget_press                                            # Almacena el boton actual en otra variable
     
 
-    def _mouse(self, event):
+    def uncheck_selection(self, event):
         widget_release = event.widget.winfo_containing(event.x_root, event.y_root)
         if widget_release != self.widget_press:
             if self.widget_press .cget('text') in self.mobiles2:
@@ -1190,7 +1190,7 @@ class Interface(Frame, MoveAllCls):
             self.frame_configurer .pack_forget()                                          # -1.2
 
             if self.frame_configurer .ckbutton5.variable.get() == True:                   # -1.3
-                self.frame_botones .active_reverse()                                         # -1.3.1
+                self.frame_botones .uncheck_selection()                                      # -1.3.1
 
                 self.frame_listmode .pack (side=LEFT, fill=BOTH)                             # -1.3.2
                 self.frame_listmode .spinboxx .focus_set()                                   # -1.3.3
@@ -1338,7 +1338,7 @@ class Interface(Frame, MoveAllCls):
 
             if not self._open_1 == True and not self._open_2 == True and not self._open_3:
                 try:  # Esto se ejecuta ademas de la condicion, cuando cierra de emproviso la aplicacion con ventanas secundarias. abiertas
-                    self.frame_botones .active_reverse()
+                    self.frame_botones .uncheck_selection()
                 except: pass
             
 
