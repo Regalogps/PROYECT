@@ -3,26 +3,36 @@ from A_import import *
 #from A_frames import *
 #from B_Frames import *
 
-# INDICE:
-# [ 1 ] -->
-# [ 2 ] -->
-# [ 3 ] -->
-# [ 4 ] -->
-# [ 5 ] -->
-# [ 6 ] -->
-# [ 7 ] -->
-# [ 8 ] -->
-# [ 9 ] -->
-# [ 10 ] -->
-# [ 11 ] -->
-# [ 12 ] -->
 
-#*************     ─╔╗      **************
-#*************     ╔╝║      **************
-#*************     ╚╗║      **************
-#*************     ─║║      **************
-#*************     ╔╝╚╗     **************
-#*************     ╚══╝     **************
+# INDICE:  NOMBRE:              TAREA:                                    : HEREDA DE:
+
+# [ 1 ]  : A1FrameCls         : Botones: Ash y Gear                       : ( Frame )
+# [ 2 ]  : DefaultButtonCls   : Opciones default para los 22 botones      : ( Button )
+# [ 3 ]  : B1FrameCl          : Botones: 22                               : ( Frame )
+# [ 4 ]  : B2FrameCls         : Labels y Checkbuttons                     : ( Frame )
+# [ 5 ]  : B3FrameCls         : Spinbox y Listbox                         : ( Frame )
+# [ 6 ]  : Checkbutton_class  : Sin uso eficiente                         : ( Checkbutton )
+# [ 7 ]  : ResizeCls          : Redimensiona Imagenes                     : ( Frame )
+# [ 8 ]  : TopIzqCls          : Ventana Izquierda                         : ( Frame )
+# [ 9 ]  : TopDerCls          : Ventana Derecha                           : ( Frame )
+# [ 10 ] : TopStufCls         : Ventana Stuff                             : ( Frame )
+# [ 11 ] : MoveAllCls         : Mover Ventanas Globalmente                :
+# [ 12 ] : FrameManagerCls    : Gestor de Ventanas                        : ( Frame )
+# [ 13 ] : ToplevelCls        : Controla y mueve todas las Ventanas       : ( Toplevel )
+# [ 14 ] : RootCls            : Inicializa la aplicacion                  : ( Tk )
+# [ 15 ] : Interface          : Gestiona la aplicacion                    : ( Frame, MoveAllCls )
+
+#********************************            ███████
+#********************************        ██████   ██
+#********************************        ██       ██
+#********************************        ██████   ██
+#********************************            ██   ██
+#********************************            ██   ██
+#********************************            ██   ██
+#********************************            ██   ██
+#********************************            ██   ██
+#********************************            ██   ██
+#********************************            ███████
 
 # Frame Contenedor de los botones: Ash y Gear
 class A1FrameCls(Frame):
@@ -128,9 +138,17 @@ class A1FrameCls(Frame):
         self.image_gear2 = ImageTk.PhotoImage(gear2)
 
 
-################################
-################################
-################################
+#********************************        ██████████████
+#********************************        ██          ██
+#********************************        ██████████  ██
+#********************************                ██  ██
+#********************************        ██████████  ██
+#********************************        ██          ██
+#********************************        ██  ██████████
+#********************************        ██  ██
+#********************************        ██  ██████████
+#********************************        ██          ██
+#********************************        ██████████████
 
 # Se encarga de:
 # 1- Servir de molde para crear los botones con la configuacion que se desea
@@ -138,6 +156,19 @@ class DefaultButtonCls(Button):
     def __init__(self, master, *args, **kwargs):
         kwargs = {"font":('Calibri',9,'bold'), 'bg': '#11161d', 'fg':'white', 'width':10, 'bd':0, 'activebackground':'#bdfe04', **kwargs}
         super().__init__(master, *args, **kwargs)
+
+
+#********************************        ██████████████
+#********************************        ██          ██
+#********************************        ██████████  ██
+#********************************                ██  ██
+#********************************        ██████████  ██
+#********************************        ██          ██
+#********************************        ██████████  ██
+#********************************                ██  ██
+#********************************        ██████████  ██
+#********************************        ██          ██
+#********************************        ██████████████
 
 # Se encarga de:
 # 1- Crear los 22 botones
@@ -238,15 +269,17 @@ class B1FrameCls(Frame):
         self.container1 = None
 
 
-################################
-################################
-################################
-
-
-
-################################
-################################
-################################
+#********************************        ██████  ██████
+#********************************        ██  ██  ██  ██
+#********************************        ██  ██  ██  ██
+#********************************        ██  ██  ██  ██
+#********************************        ██  ██████  ██
+#********************************        ██          ██
+#********************************        ██████████  ██
+#********************************                ██  ██
+#********************************                ██  ██
+#********************************                ██  ██
+#********************************                ██████
 
 # Frame contenedor de checkbuttons y labels
 class B2FrameCls(Frame):
@@ -308,9 +341,17 @@ class B2FrameCls(Frame):
         self.ckbutton8 .grid (column=7, row=1, padx=(0,200), pady=(0,0),)
 
 
-################################ 
-################################ 
-################################ 
+#********************************        ██████████████
+#********************************        ██          ██
+#********************************        ██  ██████████
+#********************************        ██  ██        
+#********************************        ██  ██████████
+#********************************        ██          ██
+#********************************        ██████████  ██
+#********************************                ██  ██
+#********************************        ██████████  ██
+#********************************        ██          ██
+#********************************        ██████████████
 
 # Frame Contenedor de Spinbox y Listbox
 class B3FrameCls(Frame):
@@ -340,7 +381,7 @@ class B3FrameCls(Frame):
         self.select_mobil .grid (column=0, row=1, padx=11, pady=0)                      # SUB A.2
         self.spinboxx .grid (column=0, row=2, padx=13, pady=(3,3))                      # SUB A.3
 
-        self.red_green .grid (column=0, row=0, padx=0, pady=0)                          # SUB.SUB A.1 .1 
+        self.lbl_toggle .grid (column=0, row=0, padx=0, pady=0)                          # SUB.SUB A.1 .1 
         self.listboxx .grid (column=1, row=0, padx=12, pady=(1,0))                      # SUB.SUB A.1 .2
 
         self.miniature_mobil .grid (padx=2, pady=3)                                     # SUB B.1
@@ -350,7 +391,7 @@ class B3FrameCls(Frame):
         self.frame_2 .grid_propagate(False)
         self.container_2w .grid_propagate(False)
         
-        #_____Variables de control:
+        #_____V A R I A B L E S  DE  C O N T R O L: 
         self._switch = False
    
 
@@ -421,7 +462,8 @@ class B3FrameCls(Frame):
 
 
         #self.after_cancel(self.fter)            
-        if self._switch is not None:  # almacena todas las llamadas si se da enter
+        if self._switch == True:  # almacena todas las llamadas si se da enter
+            print(4444)
            
             self.fter = self.after(4000, self.automatic_deletion) 
             #print(self.master.master.master.a)
@@ -439,28 +481,22 @@ class B3FrameCls(Frame):
 
 
     def change_toggle(self, event=None):  # ACTIVA: CLICK IZQUIERDO EN RED_GREEN - CAMBIA IMAGEN ROJO-VERDE Y VICEVERSA
-        if not self._switch == True:
+        if not self._switch == True:                                                                 # Predeterminado: False
             self._switch = True
 
-            self.lbl_toggle .config (image=self.Miniatures[24])                           # -1
-
-            self.unbind("",self.master.off_move)                                             # Desactiva el enlace de movimiento global 
-            #self.master.frame_configurer .ckbutton7 .check()
-            print('unbind')
-
+            self.lbl_toggle .config(image=self.Miniatures[24])                               # -1     # Toggle color Verde
+            self.unbind('',self.master.off_move)                                             # -2     # Desactiva el enlace de movimiento global 
+            
             # Cada vez que se hace clic en el lbl_toggle:
-                # 1- Cambia la imagen
+                # 1- 
                 # 2-
-                # 3-
-
+                #
+   
         else:
             self._switch = False
-
-            self.lbl_toggle .config (image=self.Miniatures[23])
-
-            self.master.off_move = self.bind_all("<B1-Motion>", self.master.on_move_all)     # Activa el enlace de movimiento global 
-            #self.master.frame_configurer .ckbutton7 .uncheck()
-            print('bind')
+            
+            self.lbl_toggle .config (image=self.Miniatures[23])                              # -1    # Toggle color Rojo
+            self.master.off_move = self.bind_all("<B1-Motion>", self.master.on_move_all)     # -2    # Activa el enlace de movimiento global 
 
             # Cada vez que se hace clic en el lbl_toggle:
                 # 1- 
@@ -503,7 +539,7 @@ class B3FrameCls(Frame):
         self.spinbox_variable .trace_add ('write', lambda *arg: self.spinbox_variable.set (self.spinbox_variable.get() .capitalize()))   # INSERTA EL VALOR OBTENIDO EN MAYUSCULA EL PRIMER STRING
 
     def create_listbox(self, **kwargs):     
-        self.lbl_toggle = Label (self.container_2w, image= self.Miniatures[23], width=11, bd=0) 
+        self.lbl_toggle = Label (self.container_2w, image= self.Miniatures[23], width=11, bd=0, cursor="hand2") 
 
         self.listboxx = Listbox (self.container_2w, **kwargs)
         self.listboxx .config (font=('Calibri',9,'bold'),
@@ -538,16 +574,23 @@ class B3FrameCls(Frame):
                     empty. append (img)
             return empty
 
-        
-################################
-################################
-################################
-################################
+
+#********************************        ██████████████
+#********************************        ██          ██
+#********************************        ██  ██████████
+#********************************        ██  ██        
+#********************************        ██  ██████████
+#********************************        ██          ██
+#********************************        ██  ██████  ██
+#********************************        ██  ██  ██  ██
+#********************************        ██  ██████  ██
+#********************************        ██          ██
+#********************************        ██████████████
 
 # Frame Contenedor de Checkbutton
 class Checkbutton_class(Checkbutton):   
-    def __init__(self, master, *args, **kwargs):
-        super().__init__(master, *args, **kwargs)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
         self.variable = BooleanVar()
         self.configure(variable=self.variable)
@@ -565,7 +608,18 @@ class Checkbutton_class(Checkbutton):
         if self.variable .get() == True: 
             pass  
  
-########
+
+#********************************        ██████████████
+#********************************        ██          ██
+#********************************        ██████████  ██
+#********************************                ██  ██
+#********************************                ██  ██
+#********************************                ██  ██
+#********************************                ██  ██
+#********************************                ██  ██
+#********************************                ██  ██
+#********************************                ██  ██
+#********************************                ██████
 
 # Se encarga de:
 # 1- Redimensionar las imagenes que le pasan:
@@ -592,11 +646,17 @@ class ResizeCls(Frame):
         #self.img .image = self.backgroundd
 
 
-
-######################################################################################################################################
-######################################################################################################################################
-######################################################################################################################################
-######################################################################################################################################
+#********************************        ██████████████        *********************************
+#********************************        ██          ██        *********************************
+#********************************        ██  ██████  ██        *********************************
+#********************************        ██  ██  ██  ██        *********************************
+#********************************        ██  ██████  ██        *********************************
+#********************************        ██          ██        *********************************
+#********************************        ██  ██████  ██        *********************************
+#********************************        ██  ██  ██  ██        *********************************
+#********************************        ██  ██████  ██        *********************************
+#********************************        ██          ██        *********************************
+#********************************        ██████████████        *********************************
 
 #____V E N T A N A___I Z Q U I E R D A:
 class TopIzqCls(Frame):
@@ -625,10 +685,17 @@ class TopIzqCls(Frame):
             self.fr_img_movil .grid_forget()
 
 
-######################################################################################################################################
-######################################################################################################################################
-######################################################################################################################################
-######################################################################################################################################
+#********************************        ██████████████        *********************************
+#********************************        ██          ██        *********************************
+#********************************        ██  ██████  ██        *********************************
+#********************************        ██  ██  ██  ██        *********************************
+#********************************        ██  ██████  ██        *********************************
+#********************************        ██          ██        *********************************
+#********************************        ██████████  ██        *********************************
+#********************************                ██  ██        *********************************
+#********************************        ██████████  ██        *********************************
+#********************************        ██          ██        *********************************
+#********************************        ██████████████        *********************************
 
 #____V E N T A N A___D E R E C H A:
 class TopDerCls(Frame):
@@ -661,10 +728,17 @@ class TopDerCls(Frame):
                 self.fr_img_77 . grid_forget()
 
 
-######################################################################################################################################
-######################################################################################################################################
-######################################################################################################################################
-######################################################################################################################################
+#************************            ███████    ██████████████        *************************
+#************************        ██████   ██    ██          ██        *************************
+#************************        ██       ██    ██  ██████  ██        *************************
+#************************        ██████   ██    ██  ██  ██  ██        *************************
+#************************            ██   ██    ██  ██  ██  ██        *************************
+#************************            ██   ██    ██  ██  ██  ██        *************************
+#************************            ██   ██    ██  ██  ██  ██        *************************
+#************************            ██   ██    ██  ██  ██  ██        *************************
+#************************            ██   ██    ██  ██████  ██        *************************
+#************************            ██   ██    ██          ██        *************************
+#************************            ███████    ██████████████        *************************
 
 #____V E N T A N A___S T U F:
 class TopStufCls(Frame):
@@ -687,9 +761,17 @@ class TopStufCls(Frame):
         ##elf.grid_rowconfigure(1, weight=1)
 
 
-
-
-
+#************************            ███████          ███████
+#************************        ██████   ██      ██████   ██
+#************************        ██       ██      ██       ██
+#************************        ██████   ██      ██████   ██
+#************************            ██   ██          ██   ██
+#************************            ██   ██          ██   ██
+#************************            ██   ██          ██   ██
+#************************            ██   ██          ██   ██
+#************************            ██   ██          ██   ██
+#************************            ██   ██          ██   ██
+#************************            ███████          ███████
 
 # TAREAS:
 #_______1- Mover todas las ventanas a excepcion de root, sin importar donde se de clic, existen algunas excepciones
@@ -727,12 +809,18 @@ class MoveAllCls():
             _tops.master.geometry(new_position)                                                               # Mueve la ventana root
 
 
+#************************            ███████    ██████████████
+#************************        ██████   ██    ██          ██
+#************************        ██       ██    ██████████  ██
+#************************        ██████   ██            ██  ██
+#************************            ██   ██    ██████████  ██
+#************************            ██   ██    ██          ██
+#************************            ██   ██    ██  ██████████
+#************************            ██   ██    ██  ██        
+#************************            ██   ██    ██  ██████████
+#************************            ██   ██    ██          ██
+#************************            ███████    ██████████████
 
-################################
-################################
-################################
-################################
-################################
 class FrameManagerCls(Frame):
     def __init__(self, master=None, _exception1=None, **kwargs):
         super().__init__(master, **kwargs)
@@ -803,11 +891,18 @@ class FrameManagerCls(Frame):
         self.image_close2 = PhotoImage(file= 'E:/1-RICHI/MovilesDB/B_04.png')
   
 
-################################
-################################
-################################
-################################
-################################
+#************************            ███████    ██████████████
+#************************        ██████   ██    ██          ██
+#************************        ██       ██    ██████████  ██
+#************************        ██████   ██            ██  ██
+#************************            ██   ██    ██████████  ██
+#************************            ██   ██    ██          ██
+#************************            ██   ██    ██████████  ██
+#************************            ██   ██            ██  ██
+#************************            ██   ██    ██████████  ██
+#************************            ██   ██    ██          ██
+#************************            ███████    ██████████████
+
 class ToplevelCls(Toplevel):
     def __init__(self, master=None, posy_close=None, posy_minimize=None, pack_3=None, value_exception1=None, _exception2=None, **kwargs):
         super().__init__(master, **kwargs)
@@ -886,12 +981,18 @@ class ToplevelCls(Toplevel):
         self.state('normal')
 
 
+#************************            ███████    ██████  ██████
+#************************        ██████   ██    ██  ██  ██  ██
+#************************        ██       ██    ██  ██  ██  ██
+#************************        ██████   ██    ██  ██  ██  ██
+#************************            ██   ██    ██  ██████  ██
+#************************            ██   ██    ██          ██
+#************************            ██   ██    ██████████  ██
+#************************            ██   ██            ██  ██
+#************************            ██   ██            ██  ██
+#************************            ██   ██            ██  ██
+#************************            ███████            ██████
 
-################################
-################################
-################################
-################################
-################################
 class RootCls(Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -918,13 +1019,22 @@ class RootCls(Tk):
         self.toplevel_principal.deiconify()
 
 
-################################
-################################
-###############################
+#************************            ███████    ██████████████
+#************************        ██████   ██    ██          ██
+#************************        ██       ██    ██  ██████████
+#************************        ██████   ██    ██  ██        
+#************************            ██   ██    ██  ██████████
+#************************            ██   ██    ██          ██
+#************************            ██   ██    ██████████  ██
+#************************            ██   ██            ██  ██
+#************************            ██   ██    ██████████  ██
+#************************            ██   ██    ██          ██
+#************************            ███████    ██████████████
 
 # TAREAS:
 #_______1- Asignar el tamaño y posicion a todas las ventanas a excepcion de root
 #_______2- Gestiona toda la aplicacion
+
 class Interface(Frame, MoveAllCls):
     def __init__(self, master=None, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
@@ -966,8 +1076,8 @@ class Interface(Frame, MoveAllCls):
         #_____Métodos Llamados de Otras Clases:
         self.make_movable(self.frame_controller.btn_ash)                  # Metodo de MoveAllCls: añade a la lista de widget, que permiten mover la ventana
 
-    # Tarea:
-    #___1- Asignar el tamaño y posicion de todas las ventanas a excepción de root 
+    # Tareas:
+    #   1- Asignar el tamaño y posicion de todas las ventanas a excepción de root 
     def size_position(self):
         screen_x = self.master.winfo_screenwidth()      # 1280
         screen_y = self.master.winfo_screenheight()     # 768
@@ -1005,8 +1115,8 @@ class Interface(Frame, MoveAllCls):
         window_3 = '{}x{}+{}+{}'.format(width_3, height_3, posx_3, posy_3)
         self.geo_stuf .set(window_3)
 
-    # Tarea:
-    # 1- Configurar la ventana principal
+    # Tareas:
+    #   1- Configurar la ventana principal
     def configure_interface(self):
         
         # MASTER REFIERE A TOPLEVEL: PRINCIPAL
@@ -1018,8 +1128,8 @@ class Interface(Frame, MoveAllCls):
         self.master.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
         self.master.wm_attributes ('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
 
-    # Tarea:
-    #___1- Inicializa las imagenes que se mandan a las ventanas
+    # Tareas:
+    #   1- Inicializa las imagenes que se mandan a las ventanas
     def generate_list(self, file, option):
 
         ouput = os.listdir (file)
@@ -1036,12 +1146,12 @@ class Interface(Frame, MoveAllCls):
                         _lst[index].append(RGB)               
             return _lst        
 
-    # Tarea:
-    #___1- Crea las interfaces de control: (4 instancias de clase)
-    #______1.1- self.frame_controller : Frame contenedor de 2 botones, logo y la rueda de configuracion
-    #______1.2- self.frame_botones    : Frame contenedor de 22 botones
-    #______1.3- self.frame_configurer : Frame contenedor de checkbuttons y labels
-    #______1.4- self.frame_listmode   : Frame Contenedor de Spinbox y Listbox
+    # Tareas:
+    #   1- Crea las interfaces de control: (4 instancias de clase)
+    #      1.1- self.frame_controller : Frame contenedor de 2 botones, logo y la rueda de configuracion
+    #      1.2- self.frame_botones    : Frame contenedor de 22 botones
+    #      1.3- self.frame_configurer : Frame contenedor de checkbuttons y labels
+    #      1.4- self.frame_listmode   : Frame Contenedor de Spinbox y Listbox   
     def widgets(self):
         #____I N S T A N C I A S:  [ 4 ]
         self.frame_controller = A1FrameCls (self, bg='#11161d', width=60, height=67)   # Posicionado     # Color: Azul
@@ -1057,29 +1167,21 @@ class Interface(Frame, MoveAllCls):
         self.frame_controller .pack_propagate (False)
         self.frame_botones .pack_propagate (False)
 
-    # Tarea:
-    # 1- Posiciona y quita las instancias de clase
+    # Tareas:
+    #   1- Posiciona y quita las instancias de clase
     def gear_stacking(self):   # ON: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
 
-        if  not self._gear:                                                               # Predeterminado: TRUE
+        if  not self._gear:                                                                       # Predeterminado: FALSE
             self._gear = True
-            self.frame_botones .pack_forget()                                   # -1      # Modo Botones
-            self.frame_listmode .pack_forget()                                  # -2      # Modo Lista
+            self.frame_botones .pack_forget()                                           # -1      # Modo Botones
+            self.frame_listmode .pack_forget()                                          # -2      # Modo Lista
 
-            self.frame_configurer .pack (side=LEFT, fill=BOTH, expand=True)     # -3
-            self.frame_configurer .focus_set()                                  # -3      # Modo Configuracion
-            self.master.geometry ('830x67')                                     # -°
+            self.frame_configurer .pack (side=LEFT, fill=BOTH, expand=True)             # -3
+            self.frame_configurer .focus_set()                                          # -3      # Modo Configuracion
+            self.master.geometry ('830x67')                                             # -°
 
+            self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)              #         # Activa el enlace de movimiento global
 
-
-            #self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)     # Puntos de movimiento
-
-
-
-
-            """ if self.frame_configurer .ckbutton7.variable.get() == True:
-                print(111)
-                self.frame_listmode.change_toggle() """
 
             #  Cada vez que se presiona la rueda:  TRUE
                 # 1-  Quita la interface de botones
@@ -1087,33 +1189,31 @@ class Interface(Frame, MoveAllCls):
                 # 3-  Posiciona la interface de configuracion y le da el foco
                 # °   Ajusta el tamaño de la ventana principal 
 
-        else:
+        else:      
             self._gear = False
-            self.frame_configurer .pack_forget()                                # -1
+            self.frame_configurer .pack_forget()                                        # -1
 
-            #self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)     # Puntos de movimiento
+            if self.frame_configurer .ckbutton5.variable.get() == True:                 # -2      # Modo lista
+                self.frame_botones .active_reverse()                                    # -2.1    # Desmarca el botón seleccionado
 
+                self.frame_listmode .pack (side=LEFT, fill=BOTH)                        # -2.2
+                self.frame_listmode .spinboxx .focus_set()                              # -2.2
+                self.master.geometry ('250x67')   
 
-            #if self.frame_configurer .ckbutton7.variable.get() == True:
-            #    print(222)
-            #    self.frame_listmode.change_toggle()
+                if not self.frame_listmode. _switch == True:
+                    self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)                # Activa el enlace de movimiento global
+                else:
+                    self.unbind("",self.off_move) 
 
-            """ self.unbind("",self.off_move)                                             # Desactiva el enlace de movimiento global
-            else:
-                self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)  """           # Activa el enlace de movimiento global 
+            else:                                                                       # -3
+                self.frame_botones .pack (side=LEFT, fill=BOTH)                         # -3.1
+                self.frame_listmode .pack_forget()                                      # -3.2     Aquí le aumente pack_ a esta linea
 
+                if not self.frame_configurer .ckbutton7.variable.get() == True:
+                    self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)                 # Activa el enlace de movimiento global
+                else:
+                    self.unbind("",self.off_move)
 
-
-            if self.frame_configurer .ckbutton5.variable.get() == True:        # -2
-                self.frame_botones .active_reverse()                           # -2.1      # Desmarca el botón seleccionado
-                #self.frame_listmode .change_toggle()
-                self.frame_listmode .pack (side=LEFT, fill=BOTH)               # -2.2
-                self.frame_listmode .spinboxx .focus_set()                     # -2.2
-                self.master.geometry ('250x67')                                # -2.°
-            else:                                                              # -3
-                self.frame_botones .pack (side=LEFT, fill=BOTH)                # -3.1
-                self.frame_listmode .pack_forget()                             # -3.2     Aquí le aumente pack_ a esta linea
-                self.frame_listmode .change_toggle()                        # -3.
 
             #  Cada vez que se presiona la rueda:  FALSE
                 # 1-  Quita la interface de configuracion
@@ -1125,14 +1225,14 @@ class Interface(Frame, MoveAllCls):
                 # 3-  Si (ckbutton5.variable.get) es False:
                     # 3.1- Posiciona la interface de botones
                     # 3.2- Quita la interface de lista
-                    # 3.3- 
+                    # 3.3- Activa el enlace de movimiento global  nuevo
   
    
-#########################################################################
-#########################################################################
-#########################################################################
-#########################################################################
-#_______G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S_______#
+    #############################################################
+    #############################################################
+    #############################################################
+    #############################################################
+    # G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S :
 
     def windows_123 (self, var_1, var_2, var_3):
         
@@ -1140,7 +1240,7 @@ class Interface(Frame, MoveAllCls):
         minimize = {'side':RIGHT, 'padx':10}
         frame ={'side':TOP, 'fill':BOTH}
 
-        #________________________V E N T A N A:   1________________________________________________________________
+        #                                  V E N T A N A:   1
         #__________________________________________________________________________________________________________
         if not self._open_1:   # ----> not self._open_1 == True:
             self.toplevel_LEFT = ToplevelCls (self, close, minimize, frame, value_exception1='btn', _exception2='frm')
@@ -1154,7 +1254,7 @@ class Interface(Frame, MoveAllCls):
         self._frame_1 .pack()
         
 
-        #________________________V E N T A N A:   2________________________________________________________________
+        #                                  V E N T A N A:   2
         #__________________________________________________________________________________________________________
         if not self._open_2:
             self.toplevel_RIGHT = ToplevelCls (self, close, minimize, frame, value_exception1='btn', _exception2='frm')
@@ -1168,7 +1268,7 @@ class Interface(Frame, MoveAllCls):
         self._frame_2 .pack()
         
 
-        #________________________V E N T A N A:   3________________________________________________________________
+        #                                  V E N T A N A:   3
         #__________________________________________________________________________________________________________
         if not self._open_3:
             self.toplevel_STUF = ToplevelCls (self, close, minimize, frame, value_exception1='btn', _exception2='frm') 
@@ -1212,9 +1312,9 @@ class Interface(Frame, MoveAllCls):
         #___________________________________________________________________________________________________________
 
 
-    # Se encarga de:
-    # 1- Permitir la apertura de las ventanas secundarias en la siguiente llamada
-    # 2- Desactiva la seleccion del boton en la interface de botones
+    # Tareas:
+    #    1- Permitir la apertura de las ventanas secundarias en la siguiente llamada
+    #    2- Desactiva la seleccion del boton en la interface de botones
     def closing_toplevel(self,  number, event):
 
         if isinstance(event.widget, Toplevel):
@@ -1232,15 +1332,12 @@ class Interface(Frame, MoveAllCls):
             
 
 
-
-
-
-def main (): #------------------------------------------------------------NO TOCAR
+def main (): #-----------------------------------------------
 
     root = RootCls()
     root .title('AshmanBot')
     #root .wm_attributes("-alpha", 0.0 )
     root .mainloop()
 
-if __name__=="__main__":  #-------------------------------------------------------NO TOCAR 
+if __name__=="__main__":  #----------------------------------
     main()
