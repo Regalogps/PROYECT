@@ -1171,24 +1171,27 @@ class Interface(Frame, MoveAllCls):
     #   1- Posiciona y quita las instancias de clase
     def gear_stacking(self):   # ON: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
 
-        if  not self._gear:                                                        #           # Predeterminado: FALSE
+        if  not self._gear:                                                           # -1
             self._gear = True                                                           # -1.1
-            self.frame_botones .pack_forget()                                           # -1.2      # Modo Botones
-            self.frame_listmode .pack_forget()                                          # -3      # Modo Lista
+            self.frame_botones .pack_forget()                                           # -1.2
+            self.frame_listmode .pack_forget()                                          # -1.3
 
-            self.frame_configurer .pack (side=LEFT, fill=BOTH, expand=True)             # -4
-            self.frame_configurer .focus_set()                                          # -4      # Modo Configuracion
-            self.master.geometry ('830x67')                                             # -°
+            self.frame_configurer .pack (side=LEFT, fill=BOTH, expand=True)             # -1.4
+            self.frame_configurer .focus_set()                                          # -1.5
+            self.master.geometry ('830x67')                                             # -1.6
 
-            self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)              #         # Activa el enlace de movimiento global
+            self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)              # -1.7
 
 
             # 1- Si self._gear es False:  [ Predeterminado False ]
                 # 1.1-  Asigna self._gear = True
                 # 1.2-  Quita la interface de botones
                 # 1.3-  Quita la interface de lista
-                # 1.4-  Posiciona la interface de configuracion y le da el foco
-                # 1.°-  Ajusta el tamaño de la ventana principal 
+                # 1.4-  Posiciona la interface de configuracion
+                # 1.5-  Le da el foco a la interfaces de configuracion
+                # 1.6-  Ajusta el tamaño de la ventana principal
+                # 1.7-  Activa el enlace que aumenta el alcance
+                #       que permite mover de las ventanas
 
         else:      
             self._gear = False
@@ -1216,7 +1219,7 @@ class Interface(Frame, MoveAllCls):
                     self.unbind("",self.off_move)
 
 
-            #  Cada vez que se presiona la rueda:  FALSE
+            # 1- Cada vez que se presiona la rueda:  FALSE
                 # 1-  Quita la interface de configuracion
                 # 2-  Si (ckbutton5.variable.get) es True:
                     # 2.1-  Desmarca el boton seleccionado en la interface de botones
