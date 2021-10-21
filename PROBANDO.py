@@ -154,7 +154,7 @@ class A1FrameCls(Frame):
 # 1- Servir de molde para crear los botones con la configuacion que se desea
 class DefaultButtonCls(Button):
     def __init__(self, master, *args, **kwargs):
-        kwargs = {"font":('Calibri',9,'bold'), 'bg': '#11161d', 'fg':'white', 'width':10, 'bd':0, 'activebackground':'#bdfe04', **kwargs}
+        kwargs = {"font":('Calibri',9,'bold'), 'bg': '#11161d', 'fg':'white', 'width':10, 'bd':0, **kwargs} #'activebackground':'#bdfe04'
         super().__init__(master, *args, **kwargs)
 
 
@@ -187,7 +187,7 @@ class B1FrameCls(Frame):
         self.container1 = None
         self.container2 = None
 
-        
+        self.rojo = 123
     # Manda los indices para abrir las imagenes en las ventanas:
     def indices(self, indice):
         # I N D I C E S :
@@ -196,7 +196,7 @@ class B1FrameCls(Frame):
         return  lambda: self.master.windows_123(
                 lambda top1: TopIzqCls  (top1, indice, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
                 lambda top2: TopDerCls  (top2, indice, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
-                lambda top3: TopStufCls (top3, indice, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
+                lambda top3: TopStufCls (top3, indice, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst), indice)
 
         
     # Crea los 22 botones y las posiciona:
@@ -224,47 +224,89 @@ class B1FrameCls(Frame):
                 self.buttons22.append(btn)   # Examinar si borrar porque no tiene uso la lista
 
 
-
-    # Cambia el color al pasar el mouse sobre el, en este caso: [ Celeste Apagado ]  AL ENTRAR
+    # TAREA:
+    #   1- Cambia el color del boton al pasar el mouse sobre el
     def enter_mouse(self, event):
-        if not event.widget .cget('bg') == '#bdfe04':                            # Si el background no es verde:    
-            event.widget .config(bg="#24364a")                                   # Color:  bg= #24364a  -->  Celeste apagado
+        if not event.widget .cget('bg') == '#bdfe04':           # -1  
+            event.widget .config(bg="#24364a")                     # -1.1
+        
+        # 1-  Si el background del boton sobre el que se posa el mouse, NO ES VERDE:
+            # 1.1-   Cambia el background del boton a ( Celeste Apagado )
 
- 
-    # Deja el color como estaba por defecto, en este caso: [ Azul Marino]  AL SALIR
-    def leave_mouse(self, event):
-        if not event.widget .cget('bg') == '#bdfe04':                       # Si el background no es verde:  
-            event.widget.config(bg='#11161d')                               # Color:  #11161d   -   Defecto  Azul Marino
-
-
-    # Cambia el color por defecto al hacerle click, en este caso: [ Verde ]
-    def press_mouse(self, event):
-        self.widget_press = event.widget
-        self.widget_press .config(bg='#bdfe04', fg='black')                             # Color:  bg= #bdfe04  --> Verde
-            
-        if self.container1 is not None and self.container1 != self.widget_press:
-            if self.container1 .cget('text') in self.mobiles2:
-                self.container1 .config (bg='#11161d', fg='yellow')         # Cambia el color del boton: (bg y fg) que tenian por defecto
-            else:
-                self.container1 .config (bg='#11161d', fg='white')          # Cambia el color del boton: (bg y fg) que tenian por defecto
-        self.container1 = self.widget_press                                            # Almacena el boton actual en otra variable
     
+    # TAREA:
+    #   1- Cambia el color del boton al salir el mouse de el
+    def leave_mouse(self, event):
+        if not event.widget .cget('bg') == '#bdfe04':            # -1
+            event.widget.config(bg='#11161d')                       # -1.1
 
-    def release_mouse(self, event):
-        widget_release = event.widget.winfo_containing(event.x_root, event.y_root)
-        if widget_release != self.widget_press:
-            if self.widget_press .cget('text') in self.mobiles2:
-                self.widget_press .config (bg='#11161d', fg='yellow')
+        # 1-  Si el background del boton desde donde sale el mouse, NO ES VERDE:
+            # 1.1-   Cambia el background del boton a ( Default: Azulino )
+
+
+    # TAREA:
+    #   1- Atrapa al boton clickeado
+    def press_mouse(self, event):
+        self.widget_press = event.widget                         # -1   
+        #self.widget_press .config(bg='#bdfe04', fg='black')      # -2
+            
+        # 1-  Atrapa al boton clickeado [ Nombre ]
+        # 2-  Cambia el background y foreground del boton clikeado a VERDE y NEGRO
+        
+        if self.container2 is not None:
+            if self.container2 .cget('text') in self.mobiles2:
+                self.container2 .config (bg='#11161d', fg='yellow')         # Cambia el color del boton: (bg y fg) que tenian por defecto
             else:
-                self.widget_press .config (bg='#11161d', fg='white')
+                self.container2 .config (bg='#11161d', fg='white')  
+
+    # TAREA:
+    #   1- Atrapa al widget sobre el que se solto el clic izquierdo
+    def release_mouse(self, event):
+        widget_release = event.widget.winfo_containing(event.x_root, event.y_root)      # -1
+        
+        """ if widget_release != self.widget_press:                                         # -2
+            if self.widget_press .cget('text') in self.mobiles2:                           # -2.1
+                self.widget_press .config (bg='#11161d', fg='yellow')                         # -2.2.1
+            else:                                                                          # -2.2
+                self.widget_press .config (bg='#11161d', fg='white') """                          # -2.2.1
 
 
-            if self.container2 is not None:
-                self.container2 .config(bg='#bdfe04', fg='black')
-        self.container2 = self.container1
+        
+        #print('releasee:::___:::  ',self.master._mobil)
+        self.after(100, lambda :self.mobile(1))
+
+        # 1-  Atrapa al widget sobre el que se solto el clic izquierdo [ Nombre ]
+        # 2-  Si widget sobre el que se solto el clic, es diferente al boton clikeado:
+            # 2.1-  Si el boton clikeado tiene de texto algunas de las cadenas de la lista, self.mobiles2:
+                # 2.1.1-  Cambia el background y foreground del boton clikeado a AZULINO y AMARILLO
+            # 2.2-  Entonces:
+                # 2.2.1-  Cambia el background y foreground del boton clikeado a AZULINO y BLANCO
+
+    # TAREA:
+    #   1- SIN DEFINIR
+    def mobile (self, number):
+        
+        for btn in (self.buttons22):
+            if self.master._mobil == btn.cget('text'):
+                #print('esss:', self.master._mobil)
+                btn .config(bg='#bdfe04', fg='black')              # Color:  bg= #bdfe04  --> Verde
+                self.container2 = btn
+            else:
+                #print('butonnnnn______',btn)
+                if btn .cget('text') in self.mobiles2:
+                    print('ifff', btn)
+                    btn .config (bg='#11161d', fg='yellow')
+                else:
+                    print('else', btn)
+                    btn .config (bg='#11161d', fg='white')
+                #break
+        #print(111)
 
 
-    # Deja el color como estaba por defecto, y reintegra el boton a la lista
+
+
+
+    # Deja el color como estaba por defecto
     def uncheck_selection(self):
         if self.container1 is not None:
             if self.container1 .cget('text') in self.mobiles2:
@@ -1046,6 +1088,9 @@ class Interface(Frame, MoveAllCls):
         self._open_2 = False 
         self._open_3 = False
 
+        #_____Variables de Control para l: sin definir
+        self._mobil = None
+
         #_____Variables de Control Secundarias:
         self._gear = False
         self._minimize = False
@@ -1184,7 +1229,6 @@ class Interface(Frame, MoveAllCls):
                 # 1.5-  Le da el foco a la interfaces de configuracion
                 # 1.6-  Ajusta el tamaño de la ventana principal
                 # 1.7-  Activa el enlace self.on_move_all
-
         else:                                                                          # -1
             self._gear = False                                                            # -1.1
             self.frame_configurer .pack_forget()                                          # -1.2
@@ -1209,7 +1253,6 @@ class Interface(Frame, MoveAllCls):
                     self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)              # -1.4.3.1
                 else:                                                                        # -1.4.4
                     self.unbind("",self.off_move)                                               # -1.4.4.1
-
 
             # 1- Entonces si self._gear es True:
                 # 1.1-  Asigna self._gear = False
@@ -1245,12 +1288,22 @@ class Interface(Frame, MoveAllCls):
     #############################################################
     # G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S :
 
-    def windows_123 (self, var_1, var_2, var_3):
-        
+    def windows_123 (self, var_1, var_2, var_3, mobil=None):
+
+        self._mobil = mobil
+        for index,i in enumerate(self.frame_listmode .spinbox_values):
+            if self._mobil == index:
+                self._mobil = i
+                break
+
+        print('windowwwww___::::   ',self._mobil)
+
+
         close = {'side':RIGHT, 'padx':2}
         minimize = {'side':RIGHT, 'padx':10}
         frame ={'side':TOP, 'fill':BOTH}
-
+        
+        
         #                                  V E N T A N A:   1
         #__________________________________________________________________________________________________________
         if not self._open_1:   # ----> not self._open_1 == True:
@@ -1321,7 +1374,7 @@ class Interface(Frame, MoveAllCls):
         #self.toplevel_RIGHT .mainloop()
         #self.toplevel_STUF .mainloop()
         #___________________________________________________________________________________________________________
-
+        
 
     # Tareas:
     #    1- Permitir la apertura de las ventanas secundarias en la siguiente llamada
