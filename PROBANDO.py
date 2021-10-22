@@ -187,7 +187,7 @@ class B1FrameCls(Frame):
         self.container1 = None
         self.container2 = None
 
-        self.rojo = 123
+
     # Manda los indices para abrir las imagenes en las ventanas:
     def indices(self, indice):
         # I N D I C E S :
@@ -218,89 +218,80 @@ class B1FrameCls(Frame):
                 btn.bind("<Enter>", self.enter_mouse)
                 btn.bind("<Leave>", self.leave_mouse)
                 btn.bind("<ButtonPress-1>", self.press_mouse)
-                btn.bind("<ButtonRelease-1>", self.release_mouse)
+                btn.bind("<ButtonRelease-1>", self.release_mouse)            
 
                 if texto in self.mobiles2: btn.config(fg='yellow')
                 self.buttons22.append(btn)   # Examinar si borrar porque no tiene uso la lista
+
 
 
     # TAREA:
     #   1- Cambia el color del boton al pasar el mouse sobre el
     def enter_mouse(self, event):
         if not event.widget .cget('bg') == '#bdfe04':           # -1  
-            event.widget .config(bg="#24364a")                     # -1.1
+            event.widget .config(bg="#24364a")                   # -1.1
         
-        # 1-  Si el background del boton sobre el que se posa el mouse, NO ES VERDE:
-            # 1.1-   Cambia el background del boton a ( Celeste Apagado )
+        # 1-  Si el color del boton sobre el que se posa el mouse, NO ES VERDE :▼▼▼▼:
+            # 1.1-   Cambia el color del boton a un --> [ CELESTE APAGADO ]
 
     
     # TAREA:
     #   1- Cambia el color del boton al salir el mouse de el
     def leave_mouse(self, event):
         if not event.widget .cget('bg') == '#bdfe04':            # -1
-            event.widget.config(bg='#11161d')                       # -1.1
+            event.widget.config(bg='#11161d')                     # -1.1
 
-        # 1-  Si el background del boton desde donde sale el mouse, NO ES VERDE:
-            # 1.1-   Cambia el background del boton a ( Default: Azulino )
+        # 1-  Si el color de fondo del boton desde donde sale el mouse, NO ES VERDE :▼▼▼▼:
+            # 1.1-   Cambia el color del boton a un --> [ AZULINO DEFAULT ]
 
 
     # TAREA:
     #   1- Atrapa al boton clickeado
     def press_mouse(self, event):
-        self.widget_press = event.widget                         # -1   
-        #self.widget_press .config(bg='#bdfe04', fg='black')      # -2
+        self.widget_press = event.widget                                            # -1
+        self.widget_press .config(bg='#bdfe04', fg='black')                         # -2
             
+        if self.container1 is not None and self.container1 != self.widget_press:    # -3
+
+            if self.container1 .cget('text') in self.mobiles2:                       # -3.1
+                self.container1 .config (bg='#11161d', fg='yellow')                   # -3.1.1
+            else:                                                                    # -3.2
+                self.container1 .config (bg='#11161d', fg='white')                    # -3.2.1
+
+        self.container1 = self.widget_press                                         # -4
+
         # 1-  Atrapa al boton clickeado [ Nombre ]
-        # 2-  Cambia el background y foreground del boton clikeado a VERDE y NEGRO
+        # 2-  Cambia el background y foreground del boton clikeado a un --> [ VERDE - NEGRO ]_________
+
+        # 3-  Si [self.container1 = boton clickeado anterior] deja de ser [None] y es diferente al boton clickeado actual :▼▼▼▼:
+            # 3.1-  [self.container1 = boton clickeado anterior] tiene de texto algunas de las cadenas de la lista, self.mobiles2 :▼▼▼▼:
+                # 3.1.1-  Cambia el background y foreground del boton clikeado anterior a un --> [ AZULINO - AMARILLO ]
+            # 3.2-  Entonces :▼▼▼▼:
+                # 3.2.1-  Cambia el background y foreground del boton clikeado anterior a un --> [ AZULINO - BLANCO ]
         
-        if self.container2 is not None:
-            if self.container2 .cget('text') in self.mobiles2:
-                self.container2 .config (bg='#11161d', fg='yellow')         # Cambia el color del boton: (bg y fg) que tenian por defecto
-            else:
-                self.container2 .config (bg='#11161d', fg='white')  
+        # 4-  Almacena el boton actual en una variable   
+        print(1111)
 
     # TAREA:
     #   1- Atrapa al widget sobre el que se solto el clic izquierdo
     def release_mouse(self, event):
-        widget_release = event.widget.winfo_containing(event.x_root, event.y_root)      # -1
-        
-        """ if widget_release != self.widget_press:                                         # -2
-            if self.widget_press .cget('text') in self.mobiles2:                           # -2.1
-                self.widget_press .config (bg='#11161d', fg='yellow')                         # -2.2.1
-            else:                                                                          # -2.2
-                self.widget_press .config (bg='#11161d', fg='white') """                          # -2.2.1
+        widget_release = event.widget.winfo_containing(event.x_root, event.y_root)  # -1
 
+        if self.widget_press != widget_release:                                     # -2
 
-        
-        #print('releasee:::___:::  ',self.master._mobil)
-        self.after(100, lambda :self.mobile(1))
+            if self.widget_press .cget('text') in self.mobiles2:                     # -2.1
+                self.widget_press .config (bg='#11161d', fg='yellow')                 # -2.1.1
+            else:                                                                    # -2.2
+                self.widget_press .config (bg='#11161d', fg='white')                  # -2.2.1
+
 
         # 1-  Atrapa al widget sobre el que se solto el clic izquierdo [ Nombre ]
-        # 2-  Si widget sobre el que se solto el clic, es diferente al boton clikeado:
-            # 2.1-  Si el boton clikeado tiene de texto algunas de las cadenas de la lista, self.mobiles2:
-                # 2.1.1-  Cambia el background y foreground del boton clikeado a AZULINO y AMARILLO
-            # 2.2-  Entonces:
-                # 2.2.1-  Cambia el background y foreground del boton clikeado a AZULINO y BLANCO
+        # 2-  Si widget sobre el que se solto el clic, es diferente al boton clikeado actual :▼▼▼▼:
 
-    # TAREA:
-    #   1- SIN DEFINIR
-    def mobile (self, number):
-        
-        for btn in (self.buttons22):
-            if self.master._mobil == btn.cget('text'):
-                #print('esss:', self.master._mobil)
-                btn .config(bg='#bdfe04', fg='black')              # Color:  bg= #bdfe04  --> Verde
-                self.container2 = btn
-            else:
-                #print('butonnnnn______',btn)
-                if btn .cget('text') in self.mobiles2:
-                    print('ifff', btn)
-                    btn .config (bg='#11161d', fg='yellow')
-                else:
-                    print('else', btn)
-                    btn .config (bg='#11161d', fg='white')
-                #break
-        #print(111)
+            # 2.1-  Si el boton clikeado tiene de texto algunas de las cadenas de la lista; self.mobiles2 :▼▼▼▼:
+                # 2.1.1-  Cambia el background y foreground del boton clikeado actual a un --> [ AZULINO - AMARILLO ]
+            # 2.2-  Entonces :▼▼▼▼:
+                # 2.2.1-  Cambia el background y foreground del boton clikeado actual a un --> [ AZULINO - BLANCO ]
 
 
 
@@ -1047,6 +1038,10 @@ class RootCls(Tk):
         self.bind("<Map>", self.deiconify_on)  # Deiconiza Toplevel Principal
         self.bind("<Unmap>", self.iconify_on)  # Iconiza Toplevel Principal
 
+        #self.bind()
+
+        #print('focuss', self.focus_get())
+
     def iconify_on(self, event):
         self.toplevel_principal.withdraw()
 
@@ -1291,10 +1286,11 @@ class Interface(Frame, MoveAllCls):
     def windows_123 (self, var_1, var_2, var_3, mobil=None):
 
         self._mobil = mobil
-        for index,i in enumerate(self.frame_listmode .spinbox_values):
+
+        """ for index,i in enumerate(self.frame_listmode .spinbox_values):
             if self._mobil == index:
                 self._mobil = i
-                break
+                break """
 
         print('windowwwww___::::   ',self._mobil)
 
