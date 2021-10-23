@@ -1439,7 +1439,8 @@ class Interface(Frame, MoveAllCls):
             if number == 3: 
                 self._open_3 = False
 
-            if not self._open_1 == True and not self._open_2 == True and not self._open_3:
+            #if not self._open_1 == True and not self._open_2 == True and not self._open_3:
+            if not (self._open_1, self._open_2, self._open_3) == (True, True, True):
                 try:  # Esto se ejecuta ademas de la condicion, cuando cierra de emproviso la aplicacion con ventanas secundarias. abiertas
                     self.frame_botones .uncheck_selection()
                     self._button_selection = None
