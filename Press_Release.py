@@ -1,14 +1,6 @@
 import tkinter as tk
 
 
-
-
-
-
-
-
-
-
 def _button_press(event):
     print(1111)
     label.configure(text="")

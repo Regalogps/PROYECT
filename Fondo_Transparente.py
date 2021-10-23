@@ -27,7 +27,7 @@ label.pack()
 b = Button(f, text='closed', command= lambda: root.destroy())
 b.pack()
 
-b = Button(f, text='closefffd', state='disabled', disabledforeground='green', disabledbackground='blue' )
+b = Button(f, text='closefffd', state='disabled', disabledforeground='green')
 b.pack()
 
 

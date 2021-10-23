@@ -62,9 +62,9 @@ class Aplicacion(Frame):
         self.master .iconify()
 
     def widgets(self):
-        self.imagen_cerrar = PhotoImage(file= 'ce.png')
-        self.imagen_maximizar = PhotoImage(file= 'ma.png') 
-        self.imagen_minimizar = PhotoImage(file= 'mi.png')
+        self.imagen_cerrar = PhotoImage(file= '11.png')
+        self.imagen_maximizar = PhotoImage(file= '22.png') 
+        self.imagen_minimizar = PhotoImage(file= '33.png')
 
         self.cerrar = Button(self.frame_top, image=self.imagen_cerrar, bg='DarkOrchid1',
                              activebackground='DarkOrchid1', bd=0, command=self.close)

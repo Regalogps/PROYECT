@@ -185,7 +185,6 @@ class B1FrameCls(Frame):
 
         #_____Variables de Control para los Botones
         self.container1 = None
-        self.container2 = None
 
 
     # Manda los indices para abrir las imagenes en las ventanas:
@@ -250,26 +249,18 @@ class B1FrameCls(Frame):
     def press_mouse(self, event):
         widget_press = event.widget                                            # -1
         widget_press .config(bg='#bdfe04', fg='black')                         # -2
-            
-        #if self.container1 is not None and self.container1 != widget_press:    # -3
-            #if self.container1 .cget('text') in self.mobiles2:                       # -3.1
-            #    self.container1 .config (bg='#11161d', fg='yellow')                   # >>>>
-            #else:                                                                    # -3.2
-            #    self.container1 .config (bg='#11161d', fg='white')                    # >>>>  
                      
-        for btn in self.buttons22:
+        for btn in (self.buttons22):
             if btn != widget_press:
                 if btn .cget('text') in self.mobiles2:
                     btn .config (bg='#11161d', fg='yellow')
                 else:
-                    print('eleseeeeeeeeee',btn .cget('text'))
                     btn .config (bg='#11161d', fg='white') 
 
         self.container1 = widget_press                                         # -4
 
-
         # 1-  Atrapa al boton clickeado [ Nombre ]
-        # 2-  Cambia el background y foreground del boton clikeado a un --> [ VERDE - NEGRO ]_________
+        # 2-  Cambia el background y foreground del boton clikeado a un --> [ VERDE - NEGRO ]
 
         # 3-  Si [self.container1 = boton clickeado anterior] deja de ser [None] y es diferente al boton clickeado actual :▼▼▼▼
             # 3.1-  [self.container1 = boton clickeado anterior] tiene de texto algunas de las cadenas de la lista, self.mobiles2 :▼▼▼▼
@@ -278,7 +269,6 @@ class B1FrameCls(Frame):
                 # >>>>  Cambia el background y foreground del boton clikeado anterior a un --> [ AZULINO - BLANCO ]
         
         # 4-  Almacena el boton actual en una variable   
-
 
 
     # TAREA:
@@ -294,7 +284,6 @@ class B1FrameCls(Frame):
             else:                                                                    # -3.2
                 widget_press .config (bg='#11161d', fg='white')                       # >>>>
 
-
         # 1-  Boton clikeado actual, [event.widget lo atrapa x alguna razon que no es muy clara]
         # 2-  Atrapa al widget sobre el que se solto el clic izquierdo [ Nombre del widget ]
         # 3-  Si boton clikeado actual, es diferente al widget sobre el que se solto el clic :▼▼▼▼
@@ -303,9 +292,6 @@ class B1FrameCls(Frame):
                 # >>>>  Cambia el background y foreground del boton clikeado actual a un --> [ AZULINO - AMARILLO ]
             # 3.2-  Entonces :▼▼▼▼
                 # >>>>  Cambia el background y foreground del boton clikeado actual a un --> [ AZULINO - BLANCO ]
-
-
-
 
 
     # Deja el color como estaba por defecto
@@ -441,7 +427,7 @@ class B3FrameCls(Frame):
         self.container_2w .grid_propagate(False)
         
         #_____V A R I A B L E S  DE  C O N T R O L: 
-        self._switch = False
+        self._toggle_switch = False
    
 
     def change_variable(self, *args):  # ACTIVA: SI SPINBOX_VARIABLE CAMBIA DE VALOR - BORRA LA LISTA DE LISTBOX, MANDA A LLAMAR A UPDATE Y CAMBIA LAS MINIATURAS
@@ -511,41 +497,39 @@ class B3FrameCls(Frame):
 
 
         #self.after_cancel(self.fter)            
-        if self._switch == True:  # almacena todas las llamadas si se da enter
+        if self._toggle_switch == True:  # almacena todas las llamadas si se da enter
             print(4444)
            
-            self.fter = self.after(4000, self.automatic_deletion) 
+            #self.fter = self.after(4000, self.automatic_deletion) 
             #print(self.master.master.master.a)
 
     def automatic_deletion(self):  # ACTIVA: ** SI ES LLAMADO POR OPEN_WINDOWS ** Y SI LA VARIABLE DE CONTROL NO ES NONE - LIMPIA SPINBOX
-       # self.after_cancel(self.fter)
         self.spinboxx .delete(0, END)
-        #self.after_cancel(self.fter)
 
 
 
 
 
     def change_toggle(self, event=None):  # ACTIVA: CLICK IZQUIERDO EN RED_GREEN - CAMBIA IMAGEN ROJO-VERDE Y VICEVERSA
-        if not self._switch == True:                                                         # -1
-            self._switch = True                                                                 # -1.1
-            self.lbl_toggle .config(image=self.Miniatures[24])                                  # -1.2
-            self.unbind('',self.master.off_move)                                                # -1.3
+        if not self._toggle_switch == True:                                                     # -1
+            self._toggle_switch = True                                                          # >>>>
+            self.lbl_toggle .config(image=self.Miniatures[24])                                  # >>>>
+            self.unbind('',self.master.off_move)                                                # >>>>
             
-            # 1- Si self._switch es False:   [ Predeterminado False ]
+            # 1- Si self._switch es False :▼▼▼▼   [ Predeterminado False ]
                 # 1.1-  Asiga self._switch = True
                 # 1.2-  Cambia la imagen en el label por el color verde
                 # 1.3-  Desactiva el enlace self.on_move_all
    
-        else:                                                                                # -1
-            self._switch = False                                                                # -1.1
-            self.lbl_toggle .config (image=self.Miniatures[23])                                 # -1.2
-            self.master.off_move = self.bind_all("<B1-Motion>", self.master.on_move_all)        # -1.3
+        else:                                                                                   # -1
+            self._toggle_switch = False                                                         # >>>>
+            self.lbl_toggle .config (image=self.Miniatures[23])                                 # >>>>
+            self.master.off_move = self.bind_all("<B1-Motion>", self.master.on_move_all)        # >>>>
 
-            # 1- Entonces si self._switch es True:
-                # 1.1-  Asiga self._switch = False
-                # 1.2-  Cambia la imagen en el label por el color rojo
-                # 1.3-  Activa el enlace self.on_move_all
+            # 1- Entonces si self._switch es True :▼▼▼▼
+                # >>>>  Asiga self._switch = False
+                # >>>>  Cambia la imagen en el label por el color rojo
+                # >>>>  Activa el enlace self.on_move_all
 
 
     def validate_text(self, text, arg): # SIEMPRE QUE INSERTE TEXTO EN SPINBOX - NO PERMITE NUMEROS,SIMBOLOS,ESPACIOS Y CONTROLA LA CANTIDAD
@@ -557,7 +541,8 @@ class B3FrameCls(Frame):
         self.spinboxx = Spinbox (self.frame_1, **args)
         
         self.spinbox_variable = StringVar()
-        self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage', 'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']
+        self.spinbox_values = ['Frog', 'Fox', 'Boomer', 'Ice', 'J.d', 'Grub', 'Lightning', 'Aduka', 'Knight', 'Kalsiddon', 'Mage',
+                               'Randomizer', 'Jolteon', 'Turtle', 'Armor','A.sate', 'Raon', 'Trico', 'Nak', 'Bigfoot', 'Barney', 'Dragon']
         self.all_register = (self.register(self.validate_text), '%P', '%S')
         self.spinboxx.config (values=self.spinbox_values,
                              textvariable=self.spinbox_variable,
@@ -1049,10 +1034,6 @@ class RootCls(Tk):
         self.bind("<Map>", self.deiconify_on)  # Deiconiza Toplevel Principal
         self.bind("<Unmap>", self.iconify_on)  # Iconiza Toplevel Principal
 
-        #self.bind()
-
-        #print('focuss', self.focus_get())
-
     def iconify_on(self, event):
         self.toplevel_principal.withdraw()
 
@@ -1094,10 +1075,8 @@ class Interface(Frame, MoveAllCls):
         self._open_2 = False 
         self._open_3 = False
 
-        #_____Variables de Control para l: sin definir
-
-        self._button_selection = None
-
+        #_____Variables de Seguimiento del Boton Seleccionado en la Interface de Botones:
+        self.mobil_selected = None
 
         #_____Variables de Control Secundarias:
         self._gear = False
@@ -1246,17 +1225,16 @@ class Interface(Frame, MoveAllCls):
             self.frame_configurer .pack_forget()                                          # -1.2
 
             if self.frame_configurer .ckbutton5.variable.get() == True:                   # -1.3
-                #self.frame_botones .uncheck_selection()                                      # -1.3.1
 
                 self.frame_listmode .pack (side=LEFT, fill=BOTH)                             # -1.3.2
                 self.frame_listmode .spinboxx .focus_set()                                   # -1.3.3
                 self.frame_listmode .spinboxx .delete(0, END)
-                if self._button_selection is not None:
-                    self.frame_listmode .spinboxx .insert(0, self._button_selection)  
+                if self.mobil_selected is not None:
+                    self.frame_listmode .spinboxx .insert(0, self.mobil_selected)  
                 self.master.geometry ('250x67')                                              # -1.3.4
 
 
-                if not self.frame_listmode. _switch == True:                                 # -1.3.5
+                if not self.frame_listmode. _toggle_switch == True:                          # -1.3.5
                     self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)              # -1.3.5.1
                 else:                                                                        # -1.3.6
                     self.unbind("",self.off_move)                                               # -1.3.6.1
@@ -1302,31 +1280,22 @@ class Interface(Frame, MoveAllCls):
     def focus_in(self, event):
 
         if self.focus_get() == self.frame_botones:                            #
-            print('entrando',self.focus_get())
             for btn in (self.frame_botones. buttons22):                       #
-
-                if self._button_selection == btn.cget('text'):                #
+                if self.mobil_selected == btn.cget('text'):                #
                     btn .config(bg='#bdfe04', fg='black')                     #
                 else:                                                         #
                     if btn .cget('text') in self.frame_botones .mobiles2:     #
                         btn .config (bg='#11161d', fg='yellow')               #
                     else:                                                     #
-                        btn .config (bg='#11161d', fg='white')                #
+                        btn .config (bg='#11161d', fg='white')
+
             
     def focus_out(self, event):
 
-        if self.focus_get() == None and self._button_selection is not None:
-            print('saliendo',self.focus_get() )
-
+        if self.focus_get() == None and self.mobil_selected is not None:
             for btn in (self.frame_botones. buttons22):                       #
-
-                if self._button_selection == btn.cget('text'):                #
+                if self.mobil_selected == btn.cget('text'):                #
                     btn .config(bg='#bdfe04', fg='black')                     #
-                else:                                                         #
-                    if btn .cget('text') in self.frame_botones .mobiles2:     #
-                        btn .config (bg='#11161d', fg='yellow')               #
-                    else:                                                     #
-                        btn .config (bg='#11161d', fg='white')                #
 
 
     #############################################################
@@ -1340,14 +1309,12 @@ class Interface(Frame, MoveAllCls):
 
         for index,i in enumerate(self.frame_listmode .spinbox_values):
             if mobil == index:
-                self._button_selection = i
+                self.mobil_selected = i
                 break
 
-        # self._button_selection ahora almacena el nombre del boton presionado           
-        #print('button selection',self._button_selection) borrar esta linea
+        # self.mobil_selected ahora almacena el nombre del boton presionado           
+        #print('button selection',self.mobil_selected) borrar esta linea
         #_____________________________________________________________________
-
-
 
 
         close = {'side':RIGHT, 'padx':2}
@@ -1430,7 +1397,7 @@ class Interface(Frame, MoveAllCls):
     #    1- Permitir la apertura de las ventanas secundarias en la siguiente llamada
     #    2- Desactiva la seleccion del boton en la interface de botones
     def closing_toplevel(self,  number, event):
-
+        
         if isinstance(event.widget, Toplevel):
             if number == 1:
                 self._open_1 = False
@@ -1439,11 +1406,10 @@ class Interface(Frame, MoveAllCls):
             if number == 3: 
                 self._open_3 = False
 
-            #if not self._open_1 == True and not self._open_2 == True and not self._open_3:
-            if not (self._open_1, self._open_2, self._open_3) == (True, True, True):
+            if not self._open_1 == True and not self._open_2 == True and not self._open_3:
                 try:  # Esto se ejecuta ademas de la condicion, cuando cierra de emproviso la aplicacion con ventanas secundarias. abiertas
                     self.frame_botones .uncheck_selection()
-                    self._button_selection = None
+                    self.mobil_selected = None
                 except: pass
             
 
