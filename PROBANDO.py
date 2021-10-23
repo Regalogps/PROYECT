@@ -229,69 +229,80 @@ class B1FrameCls(Frame):
     #   1- Cambia el color del boton al pasar el mouse sobre el
     def enter_mouse(self, event):
         if not event.widget .cget('bg') == '#bdfe04':           # -1  
-            event.widget .config(bg="#24364a")                   # -1.1
+            event.widget .config(bg="#24364a")                   # >>>>
         
-        # 1-  Si el color del boton sobre el que se posa el mouse, NO ES VERDE :▼▼▼▼:
-            # 1.1-   Cambia el color del boton a un --> [ CELESTE APAGADO ]
+        # 1-  Si el color del boton sobre el que se posa el mouse, NO ES VERDE :▼▼▼▼
+            # >>>>   Cambia el color del boton a un --> [ CELESTE APAGADO ]
 
     
     # TAREA:
     #   1- Cambia el color del boton al salir el mouse de el
     def leave_mouse(self, event):
         if not event.widget .cget('bg') == '#bdfe04':            # -1
-            event.widget.config(bg='#11161d')                     # -1.1
+            event.widget.config(bg='#11161d')                     # >>>>
 
-        # 1-  Si el color de fondo del boton desde donde sale el mouse, NO ES VERDE :▼▼▼▼:
-            # 1.1-   Cambia el color del boton a un --> [ AZULINO DEFAULT ]
+        # 1-  Si el color de fondo del boton desde donde sale el mouse, NO ES VERDE :▼▼▼▼
+            # >>>>   Cambia el color del boton a un --> [ AZULINO DEFAULT ]
 
 
     # TAREA:
-    #   1- Atrapa al boton clickeado
+    #   1- Cambia el color del boton presionado actual a [VERDE-NEGRO]
     def press_mouse(self, event):
-        self.widget_press = event.widget                                            # -1
-        self.widget_press .config(bg='#bdfe04', fg='black')                         # -2
+        widget_press = event.widget                                            # -1
+        widget_press .config(bg='#bdfe04', fg='black')                         # -2
             
-        if self.container1 is not None and self.container1 != self.widget_press:    # -3
+        #if self.container1 is not None and self.container1 != widget_press:    # -3
+            #if self.container1 .cget('text') in self.mobiles2:                       # -3.1
+            #    self.container1 .config (bg='#11161d', fg='yellow')                   # >>>>
+            #else:                                                                    # -3.2
+            #    self.container1 .config (bg='#11161d', fg='white')                    # >>>>  
+                     
+        for btn in self.buttons22:
+            if btn != widget_press:
+                if btn .cget('text') in self.mobiles2:
+                    btn .config (bg='#11161d', fg='yellow')
+                else:
+                    print('eleseeeeeeeeee',btn .cget('text'))
+                    btn .config (bg='#11161d', fg='white') 
 
-            if self.container1 .cget('text') in self.mobiles2:                       # -3.1
-                self.container1 .config (bg='#11161d', fg='yellow')                   # -3.1.1
-            else:                                                                    # -3.2
-                self.container1 .config (bg='#11161d', fg='white')                    # -3.2.1
+        self.container1 = widget_press                                         # -4
 
-        self.container1 = self.widget_press                                         # -4
 
         # 1-  Atrapa al boton clickeado [ Nombre ]
         # 2-  Cambia el background y foreground del boton clikeado a un --> [ VERDE - NEGRO ]_________
 
-        # 3-  Si [self.container1 = boton clickeado anterior] deja de ser [None] y es diferente al boton clickeado actual :▼▼▼▼:
-            # 3.1-  [self.container1 = boton clickeado anterior] tiene de texto algunas de las cadenas de la lista, self.mobiles2 :▼▼▼▼:
-                # 3.1.1-  Cambia el background y foreground del boton clikeado anterior a un --> [ AZULINO - AMARILLO ]
-            # 3.2-  Entonces :▼▼▼▼:
-                # 3.2.1-  Cambia el background y foreground del boton clikeado anterior a un --> [ AZULINO - BLANCO ]
+        # 3-  Si [self.container1 = boton clickeado anterior] deja de ser [None] y es diferente al boton clickeado actual :▼▼▼▼
+            # 3.1-  [self.container1 = boton clickeado anterior] tiene de texto algunas de las cadenas de la lista, self.mobiles2 :▼▼▼▼
+                # >>>>  Cambia el background y foreground del boton clikeado anterior a un --> [ AZULINO - AMARILLO ]
+            # 3.2-  Entonces :▼▼▼▼
+                # >>>>  Cambia el background y foreground del boton clikeado anterior a un --> [ AZULINO - BLANCO ]
         
         # 4-  Almacena el boton actual en una variable   
-        print(1111)
+
+
 
     # TAREA:
-    #   1- Atrapa al widget sobre el que se solto el clic izquierdo
+    #   1- Cambia el color del boton presionado actual a DEFAULT, si no coincide con el mismo boton presionado
     def release_mouse(self, event):
-        widget_release = event.widget.winfo_containing(event.x_root, event.y_root)  # -1
+        widget_press = event.widget                                                 # -1
+        widget_release = event.widget.winfo_containing(event.x_root, event.y_root)  # -2
 
-        if self.widget_press != widget_release:                                     # -2
+        if widget_press != widget_release:                                          # -3
 
-            if self.widget_press .cget('text') in self.mobiles2:                     # -2.1
-                self.widget_press .config (bg='#11161d', fg='yellow')                 # -2.1.1
-            else:                                                                    # -2.2
-                self.widget_press .config (bg='#11161d', fg='white')                  # -2.2.1
+            if widget_press .cget('text') in self.mobiles2:                          # -3.1
+                widget_press .config (bg='#11161d', fg='yellow')                      # >>>>
+            else:                                                                    # -3.2
+                widget_press .config (bg='#11161d', fg='white')                       # >>>>
 
 
-        # 1-  Atrapa al widget sobre el que se solto el clic izquierdo [ Nombre ]
-        # 2-  Si widget sobre el que se solto el clic, es diferente al boton clikeado actual :▼▼▼▼:
+        # 1-  Boton clikeado actual, [event.widget lo atrapa x alguna razon que no es muy clara]
+        # 2-  Atrapa al widget sobre el que se solto el clic izquierdo [ Nombre del widget ]
+        # 3-  Si boton clikeado actual, es diferente al widget sobre el que se solto el clic :▼▼▼▼
 
-            # 2.1-  Si el boton clikeado tiene de texto algunas de las cadenas de la lista; self.mobiles2 :▼▼▼▼:
-                # 2.1.1-  Cambia el background y foreground del boton clikeado actual a un --> [ AZULINO - AMARILLO ]
-            # 2.2-  Entonces :▼▼▼▼:
-                # 2.2.1-  Cambia el background y foreground del boton clikeado actual a un --> [ AZULINO - BLANCO ]
+            # 3.1-  Si el boton clikeado tiene de texto algunas de las cadenas de la lista; self.mobiles2 :▼▼▼▼
+                # >>>>  Cambia el background y foreground del boton clikeado actual a un --> [ AZULINO - AMARILLO ]
+            # 3.2-  Entonces :▼▼▼▼
+                # >>>>  Cambia el background y foreground del boton clikeado actual a un --> [ AZULINO - BLANCO ]
 
 
 
@@ -494,7 +505,7 @@ class B3FrameCls(Frame):
                 self.master.windows_123(
                 lambda top1: TopIzqCls  (top1, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
                 lambda top2: TopDerCls  (top2, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
-                lambda top3: TopStufCls (top3, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst))
+                lambda top3: TopStufCls (top3, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst), index)
                 break                                       # Sin breack el programa seguiria buscando coincidencias despues del enter, y guardaria un error
         
 
@@ -1084,7 +1095,9 @@ class Interface(Frame, MoveAllCls):
         self._open_3 = False
 
         #_____Variables de Control para l: sin definir
-        self._mobil = None
+
+        self._button_selection = None
+
 
         #_____Variables de Control Secundarias:
         self._gear = False
@@ -1105,6 +1118,10 @@ class Interface(Frame, MoveAllCls):
         self.bind_all("<ButtonPress-1>", self.start_move_all)             # Punto inicial    
         self.bind_all("<ButtonRelease-1>", self.stop_move_all)            # Punto final
         self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)    # Puntos de movimiento
+
+        #_____Enlaces para Pintar al Boton que Abrio las Ventanas:
+        self.master.bind('<FocusIn>', self.focus_in)
+        self.master.bind('<FocusOut>', self.focus_out)
 
         #_____Métodos Llamados de Otras Clases:
         self.make_movable(self.frame_controller.btn_ash)                  # Metodo de MoveAllCls: añade a la lista de widget, que permiten mover la ventana
@@ -1214,8 +1231,8 @@ class Interface(Frame, MoveAllCls):
             self.master.geometry ('830x67')                                               # -1.6
 
             self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)                # -1.7
-
-
+            
+            
             # 1- Si self._gear es False:  [ Predeterminado False ]
                 # 1.1-  Asigna self._gear = True
                 # 1.2-  Quita la interface de botones
@@ -1229,11 +1246,15 @@ class Interface(Frame, MoveAllCls):
             self.frame_configurer .pack_forget()                                          # -1.2
 
             if self.frame_configurer .ckbutton5.variable.get() == True:                   # -1.3
-                self.frame_botones .uncheck_selection()                                      # -1.3.1
+                #self.frame_botones .uncheck_selection()                                      # -1.3.1
 
                 self.frame_listmode .pack (side=LEFT, fill=BOTH)                             # -1.3.2
                 self.frame_listmode .spinboxx .focus_set()                                   # -1.3.3
+                self.frame_listmode .spinboxx .delete(0, END)
+                if self._button_selection is not None:
+                    self.frame_listmode .spinboxx .insert(0, self._button_selection)  
                 self.master.geometry ('250x67')                                              # -1.3.4
+
 
                 if not self.frame_listmode. _switch == True:                                 # -1.3.5
                     self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)              # -1.3.5.1
@@ -1243,6 +1264,7 @@ class Interface(Frame, MoveAllCls):
             else:                                                                         # -1.4
                 self.frame_listmode .pack_forget()                                           # -1.4.1
                 self.frame_botones .pack (side=LEFT, fill=BOTH)                              # -1.4.2
+                self.frame_botones .focus_set()                                             # nuevo
 
                 if not self.frame_configurer .ckbutton7.variable.get() == True:              # -1.4.3
                     self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)              # -1.4.3.1
@@ -1276,7 +1298,37 @@ class Interface(Frame, MoveAllCls):
             # NOTAS:
             # 1. self._switch es una variable de control de la interface de lista
   
-   
+    
+    def focus_in(self, event):
+
+        if self.focus_get() == self.frame_botones:                            #
+            print('entrando',self.focus_get())
+            for btn in (self.frame_botones. buttons22):                       #
+
+                if self._button_selection == btn.cget('text'):                #
+                    btn .config(bg='#bdfe04', fg='black')                     #
+                else:                                                         #
+                    if btn .cget('text') in self.frame_botones .mobiles2:     #
+                        btn .config (bg='#11161d', fg='yellow')               #
+                    else:                                                     #
+                        btn .config (bg='#11161d', fg='white')                #
+            
+    def focus_out(self, event):
+
+        if self.focus_get() == None and self._button_selection is not None:
+            print('saliendo',self.focus_get() )
+
+            for btn in (self.frame_botones. buttons22):                       #
+
+                if self._button_selection == btn.cget('text'):                #
+                    btn .config(bg='#bdfe04', fg='black')                     #
+                else:                                                         #
+                    if btn .cget('text') in self.frame_botones .mobiles2:     #
+                        btn .config (bg='#11161d', fg='yellow')               #
+                    else:                                                     #
+                        btn .config (bg='#11161d', fg='white')                #
+
+
     #############################################################
     #############################################################
     #############################################################
@@ -1285,20 +1337,22 @@ class Interface(Frame, MoveAllCls):
 
     def windows_123 (self, var_1, var_2, var_3, mobil=None):
 
-        self._mobil = mobil
 
-        """ for index,i in enumerate(self.frame_listmode .spinbox_values):
-            if self._mobil == index:
-                self._mobil = i
-                break """
+        for index,i in enumerate(self.frame_listmode .spinbox_values):
+            if mobil == index:
+                self._button_selection = i
+                break
 
-        print('windowwwww___::::   ',self._mobil)
+        # self._button_selection ahora almacena el nombre del boton presionado           
+        #print('button selection',self._button_selection) borrar esta linea
+        #_____________________________________________________________________
+
+
 
 
         close = {'side':RIGHT, 'padx':2}
         minimize = {'side':RIGHT, 'padx':10}
-        frame ={'side':TOP, 'fill':BOTH}
-        
+        frame ={'side':TOP, 'fill':BOTH}      
         
         #                                  V E N T A N A:   1
         #__________________________________________________________________________________________________________
@@ -1388,6 +1442,7 @@ class Interface(Frame, MoveAllCls):
             if not self._open_1 == True and not self._open_2 == True and not self._open_3:
                 try:  # Esto se ejecuta ademas de la condicion, cuando cierra de emproviso la aplicacion con ventanas secundarias. abiertas
                     self.frame_botones .uncheck_selection()
+                    self._button_selection = None
                 except: pass
             
 
