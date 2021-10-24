@@ -748,14 +748,11 @@ class TopDerCls(Frame):
         # Imagen: Base 77 del mobil:
         self.frame_image_base_77      = ResizeCls (self, path_lst [indice][arg_3], bd=0)
 
-        # Texto: "↑" para señalar la imagen base 77 del mobil:
-        self.flecha = Label (self, text='↑', font=('Calibri',30,'bold'), bg= '#2f3337', fg='green2', width=1, height=1)
-        self.alert_77 = Label (self, text= "Haga ' Click ' para mostrar:\nAngulo ' 77 '", font=('Bickham Script Pro',8  ,'bold'), bg=  '#2f3337',fg='white', width=50, height=2)
-        
- 
-        self.grid_columnconfigure (0,weight=1)
-        self.grid_rowconfigure (0,weight=1)
+        # Texto: "↑", se dibuja si aparece la imagen [base 77] del mobil:
+        self.lbl_text_flecha = Label (self, text='↑', font=('Calibri',30,'bold'), bg='#2f3337', fg='green2', width=1, height=1)
 
+        self.lbl_text_alert_77 = Label (self, text= "Haga ' Click ' para mostrar:\nAngulo ' 77 '", font=('Bickham Script Pro',8  ,'bold'), bg=  '#2f3337',fg='white', width=50, height=2)
+        
 
         self.master.bind("<Button-1>", self.button1)      
         self.bind_motion = self.master.bind('<Motion>',self.motion)
@@ -766,6 +763,10 @@ class TopDerCls(Frame):
         self.motion = StringVar()
         self.motion.set('on')
         
+        # Configuración de la ventana:    
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
 
     #_______M E T O D O   < B U T T O N - 1 >
     def button1(self, event): 
@@ -777,20 +778,20 @@ class TopDerCls(Frame):
                 
         if x1 < (self.pointer_width) < x2  and  y1 < (self.pointer_height) < y2: 
             if self.test == 'closed':               
-                self.fr_img_77 . grid(column=0, row=0)   # == {} (no mapeado)               
+                self.frame_image_base_77 . grid(column=0, row=0)   # == {} (no mapeado)               
                 self.test = 'open'
                 self.motion.set('of')
                 #print('se cambio de --ON-- a --OF-- ')
                 
-                self.flecha .grid(column=0, row=0, sticky=SE, ipadx=5) # VER SI ACEPTA VARIABLES
+                self.lbl_text_flecha .grid(column=0, row=0, sticky=SE, ipadx=5) # VER SI ACEPTA VARIABLES
                 
             else:
-                self.fr_img_77 .grid_forget()
+                self.frame_image_base_77 .grid_forget()
                 self.test = 'closed'
                 self.after(0, lambda e = self.motion: self.motion.set('on'))  ## analizae
                 #print('se cambio de --OF-- a --ON-- ')
                 
-                self.flecha.grid_forget()
+                self.lbl_text_flecha.grid_forget()
 
 
     #_______M E T O D O   < M O T I O N >
@@ -809,7 +810,7 @@ class TopDerCls(Frame):
                 self.alert_77 .grid_forget() 
                 #print('entre ala sala motion') 
 
-        if self.fr_img_77 . grid_info() != {}:
+        if self.frame_image_base_77 . grid_info() != {}:
             self.alert_77 .grid_forget() 
 
 
