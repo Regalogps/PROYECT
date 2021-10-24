@@ -691,6 +691,17 @@ class TopIzqCls(Frame):
         self.grid_rowconfigure(0, weight=1)
 
 
+    # Tarea: Posicionar el label[text= Guia] que abre la miniatura del mobil
+    def new_position_text_guia(self, event):  
+
+        toplevel_width  = self.master.winfo_width() / 35        # winfo_width() : Devuelve el ancho actual del widget(Toplevel) en pixeles, podria usar _reqwidth() que siempre esta actualizado.
+        toplevel_height = self.master.winfo_height() / 13
+        x = int (toplevel_width)
+        y = int (toplevel_height)    
+     
+        self.lbl_text_guia .place(x=x, y=y)
+
+
     # Tarea: Abrir la minuatura del mobil 
     def open_image_miniature(self, event): 
 
@@ -699,25 +710,6 @@ class TopIzqCls(Frame):
         else:
             self.frame_image_mobil_tutorial .grid_forget()
 
-    # Tarea: Posicionar el label[text= Guia] que abre la miniatura del mobil
-    def new_position_text_guia(self, event):
-
-        var_x = IntVar()  # Aqui lo puedo camvbiar a IntVar para que no  de un cero de mas 23.0 54.0 
-        var_y = IntVar()    
-
-        width_toplvl = self.master.winfo_width() / 35        # winfo_width() : Devuelve el ancho actual del widget(Toplevel) en pixeles, podria usar _reqwidth() que siempre esta actualizado.
-        height_toplvl = self.master.winfo_height() / 13
-        w = int(width_toplvl)
-        h = int(height_toplvl)
- 
-        var_x .set(w)           # aqui hay el 10% del ancho total
-        getx = var_x .get()
-
-        var_y .set(h)
-        gety = var_y .get()       
-        
-        #self.lbl_text_guia .place(x= getx, y= gety)
-        self.lbl_text_guia .place(x= w, y= h)
 
 
 #********************************        ██████████████        *********************************
@@ -736,9 +728,6 @@ class TopIzqCls(Frame):
 class TopDerCls(Frame):
     def __init__(self, master, indice, arg_0=None, arg_1=None, arg_2=None, arg_3=None, arg_4=None, arg_5=None, arg_6=None, arg_7=None, path_lst=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        
-
-        self.master.bind("<Button-1>", self.position_img)
 
         # Imagen: Base inicial del mobil:
         self.frame_image_base_initial = ResizeCls (self, path_lst [indice][arg_2], bd=0)
@@ -748,48 +737,63 @@ class TopDerCls(Frame):
         # Imagen: Base 77 del mobil:
         self.frame_image_base_77      = ResizeCls (self, path_lst [indice][arg_3], bd=0)
 
-        # Texto: "Haga click para mostrar el angulo 77", Cambia la imagen a la base 77 del mobil:
+        # Texto: "Haga click" para mostrar el angulo 77":                         # Cambia la imagen a la base 77 del mobil:
         self.lbl_text_mostrar_77 = Label (self, text="Haga ' Click ' para mostrar:\nAngulo ' 77 '", font=('Bickham Script Pro',8,'bold'), bg='#2f3337', fg='white', width=50, height=2)
         
-        # Texto: "↑", se dibuja si aparece la imagen [base 77] del mobil:
+        # Texto: "↑":                                                             # Se dibuja si aparece la imagen [base 77] del mobil:
         self.lbl_text_flecha     = Label (self, text='↑', font=('Calibri',30,'bold'), bg='#2f3337', fg='green2', width=1, height=1)
 
-        self.master.bind("<Button-1>", self.button1)      
+
+        # Eventos Enlazados:
+            # Enlace: Posiciona/Quita   el Label [texto: "↑"]
+        self.master.bind("<Button-1>", self.open_text_flecha)
+        
+            # Enlace:      
         self.bind_motion = self.master.bind('<Motion>',self.motion)
-        self.bind_leave = self.bind('<Leave>', lambda e: self.alert_77 .grid_forget())
+
+            # Enlace: Quita             el Label [texto: "Haga click" para mostrar el angulo 77"]:
+        self.bind_leave = self.bind('<Leave>', lambda e: self.lbl_text_mostrar_77 .grid_forget())   
+
 
         #____Variables de Control para los Eventos:
-        self.test = 'closed'
+        self._open1 = False
         self.motion = StringVar()
         self.motion.set('on')
         
+
         # Configuración de la ventana:    
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
 
 
-    #_______M E T O D O   < B U T T O N - 1 >
-    def button1(self, event): 
+    #___< B U T T O N - 1 >
+    def open_text_flecha(self, event): 
 
-        self.pointer_width = event.x / self.master.winfo_width() * 100
-        self.pointer_height = event.y / self.master.winfo_height() * 100
+        # Convierte el tamaño total de la ventana en porcentaje:  100 %
+        self.porcentage_total_x  = event.x / self.master.winfo_width() * 100              # ---> winfo_width() : Devuelve el ancho actual del widget(Toplevel) en pixeles
+        self.porcentage_total_y = event.y / self.master.winfo_height() * 100              # ---> event.x/y     : Devuelve la posicion del mouse en pixeles (click/movimiento)
         x1, x2 = 0, 100
         y1, y2 = 68, 100  
-                
-        if x1 < (self.pointer_width) < x2  and  y1 < (self.pointer_height) < y2: 
-            if self.test == 'closed':               
-                self.frame_image_base_77 . grid(column=0, row=0)   # == {} (no mapeado)               
-                self.test = 'open'
+        #print('width_',self.pointer_width)
+        #print('height_',self.pointer_height) 
+        #print('xxxx_',event.x )
+        #print('yyyy_',event.y )     
+        if x1 <(self.porcentage_total_x)< x2  and  y1 <(self.porcentage_total_y)< y2: 
+
+            if not self._open1 == True:                                               # ---> Si self.test es Falso:   ---> Predeterminado: False
+                self._open1 = True
                 self.motion.set('of')
-                #print('se cambio de --ON-- a --OF-- ')
-                
-                self.lbl_text_flecha .grid(column=0, row=0, sticky=SE, ipadx=5) # VER SI ACEPTA VARIABLES
-                
+
+                self.frame_image_base_77 .grid(column=0, row=0)                      # Posiciona                  # == {} (no mapeado)  
+                self.lbl_text_flecha     .grid(column=0, row=0, sticky=SE, ipadx=5) # VER SI ACEPTA VARIABLES
+
+                #print('se cambio de --ON-- a --OF-- ')              
             else:
-                self.frame_image_base_77 .grid_forget()
-                self.test = 'closed'
-                self.after(0, lambda e = self.motion: self.motion.set('on'))  ## analizae
                 #print('se cambio de --OF-- a --ON-- ')
+                self._open1 = False
+
+                self.frame_image_base_77 .grid_forget()
+                self.after(0, lambda e = self.motion: self.motion.set('on'))  ## analizae
                 
                 self.lbl_text_flecha.grid_forget()
 
@@ -813,21 +817,6 @@ class TopDerCls(Frame):
         if self.frame_image_base_77 . grid_info() != {}:
             self.lbl_text_mostrar_77 .grid_forget() 
 
-        # Evento: Para
-        self.master.bind("<Button-1>", self.position_img)
-
-    def position_img(self, event):
-
-        winfo_x, winfo_y = self.master.winfo_width(), self.master.winfo_height() 
-        event_x, event_y = event.x, event.y
-        h = event_x / winfo_x * 100 
-        v = event_y / winfo_y * 100
-    
-        if int(h) >=0 and int(v) >=68 :  
-            if self.fr_img_77 . grid_info() == {}:
-                self.fr_img_77 . grid(column=0, row=0)                            
-            else:
-                self.fr_img_77 . grid_forget()
 
 
 #************************            ███████    ██████████████        *************************
