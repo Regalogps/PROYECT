@@ -390,12 +390,11 @@ class B2FrameCls(Frame):
 
 # Frame Contenedor de Spinbox y Listbox
 class B3FrameCls(Frame):
-    def __init__(self, master, *args, **kwargs):
+    def __init__(self, master, path_lst,  *args, **kwargs):
         super().__init__(master, *args, kwargs)
 
-        path = 'E:/1-RICHI/MovilesDB'
         #_____Coleccion de imagenes  
-        self.Miniatures= self.generate_list(path, 'M')
+        self.Miniatures = path_lst
 
         #_____C O N T E N E D O R E S:   [ 2 ]
         self.frame_1 = Frame (self, bg='#31343a', width=116, height=67)    # Color: Plomo       
@@ -580,22 +579,6 @@ class B3FrameCls(Frame):
         self.lbl_toggle .bind ("<Button-1>", self.change_toggle)
         self.listboxx .bind ('<<ListboxSelect>>', self.listbox_select)   # ACTIVA: CON CLICK IZQUIERDO EN EL LISTBOX - SELECCIONA 1 ITEM
 
-    def generate_list (self, file, option):   # INICIALIZA IMAGENES
-
-        ouput = os.listdir (file)
-        empty = [] 
-           
-        if option == 'M':
-            for i in ouput:  
-                if 'Mini' in i :      
-                    full = file + '/' + i
-                    open = cv2.imread (full)
-                    RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
-                    array = Image.fromarray (RGB)
-                    img = ImageTk.PhotoImage (array)
-                    empty. append (img)
-            return empty
-
 
 #********************************        ██████████████
 #********************************        ██          ██
@@ -649,7 +632,8 @@ class ResizeCls(Frame):
     def __init__(self, master, index, *args, **kwargs):
         super().__init__(master, *args, kwargs)
         
-        self.image = Image.fromarray (index)
+        #self.image = Image.fromarray (index)
+        self.image = Image.open (index)
         self.image_copy = self.image .copy()
 
         self.background = ImageTk.PhotoImage (self.image)
@@ -659,7 +643,6 @@ class ResizeCls(Frame):
         self.img .bind ('<Configure>', self.resize)
 
     def resize(self, event):
-        #self.xx, self.yy = self.
         
         self.image2 = self.image_copy .resize ((self.master .winfo_width(), self.master .winfo_height()))
         
@@ -680,31 +663,60 @@ class ResizeCls(Frame):
 #********************************        ██          ██        *********************************
 #********************************        ██████████████        *********************************
 
+# index1 = Minilista de imagenes, cada mobil tiene su propia lista
+
 #____V E N T A N A___I Z Q U I E R D A:
 class TopIzqCls(Frame):
-    def __init__(self, master, index1, id_0=None, id_1=None, id_2=None, id_3=None, id_4=None, id_5=None, id_6=None, id_7=None, path_lst=None, *args, **kwargs):
+    def __init__(self, master, indice, arg_0=None, arg_1=None, arg_2=None, arg_3=None, arg_4=None, arg_5=None, arg_6=None, arg_7=None, path_lst=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         
+        # Imagen: Delay completo del mobil
+        self.frame_image_delay_completo = ResizeCls (self, path_lst [indice][arg_0], bd=0)
+        self.frame_image_delay_completo       .grid (column=0, row=0)
 
-        self.fr_img_delay = ResizeCls (self, path_lst [index1][id_0], bd=0)
-        self.fr_img_delay .grid(column=0,row=0)
+        # Imagen: Miniatura del mobil para ayudar a medir las distancias
+        self.frame_image_mobil_tutorial = ResizeCls (self, path_lst [indice][arg_1], bd=0)  
 
-        self.fr_img_movil= ResizeCls (self, path_lst [index1][id_1], bd=0)  
+        # Texto: Guia, para abrir la Miniatura del mobil 
+        self.lbl_texto_guia = Label (self, text='Guia', font=('Calibri',7,'bold'), bg='black' , fg='white', bd=0)  
+        self.lbl_texto_guia  .place (x=2, y=48)    
+        self.lbl_texto_guia   .bind ('<Button-1>', self.open_image_miniature)
 
-        self.lbl_guia = Label (self, text= 'Guia', font=('Calibri',8,'bold'), bg= 'black' , fg= 'white', bd= 0)  
-        self.lbl_guia . bind('<Button-1>', self.position_img)
-        self.lbl_guia . place(x= 2, y= 48)    
- 
+        # Bind: Enlace para posicionar el label[text= Guia]
+        self.bind ('<Configure>', self.new_position_text_guia)
 
+
+        # Configuracion de la Ventana:
         self.grid_columnconfigure(0,weight=1)
         self.grid_rowconfigure(0,weight=1)
 
-    def position_img(self, event): 
 
-        if self.fr_img_movil .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.fr_img_movil .grid (column= 0, row= 0)
+    # Tarea: Abrir la minuatura del mobil 
+    def open_image_miniature(self, event): 
+
+        if self.frame_image_mobil_tutorial .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
+            self.frame_image_mobil_tutorial .grid (column= 0, row= 0)
         else:
-            self.fr_img_movil .grid_forget()
+            self.frame_image_mobil_tutorial .grid_forget()
+
+    # Tarea: Posicionar el label[text= Guia] que abre la miniatura del mobil
+    def new_position_text_guia(self, event):
+
+        var_x = IntVar()  # Aqui lo puedo camvbiar a IntVar para que no  de un cero de mas 23.0 54.0 
+        var_y = IntVar()    
+
+        width = self.master.winfo_width() / 35        # winfo_width() : Devuelve el ancho actual del widget(Toplevel) en pixeles, podria usar _reqwidth() que siempre esta actualizado.
+        height = self.master.winfo_height() / 13
+        w = int(width)
+        h = int(height)
+ 
+        var_x .set(w)           # aqui hay el 10% del ancho total
+        getx = var_x .get()
+
+        var_y .set(h)
+        gety = var_y .get()       
+        
+        self.lbl_texto_guia .place(x= getx, y= gety)
 
 
 #********************************        ██████████████        *********************************
@@ -721,17 +733,17 @@ class TopIzqCls(Frame):
 
 #____V E N T A N A___D E R E C H A:
 class TopDerCls(Frame):
-    def __init__(self, master, index1, id_0=None, id_1=None, id_2=None, id_3=None, id_4=None, id_5=None, id_6=None, id_7=None, path_lst=None, *args, **kwargs):
+    def __init__(self, master, indice, arg_0=None, arg_1=None, arg_2=None, arg_3=None, arg_4=None, arg_5=None, arg_6=None, arg_7=None, path_lst=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         
 
         self.master.bind("<Button-1>", self.position_img)
  
-        self.fr_img_base = ResizeCls (self, path_lst [index1][id_2], bd=0)
+        self.fr_img_base = ResizeCls (self, path_lst [indice][arg_2], bd=0)
         self.fr_img_base . grid (column=0, row=0)
         self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = ResizeCls (self, path_lst [index1][id_3], bd=0)       
+        self.fr_img_77 = ResizeCls (self, path_lst [indice][arg_3], bd=0)       
  
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
@@ -764,7 +776,7 @@ class TopDerCls(Frame):
 
 #____V E N T A N A___S T U F:
 class TopStufCls(Frame):
-    def __init__(self, master, index1, id_0=None, id_1=None, id_2=None, id_3=None, id_4=None, id_5=None, id_6=None, id_7=None, path_lst=None, *args, **kwargs):
+    def __init__(self, master, indice, arg_0=None, arg_1=None, arg_2=None, arg_3=None, arg_4=None, arg_5=None, arg_6=None, arg_7=None, path_lst=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         pass
         
@@ -1065,6 +1077,7 @@ class Interface(Frame, MoveAllCls):
         path = 'E:/1-RICHI/MovilesDB'
         #_____Coleccion de Imagenes:
         self.path_lst = self.generate_list (path, 'I')
+        self.path_mini = self.generate_list (path, 'M')
         
         #_____Variables de control para las ventanas:  [ 1,2,3 ]
         self._frame_1 = None
@@ -1162,7 +1175,8 @@ class Interface(Frame, MoveAllCls):
     def generate_list(self, file, option):
 
         ouput = os.listdir (file)
-        empty = []                    
+        empty = []   
+
         if option == 'I': 
             _lst = [[] for x in range(22)]
             _str = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Kal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Dr1','Dr2']
@@ -1170,10 +1184,26 @@ class Interface(Frame, MoveAllCls):
                 for index,iter in enumerate(_str):
                     if iter in i: 
                         full = file + '/' + i
-                        open = cv2.imread (full)
-                        RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
-                        _lst[index].append(RGB)               
-            return _lst        
+                        #open = cv2.imread (full)
+                        #RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
+                        #_lst[index].append(RGB)
+                        _lst[index].append(full)               
+            return _lst    
+
+           
+        if option == 'M':
+            for i in ouput:  
+                if 'Mini' in i :      
+                    full = file + '/' + i
+                    #open = cv2.imread (full)
+                    #RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
+                    #array = Image.fromarray (RGB)
+                    #img = ImageTk.PhotoImage (array)
+                    #empty. append (img)
+                    open = Image.open(full)
+                    img  = ImageTk.PhotoImage(open)
+                    empty. append (img)
+            return empty    
 
     # Tareas:
     #   1- Crea las interfaces de control: (4 instancias de clase)
@@ -1186,7 +1216,7 @@ class Interface(Frame, MoveAllCls):
         self.frame_controller = A1FrameCls (self, bg='#11161d', width=60, height=67)   # Posicionado     # Color: Azul
         self.frame_botones =    B1FrameCls (self, bg='#31343a', width=756, height=67)     # Posicionado     # Color: Plomo
         self.frame_configurer = B2FrameCls (self, bg='#31343a', width=756, height=67)  # No posicionado  # Color: Plomo
-        self.frame_listmode =   B3FrameCls (self)                                        # No posicionado  # Color: Azul y Plomo
+        self.frame_listmode =   B3FrameCls (self, self.path_mini)                                        # No posicionado  # Color: Azul y Plomo
          
         #____P A C K ():
         self.frame_controller .pack (side=LEFT, fill=BOTH)
@@ -1306,7 +1336,6 @@ class Interface(Frame, MoveAllCls):
 
     def windows_123 (self, var_1, var_2, var_3, mobil=None):
 
-
         for index,i in enumerate(self.frame_listmode .spinbox_values):
             if mobil == index:
                 self.mobil_selected = i
@@ -1323,7 +1352,7 @@ class Interface(Frame, MoveAllCls):
         
         #                                  V E N T A N A:   1
         #__________________________________________________________________________________________________________
-        if not self._open_1:   # ----> not self._open_1 == True:
+        if not self._open_1:   # ----> Si open_1 es False:
             self.toplevel_LEFT = ToplevelCls (self, close, minimize, frame, value_exception1='btn', _exception2='frm')
             self.toplevel_LEFT .configure_toplevel ('Hoja Izquierda', self.geo_izq.get())
                                 
