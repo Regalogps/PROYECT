@@ -739,13 +739,15 @@ class TopDerCls(Frame):
         
 
         self.master.bind("<Button-1>", self.position_img)
- 
-        self.fr_img_base = ResizeCls (self, path_lst [indice][arg_2], bd=0)
-        self.fr_img_base . grid (column=0, row=0)
-        self.fr_img_base . grid_propagate(0)
 
-        self.fr_img_77 = ResizeCls (self, path_lst [indice][arg_3], bd=0)       
- 
+        # Imagen: 
+        self.frame_image_base_inicial = ResizeCls (self, path_lst [indice][arg_2], bd=0)
+        self.frame_image_base_inicial       .grid (column=0, row=0)
+        self.frame_image_base_inicial       .grid_propagate(0)
+
+        self.frame_image_base_77 = ResizeCls (self, path_lst [indice][arg_3], bd=0)
+
+        # Configuraciónn de la ventana:
         self.grid_columnconfigure (0,weight=1)
         self.grid_rowconfigure (0,weight=1)
 
