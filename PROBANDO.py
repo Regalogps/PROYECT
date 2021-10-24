@@ -677,7 +677,7 @@ class TopIzqCls(Frame):
         # Imagen: Miniatura del mobil para ayudar a medir las distancias
         self.frame_image_mobil_tutorial = ResizeCls (self, path_lst [indice][arg_1], bd=0)  
 
-        # Texto: Guia, para abrir la Miniatura del mobil 
+        # Texto: "Guia", para abrir la Miniatura del mobil 
         self.lbl_text_guia = Label (self, text='Guia', font=('Calibri',7,'bold'), bg='black' , fg='white', bd=0)  
         self.lbl_text_guia  .place (x=2, y=48)    
         self.lbl_text_guia   .bind ('<Button-1>', self.open_image_miniature)
@@ -743,10 +743,79 @@ class TopDerCls(Frame):
         # Imagen: Base inicial del mobil:
         self.frame_image_base_initial = ResizeCls (self, path_lst [indice][arg_2], bd=0)
         self.frame_image_base_initial       .grid (column=0, row=0)
-        self.frame_image_base_initial .grid_propagate(0)
+        self.frame_image_base_initial       .grid_propagate(0)
 
         # Imagen: Base 77 del mobil:
         self.frame_image_base_77      = ResizeCls (self, path_lst [indice][arg_3], bd=0)
+
+        # Texto: "↑" para señalar la imagen base 77 del mobil:
+        self.flecha = Label (self, text='↑', font=('Calibri',30,'bold'), bg= '#2f3337', fg='green2', width=1, height=1)
+        self.alert_77 = Label (self, text= "Haga ' Click ' para mostrar:\nAngulo ' 77 '", font=('Bickham Script Pro',8  ,'bold'), bg=  '#2f3337',fg='white', width=50, height=2)
+        
+ 
+        self.grid_columnconfigure (0,weight=1)
+        self.grid_rowconfigure (0,weight=1)
+
+
+        self.master.bind("<Button-1>", self.button1)      
+        self.bind_motion = self.master.bind('<Motion>',self.motion)
+        self.bind_leave = self.bind('<Leave>', lambda e: self.alert_77 .grid_forget())
+
+        #______V A R I A B L E S  de  C O N T R O L  para los B I N D
+        self.test = 'closed'
+        self.motion = StringVar()
+        self.motion.set('on')
+        
+
+    #_______M E T O D O   < B U T T O N - 1 >
+    def button1(self, event): 
+
+        self.pointer_width = event.x / self.master.winfo_width() * 100
+        self.pointer_height = event.y / self.master.winfo_height() * 100
+        x1, x2 = 0, 100
+        y1, y2 = 68, 100  
+                
+        if x1 < (self.pointer_width) < x2  and  y1 < (self.pointer_height) < y2: 
+            if self.test == 'closed':               
+                self.fr_img_77 . grid(column=0, row=0)   # == {} (no mapeado)               
+                self.test = 'open'
+                self.motion.set('of')
+                #print('se cambio de --ON-- a --OF-- ')
+                
+                self.flecha .grid(column=0, row=0, sticky=SE, ipadx=5) # VER SI ACEPTA VARIABLES
+                
+            else:
+                self.fr_img_77 .grid_forget()
+                self.test = 'closed'
+                self.after(0, lambda e = self.motion: self.motion.set('on'))  ## analizae
+                #print('se cambio de --OF-- a --ON-- ')
+                
+                self.flecha.grid_forget()
+
+
+    #_______M E T O D O   < M O T I O N >
+    def motion(self, event):      
+ 
+        self.pointer_width_2 = event.x / self.master.winfo_width() * 100
+        self.pointer_height_2 = event.y / self.master.winfo_height() * 100
+        x1, x2 = 0, 100
+        y1, y2 = 68, 100
+        if self.motion.get()=='on':    
+            if x1 < (self.pointer_width_2) < x2  and  y1 < (self.pointer_height_2) < y2:        
+                self.alert_77 .grid (column=0, row=0, sticky=N, ipadx=5, ipady=5)
+                #print(self.pointer_width_2)
+
+            else:
+                self.alert_77 .grid_forget() 
+                #print('entre ala sala motion') 
+
+        if self.fr_img_77 . grid_info() != {}:
+            self.alert_77 .grid_forget() 
+
+
+
+
+
 
         # Evento: Para
         self.master.bind("<Button-1>", self.position_img)
