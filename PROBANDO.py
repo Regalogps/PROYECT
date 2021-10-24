@@ -748,17 +748,17 @@ class TopDerCls(Frame):
         # Imagen: Base 77 del mobil:
         self.frame_image_base_77      = ResizeCls (self, path_lst [indice][arg_3], bd=0)
 
-        # Texto: "↑", se dibuja si aparece la imagen [base 77] del mobil:
-        self.lbl_text_flecha = Label (self, text='↑', font=('Calibri',30,'bold'), bg='#2f3337', fg='green2', width=1, height=1)
-
-        self.lbl_text_alert_77 = Label (self, text= "Haga ' Click ' para mostrar:\nAngulo ' 77 '", font=('Bickham Script Pro',8  ,'bold'), bg=  '#2f3337',fg='white', width=50, height=2)
+        # Texto: "Haga click para mostrar el angulo 77", Cambia la imagen a la base 77 del mobil:
+        self.lbl_text_mostrar_77 = Label (self, text="Haga ' Click ' para mostrar:\nAngulo ' 77 '", font=('Bickham Script Pro',8,'bold'), bg='#2f3337', fg='white', width=50, height=2)
         
+        # Texto: "↑", se dibuja si aparece la imagen [base 77] del mobil:
+        self.lbl_text_flecha     = Label (self, text='↑', font=('Calibri',30,'bold'), bg='#2f3337', fg='green2', width=1, height=1)
 
         self.master.bind("<Button-1>", self.button1)      
         self.bind_motion = self.master.bind('<Motion>',self.motion)
         self.bind_leave = self.bind('<Leave>', lambda e: self.alert_77 .grid_forget())
 
-        #______V A R I A B L E S  de  C O N T R O L  para los B I N D
+        #____Variables de Control para los Eventos:
         self.test = 'closed'
         self.motion = StringVar()
         self.motion.set('on')
@@ -803,27 +803,18 @@ class TopDerCls(Frame):
         y1, y2 = 68, 100
         if self.motion.get()=='on':    
             if x1 < (self.pointer_width_2) < x2  and  y1 < (self.pointer_height_2) < y2:        
-                self.alert_77 .grid (column=0, row=0, sticky=N, ipadx=5, ipady=5)
+                self.lbl_text_mostrar_77 .grid (column=0, row=0, sticky=N, ipadx=5, ipady=5)
                 #print(self.pointer_width_2)
 
             else:
-                self.alert_77 .grid_forget() 
+                self.lbl_text_mostrar_77 .grid_forget() 
                 #print('entre ala sala motion') 
 
         if self.frame_image_base_77 . grid_info() != {}:
-            self.alert_77 .grid_forget() 
-
-
-
-
-
+            self.lbl_text_mostrar_77 .grid_forget() 
 
         # Evento: Para
         self.master.bind("<Button-1>", self.position_img)
-
-        # Configuraciónn de la ventana:
-        self.grid_columnconfigure (0,weight=1)
-        self.grid_rowconfigure (0,weight=1)
 
     def position_img(self, event):
 
