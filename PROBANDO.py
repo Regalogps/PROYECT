@@ -705,10 +705,10 @@ class TopIzqCls(Frame):
         var_x = IntVar()  # Aqui lo puedo camvbiar a IntVar para que no  de un cero de mas 23.0 54.0 
         var_y = IntVar()    
 
-        width = self.master.winfo_width() / 35        # winfo_width() : Devuelve el ancho actual del widget(Toplevel) en pixeles, podria usar _reqwidth() que siempre esta actualizado.
-        height = self.master.winfo_height() / 13
-        w = int(width)
-        h = int(height)
+        width_toplvl = self.master.winfo_width() / 35        # winfo_width() : Devuelve el ancho actual del widget(Toplevel) en pixeles, podria usar _reqwidth() que siempre esta actualizado.
+        height_toplvl = self.master.winfo_height() / 13
+        w = int(width_toplvl)
+        h = int(height_toplvl)
  
         var_x .set(w)           # aqui hay el 10% del ancho total
         getx = var_x .get()
@@ -716,7 +716,8 @@ class TopIzqCls(Frame):
         var_y .set(h)
         gety = var_y .get()       
         
-        self.lbl_texto_guia .place(x= getx, y= gety)
+        #self.lbl_texto_guia .place(x= getx, y= gety)
+        self.lbl_texto_guia .place(x= w, y= h)
 
 
 #********************************        ██████████████        *********************************
