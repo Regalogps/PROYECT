@@ -671,31 +671,31 @@ class TopIzqCls(Frame):
         super().__init__(master, *args, **kwargs)
         
         # Imagen: Delay completo del mobil
-        self.frame_image_delay_completo = ResizeCls (self, path_lst [indice][arg_0], bd=0)
-        self.frame_image_delay_completo       .grid (column=0, row=0)
+        self.frame_image_delay_complete = ResizeCls (self, path_lst [indice][arg_0], bd=0)
+        self.frame_image_delay_complete       .grid (column=0, row=0)
 
         # Imagen: Miniatura del mobil para ayudar a medir las distancias
         self.frame_image_mobil_tutorial = ResizeCls (self, path_lst [indice][arg_1], bd=0)  
 
         # Texto: Guia, para abrir la Miniatura del mobil 
-        self.lbl_texto_guia = Label (self, text='Guia', font=('Calibri',7,'bold'), bg='black' , fg='white', bd=0)  
-        self.lbl_texto_guia  .place (x=2, y=48)    
-        self.lbl_texto_guia   .bind ('<Button-1>', self.open_image_miniature)
+        self.lbl_text_guia = Label (self, text='Guia', font=('Calibri',7,'bold'), bg='black' , fg='white', bd=0)  
+        self.lbl_text_guia  .place (x=2, y=48)    
+        self.lbl_text_guia   .bind ('<Button-1>', self.open_image_miniature)
 
         # Bind: Enlace para posicionar el label[text= Guia]
         self.bind ('<Configure>', self.new_position_text_guia)
 
 
         # Configuracion de la Ventana:
-        self.grid_columnconfigure(0,weight=1)
-        self.grid_rowconfigure(0,weight=1)
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_rowconfigure(0, weight=1)
 
 
     # Tarea: Abrir la minuatura del mobil 
     def open_image_miniature(self, event): 
 
         if self.frame_image_mobil_tutorial .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.frame_image_mobil_tutorial .grid (column= 0, row= 0)
+            self.frame_image_mobil_tutorial .grid (column=0, row=0)
         else:
             self.frame_image_mobil_tutorial .grid_forget()
 
@@ -716,8 +716,8 @@ class TopIzqCls(Frame):
         var_y .set(h)
         gety = var_y .get()       
         
-        #self.lbl_texto_guia .place(x= getx, y= gety)
-        self.lbl_texto_guia .place(x= w, y= h)
+        #self.lbl_text_guia .place(x= getx, y= gety)
+        self.lbl_text_guia .place(x= w, y= h)
 
 
 #********************************        ██████████████        *********************************
