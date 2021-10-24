@@ -682,7 +682,7 @@ class TopIzqCls(Frame):
         self.lbl_text_guia  .place (x=2, y=48)    
         self.lbl_text_guia   .bind ('<Button-1>', self.open_image_miniature)
 
-        # Bind: Enlace para posicionar el label[text= Guia]
+        # Evento: Para posicionar el label[text= Guia]
         self.bind ('<Configure>', self.new_position_text_guia)
 
 
@@ -740,12 +740,16 @@ class TopDerCls(Frame):
 
         self.master.bind("<Button-1>", self.position_img)
 
-        # Imagen: 
-        self.frame_image_base_inicial = ResizeCls (self, path_lst [indice][arg_2], bd=0)
-        self.frame_image_base_inicial       .grid (column=0, row=0)
-        self.frame_image_base_inicial       .grid_propagate(0)
+        # Imagen: Base inicial del mobil:
+        self.frame_image_base_initial = ResizeCls (self, path_lst [indice][arg_2], bd=0)
+        self.frame_image_base_initial       .grid (column=0, row=0)
+        self.frame_image_base_initial .grid_propagate(0)
 
-        self.frame_image_base_77 = ResizeCls (self, path_lst [indice][arg_3], bd=0)
+        # Imagen: Base 77 del mobil:
+        self.frame_image_base_77      = ResizeCls (self, path_lst [indice][arg_3], bd=0)
+
+        # Evento: Para
+        self.master.bind("<Button-1>", self.position_img)
 
         # Configuraciónn de la ventana:
         self.grid_columnconfigure (0,weight=1)
