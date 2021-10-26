@@ -467,8 +467,10 @@ class B3FrameCls(Frame):
             self.spinboxx .delete(0, END) 
         self.spinboxx .insert(0, selection)
         self.listboxx .selection_clear(0,END)
- 
+        
         self.after(100, lambda: self.spinboxx.focus_set())
+
+        self.open_windows()
 
 
     def listbox_enter(self, event):  # ACTIVA: CON TECLA ENTER - INSERTA EL VALOR DE LISTBOX A SPINBOX, MANDA LLAMAR A OPEN_WINDOWS  Y ABREN LAS VENTANAS 
@@ -728,6 +730,11 @@ class TopIzqCls(Frame):
 class TopDerCls(Frame):
     def __init__(self, master, indice, arg_0=None, arg_1=None, arg_2=None, arg_3=None, arg_4=None, arg_5=None, arg_6=None, arg_7=None, path_lst=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
+        # Variables de Control para mostrar la imagen del angulo 77:
+        self.x1 = 0
+        self.x2 = 100
+        self.y1 = 67
+        self.y2 = 100
 
         # Imagen: Base inicial del mobil:
         self.frame_image_base_initial = ResizeCls (self, path_lst [indice][arg_2], bd=0)
@@ -736,89 +743,85 @@ class TopDerCls(Frame):
 
         # Imagen: Base 77 del mobil:
         self.frame_image_base_77      = ResizeCls (self, path_lst [indice][arg_3], bd=0)
+        self.frame_image_base_77            .grid(column=0, row=0)                                 # [ NO POSICIONADO ]
 
-        # Texto: "Haga click" para mostrar el angulo 77":                         # Cambia la imagen a la base 77 del mobil:
-        self.lbl_text_mostrar_77 = Label (self, text="Haga ' Click ' para mostrar:\nAngulo ' 77 '", font=('Bickham Script Pro',8,'bold'), bg='#2f3337', fg='white', width=50, height=2)
-        
-        # Texto: "↑":                                                             # Se dibuja si aparece la imagen [base 77] del mobil:
-        self.lbl_text_flecha     = Label (self, text='↑', font=('Calibri',30,'bold'), bg='#2f3337', fg='green2', width=1, height=1)
+        # Texto: "Haga click" para mostrar el angulo 77":  -->  Cambia la imagen a la base 77 del mobil:
+        self.lbl_text_mostrar_77          = Label (self, text="Haga ' Click ' para mostrar:\nAngulo ' 77 '", font=('Bickham Script Pro',8,'bold'), bg='#2f3337', fg='white', width=50, height=2)
+        self.lbl_text_mostrar_77            .grid (column=0, row=0, ipadx=5, ipady=5, sticky=N,)   # [ NO POSICIONADO ]
 
+        # Texto: "↑":  -->  Se dibuja si aparece la imagen [base 77] del mobil:
+        self.lbl_text_flecha              = Label (self, text='↑', font=('Calibri',30,'bold'), bg='#2f3337', fg='green2', width=1, height=1)
+        self.lbl_text_flecha                .grid (column=0, row=0, ipadx=5, sticky=SE)            # [ NO POSICIONADO ]
+
+        # Removemos widget :
+        self.frame_image_base_77 .grid_remove() 
+        self.lbl_text_mostrar_77 .grid_remove()
+        self.lbl_text_flecha     .grid_remove()
 
         # Eventos Enlazados:
             # Enlace: Posiciona/Quita   el Label [texto: "↑"]
         self.master.bind("<Button-1>", self.open_text_flecha)
         
             # Enlace:      
-        self.bind_motion = self.master.bind('<Motion>',self.motion)
+        self.bind_motion = self.master.bind('<Motion>',self.open_text_mostrar_77)
 
-            # Enlace: Quita             el Label [texto: "Haga click" para mostrar el angulo 77"]:
-        self.bind_leave = self.bind('<Leave>', lambda e: self.lbl_text_mostrar_77 .grid_forget())   
+            # Enlace: Quita el Label [texto: "Haga click" para mostrar el angulo 77"]:
+        self.bind_leave = self.bind('<Leave>', lambda arg: self.lbl_text_mostrar_77 .grid_remove())   
 
 
         #____Variables de Control para los Eventos:
-        self._open1 = False
-        self.motion = StringVar()
-        self.motion.set('on')
+        self._button_1 = False  # Creado para el evento: Button-1
+        self._motion_1 = False  # Creado para el evento: Motion
         
 
         # Configuración de la ventana:    
         self.grid_columnconfigure (0,weight=1)
-        self.grid_rowconfigure (0,weight=1)
+        self.grid_rowconfigure    (0,weight=1)
         
-
-
+    
     #___< B U T T O N - 1 >
     def open_text_flecha(self, event): 
 
         # Convierte el tamaño total de la ventana en porcentaje:  100 %
         self.porcentage_total_x = event.x / self.master.winfo_width() * 100              # ---> winfo_width() : Devuelve el ancho actual del widget(Toplevel) en pixeles
-        self.porcentage_total_y = event.y / self.master.winfo_height() * 100              # ---> event.x/y     : Devuelve la posicion del mouse en pixeles (click/movimiento)
-        x1, x2 = 0, 100
-        y1, y2 = 67, 100  
+        self.porcentage_total_y = event.y / self.master.winfo_height() * 100             # ---> event.x/y     : Devuelve la posicion del mouse en pixeles (click/movimiento)
       
-        if x1 <(self.porcentage_total_x)< x2  and  y1 <(self.porcentage_total_y)< y2: 
+        if self.x1 <(self.porcentage_total_x)< self.x2  and  self.y1 <(self.porcentage_total_y)< self.y2: 
 
-            if not self._open1 == True:                                               # ---> Si self.test es Falso:   ---> Predeterminado: False
-                self._open1 = True
-                self.motion.set('of')
+            if not self._button_1 == True:    # Si es Falso:   ---> Predeterminado: False
+                self._button_1 = True
+                self._motion_1 = True
 
-                self.frame_image_base_77 .grid(column=0, row=0)                      # Posiciona                  # == {} (no mapeado)  
-                self.lbl_text_flecha     .grid(column=0, row=0, sticky=SE, ipadx=5) # VER SI ACEPTA VARIABLES
+                self.frame_image_base_77 .grid()                     # Posiciona
+                self.lbl_text_mostrar_77 .grid_remove()
+                self.lbl_text_flecha     .grid()                     # VER SI ACEPTA VARIABLES
 
-                self.lbl_text_mostrar_77 .grid_forget()
-
-                #print('se cambio de --ON-- a --OF-- ')              
             else:
-                #print('se cambio de --OF-- a --ON-- ')
-                self._open1 = False
+                self._button_1 = False
+                self._motion_1 = False
 
-                self.frame_image_base_77 .grid_forget()
-                self.after(0, lambda e = self.motion: self.motion.set('on'))  ## analizae
-
-                self.lbl_text_mostrar_77 .grid (column=0, row=0, sticky=N, ipadx=5, ipady=5)
-                
-                self.lbl_text_flecha.grid_forget()
+                self.frame_image_base_77 .grid_remove()
+                self.lbl_text_mostrar_77 .grid()
+                self.lbl_text_flecha     .grid_remove()
 
 
-    #_______M E T O D O   < M O T I O N >
-    def motion(self, event):      
+
+    #___< M O T I O N >
+    def open_text_mostrar_77(self, event):      
  
-        self.pointer_width_2 = event.x / self.master.winfo_width() * 100
+        self.pointer_width_2  = event.x / self.master.winfo_width() * 100
         self.pointer_height_2 = event.y / self.master.winfo_height() * 100
-        x1, x2 = 0, 100
-        y1, y2 = 67, 100
         
-        if self.motion.get()=='on':    
-            if x1 < (self.pointer_width_2) < x2  and  y1 < (self.pointer_height_2) < y2:        
-                self.lbl_text_mostrar_77 .grid (column=0, row=0, sticky=N, ipadx=5, ipady=5)
-                #print(self.pointer_width_2)
+        if not self._motion_1 == True: 
+
+            if self.x1 <(self.pointer_width_2)< self.x2  and  self.y1 <(self.pointer_height_2)< self.y2:    
+                self.lbl_text_mostrar_77 .grid()
 
             else:
-                self.lbl_text_mostrar_77 .grid_forget() 
-                #print('entre ala sala motion') 
+                self.lbl_text_mostrar_77 .grid_remove()
 
-        if self.frame_image_base_77 . grid_info() != {}:
-            self.lbl_text_mostrar_77 .grid_forget() 
+        if self.frame_image_base_77 .grid_info() != {}:   # == {} (no mapeado) 
+            self.lbl_text_mostrar_77     .grid_remove()
 
 
 
@@ -1240,8 +1243,9 @@ class Interface(Frame, MoveAllCls):
         if option == 'I': 
             _lst = [[] for x in range(22)]
             _str = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Kal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Dr1','Dr2']
+
             for i in ouput:               
-                for index,iter in enumerate(_str):
+                for index, iter in enumerate(_str):
                     if iter in i: 
                         full = file + '/' + i
                         #open = cv2.imread (full)
