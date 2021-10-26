@@ -677,12 +677,16 @@ class TopIzqCls(Frame):
         self.frame_image_delay_complete       .grid (column=0, row=0)
 
         # Imagen: Miniatura del mobil para ayudar a medir las distancias
-        self.frame_image_mobil_tutorial = ResizeCls (self, path_lst [indice][arg_1], bd=0)  
+        self.frame_image_mobil_tutorial = ResizeCls (self, path_lst [indice][arg_1], bd=0)
+        self.frame_image_mobil_tutorial .grid (column=0, row=0)                             # [ NO POSICIONADO ]
 
         # Texto: "Guia", para abrir la Miniatura del mobil 
         self.lbl_text_guia = Label (self, text='Guia', font=('Calibri',7,'bold'), bg='black' , fg='white', bd=0)  
         self.lbl_text_guia  .place (x=2, y=48)    
         self.lbl_text_guia   .bind ('<Button-1>', self.open_image_miniature)
+
+        # Widgets No Posicionados:  
+        self.frame_image_mobil_tutorial .grid_remove()
 
         # Evento: Para posicionar el label[text= Guia]
         self.bind ('<Configure>', self.new_position_text_guia)
@@ -693,6 +697,7 @@ class TopIzqCls(Frame):
         self.grid_rowconfigure(0, weight=1)
 
 
+    #___< C O N F I G U R E > :
     # Tarea: Posicionar el label[text= Guia] que abre la miniatura del mobil
     def new_position_text_guia(self, event):  
 
@@ -703,14 +708,14 @@ class TopIzqCls(Frame):
      
         self.lbl_text_guia .place(x=x, y=y)
 
-
+    #___< B U T T O N-1 > :
     # Tarea: Abrir la minuatura del mobil 
     def open_image_miniature(self, event): 
 
         if self.frame_image_mobil_tutorial .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
-            self.frame_image_mobil_tutorial .grid (column=0, row=0)
+            self.frame_image_mobil_tutorial .grid()
         else:
-            self.frame_image_mobil_tutorial .grid_forget()
+            self.frame_image_mobil_tutorial .grid_remove()
 
 
 
@@ -745,7 +750,7 @@ class TopDerCls(Frame):
         self.frame_image_base_77      = ResizeCls (self, path_lst [indice][arg_3], bd=0)
         self.frame_image_base_77            .grid(column=0, row=0)                                 # [ NO POSICIONADO ]
 
-        # Texto: "Haga click" para mostrar el angulo 77":  -->  Cambia la imagen a la base 77 del mobil:
+        # Texto: "Haga click" para mostrar el angulo 77" :  -->  Cambia la imagen a la base 77 del mobil:
         self.lbl_text_mostrar_77          = Label (self, text="Haga ' Click ' para mostrar:\nAngulo ' 77 '", font=('Bickham Script Pro',8,'bold'), bg='#2f3337', fg='white', width=50, height=2)
         self.lbl_text_mostrar_77            .grid (column=0, row=0, ipadx=5, ipady=5, sticky=N,)   # [ NO POSICIONADO ]
 
@@ -753,7 +758,7 @@ class TopDerCls(Frame):
         self.lbl_text_flecha              = Label (self, text='↑', font=('Calibri',30,'bold'), bg='#2f3337', fg='green2', width=1, height=1)
         self.lbl_text_flecha                .grid (column=0, row=0, ipadx=5, sticky=SE)            # [ NO POSICIONADO ]
 
-        # Removemos widget :
+        # Widget No Posicionados:
         self.frame_image_base_77 .grid_remove() 
         self.lbl_text_mostrar_77 .grid_remove()
         self.lbl_text_flecha     .grid_remove()
@@ -779,7 +784,7 @@ class TopDerCls(Frame):
         self.grid_rowconfigure    (0,weight=1)
         
     
-    #___< B U T T O N - 1 >
+    #___< B U T T O N - 1 > :
     def open_text_flecha(self, event): 
 
         # Convierte el tamaño total de la ventana en porcentaje:  100 %
@@ -806,7 +811,7 @@ class TopDerCls(Frame):
 
 
 
-    #___< M O T I O N >
+    #___< M O T I O N > :
     def open_text_mostrar_77(self, event):      
  
         self.pointer_width_2  = event.x / self.master.winfo_width() * 100
