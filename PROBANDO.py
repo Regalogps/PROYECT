@@ -708,7 +708,7 @@ class TopIzqCls(Frame):
      
         self.lbl_text_guia .place(x=x, y=y)
 
-    #___< B U T T O N-1 > :
+    #___< B U T T O N - 1 > :
     # Tarea: Abrir la minuatura del mobil 
     def open_image_miniature(self, event): 
 
@@ -774,7 +774,7 @@ class TopDerCls(Frame):
         self.bind_leave = self.bind('<Leave>', lambda arg: self.lbl_text_mostrar_77 .grid_remove())   
 
 
-        #____Variables de Control para los Eventos:
+        #____Variables de Control para los Eventos Enlazados:
         self._button_1 = False  # Creado para el evento: Button-1
         self._motion_1 = False  # Creado para el evento: Motion
         
