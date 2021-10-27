@@ -681,16 +681,19 @@ class TopIzqCls(Frame):
         self.frame_image_mobil_tutorial       .grid (column=0, row=0)                             # [ NO POSICIONADO ]
 
         # Texto: "Guia", para abrir la Miniatura del mobil 
-        self.lbl_text_guia                  = Label (self, text='Guia', font=('Calibri',7,'bold'), bg='black' , fg='white', bd=0)  
-        self.lbl_text_guia                   .place (x=2, y=48)    
+        self.lbl_text_guia                  = Label (self, text='Guia', font=('Calibri',8,'bold'), bg='black' , fg='white', bd=0)  
+        self.lbl_text_guia                   .place ()   # antes: x=2, y=48
         self.lbl_text_guia                    .bind ('<Button-1>', self.open_image_miniature)
+
+        """ self.lbl_text                  = Label (self, text='Delay\nGeneral', font=('Calibri',8,'bold'), bg='black' , fg='white', bd=0)  
+        self.lbl_text                   .place (x=10, y=10)   # antes: x=2, y=48
+        self.lbl_text                    .bind ('<Button-1>', self.open_image_miniature) """
 
         # Widgets No Posicionados:  
         self.frame_image_mobil_tutorial .grid_remove()
 
         # Evento: Para posicionar el label[text= Guia]
         self.bind ('<Configure>', self.new_position_text_guia)
-
 
         # Configuracion de la Ventana:
         self.grid_columnconfigure(0, weight=1)
@@ -700,13 +703,21 @@ class TopIzqCls(Frame):
     #___< C O N F I G U R E > :
     # Tarea: Posicionar el label[text= Guia] que abre la miniatura del mobil
     def new_position_text_guia(self, event):  
-
-        toplevel_width  = self.master.winfo_width() / 35        # winfo_width() : Devuelve el ancho actual del widget(Toplevel) en pixeles, podria usar _reqwidth() que siempre esta actualizado.
-        toplevel_height = self.master.winfo_height() / 13
+        #self.a=1.17
+        toplevel_width  = self.master.winfo_width() / 1.17        # winfo_width() : Devuelve el ancho actual del widget(Toplevel) en pixeles, podria usar _reqwidth() que siempre esta actualizado.
+        toplevel_height = self.master.winfo_height() / 13.5
         x = int (toplevel_width)
         y = int (toplevel_height)    
-     
+
         self.lbl_text_guia .place(x=x, y=y)
+
+        if y < 49:
+            self.lbl_text_guia .config(font=('Calibri',7,'bold'))
+        #elif y < 40:
+        #    self.self.lbl_text_guia .config(font=('Calibri',6,'bold'))  # NO FUNCIONA
+        else:
+            self.lbl_text_guia .config(font=('Calibri',8,'bold'))
+
 
     #___< B U T T O N - 1 > :
     # Tarea: Abrir la minuatura del mobil 
@@ -905,9 +916,10 @@ class MoveAllCls():
 
         new_position = "+{}+{}".format (_tops.winfo_x() + deltax, _tops.winfo_y() + deltay)
         
-        if not isinstance(_event, (Button, ttk.Sizegrip)) == True or self.is_movable(_event):                 # NOTA: self._is_movable(_event): Devuelve True 
+        if not isinstance(_event, (Button, ttk.Sizegrip, Spinbox)) == True or self.is_movable(_event):                 # NOTA: self._is_movable(_event): Devuelve True 
             _tops.geometry(new_position)                                                                      # Mueve todas las ventanas en general menos root 
-        if isinstance(_tops.master, Tk)== True and not isinstance(_event, (Button, ttk.Sizegrip)) or self.is_movable(_event):                                                           # otro: if _tops.master == RootCls:
+
+        if isinstance(_tops.master, Tk)== True and not isinstance(_event, (Button, ttk.Sizegrip, Spinbox)) or self.is_movable(_event):                                                           # otro: if _tops.master == RootCls:
             _tops.master.geometry(new_position)                                                               # Mueve la ventana root
 
 
@@ -1186,6 +1198,7 @@ class Interface(Frame, MoveAllCls):
 
         #_____Métodos Llamados de Otras Clases:
         self.make_movable(self.frame_controller.btn_ash)                  # Metodo de MoveAllCls: añade a la lista de widget, que permiten mover la ventana
+
 
     # Tareas:
     #   1- Asignar el tamaño y posicion de todas las ventanas a excepción de root 
