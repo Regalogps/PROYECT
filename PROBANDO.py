@@ -1015,7 +1015,7 @@ class ToplevelCls(Toplevel):
         self._y = 0
 
 
-        self.frame_manager = FrameManagerCls (self, bg="black", _exception1=value_exception1)       # Frame: Gestor de Ventanas
+        self.frame_manager = FrameManagerCls (self, bg="black",  _exception1=value_exception1)       # Frame: Gestor de Ventanas
         self.frame_manager .pack (pack_3)
     
         self.frame_manager .bind("<ButtonPress-1>", self.start_move)       # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
@@ -1146,6 +1146,7 @@ class Interface(Frame, MoveAllCls):
         #_____Coleccion de Imagenes:
         self.path_lst = self.generate_list (path, 'I')
         self.path_mini = self.generate_list (path, 'M')
+        print(len(self.path_lst))
         
         #_____Variables de control para las ventanas:  [ 1,2,3 ]
         self._frame_1 = None
@@ -1247,7 +1248,7 @@ class Interface(Frame, MoveAllCls):
 
         if option == 'I': 
             _lst = [[] for x in range(22)]
-            _str = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Kal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Dr1','Dr2']
+            _str = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Kal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Bar','Dra']
 
             for i in ouput:               
                 for index, iter in enumerate(_str):
