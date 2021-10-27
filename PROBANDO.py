@@ -678,12 +678,12 @@ class TopIzqCls(Frame):
 
         # Imagen: Miniatura del mobil para ayudar a medir las distancias
         self.frame_image_mobil_tutorial = ResizeCls (self, path_lst [indice][arg_1], bd=0)
-        self.frame_image_mobil_tutorial .grid (column=0, row=0)                             # [ NO POSICIONADO ]
+        self.frame_image_mobil_tutorial       .grid (column=0, row=0)                             # [ NO POSICIONADO ]
 
         # Texto: "Guia", para abrir la Miniatura del mobil 
-        self.lbl_text_guia = Label (self, text='Guia', font=('Calibri',7,'bold'), bg='black' , fg='white', bd=0)  
-        self.lbl_text_guia  .place (x=2, y=48)    
-        self.lbl_text_guia   .bind ('<Button-1>', self.open_image_miniature)
+        self.lbl_text_guia                  = Label (self, text='Guia', font=('Calibri',7,'bold'), bg='black' , fg='white', bd=0)  
+        self.lbl_text_guia                   .place (x=2, y=48)    
+        self.lbl_text_guia                    .bind ('<Button-1>', self.open_image_miniature)
 
         # Widgets No Posicionados:  
         self.frame_image_mobil_tutorial .grid_remove()
