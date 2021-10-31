@@ -154,7 +154,7 @@ class A1FrameCls(Frame):
 # 1- Servir de molde para crear los botones con la configuacion que se desea
 class DefaultButtonCls(Button):
     def __init__(self, master, *args, **kwargs):
-        kwargs = {"font":('Calibri',9,'bold'), 'bg': '#11161d', 'fg':'white', 'width':10, 'bd':0, **kwargs} #'activebackground':'#bdfe04'
+        kwargs = {"font":('Calibri',9,'bold'), 'bg': '#11161d', 'fg':'white', 'activebackground':'#bdfe04', 'width':10, 'bd':0, **kwargs}
         super().__init__(master, *args, **kwargs)
 
 
@@ -641,7 +641,8 @@ class ResizeCls(Frame):
         self.background = ImageTk.PhotoImage (self.image)
 
         self.img = Label (self, image= self.background)
-        self.img .pack (fill= 'both', expand= True)
+        #self.img .pack (fill= 'both', expand= True)
+        self.img .grid(sticky=NSEW)
         self.img .bind ('<Configure>', self.resize)
 
     def resize(self, event):
@@ -677,7 +678,19 @@ class TopIzqCls(Frame):
         self.frame_image_delay_complete       .grid (column=0, row=0)
 
         # Imagen: Miniatura del mobil para ayudar a medir las distancias
-        self.frame_image_mobil_tutorial = ResizeCls (self, path_lst [indice][arg_1], bd=0)
+
+        """ self.lb1 = Label(self.frame_image_delay_complete, image='')
+        self.lb2 = Label(self.frame_image_delay_complete, image='')
+        self.lb3 = Label(self.frame_image_delay_complete, image='')
+        self.lb4 = Label(self.frame_image_delay_complete, image='')
+
+        self.lb1. grid(column=0, row=0)
+        self.lb2. grid(column=1, row=1)
+        self.lb3. grid(column=2, row=2)
+        self.lb4. grid(column=3, row=3) """
+
+
+        self.frame_image_mobil_tutorial = ResizeCls (self.frame_image_delay_complete, path_lst [indice][arg_1], height=20, bd=0)
         self.frame_image_mobil_tutorial       .grid (column=0, row=0)                             # [ NO POSICIONADO ]
 
         # Texto: "Guia", para abrir la Miniatura del mobil 
@@ -689,16 +702,21 @@ class TopIzqCls(Frame):
         self.lbl_text                   .place (x=10, y=10)   # antes: x=2, y=48
         self.lbl_text                    .bind ('<Button-1>', self.open_image_miniature) """
 
-        # Widgets No Posicionados:  
+        # Widgets No Posicionados:
         self.frame_image_mobil_tutorial .grid_remove()
 
         # Evento: Para posicionar el label[text= Guia]
         self.bind ('<Configure>', self.new_position_text_guia)
 
         # Configuracion de la Ventana:
-        self.grid_columnconfigure(0, weight=1)
-        self.grid_rowconfigure(0, weight=1)
+        self.columnconfigure(0, weight=1)
+        self.rowconfigure(0, weight=1)
 
+        self.frame_image_delay_complete. columnconfigure(0, weight=1)
+        self.frame_image_delay_complete. rowconfigure(0, weight=1)
+
+        self.frame_image_mobil_tutorial. columnconfigure(0, weight=1)
+        self.frame_image_mobil_tutorial. rowconfigure(0, weight=1)
 
     #___< C O N F I G U R E > :
     # Tarea: Posicionar el label[text= Guia] que abre la miniatura del mobil
@@ -1444,7 +1462,7 @@ class Interface(Frame, MoveAllCls):
         if self._frame_1 is not None:  
             self._frame_1 .destroy()
         self._frame_1 = container_frame_left
-        self._frame_1 .pack()
+        self._frame_1 .pack(fill='both', expand=True)
         
 
         #                                  V E N T A N A:   2
@@ -1458,7 +1476,7 @@ class Interface(Frame, MoveAllCls):
         if self._frame_2 is not None:
             self._frame_2 .destroy()
         self._frame_2 = container_frame_right
-        self._frame_2 .pack()
+        self._frame_2 .pack(fill='both', expand=True)
         
 
         #                                  V E N T A N A:   3
@@ -1472,7 +1490,7 @@ class Interface(Frame, MoveAllCls):
         if self._frame_3 is not None:
             self._frame_3 .destroy()
         self._frame_3 = container_frame_stuf
-        self._frame_3 .pack()
+        self._frame_3 .pack(fill='both', expand=True)
 
 
         #____S I Z E G R I P ():  Inquierda

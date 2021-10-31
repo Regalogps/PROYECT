@@ -30,7 +30,7 @@ class TopCls(Frame):
 
         # Image 1:
         self.frame_image_delay_complete = ResizeCls(self, self.path_lst[0], bd=0)
-        self.frame_image_delay_complete       .grid(column=0, row=0)
+        self.frame_image_delay_complete       .grid(column=0, row=0, sticky=NSEW)
 
         # Image 2:
         self.frame_image_mobil_tutorial = ResizeCls(self, self.path_lst[1], bd=0)
@@ -48,8 +48,8 @@ class TopCls(Frame):
         self.bind('<Configure>', self.new_position_text_guia)
 
 
-        self.grid_columnconfigure(0, weight=1)
-        self.grid_rowconfigure(0, weight=1)
+        #self.grid_columnconfigure(0, weight=1)
+        #self.grid_rowconfigure(0, weight=1)
 
 
     def new_position_text_guia(self, event):
@@ -75,6 +75,7 @@ else:
     folder = os.getcwd()  # c:\Users\Usuario\Desktop\proyecto
 
 root = Tk()
+root .geometry('300x300+300+300')
 frm = TopCls(root, folder)
 frm.pack()
 root.mainloop()

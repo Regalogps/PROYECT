@@ -3,6 +3,7 @@ import sys  # sys.argv
 #from tkinter import *  # PEP8: `import *` is not preferred
 import tkinter as tk 
 from PIL import Image, ImageTk
+from tkinter import ttk 
 
 # --- constants ---  # PEP8: `UPPER_CASE_NAMES
 
@@ -86,7 +87,12 @@ class Interface(tk.Frame):
         self._open_2 = True
 
         self.top2.protocol('WM_DELETE_WINDOW', lambda: self.closed(2))
-    
+
+        #nuevo___
+        self.grip = ttk.Sizegrip(self.top1, style='TSizegrip')
+        self.grip .place (relx=1.0, rely=1.0, anchor='center')
+        ttk.Style().configure('TSizegrip', bg='black')
+        #____
 
     def closed(self, number):
         if number == 1:
