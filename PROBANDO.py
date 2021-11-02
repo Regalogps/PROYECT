@@ -671,7 +671,31 @@ class ResizeCls(Frame):
 class TopIzqCls(Frame):
     def __init__(self, master, indice, arg_0=None, arg_1=None, arg_2=None, arg_3=None, arg_4=None, arg_5=None, arg_6=None, arg_7=None, path_lst=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
+
+        #----------
+        self.frame_control = Frame (self.master.frame_manager, bg='gray')
+        self.frame_control .pack()
         
+        self.lbl_change1 = Label (self.frame_control, text='11', bg='green', height=1)
+        self.lbl_change1 .pack(side=LEFT, fill= 'both', padx=2)
+        self.lbl_change1 .bind('<Button-1>', self.open_image_miniature)
+
+        self.lbl_change2 = Label (self.frame_control, text='22', bg='green')
+        self.lbl_change2 .pack(side=LEFT, fill= 'both', padx=2)
+        self.lbl_change2 .bind('<Button-1>', self.open_image_miniature)
+
+        if indice == 17:
+
+            self.lbl_change3 = Label (self.frame_control, text='33', bg='green', height=1)
+            self.lbl_change3 .pack(side=LEFT, fill= 'both', padx=2)
+            self.lbl_change3 .bind('<Button-1>', self.open_image_miniature)
+
+            self.lbl_change4 = Label (self.frame_control, text='44', bg='green')
+            self.lbl_change4 .pack(side=LEFT, fill= 'both', padx=2)
+            self.lbl_change4 .bind('<Button-1>', self.open_image_miniature)
+        #---------
+        
+
         # Imagen: Delay completo del mobil
         self.frame_image_delay_complete = ResizeCls (self, path_lst [indice][arg_0], bd=0)
         self.frame_image_delay_complete       .grid (column=0, row=0, sticky='news')
@@ -679,19 +703,6 @@ class TopIzqCls(Frame):
         # Imagen: Miniatura del mobil para ayudar a medir las distancias
         self.frame_image_mobil_tutorial = ResizeCls (self, path_lst [indice][arg_1], bd=0)
         self.frame_image_mobil_tutorial       .grid (column=0, row=0, )                             # [ NO POSICIONADO ]
-
-    #----------
-        self.frame_control = Frame (self.master.frame_manager, bg='gray')
-        self.frame_control .pack()
-        
-        self.lbl_change1 = Label (self.frame_control, text='11', bg='green', height=1)
-        self.lbl_change1 .pack(side=LEFT, padx=2)
-        self.lbl_change1 .bind('<Button-1>', self.open_image_miniature)
-
-        self.lbl_change2 = Label (self.frame_control, text='22', bg='green')
-        self.lbl_change2 .pack(side=LEFT, padx=2)
-        self.lbl_change2 .bind('<Button-1>', self.open_image_miniature)
-    #---------
 
         # Texto: "Guia", para abrir la Miniatura del mobil 
         """ self.lbl_text_guia                  = Label (self, text='Guia', font=('Calibri',8,'bold'), bg='black' , fg='white', bd=0)  
@@ -1455,8 +1466,8 @@ class Interface(Frame, MoveAllCls):
         #_____________________________________________________________________
 
 
-        close = {'side':RIGHT, 'padx':2, 'pady':4}
-        minimize = {'side':RIGHT, 'padx':(2,10)}
+        close = {'side':RIGHT, 'padx':2, 'pady':(3,2)}
+        minimize = {'side':RIGHT, 'padx':(2,10), 'pady':(3,2)}
         frame ={'side':TOP, 'fill':BOTH}      
         
         #                                  V E N T A N A:   1
