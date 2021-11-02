@@ -641,7 +641,8 @@ class ResizeCls(Frame):
         self.background = ImageTk.PhotoImage (self.image)
 
         self.img = Label (self, image= self.background)
-        self.img .pack (fill= 'both', expand= True)
+        #self.img .pack (fill= 'both', expand= True)
+        self.img .grid(sticky=NSEW)
         self.img .bind ('<Configure>', self.resize)
 
     def resize(self, event):
@@ -674,29 +675,16 @@ class TopIzqCls(Frame):
         
         # Imagen: Delay completo del mobil
         self.frame_image_delay_complete = ResizeCls (self, path_lst [indice][arg_0], bd=0)
-        self.frame_image_delay_complete       .grid (column=0, row=0, sticky='news')
+        self.frame_image_delay_complete       .grid (column=0, row=0, sticky=NSEW)
 
         # Imagen: Miniatura del mobil para ayudar a medir las distancias
-        self.frame_image_mobil_tutorial = ResizeCls (self, path_lst [indice][arg_1], bd=0)
-        self.frame_image_mobil_tutorial       .grid (column=0, row=0, )                             # [ NO POSICIONADO ]
-
-    #----------
-        self.frame_control = Frame (self.master.frame_manager, bg='gray')
-        self.frame_control .pack()
-        
-        self.lbl_change1 = Label (self.frame_control, text='11', bg='green', height=1)
-        self.lbl_change1 .pack(side=LEFT, padx=2)
-        self.lbl_change1 .bind('<Button-1>', self.open_image_miniature)
-
-        self.lbl_change2 = Label (self.frame_control, text='22', bg='green')
-        self.lbl_change2 .pack(side=LEFT, padx=2)
-        self.lbl_change2 .bind('<Button-1>', self.open_image_miniature)
-    #---------
+        self.frame_image_mobil_tutorial = ResizeCls (self.frame_image_delay_complete, path_lst [indice][arg_1], height=20, bd=0)
+        self.frame_image_mobil_tutorial       .grid (column=0, row=0, sticky=NSEW)                             # [ NO POSICIONADO ]
 
         # Texto: "Guia", para abrir la Miniatura del mobil 
-        """ self.lbl_text_guia                  = Label (self, text='Guia', font=('Calibri',8,'bold'), bg='black' , fg='white', bd=0)  
-        self.lbl_text_guia                   .grid ()   # antes: x=2, y=48
-        self.lbl_text_guia                    .bind ('<Button-1>', self.open_image_miniature) """
+        self.lbl_text_guia                  = Label (self, text='Guia', font=('Calibri',8,'bold'), bg='black' , fg='white', bd=0)  
+        self.lbl_text_guia                   .place ()   # antes: x=2, y=48
+        self.lbl_text_guia                    .bind ('<Button-1>', self.open_image_miniature)
 
         """ self.lbl_text                  = Label (self, text='Delay\nGeneral', font=('Calibri',8,'bold'), bg='black' , fg='white', bd=0)  
         self.lbl_text                   .place (x=10, y=10)   # antes: x=2, y=48
@@ -706,12 +694,17 @@ class TopIzqCls(Frame):
         self.frame_image_mobil_tutorial .grid_remove()
 
         # Evento: Para posicionar el label[text= Guia]
-        #self.bind ('<Configure>', self.new_position_text_guia)
+        self.bind ('<Configure>', self.new_position_text_guia)
 
         # Configuracion de la Ventana:
         self.columnconfigure(0, weight=1)
         self.rowconfigure(0, weight=1)
 
+        self.frame_image_delay_complete. columnconfigure(0, weight=1)
+        self.frame_image_delay_complete. rowconfigure(0, weight=1)
+
+        self.frame_image_mobil_tutorial. columnconfigure(0, weight=1)
+        self.frame_image_mobil_tutorial. rowconfigure(0, weight=1)
 
     #___< C O N F I G U R E > :
     # Tarea: Posicionar el label[text= Guia] que abre la miniatura del mobil
@@ -767,12 +760,12 @@ class TopDerCls(Frame):
 
         # Imagen: Base inicial del mobil:
         self.frame_image_base_initial = ResizeCls (self, path_lst [indice][arg_2], bd=0)
-        self.frame_image_base_initial       .grid (column=0, row=0, sticky='news')
+        self.frame_image_base_initial       .grid (column=0, row=0, sticky=NSEW)
         self.frame_image_base_initial       .grid_propagate(0)
 
         # Imagen: Base 77 del mobil:
         self.frame_image_base_77      = ResizeCls (self, path_lst [indice][arg_3], bd=0)
-        self.frame_image_base_77            .grid(column=0, row=0, sticky='news')                                 # [ NO POSICIONADO ]
+        self.frame_image_base_77            .grid(column=0, row=0, sticky=NSEW)                                 # [ NO POSICIONADO ]
 
         # Texto: "Haga click" para mostrar el angulo 77" :  -->  Cambia la imagen a la base 77 del mobil:
         self.lbl_text_mostrar_77          = Label (self, text="Haga ' Click ' para mostrar:\nAngulo ' 77 '", font=('Bickham Script Pro',8,'bold'), bg='#2f3337', fg='white', width=50, height=2)
@@ -1056,20 +1049,16 @@ class ToplevelCls(Toplevel):
         self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)      # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
         self.frame_manager .bind("<B1-Motion>", self.on_move)              # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
         self.frame_manager .type_button (posy_close, posy_minimize)                                     # Llama al metodo para dibujar los botones
-        #new
-        #self.frame_control = Frame(self.frame_manager, bg='blue')
-        #self.frame_control .pack()
-        #____
-        if self._exception2 is not None:  # Toplevel Secundarias            
+        
+        if self._exception2 is not None:  # Toplevel Secundarias
             self.frame_manager .bind("<Map>",self.mapped_manager)
-        #Esto se quito...new
-            """ self.label_title = Label(self.frame_manager, text='', fg="white", bg="green")   
+
+            self.label_title = Label(self.frame_manager, text='', fg="white", bg="green")   
             self.label_title .pack(side=RIGHT, padx=0, pady=0)                                          # Derecha 
 
             self.label_title .bind("<ButtonPress-1>", self.start_move)     # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
             self.label_title .bind("<ButtonRelease-1>", self.stop_move)    # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
-            self.label_title .bind("<B1-Motion>", self.on_move) """            # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
-        #hasta aqui...
+            self.label_title .bind("<B1-Motion>", self.on_move)            # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
 
         #self.master .bind("<Map>", self.deiconify_1)                       # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
         #self.master .bind("<Unmap>", self.iconify_1)                       # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
@@ -1455,8 +1444,8 @@ class Interface(Frame, MoveAllCls):
         #_____________________________________________________________________
 
 
-        close = {'side':RIGHT, 'padx':2, 'pady':4}
-        minimize = {'side':RIGHT, 'padx':(2,10)}
+        close = {'side':RIGHT, 'padx':2}
+        minimize = {'side':RIGHT, 'padx':10}
         frame ={'side':TOP, 'fill':BOTH}      
         
         #                                  V E N T A N A:   1
@@ -1469,10 +1458,9 @@ class Interface(Frame, MoveAllCls):
 
         if self._frame_1 is not None:  
             self._frame_1 .destroy()
-            self._frame_1 .frame_control .destroy() #new
         self._frame_1 = container_frame_left
         self._frame_1 .pack(fill='both', expand=True)
-
+        
 
         #                                  V E N T A N A:   2
         #__________________________________________________________________________________________________________

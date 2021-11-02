@@ -21,7 +21,8 @@ class Array(tk.Frame):
         self.background_image = ImageTk.PhotoImage(self.image)
 
         self.background = tk.Label(self, image=self.background_image)
-        self.background.pack(fill='both', expand=True)
+        #self.background.pack(fill='both', expand=True)
+        self.background .grid(sticky='news')
         self.background.bind('<Configure>', self._resize_image)
 
     def _resize_image(self, event):
@@ -111,9 +112,9 @@ class ShowImage(tk.Frame):
             self.img = Array(self, path_lst[index_1])
             self.img.grid(column=0, row=0, sticky='news')
         
-        if len(path_lst) > index_2:
-            self.img2 = Array(self, path_lst[index_2])
-            self.img2.grid(column=0, row=1, sticky='news')
+        #if len(path_lst) > index_2:
+        #    self.img2 = Array(self, path_lst[index_2])
+        #    self.img2.grid(column=0, row=1, sticky='news')
 
         # column 0 will use full width
         self.grid_columnconfigure(0, weight=1)
