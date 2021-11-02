@@ -193,9 +193,9 @@ class B1FrameCls(Frame):
         arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, = 0, 1, 2, 3, 4, 5, 6, 7 
 
         return  lambda: self.master.windows_123(
-                lambda top1: TopIzqCls  (top1, indice, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
-                lambda top2: TopDerCls  (top2, indice, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
-                lambda top3: TopStufCls (top3, indice, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst), indice)
+                lambda top1: TopIzqCls  (top1, indice, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst, self.master.path_mini),
+                lambda top2: TopDerCls  (top2, indice, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst, self.master.path_mini),
+                lambda top3: TopStufCls (top3, indice, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst, self.master.path_mini), indice)
 
         
     # Crea los 22 botones y las posiciona:
@@ -490,9 +490,9 @@ class B3FrameCls(Frame):
         for index, i in enumerate(self.spinbox_values):     
             if self.spinbox_variable.get() == i:            # ANTES DABA ERROR CON: self.spinboxx .!toplvel.!frame,etc
                 self.master.windows_123(
-                lambda top1: TopIzqCls  (top1, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
-                lambda top2: TopDerCls  (top2, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst),
-                lambda top3: TopStufCls (top3, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst), index)
+                lambda top1: TopIzqCls  (top1, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst, self.master.path_mini),
+                lambda top2: TopDerCls  (top2, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst, self.master.path_mini),
+                lambda top3: TopStufCls (top3, index, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, self.master.path_lst, self.master.path_mini), index)
                 break                                       # Sin breack el programa seguiria buscando coincidencias despues del enter, y guardaria un error
         
 
@@ -669,28 +669,30 @@ class ResizeCls(Frame):
 
 #____V E N T A N A___I Z Q U I E R D A:
 class TopIzqCls(Frame):
-    def __init__(self, master, indice, arg_0=None, arg_1=None, arg_2=None, arg_3=None, arg_4=None, arg_5=None, arg_6=None, arg_7=None, path_lst=None, *args, **kwargs):
+    def __init__(self, master, indice, arg_0=None, arg_1=None, arg_2=None, arg_3=None, arg_4=None, arg_5=None, arg_6=None, arg_7=None, path_lst=None, path_mini=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
         #----------
-        self.frame_control = Frame (self.master.frame_manager, bg='gray')
+        self.frame_control = Frame (self.master.frame_manager, bg='black')
         self.frame_control .pack()
         
-        self.lbl_change1 = Label (self.frame_control, text='11', bg='green', height=1)
-        self.lbl_change1 .pack(side=LEFT, fill= 'both', padx=2)
+        self.lbl_change1 = Label (self.frame_control, image=path_mini[26],
+                                  bg='black', cursor="hand2")
+        self.lbl_change1 .pack(side=LEFT, fill='both', padx=2)
         self.lbl_change1 .bind('<Button-1>', self.open_image_miniature)
 
-        self.lbl_change2 = Label (self.frame_control, text='22', bg='green')
-        self.lbl_change2 .pack(side=LEFT, fill= 'both', padx=2)
+        self.lbl_change2 = Label (self.frame_control, image=path_mini[25],
+                                  bg='black', cursor="hand2")
+        self.lbl_change2 .pack(side=LEFT, fill='both', padx=2)
         self.lbl_change2 .bind('<Button-1>', self.open_image_miniature)
 
         if indice == 17:
 
-            self.lbl_change3 = Label (self.frame_control, text='33', bg='green', height=1)
+            self.lbl_change3 = Label (self.frame_control, text='33', bg='green', height=1, cursor="hand2")
             self.lbl_change3 .pack(side=LEFT, fill= 'both', padx=2)
             self.lbl_change3 .bind('<Button-1>', self.open_image_miniature)
 
-            self.lbl_change4 = Label (self.frame_control, text='44', bg='green')
+            self.lbl_change4 = Label (self.frame_control, text='44', bg='green', cursor="hand2")
             self.lbl_change4 .pack(side=LEFT, fill= 'both', padx=2)
             self.lbl_change4 .bind('<Button-1>', self.open_image_miniature)
         #---------
@@ -768,7 +770,7 @@ class TopIzqCls(Frame):
 
 #____V E N T A N A___D E R E C H A:
 class TopDerCls(Frame):
-    def __init__(self, master, indice, arg_0=None, arg_1=None, arg_2=None, arg_3=None, arg_4=None, arg_5=None, arg_6=None, arg_7=None, path_lst=None, *args, **kwargs):
+    def __init__(self, master, indice, arg_0=None, arg_1=None, arg_2=None, arg_3=None, arg_4=None, arg_5=None, arg_6=None, arg_7=None, path_lst=None, path_mine=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         # Variables de Control para mostrar la imagen del angulo 77:
         self.x1 = 0
@@ -888,7 +890,7 @@ class TopDerCls(Frame):
 
 #____V E N T A N A___S T U F:
 class TopStufCls(Frame):
-    def __init__(self, master, indice, arg_0=None, arg_1=None, arg_2=None, arg_3=None, arg_4=None, arg_5=None, arg_6=None, arg_7=None, path_lst=None, *args, **kwargs):
+    def __init__(self, master, indice, arg_0=None, arg_1=None, arg_2=None, arg_3=None, arg_4=None, arg_5=None, arg_6=None, arg_7=None, path_lst=None, path_mine=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         pass
         
@@ -1195,7 +1197,7 @@ class Interface(Frame, MoveAllCls):
         #_____Coleccion de Imagenes:
         self.path_lst = self.generate_list (path, 'I')
         self.path_mini = self.generate_list (path, 'M')
-        print(len(self.path_lst))
+        print(len(self.path_mini))
         
         #_____Variables de control para las ventanas:  [ 1,2,3 ]
         self._frame_1 = None
