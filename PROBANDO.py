@@ -1521,14 +1521,13 @@ class Interface(Frame, MoveAllCls):
         #_____________________________________________________________________
 
 
-        arg_2 = ({'side':RIGHT, 'padx':2, 'pady':(3,2)},{'side':RIGHT, 'padx':(2,10), 'pady':(3,2)})
-        #minimize = {'side':RIGHT, 'padx':(2,10), 'pady':(3,2)}
-        frame ={'side':TOP, 'fill':BOTH}      
+        arg_1 = ({'side':RIGHT, 'padx':2, 'pady':(3,2)},{'side':RIGHT, 'padx':(2,10), 'pady':(3,2)}, None)
+        arg_2 = {'side':TOP, 'fill':BOTH}      
         
         #                                  V E N T A N A:   1
         #__________________________________________________________________________________________________________
         if not self._open_1:   # ----> Si open_1 es False:
-            self.toplevel_LEFT = ToplevelCls (self, frame, arg_2, value_exception1='btn', _exception2='frm')
+            self.toplevel_LEFT = ToplevelCls (self, arg_1, arg_2)
             #self.fr = Frame (self.toplevel_LEFT)
             #self.fr.pack()
             self.toplevel_LEFT .configure_toplevel ('Hoja Izquierda', self.geo_izq.get())
@@ -1545,7 +1544,7 @@ class Interface(Frame, MoveAllCls):
         #                                  V E N T A N A:   2
         #__________________________________________________________________________________________________________
         if not self._open_2:
-            self.toplevel_RIGHT = ToplevelCls (self, frame, arg_2, value_exception1='btn', _exception2='frm')
+            self.toplevel_RIGHT = ToplevelCls (self, arg_1, arg_2)
             self.toplevel_RIGHT .configure_toplevel ('Hoja Derecha', self.geo_der.get())
 
         container_frame_right = var_2 (self.toplevel_RIGHT) 
@@ -1559,7 +1558,7 @@ class Interface(Frame, MoveAllCls):
         #                                  V E N T A N A:   3
         #__________________________________________________________________________________________________________
         if not self._open_3:
-            self.toplevel_STUF = ToplevelCls (self, frame, arg_2, value_exception1='btn', _exception2='frm') 
+            self.toplevel_STUF = ToplevelCls (self, arg_1, arg_2)
             self.toplevel_STUF .configure_toplevel ('Game Stuff', self.geo_stuf.get())
 
         container_frame_stuf = var_3 (self.toplevel_STUF) 
