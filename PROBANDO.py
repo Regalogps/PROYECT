@@ -1021,22 +1021,25 @@ class MoveAllCls():
 #************************            ███████    ██████████████
 
 class FrameManagerCls(Frame):
-    def __init__(self, master=None, value_1 = None, **kwargs):
+    def __init__(self, master=None, lst, **kwargs):
         super().__init__(master, **kwargs)
         self.master = master
-        self.value_1 = value_1 
+        self.lst = lst
+
+        #___Métodos Llamados:
         self.initializer_images()
+        self.creator_buttons(self.lst)
 
 
-    def creator_buttons(self, arg_3):
+    def creator_buttons(self, index):
+        #___Botones: [Cerrar - Minimizar]
         self.button_close = Button(self, image=self.image_close1, command=self.close, bd=0, bg='black', activebackground='black')
         self.button_minimize = Button(self, image=self.image_minimize1, command=self.minimize, bd=0, bg='black', activebackground='black')
 
-        self.button_close .pack (arg_3 [0])       # Orientacion del boton en el frame: Principal: (side=TOP, pady=7)    Secundario: (side=RIGHT) 
-        self.button_minimize .pack (arg_3 [1])    # Orientacion del boton en el frame: Principal: (side=BOTTOM, pady=7) Secundario: (side=RIGHT, padx=10)            
-           # self.label_title = Label(self, text='', fg="white", bg="green")   
-           # self.label_title .pack(side=RIGHT, padx=0, pady=0)                  # Derecha """
+        self.button_close .pack(index [0])       # Orientacion del boton en el frame: Principal: (side=TOP, pady=7)    Secundario: (side=RIGHT) 
+        self.button_minimize .pack(index [1])    # Orientacion del boton en el frame: Principal: (side=BOTTOM, pady=7) Secundario: (side=RIGHT, padx=10)            
 
+        #___Enlaces: Cambian la imagen de los botones
         self.button_close.bind("<Enter>", self.change_image_close1)
         self.button_close.bind("<Leave>", self.change_image_close2)
 
@@ -1058,25 +1061,25 @@ class FrameManagerCls(Frame):
 
 
     def close(self):     # SOLUCIONAR SI QUEDAN PROCESOS ABIERTOS POR USO INADECUADO DE QUIT()
-        # Cerrar:  Toplevel Principal 
-        if self.value_1   is None:  # Default
+        # Cerrar:    Toplevel Principal [ Default ]
+        if len(self.lst) < 3:
             self.master.quit()                       # YO LO PUSE , utilidad por informarse todavia
             self.master.destroy()                    # Destruye Toplevel Principal
             self.master.master.destroy()             # Destruye root
 
-        # Cerrar:  Toplevel Secundarios
-        if self.value_1   is not None:
+        # Cerrar:    Toplevel Secundarios
+        else:
             self.master.destroy()                    # Destruye Toplevel Secundarios
             #self.master.quit()                      # Elimina toda la aplicacion cuando hay 1 sola mainlopp()
 
     def minimize(self):
-        # Minimiza:  Toplevel Principal
-        if self.value_1   is None:  # Default      
+        # Minimiza:  Toplevel Principal [ Default ]
+        if len(self.lst) < 3:
             self.master.withdraw()                   # Oculta Toplevel Principal
             self.master.master .iconify()            # Iconiza root
         
         # Minimiza:  Toplevel Secundarios
-        if self.value_1   is not None:
+        else:
             self.master.update_idletasks()           # Termina Tareas Pendientes (dibujo,etc)
             self.master.overrideredirect(False)      # Dibuja el Gestor de Ventanas a Toplevel Secundarias
             self.master.state('iconic')              # Iconiza Toplevel Secundarias
@@ -1102,7 +1105,7 @@ class FrameManagerCls(Frame):
 #************************            ███████    ██████████████
 
 class ToplevelCls(Toplevel):
-    def __init__(self, master=None, arg_2=None, arg_3=None, value_exception1=None, _exception2=None, _controller=None, *args, **kwargs):
+    def __init__(self, master=None, arg_1=None, arg_2=None, _exception2=None, _controller=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self._exception2 = _exception2 # falta temrinar de borrar abajo
         self.master = master
@@ -1111,17 +1114,14 @@ class ToplevelCls(Toplevel):
         self._y = 0
 
 
-        self.frame_manager = FrameManagerCls (self, bg="black",  value_1 = value_exception1)       # Frame: Gestor de Ventanas
+        self.frame_manager = FrameManagerCls (self, bg="black", arg_1)       # Frame: Gestor de Ventanas
         self.frame_manager .pack (arg_2)
 
-        #___Metodos Llamados de [ FrameManagerCls ]:  ---> arg_3 = position_buttons
-        self.frame_manager .creator_buttons (arg_3)                                     # Llama al metodo para dibujar los botones
-    
         self.frame_manager .bind("<ButtonPress-1>", self.start_move)       # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
         self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)      # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
         self.frame_manager .bind("<B1-Motion>", self.on_move)              # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
 
-        #new
+        #me
         self.frame_control = Frame(self, bg='blue')
         self.frame_control .pack()
         #____
@@ -1201,15 +1201,16 @@ class ToplevelCls(Toplevel):
 class RootCls(Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # Posicion del frame contenedor de los botones para cerrar y minimizar:
-        arg_2 = {'side':RIGHT, 'fill':BOTH}
-        # Posiciones 
-        arg_3 = ({'side':TOP, 'pady':6},{'side':BOTTOM, 'pady':6})
+        # Posicion de los botones "X" y "-"
+        arg_1 = ({'side':TOP, 'pady':6},{'side':BOTTOM, 'pady':6})
         
+        # Posicion del frame contenedor de los botones "X" y "-"
+        arg_2 = {'side':RIGHT, 'fill':BOTH}
+
         #self.resizable(0, 0)                     # Deja un rastro de root en pantalla, no solucionado
         self.geometry('0x0+350+0')                # Tamaño de Root
 
-        self.toplevel_principal = ToplevelCls(self, arg_2, arg_3, value_exception1=None, _exceptidon2=None)  # Toplevel Principal
+        self.toplevel_principal = ToplevelCls(self, arg_1, arg_2, value_exception1=None, _exceptidon2=None)  # Toplevel Principal
 
         self.frame_principal = Interface(self.toplevel_principal)                                                         # Frame Principal
         self.frame_principal .pack(side=RIGHT, fill=BOTH)
