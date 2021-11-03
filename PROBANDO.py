@@ -675,30 +675,6 @@ class TopIzqCls(Frame):
         self.x2 = 100
         self.y1 = 0
         self.y2 = 7
-    #----------
-        """ self.frame_control = Frame (self.master.frame_manager, bg='black')
-        self.frame_control .pack()
-        
-        self.lbl_change1 = Label (self.frame_control, image=path_mini[26],
-                                  bg='black', cursor="hand2")
-        self.lbl_change1 .pack(side=LEFT, fill='both', padx=2)
-        self.lbl_change1 .bind('<Button-1>', self.open_image_miniature)
-
-        self.lbl_change2 = Label (self.frame_control, image=path_mini[25],
-                                  bg='black', cursor="hand2")
-        self.lbl_change2 .pack(side=LEFT, fill='both', padx=2)
-        self.lbl_change2 .bind('<Button-1>', self.open_image_miniature)
-
-        if indice == 17:
-
-            self.lbl_change3 = Label (self.frame_control, text='33', bg='green', height=1, cursor="hand2")
-            self.lbl_change3 .pack(side=LEFT, fill= 'both', padx=2)
-            self.lbl_change3 .bind('<Button-1>', self.open_image_miniature)
-
-            self.lbl_change4 = Label (self.frame_control, text='44', bg='green', cursor="hand2")
-            self.lbl_change4 .pack(side=LEFT, fill= 'both', padx=2)
-            self.lbl_change4 .bind('<Button-1>', self.open_image_miniature) """
-    #---------
 
         # Imagen: Delay completo del mobil
         self.frame_image_delay_complete = ResizeCls(self, path_lst[indice][arg_0], bd=0)
@@ -709,6 +685,8 @@ class TopIzqCls(Frame):
         self.frame_image_mobil_tutorial       .pack (fill= 'both', expand= True)                             # [ NO POSICIONADO ]
 
     # Texto: "Guia", para abrir la Miniatura del mobil 
+        #self.master.frame_control.pack()
+
         self.frame_controller               = Frame(self.master.frame_control, bg='#2f3337')
         self.frame_controller                 .pack (fill= 'both', expand= True)   # [ NO POSICIONADO ]
 
@@ -741,7 +719,7 @@ class TopIzqCls(Frame):
 
 
         self.bind_motion = self.master.bind('<Motion>',self.open_text_mostrar_77)
-        self.bind_leave = self.bind('<Leave>', lambda arg: self.frame_controller .pack_forget())
+        #self.bind_leave = self.bind('<Leave>', lambda arg: self.frame_controller .pack_forget())
 
 
 
@@ -798,7 +776,6 @@ class TopIzqCls(Frame):
             if self.x1 <(self.pointer_width_2)< self.x2  and  self.y1 <(self.pointer_height_2)< self.y2: 
                    
                 self.frame_controller .pack(fill= 'both', expand= True)
-
             else:
                 self.frame_controller .pack_forget()
 
@@ -1021,23 +998,22 @@ class MoveAllCls():
 #************************            ███████    ██████████████
 
 class FrameManagerCls(Frame):
-    def __init__(self, master=None, lst, **kwargs):
+    def __init__(self, master=None, listmode=None, **kwargs):
         super().__init__(master, **kwargs)
-        self.master = master
-        self.lst = lst
+        self.listmode = listmode
 
         #___Métodos Llamados:
         self.initializer_images()
-        self.creator_buttons(self.lst)
+        self.creator_buttons()
 
 
-    def creator_buttons(self, index):
+    def creator_buttons(self):
         #___Botones: [Cerrar - Minimizar]
         self.button_close = Button(self, image=self.image_close1, command=self.close, bd=0, bg='black', activebackground='black')
         self.button_minimize = Button(self, image=self.image_minimize1, command=self.minimize, bd=0, bg='black', activebackground='black')
 
-        self.button_close .pack(index [0])       # Orientacion del boton en el frame: Principal: (side=TOP, pady=7)    Secundario: (side=RIGHT) 
-        self.button_minimize .pack(index [1])    # Orientacion del boton en el frame: Principal: (side=BOTTOM, pady=7) Secundario: (side=RIGHT, padx=10)            
+        self.button_close .pack(self.listmode [0])       # Orientacion del boton en el frame: Principal: (side=TOP, pady=7)    Secundario: (side=RIGHT) 
+        self.button_minimize .pack(self.listmode [1])    # Orientacion del boton en el frame: Principal: (side=BOTTOM, pady=7) Secundario: (side=RIGHT, padx=10)            
 
         #___Enlaces: Cambian la imagen de los botones
         self.button_close.bind("<Enter>", self.change_image_close1)
@@ -1062,7 +1038,7 @@ class FrameManagerCls(Frame):
 
     def close(self):     # SOLUCIONAR SI QUEDAN PROCESOS ABIERTOS POR USO INADECUADO DE QUIT()
         # Cerrar:    Toplevel Principal [ Default ]
-        if len(self.lst) < 3:
+        if len(self.listmode) < 3:
             self.master.quit()                       # YO LO PUSE , utilidad por informarse todavia
             self.master.destroy()                    # Destruye Toplevel Principal
             self.master.master.destroy()             # Destruye root
@@ -1074,7 +1050,7 @@ class FrameManagerCls(Frame):
 
     def minimize(self):
         # Minimiza:  Toplevel Principal [ Default ]
-        if len(self.lst) < 3:
+        if len(self.listmode) < 3:
             self.master.withdraw()                   # Oculta Toplevel Principal
             self.master.master .iconify()            # Iconiza root
         
@@ -1105,35 +1081,36 @@ class FrameManagerCls(Frame):
 #************************            ███████    ██████████████
 
 class ToplevelCls(Toplevel):
-    def __init__(self, master=None, arg_1=None, arg_2=None, _exception2=None, _controller=None, *args, **kwargs):
+    def __init__(self, master=None, arg1=None, arg2=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        self._exception2 = _exception2 # falta temrinar de borrar abajo
-        self.master = master
         self.overrideredirect(True)
+        
+        self.arg1 = arg1
         self._x = 0
         self._y = 0
 
-
-        self.frame_manager = FrameManagerCls (self, bg="black", arg_1)       # Frame: Gestor de Ventanas
-        self.frame_manager .pack (arg_2)
+        #___Frame contenedor de los botones "X" y "-"
+        self.frame_manager = FrameManagerCls (self, bg="black",  listmode = arg1)       # Frame: Gestor de Ventanas
+        self.frame_manager .pack (arg2)
 
         self.frame_manager .bind("<ButtonPress-1>", self.start_move)       # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
         self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)      # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
         self.frame_manager .bind("<B1-Motion>", self.on_move)              # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
 
-        #me
+        #___Frame contenedor de los labels
         self.frame_control = Frame(self, bg='blue')
         self.frame_control .pack()
         #____
-        if self._exception2 is not None:  # Toplevel Secundarias            
-            self.frame_manager .bind("<Map>",self.mapped_manager)
-        #Esto se quito...new
-            """ self.label_title = Label(self.frame_manager, text='', fg="white", bg="green")   
-            self.label_title .pack(side=RIGHT, padx=0, pady=0)                                          # Derecha 
 
-            self.label_title .bind("<ButtonPress-1>", self.start_move)     # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
-            self.label_title .bind("<ButtonRelease-1>", self.stop_move)    # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
-            self.label_title .bind("<B1-Motion>", self.on_move) """            # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
+
+
+        #Esto se quito...new
+        """ self.label_title = Label(self.frame_manager, text='', fg="white", bg="green")   
+        self.label_title .pack(side=RIGHT, padx=0, pady=0)                                          # Derecha 
+
+        self.label_title .bind("<ButtonPress-1>", self.start_move)     # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
+        self.label_title .bind("<ButtonRelease-1>", self.stop_move)    # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
+        self.label_title .bind("<B1-Motion>", self.on_move) """            # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
         #hasta aqui...
 
         #self.master .bind("<Map>", self.deiconify_1)                       # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
@@ -1146,6 +1123,10 @@ class ToplevelCls(Toplevel):
             # value_exception1: Es el valor de _exception1, puede ser 'cualquier valor' y 'None'
 
             # _exception1: Es el argumento de la clase: Toplevel_class que valida que tipo de funcion se va ejecutar en el Instancia creada,
+
+        if len(self.arg1) < 3:  # Toplevel Secundarias            
+            self.frame_manager .bind("<Map>",self.mapped_manager)
+
 
     def iconify_1(self, event):   # SOLO SE EJECUTA SI SE INSTANCIA INTERFACE SI NO NO SIRVE PORQUE ESTA INSTANCIADO EN TK
         self.withdraw()
@@ -1168,7 +1149,7 @@ class ToplevelCls(Toplevel):
         new_position = "+{}+{}".format(self.winfo_x() + deltax, self.winfo_y() + deltay)
         self.geometry(new_position)                 # Mueve todas las ventanas en general menos root
 
-        if self._exception2 is None:                # Default
+        if len(self.arg1) < 3:                      # Default
             self.master.geometry(new_position)      # Mueve la ventana root
 
 
@@ -1202,15 +1183,15 @@ class RootCls(Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Posicion de los botones "X" y "-"
-        arg_1 = ({'side':TOP, 'pady':6},{'side':BOTTOM, 'pady':6})
-        
+        arg1 = ({'side':TOP, 'pady':6},{'side':BOTTOM, 'pady':6})       
         # Posicion del frame contenedor de los botones "X" y "-"
-        arg_2 = {'side':RIGHT, 'fill':BOTH}
+        arg2 = {'side':RIGHT, 'fill':BOTH}
+
 
         #self.resizable(0, 0)                     # Deja un rastro de root en pantalla, no solucionado
         self.geometry('0x0+350+0')                # Tamaño de Root
 
-        self.toplevel_principal = ToplevelCls(self, arg_1, arg_2, value_exception1=None, _exceptidon2=None)  # Toplevel Principal
+        self.toplevel_principal = ToplevelCls(self, arg1, arg2)  # Toplevel Principal
 
         self.frame_principal = Interface(self.toplevel_principal)                                                         # Frame Principal
         self.frame_principal .pack(side=RIGHT, fill=BOTH)
@@ -1520,14 +1501,15 @@ class Interface(Frame, MoveAllCls):
         #print('button selection',self.mobil_selected) borrar esta linea
         #_____________________________________________________________________
 
+        # Posicion de los botones "X" y "-":       ---> ( None: Tercer argumento para diferenciar los metodos )
+        arg1 = ({'side':RIGHT, 'padx':2, 'pady':(3,2)},{'side':RIGHT, 'padx':(2,10), 'pady':(3,2)}, None)      
+        # Posicion del frame contenedor de los botones "X" y "-"
+        arg2 = {'side':TOP, 'fill':BOTH}   
 
-        arg_1 = ({'side':RIGHT, 'padx':2, 'pady':(3,2)},{'side':RIGHT, 'padx':(2,10), 'pady':(3,2)}, None)
-        arg_2 = {'side':TOP, 'fill':BOTH}      
-        
         #                                  V E N T A N A:   1
         #__________________________________________________________________________________________________________
         if not self._open_1:   # ----> Si open_1 es False:
-            self.toplevel_LEFT = ToplevelCls (self, arg_1, arg_2)
+            self.toplevel_LEFT = ToplevelCls (self, arg1, arg2)
             #self.fr = Frame (self.toplevel_LEFT)
             #self.fr.pack()
             self.toplevel_LEFT .configure_toplevel ('Hoja Izquierda', self.geo_izq.get())
@@ -1536,7 +1518,7 @@ class Interface(Frame, MoveAllCls):
 
         if self._frame_1 is not None:  
             self._frame_1 .destroy()
-            #self._frame_1 .frame_controller .destroy() #new
+            self._frame_1 .frame_controller .destroy() #new
         self._frame_1 = container_frame_left
         self._frame_1 .pack(fill='both', expand=True)
 
@@ -1544,7 +1526,7 @@ class Interface(Frame, MoveAllCls):
         #                                  V E N T A N A:   2
         #__________________________________________________________________________________________________________
         if not self._open_2:
-            self.toplevel_RIGHT = ToplevelCls (self, arg_1, arg_2)
+            self.toplevel_RIGHT = ToplevelCls (self, arg1, arg2)
             self.toplevel_RIGHT .configure_toplevel ('Hoja Derecha', self.geo_der.get())
 
         container_frame_right = var_2 (self.toplevel_RIGHT) 
@@ -1558,7 +1540,7 @@ class Interface(Frame, MoveAllCls):
         #                                  V E N T A N A:   3
         #__________________________________________________________________________________________________________
         if not self._open_3:
-            self.toplevel_STUF = ToplevelCls (self, arg_1, arg_2)
+            self.toplevel_STUF = ToplevelCls (self, arg1, arg2)
             self.toplevel_STUF .configure_toplevel ('Game Stuff', self.geo_stuf.get())
 
         container_frame_stuf = var_3 (self.toplevel_STUF) 
