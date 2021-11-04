@@ -687,8 +687,8 @@ class TopIzqCls(Frame):
     # Texto: "Guia", para abrir la Miniatura del mobil 
         #self.master.frame_control.pack()
 
-        self.frame_controller               = Frame(self.master.frame_control, bg='#2f3337')
-        self.frame_controller                 .pack (fill= 'both', expand= True)   # [ NO POSICIONADO ]
+        self.frame_controller               = Frame(self, bg='#2f3337')
+        self.frame_controller                 .pack (fill= 'both', expand= True)  
 
         self.lbl_change1 = Label(self.frame_controller, image=path_mini[26], width=00,height=0, bg='black', cursor="hand2")
         self.lbl_change1   .pack(side=LEFT, fill='both', expand=True, padx=10)
@@ -712,14 +712,15 @@ class TopIzqCls(Frame):
 
         # Widgets No Posicionados:
         self.frame_image_mobil_tutorial .pack_forget()
-        self.frame_controller .pack_forget()
+        #self.frame_controller .pack_forget()
 
         # Evento: Para posicionar el label[text= Guia]
         #self.bind ('<Configure>', self.new_position_text_guia)
 
 
         self.bind_motion = self.master.bind('<Motion>',self.open_text_mostrar_77)
-        #self.bind_leave = self.bind('<Leave>', lambda arg: self.frame_controller .pack_forget())
+        self.bind_leave = self.bind('<Leave>', lambda arg: self.frame_controller .pack_forget())
+        
 
 
 
@@ -728,11 +729,11 @@ class TopIzqCls(Frame):
 
         # Configuracion de la Ventana:
         
-        self.grid_columnconfigure(0, weight=1)
-        self.grid_rowconfigure(0, weight=1)
+        """ self.grid_columnconfigure(0, weight=1)
+        self.grid_rowconfigure(0, weight=1) """
 
-        self.frame_controller .columnconfigure(0, weight=1)
-        self.frame_controller .rowconfigure(0, weight=1)
+        """  self.frame_controller .columnconfigure(0, weight=1)
+        self.frame_controller .rowconfigure(0, weight=1) """
 
 
     #___< C O N F I G U R E > :
@@ -774,7 +775,7 @@ class TopIzqCls(Frame):
         if not self._motion_1 == True:
 
             if self.x1 <(self.pointer_width_2)< self.x2  and  self.y1 <(self.pointer_height_2)< self.y2: 
-                   
+                #self.master.frame_control .config(bg='red', width=0, height=0)   
                 self.frame_controller .pack(fill= 'both', expand= True)
             else:
                 self.frame_controller .pack_forget()
@@ -1098,8 +1099,8 @@ class ToplevelCls(Toplevel):
         self.frame_manager .bind("<B1-Motion>", self.on_move)              # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
 
         #___Frame contenedor de los labels
-        self.frame_control = Frame(self, bg='blue')
-        self.frame_control .pack()
+        """ self.frame_control = Frame(self, bg='blue')
+        self.frame_control .pack() """
         #____
 
 
@@ -1191,9 +1192,11 @@ class RootCls(Tk):
         #self.resizable(0, 0)                     # Deja un rastro de root en pantalla, no solucionado
         self.geometry('0x0+350+0')                # Tamaño de Root
 
-        self.toplevel_principal = ToplevelCls(self, arg1, arg2)  # Toplevel Principal
+        # (Instancia) Toplevel Principal  y  (Instancia) Frame Manager:
+        self.toplevel_principal = ToplevelCls(self, arg1, arg2)
 
-        self.frame_principal = Interface(self.toplevel_principal)                                                         # Frame Principal
+        # (Instancia) Frame Principal: 
+        self.frame_principal = Interface(self.toplevel_principal)
         self.frame_principal .pack(side=RIGHT, fill=BOTH)
 
         self.bind("<Map>", self.deiconify_on)  # Deiconiza Toplevel Principal
@@ -1231,7 +1234,6 @@ class Interface(Frame, MoveAllCls):
         #_____Coleccion de Imagenes:
         self.path_lst = self.generate_list (path, 'I')
         self.path_mini = self.generate_list (path, 'M')
-        print(len(self.path_mini))
         
         #_____Variables de control para las ventanas:  [ 1,2,3 ]
         self._frame_1 = None
@@ -1492,26 +1494,26 @@ class Interface(Frame, MoveAllCls):
 
     def windows_123 (self, var_1, var_2, var_3, mobil=None):
 
+        # (self.mobil_selected) : almacena el nombre del boton presionado    
         for index,i in enumerate(self.frame_listmode .spinbox_values):
             if mobil == index:
                 self.mobil_selected = i
                 break
 
-        # self.mobil_selected ahora almacena el nombre del boton presionado           
-        #print('button selection',self.mobil_selected) borrar esta linea
         #_____________________________________________________________________
 
-        # Posicion de los botones "X" y "-":       ---> ( None: Tercer argumento para diferenciar los metodos )
+        # Posicion de los botones "X" y "-":                             ( None: diferencia los metodos )
         arg1 = ({'side':RIGHT, 'padx':2, 'pady':(3,2)},{'side':RIGHT, 'padx':(2,10), 'pady':(3,2)}, None)      
         # Posicion del frame contenedor de los botones "X" y "-"
         arg2 = {'side':TOP, 'fill':BOTH}   
 
+
+
+
         #                                  V E N T A N A:   1
         #__________________________________________________________________________________________________________
         if not self._open_1:   # ----> Si open_1 es False:
-            self.toplevel_LEFT = ToplevelCls (self, arg1, arg2)
-            #self.fr = Frame (self.toplevel_LEFT)
-            #self.fr.pack()
+            self.toplevel_LEFT = ToplevelCls (self.master, arg1, arg2)  # AQUI no se sabe quien es el padre correcto : self o self.master
             self.toplevel_LEFT .configure_toplevel ('Hoja Izquierda', self.geo_izq.get())
                                 
         container_frame_left = var_1 (self.toplevel_LEFT)  #  var_1 es un frame
@@ -1521,6 +1523,9 @@ class Interface(Frame, MoveAllCls):
             self._frame_1 .frame_controller .destroy() #new
         self._frame_1 = container_frame_left
         self._frame_1 .pack(fill='both', expand=True)
+
+        """ self.a = Frame(self.toplevel_LEFT, bg='green2')
+        self.a .pack(fill='both', expand=True) """
 
 
         #                                  V E N T A N A:   2
