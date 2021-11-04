@@ -634,22 +634,26 @@ class ResizeCls(Frame):
     def __init__(self, master, index, *args, **kwargs):
         super().__init__(master, *args, kwargs)
         
-        #self.image = Image.fromarray (index)
-        self.image = Image.open (index)
+        #self.image = Image.fromarray(index)
+        self.image = Image.open(index)
         self.image_copy = self.image .copy()
 
-        self.background = ImageTk.PhotoImage (self.image)
+        self.background = ImageTk.PhotoImage(self.image)
 
-        self.img = Label (self, image= self.background)
-        self.img .pack (fill= 'both', expand= True)
-        self.img .bind ('<Configure>', self.resize)
+        self.img = Label(self, image=self.background)
+
+        # Opciones de empaquetamiento:
+        #self.img .pack(fill='both', expand=True)
+        self.img .grid(sticky='news')
+
+        self.img .bind('<Configure>', self.resize)
 
     def resize(self, event):
         
-        self.image2 = self.image_copy .resize ((self.master .winfo_width(), self.master .winfo_height()))
+        self.image2 = self.image_copy .resize((self.master.winfo_width(), self.master.winfo_height()))
         
-        self.background2 = ImageTk.PhotoImage (self.image2)
-        self.img .config (image= self.background2)
+        self.background2 = ImageTk.PhotoImage(self.image2)
+        self.img .config(image=self.background2)
         #self.img .image = self.backgroundd
 
 
@@ -678,7 +682,8 @@ class TopIzqCls(Frame):
 
         # Imagen: Delay completo del mobil
         self.frame_image_delay_complete = ResizeCls(self, path_lst[indice][arg_0], bd=0)
-        self.frame_image_delay_complete       .pack (fill= 'both', expand= True)
+        #self.frame_image_delay_complete       .pack(fill='both', expand=True)
+        #self.frame_image_delay_complete        .grid(
 
         # Imagen: Miniatura del mobil para ayudar a medir las distancias
         self.frame_image_mobil_tutorial = ResizeCls(self, path_lst[indice][arg_1], bd=0)
@@ -1541,6 +1546,10 @@ class Interface(Frame, MoveAllCls):
         """ self.a = Frame(self.toplevel_LEFT, bg='green2')
         self.a .pack(fill='both', expand=True) """
 
+        self.toplevel_LEFT .grid_columnconfigure(0, weight=1)
+        self.toplevel_LEFT .grid_rowconfigure(0, weight=0)
+        self.toplevel_LEFT .grid_rowconfigure(1, weight=1)
+
 
         #                                  V E N T A N A:   2
         #__________________________________________________________________________________________________________
@@ -1553,7 +1562,11 @@ class Interface(Frame, MoveAllCls):
         if self._frame_2 is not None:
             self._frame_2 .destroy()
         self._frame_2 = container_frame_right
-        self._frame_2 .pack(fill='both', expand=True)
+
+        # Opciones de empaquetamiento:
+        #self._frame_2 .pack(fill='both', expand=True)
+        self._frame_2 .grid(column=0, row=1, sticky='news')
+
         
 
         #                                  V E N T A N A:   3
@@ -1567,7 +1580,11 @@ class Interface(Frame, MoveAllCls):
         if self._frame_3 is not None:
             self._frame_3 .destroy()
         self._frame_3 = container_frame_stuf
-        self._frame_3 .pack(fill='both', expand=True)
+
+        # Opciones de empaquetamiento:
+        #self._frame_3 .pack(fill='both', expand=True)
+        self._frame_3 .grid(column=0, row=1, sticky='news')
+
 
 
         #____S I Z E G R I P ():  Inquierda
