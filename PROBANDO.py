@@ -1092,7 +1092,9 @@ class ToplevelCls(Toplevel):
 
         #___Frame contenedor de los botones "X" y "-"
         self.frame_manager = FrameManagerCls (self, bg="black",  listmode = arg1)       # Frame: Gestor de Ventanas
-        self.frame_manager .pack (arg2)
+        #___Opciones de empaquetamiento:
+        #self.frame_manager .pack(arg2)
+        self.frame_manager .grid(arg2)
 
         self.frame_manager .bind("<ButtonPress-1>", self.start_move)       # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
         self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)      # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
@@ -1186,7 +1188,10 @@ class RootCls(Tk):
         # Posicion de los botones "X" y "-"
         arg1 = ({'side':TOP, 'pady':6},{'side':BOTTOM, 'pady':6})       
         # Posicion del frame contenedor de los botones "X" y "-"
-        arg2 = {'side':RIGHT, 'fill':BOTH}
+
+        # Opciones de empaquetamiento:
+        #arg2 = {'side':RIGHT, 'fill':BOTH}
+        arg2 = {'column':1, 'row':0, 'sticky':'new'}
 
 
         #self.resizable(0, 0)                     # Deja un rastro de root en pantalla, no solucionado
@@ -1197,7 +1202,10 @@ class RootCls(Tk):
 
         # (Instancia) Frame Principal: 
         self.frame_principal = Interface(self.toplevel_principal)
-        self.frame_principal .pack(side=RIGHT, fill=BOTH)
+
+        # Opciones de empaquetamiento:
+        #self.frame_principal .pack(side=RIGHT, fill=BOTH)
+        self.frame_principal .grid(column=0, row=0, sticky='news')     #sticky puede causar errores de dibujo
 
         self.bind("<Map>", self.deiconify_on)  # Deiconiza Toplevel Principal
         self.bind("<Unmap>", self.iconify_on)  # Iconiza Toplevel Principal
@@ -1503,9 +1511,12 @@ class Interface(Frame, MoveAllCls):
         #_____________________________________________________________________
 
         # Posicion de los botones "X" y "-":                             ( None: diferencia los metodos )
-        arg1 = ({'side':RIGHT, 'padx':2, 'pady':(3,2)},{'side':RIGHT, 'padx':(2,10), 'pady':(3,2)}, None)      
+        arg1 = ({'side':RIGHT, 'padx':2, 'pady':(3,2)},{'side':RIGHT, 'padx':(2,10), 'pady':(3,2)}, None)   
         # Posicion del frame contenedor de los botones "X" y "-"
-        arg2 = {'side':TOP, 'fill':BOTH}   
+
+        # Opciones de empaquetamiento:
+        #arg2 = {'side':TOP, 'fill':BOTH}
+        arg2 = {'column':0, 'row':0, 'sticky':'new'}
 
 
 
@@ -1513,7 +1524,7 @@ class Interface(Frame, MoveAllCls):
         #                                  V E N T A N A:   1
         #__________________________________________________________________________________________________________
         if not self._open_1:   # ----> Si open_1 es False:
-            self.toplevel_LEFT = ToplevelCls (self.master, arg1, arg2)  # AQUI no se sabe quien es el padre correcto : self o self.master
+            self.toplevel_LEFT = ToplevelCls (self, arg1, arg2)  # AQUI no se sabe quien es el padre correcto : self o self.master
             self.toplevel_LEFT .configure_toplevel ('Hoja Izquierda', self.geo_izq.get())
                                 
         container_frame_left = var_1 (self.toplevel_LEFT)  #  var_1 es un frame
@@ -1522,7 +1533,10 @@ class Interface(Frame, MoveAllCls):
             self._frame_1 .destroy()
             self._frame_1 .frame_controller .destroy() #new
         self._frame_1 = container_frame_left
-        self._frame_1 .pack(fill='both', expand=True)
+
+        # Opciones de empaquetamiento:
+        #self._frame_1 .pack(fill='both', expand=True)
+        self._frame_1 .grid(column=0, row=1, sticky='news')
 
         """ self.a = Frame(self.toplevel_LEFT, bg='green2')
         self.a .pack(fill='both', expand=True) """
