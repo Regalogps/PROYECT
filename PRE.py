@@ -9,7 +9,7 @@ class Interface(Frame):
         self.x1 = 0
         self.x2 = 100
         self.y1 = 0
-        self.y2 = 100
+        self.y2 = 50
 
         self.control = Frame(self, bg='green')
         self.control .pack(fill= 'both', expand= True)  
