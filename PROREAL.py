@@ -686,12 +686,12 @@ class TopIzqCls(Frame):
 
         # Imagen: Miniatura del mobil para ayudar a medir las distancias
         self.frame_image_mobil_tutorial = ResizeCls(self, path_lst[indice][arg_1], bd=0)
-        self.frame_image_mobil_tutorial       .grid (column=0, row=0)
+        self.frame_image_mobil_tutorial       .grid (column=0, row=0, sticky='news')
 
     # Texto: "Guia", para abrir la Miniatura del mobil 
 
-        self.frame_controller               = Frame(self.master.frame_control, bg='#2f3337')
-        self.frame_controller                  .grid (column=0, row=0, sticky='news')
+        self.frame_controller                = Frame(self.master.frame_control, bg='#2f3337')
+        self.frame_controller                  .grid(column=0, row=0, sticky='new')
 
 
 
@@ -722,8 +722,8 @@ class TopIzqCls(Frame):
         #self.bind ('<Configure>', self.new_position_text_guia)
 
 
-        self.bind_motion = self.master.bind('<Motion>',self.open_text_mostrar_77)
-        self.bind_leave = self.bind('<Leave>', lambda arg: self.frame_controller .pack_forget())
+        self.master.bind('<Motion>',self.open_text_mostrar_77)
+        self.bind('<Leave>', lambda arg: self.frame_controller .grid_remove())
 
         self._motion_1 = False
 
