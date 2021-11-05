@@ -682,20 +682,18 @@ class TopIzqCls(Frame):
 
         # Imagen: Delay completo del mobil
         self.frame_image_delay_complete = ResizeCls(self, path_lst[indice][arg_0], bd=0)
-        #self.frame_image_delay_complete       .pack(fill='both', expand=True)
         self.frame_image_delay_complete       .grid (column=0, row=0, sticky='news')
 
         # Imagen: Miniatura del mobil para ayudar a medir las distancias
         self.frame_image_mobil_tutorial = ResizeCls(self, path_lst[indice][arg_1], bd=0)
-        #self.frame_image_mobil_tutorial       .pack (fill= 'both', expand= True)                             # [ NO POSICIONADO ]
         self.frame_image_mobil_tutorial       .grid (column=0, row=0)
 
     # Texto: "Guia", para abrir la Miniatura del mobil 
-        #self.master.frame_control.pack()
 
         self.frame_controller               = Frame(self.master.frame_control, bg='#2f3337')
-        #self.frame_controller                 .pack (fill= 'both', expand= True)
         self.frame_controller                  .grid (column=0, row=0, sticky='news')
+
+
 
         self.lbl_change1 = Label(self.frame_controller, image=path_mini[26], width=00,height=0, bg='black', cursor="hand2")
         self.lbl_change1   .pack(side=LEFT, fill='both', expand=True, padx=10)
@@ -704,7 +702,6 @@ class TopIzqCls(Frame):
         self.lbl_change2 = Label(self.frame_controller, image=path_mini[25], width=00,height=0, bg='black', cursor="hand2")
         self.lbl_change2   .pack(side=LEFT, fill='both', expand=True, padx=10)
         self.lbl_change2   .bind('<Button-1>', self.open_image_miniature)
-        
 
         if indice == 17:
 
@@ -727,9 +724,6 @@ class TopIzqCls(Frame):
 
         self.bind_motion = self.master.bind('<Motion>',self.open_text_mostrar_77)
         self.bind_leave = self.bind('<Leave>', lambda arg: self.frame_controller .pack_forget())
-        
-
-
 
         self._motion_1 = False
 
@@ -785,7 +779,6 @@ class TopIzqCls(Frame):
         if not self._motion_1 == True:
 
             if self.x1 <(self.pointer_width_2)< self.x2  and  self.y1 <(self.pointer_height_2)< self.y2: 
-                #self.master.frame_control .config(bg='red', width=0, height=0)   
                 self.frame_controller .grid()
             else:
                 self.frame_controller .grid_remove()
@@ -1102,20 +1095,15 @@ class ToplevelCls(Toplevel):
 
         #___Frame contenedor de los botones "X" y "-"
         self.frame_manager = FrameManagerCls (self, bg="black",  listmode = arg1)       # Frame: Gestor de Ventanas
-        #___Opciones de empaquetamiento:
         self.frame_manager .pack(arg2)
-        #self.frame_manager .grid(arg2)
 
         self.frame_manager .bind("<ButtonPress-1>", self.start_move)       # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
         self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)      # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
         self.frame_manager .bind("<B1-Motion>", self.on_move)              # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
 
         #___Frame contenedor de los labels
-        self.b = Frame(self, bg='green')
-        self.b .pack(expand=False)
-
-        self.frame_control = Frame(self.b, bg='blue')
-        self.frame_control .pack(fill='both', expand=True)
+        self.frame_control = Frame(self, bg='blue')
+        self.frame_control .pack()
         #____
 
 
@@ -1200,10 +1188,7 @@ class RootCls(Tk):
         # Posicion de los botones "X" y "-"
         arg1 = ({'side':TOP, 'pady':6},{'side':BOTTOM, 'pady':6})       
         # Posicion del frame contenedor de los botones "X" y "-"
-
-        # Opciones de empaquetamiento:
         arg2 = {'side':RIGHT, 'fill':BOTH}
-        #arg2 = {'column':1, 'row':0, 'sticky':'new'}
 
 
         #self.resizable(0, 0)                     # Deja un rastro de root en pantalla, no solucionado
@@ -1215,9 +1200,7 @@ class RootCls(Tk):
         # (Instancia) Frame Principal: 
         self.frame_principal = Interface(self.toplevel_principal)
 
-        # Opciones de empaquetamiento:
         self.frame_principal .pack(side=RIGHT, fill=BOTH)
-        #self.frame_principal .grid(column=0, row=0, sticky='news')     #sticky puede causar errores de dibujo
 
         self.bind("<Map>", self.deiconify_on)  # Deiconiza Toplevel Principal
         self.bind("<Unmap>", self.iconify_on)  # Iconiza Toplevel Principal
@@ -1514,7 +1497,14 @@ class Interface(Frame, MoveAllCls):
 
     def a (self, event=None):
         self.toplevel_LEFT.frame_control .pack(fill='both', expand=True)
-        self.toplevel_LEFT.frame_control .pack_slaves()
+    
+    def b (self, event=None):
+        self.toplevel_LEFT.frame_control .pack_forget()
+
+
+
+
+        
     # G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S :
 
     def windows_123 (self, var_1, var_2, var_3, mobil=None):
@@ -1530,13 +1520,8 @@ class Interface(Frame, MoveAllCls):
         # Posicion de los botones "X" y "-":                             ( None: diferencia los metodos )
         arg1 = ({'side':RIGHT, 'padx':2, 'pady':(3,2)},{'side':RIGHT, 'padx':(2,10), 'pady':(3,2)}, None)   
         # Posicion del frame contenedor de los botones "X" y "-"
-
-        # Opciones de empaquetamiento:
         arg2 = {'side':TOP, 'fill':BOTH}
-        #arg2 = {'column':0, 'row':0, 'sticky':'new'}
 
-
-        
 
         #                                  V E N T A N A:   1
         #__________________________________________________________________________________________________________
@@ -1550,19 +1535,12 @@ class Interface(Frame, MoveAllCls):
             self._frame_1 .destroy()
             self._frame_1 .frame_controller .destroy() #new
         self._frame_1 = container_frame_left
-
-        # Opciones de empaquetamiento:
         self._frame_1 .pack(fill='both', expand=True)
-        #self._frame_1 .grid(column=0, row=1, sticky='news')
 
-        """ self.a = Frame(self.toplevel_LEFT, bg='green2')
-        self.a .pack(fill='both', expand=True) """
+    
 
-        """ self.toplevel_LEFT .grid_columnconfigure(0, weight=1)
-        self.toplevel_LEFT .grid_rowconfigure(0, weight=0)
-        self.toplevel_LEFT .grid_rowconfigure(1, weight=1) """
         self.toplevel_LEFT.bind('<Enter>',self.a)
-        self.toplevel_LEFT.bind('<Leave>', lambda arg: self.toplevel_LEFT.frame_control .pack_forget())
+        self.toplevel_LEFT.bind('<Leave>',self.b)
 
 
         #                                  V E N T A N A:   2
@@ -1576,10 +1554,7 @@ class Interface(Frame, MoveAllCls):
         if self._frame_2 is not None:
             self._frame_2 .destroy()
         self._frame_2 = container_frame_right
-
-        # Opciones de empaquetamiento:
         self._frame_2 .pack(fill='both', expand=True)
-        #self._frame_2 .grid(column=0, row=1, sticky='news')
 
         
 
@@ -1594,10 +1569,7 @@ class Interface(Frame, MoveAllCls):
         if self._frame_3 is not None:
             self._frame_3 .destroy()
         self._frame_3 = container_frame_stuf
-
-        # Opciones de empaquetamiento:
         self._frame_3 .pack(fill='both', expand=True)
-        #self._frame_3 .grid(column=0, row=1, sticky='news')
 
 
 
