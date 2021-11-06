@@ -632,30 +632,28 @@ class Checkbutton_class(Checkbutton):
 # 1- Redimensionar las imagenes que le pasan:
 class ResizeCls(Frame):
     def __init__(self, master, index, *args, **kwargs):
-        super().__init__(master, *args, kwargs)
+        super().__init__(master, bg='black', *args, **kwargs)
         
-        #self.image = Image.fromarray(index)
         self.image = Image.open(index)
         self.image_copy = self.image .copy()
 
-        self.background = ImageTk.PhotoImage(self.image)
+        self.photo_image = ImageTk.PhotoImage(self.image)
 
-        self.img = Label(self, image=self.background)
-
-        # Opciones de empaquetamiento:
+        self.img = Label(self, image=self.photo_image, bg='black')
         self.img .pack(fill='both', expand=True)
-        #self.img .grid(sticky='news')
-
         self.img .bind('<Configure>', self.resize)
 
     def resize(self, event):
-        
-        self.image2 = self.image_copy .resize((self.master.winfo_width(), self.master.winfo_height()))
-        
-        self.background2 = ImageTk.PhotoImage(self.image2)
-        self.img .config(image=self.background2)
-        #self.img .image = self.backgroundd
 
+        if not self.master.master.master.resize_1 == True:
+            print(1111)
+            self.image = self.image_copy .resize((self.master.winfo_width(), self.master.winfo_height()))
+        else:
+            self.image = self.image_copy .resize((self.master.winfo_width(), self.master.winfo_height()-18))
+            print(2222)
+        self.photo_image = ImageTk.PhotoImage(self.image)
+        self.img .config(image=self.photo_image)
+        
 
 #********************************        ██████████████        *********************************
 #********************************        ██          ██        *********************************
@@ -675,92 +673,81 @@ class ResizeCls(Frame):
 class TopIzqCls(Frame):
     def __init__(self, master, indice, arg_0=None, arg_1=None, arg_2=None, arg_3=None, arg_4=None, arg_5=None, arg_6=None, arg_7=None, path_lst=None, path_mini=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
+
+        # Variables de Control y Seguimiento:
+        self._motion_1 = False
+
         self.x1 = 0
         self.x2 = 100
         self.y1 = 0
         self.y2 = 7
 
-        # Imagen: Delay completo del mobil
-        self.frame_image_delay_complete = ResizeCls(self, path_lst[indice][arg_0], bd=0)
-        self.frame_image_delay_complete       .grid (column=0, row=0, sticky='news')
+        # INTERFACE DE CONTROL: Para cambiar las imagenes
 
-        # Imagen: Miniatura del mobil para ayudar a medir las distancias
-        self.frame_image_mobil_tutorial = ResizeCls(self, path_lst[indice][arg_1], bd=0)
-        self.frame_image_mobil_tutorial       .grid (column=0, row=0, sticky='news')
+        # Frame: Contenedor de todos los iconos: 
+        self.frame_container_icons               = Frame(self, bg='#2f3337')
+        self.frame_container_icons                 .grid(column=0, row=0, sticky='new')
 
-    # Texto: "Guia", para abrir la Miniatura del mobil 
+        # Label: Iconos:
+        self.lbl_icon1 = Label(self.frame_container_icons, image=path_mini[26], bg='black', cursor="hand2", bd=0)
+        self.lbl_icon1   .grid(column=0, row=0, padx=0) # sticky='ew', para que el color de relleno del label ocupe todo
 
-        self.frame_controller                = Frame(self.master.frame_control, bg='#2f3337')
-        self.frame_controller                  .grid(column=0, row=0, sticky='new')
+        self.lbl_icon2 = Label(self.frame_container_icons, image=path_mini[25], bg='black', cursor="hand2", bd=0)
+        self.lbl_icon2   .grid(column=1, row=0, padx=0)
 
-
-
-        self.lbl_change1 = Label(self.frame_controller, image=path_mini[26], width=00,height=0, bg='black', cursor="hand2")
-        self.lbl_change1   .pack(side=LEFT, fill='both', expand=True, padx=10)
-        self.lbl_change1   .bind('<Button-1>', self.open_image_miniature)
-
-        self.lbl_change2 = Label(self.frame_controller, image=path_mini[25], width=00,height=0, bg='black', cursor="hand2")
-        self.lbl_change2   .pack(side=LEFT, fill='both', expand=True, padx=10)
-        self.lbl_change2   .bind('<Button-1>', self.open_image_miniature)
+        # Eventos: Para cambiar las imagenes 1
+        self.lbl_icon1   .bind('<Button-1>', self.open_image_miniature)
+        self.lbl_icon2   .bind('<Button-1>', self.open_image_miniature)
 
         if indice == 17:
 
-            self.lbl_change3 = Label (self.frame_controller, text='33', bg='green', height=1, cursor="hand2")
-            self.lbl_change3 .pack(side=LEFT, fill='both', expand=True, padx=10)
-            self.lbl_change3 .bind('<Button-1>', self.open_image_miniature)
+            # Label: Iconos:    
+            self.lbl_icon3 = Label(self.frame_container_icons, text='33', bg='green', height=1, cursor="hand2")
+            self.lbl_icon3   .grid(column=2, row=0, padx=0)
 
-            self.lbl_change4 = Label (self.frame_controller, text='44', bg='green', cursor="hand2")
-            self.lbl_change4 .pack(side=LEFT, fill='both', expand=True, padx=10)
-            self.lbl_change4 .bind('<Button-1>', self.open_image_miniature)
+            self.lbl_icon4 = Label(self.frame_container_icons, text='44', bg='green', cursor="hand2")
+            self.lbl_icon4   .grid(column=3, row=0, padx=0)
+
+            # Eventos: Para cambiar las imagenes 2
+            self.lbl_icon3   .bind('<Button-1>', self.open_image_miniature)
+            self.lbl_icon4   .bind('<Button-1>', self.open_image_miniature)
+
+            self.frame_container_icons.columnconfigure((2,3), weight=1)
+          
+        # POSICIONAMIENTO DE IMAGENES:    
+
+        # Imagen: Delay completo del mobil
+        self.frame_image_delay_complete = ResizeCls(self, path_lst[indice][arg_0], bd=0)
+        self.frame_image_delay_complete       .grid(column=0, row=1, sticky='news')
+
+        # Imagen: Miniatura del mobil para ayudar a medir las distancias
+        self.frame_image_mobil_tutorial = ResizeCls(self, path_lst[indice][arg_1], bd=0)
+        self.frame_image_mobil_tutorial       .grid(column=0, row=1, sticky='news')
 
 
         # Widgets No Posicionados:
         self.frame_image_mobil_tutorial .grid_remove()
-        #self.frame_controller .pack_forget()
+        self.frame_container_icons .grid_remove()
 
-        # Evento: Para posicionar el label[text= Guia]
-        #self.bind ('<Configure>', self.new_position_text_guia)
-
-
-        self.master.bind('<Motion>',self.open_text_mostrar_77)
-        self.bind('<Leave>', lambda arg: self.frame_controller .grid_remove())
-
-        self._motion_1 = False
+        self.master.bind('<Motion>',self.open_frame_container_icons)
+        self.bind('<Leave>', self.remove_frame_container_icons)
 
 
-        # Configuracion de la Ventana:
-        
+        # Configuracion principal :
         self.grid_columnconfigure(0, weight=1)
-        self.grid_rowconfigure(0, weight=1)
+        self.grid_rowconfigure(0, weight=0)
+        self.grid_rowconfigure(1, weight=1)
 
-        """  self.frame_controller .columnconfigure(0, weight=1)
-        self.frame_controller .rowconfigure(0, weight=1) """
-
+        # Configuracion principal :
         """ self.frame_image_delay_complete .columnconfigure(0, weight=1)
         self.frame_image_delay_complete .rowconfigure(0, weight=1) """
 
-
-    #___< C O N F I G U R E > :
-    # Tarea: Posicionar el label[text= Guia] que abre la miniatura del mobil
-    def new_position_text_guia(self, event):  
-        #self.a=1.17
-        toplevel_width  = self.master.winfo_width() / 1.17        # winfo_width() : Devuelve el ancho actual del widget(Toplevel) en pixeles, podria usar _reqwidth() que siempre esta actualizado.
-        toplevel_height = self.master.winfo_height() / 13.5
-        x = int (toplevel_width)
-        y = int (toplevel_height)    
-
-        self.lbl_text_guia .place(x=x, y=y)
-
-        if y < 49:
-            self.lbl_text_guia .config(font=('Calibri',7,'bold'))
-        #elif y < 40:
-        #    self.self.lbl_text_guia .config(font=('Calibri',6,'bold'))  # NO FUNCIONA
-        else:
-            self.lbl_text_guia .config(font=('Calibri',8,'bold'))
+        # Configuracion del contenedor de iconos :
+        self.frame_container_icons.columnconfigure((0,1), weight=1)
+        self.frame_container_icons.rowconfigure(0, weight=1)
 
 
-    #___< B U T T O N - 1 > :
-    # Tarea: Abrir la minuatura del mobil 
+    # Tarea: Abrir la minuatura del mobil:  [ B U T T O N - 1 ]
     def open_image_miniature(self, event): 
 
         if self.frame_image_mobil_tutorial .grid_info() == {}:   # Metodo que devuelve un    {...} con toda la info de su ubicacion, contrariamente un {}     
@@ -769,22 +756,31 @@ class TopIzqCls(Frame):
             self.frame_image_mobil_tutorial .grid_remove()
 
 
-
-    #___< M O T I O N > :
-    def open_text_mostrar_77(self, event):
- 
-        self.pointer_width_2  = event.x / self.master.winfo_width() * 100
-        self.pointer_height_2 = event.y / self.master.winfo_height() * 100
+    # Tarea: Ocultar y mostrar el frame contenedor de los iconos: [ M O T I O N ]
+    def open_frame_container_icons(self, event):
+        """ self.porcentage_x  = event.x / self.master.winfo_width() * 100
+        self.porcentage_y = event.y / self.master.winfo_height() * 100
         
         if not self._motion_1 == True:
+        
 
-            if self.x1 <(self.pointer_width_2)< self.x2  and  self.y1 <(self.pointer_height_2)< self.y2: 
-                self.frame_controller .grid()
-            else:
-                self.frame_controller .grid_remove()
+            if self.x1 <(self.porcentage_x)< self.x2  and  self.y1 <(self.porcentage_y)< self.y2: """
+        self.master.master.resize_1 = True    # Variable de seguimiento
+
+        self.frame_container_icons .grid()
+        """ else:
+        self.master.master.resize_1 = True     # Variable de seguimiento
+
+        self.frame_container_icons .grid_remove() """
 
         """ if self.frame_image_base_77 .grid_info() != {}:   # == {} (no mapeado) 
             self.lbl_text_mostrar_77     .grid_remove() """
+
+    # Tarea: Ocultar y mostrar el frame contenedor de los iconos: [ M O T I O N ]
+    def remove_frame_container_icons(self, event):
+        self.master.master.resize_1 = False
+        self.frame_container_icons .grid_remove()
+
 
 
 #********************************        ██████████████        *********************************
@@ -1094,7 +1090,7 @@ class ToplevelCls(Toplevel):
         self._y = 0
 
         #___Frame contenedor de los botones "X" y "-"
-        self.frame_manager = FrameManagerCls (self, bg="black",  listmode = arg1)       # Frame: Gestor de Ventanas
+        self.frame_manager = FrameManagerCls(self, bg="black",  listmode = arg1)       # Frame: Gestor de Ventanas
         self.frame_manager .pack(arg2)
 
         self.frame_manager .bind("<ButtonPress-1>", self.start_move)       # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
@@ -1102,8 +1098,8 @@ class ToplevelCls(Toplevel):
         self.frame_manager .bind("<B1-Motion>", self.on_move)              # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
 
         #___Frame contenedor de los labels
-        self.frame_control = Frame(self, bg='blue')
-        self.frame_control .pack()
+        """ self.frame_control = Frame(self, bg='blue')
+        self.frame_control .pack() """
         #____
 
 
@@ -1161,7 +1157,7 @@ class ToplevelCls(Toplevel):
         self.geometry (size)
         self.resizable (1,1)
         self.wm_attributes ('-topmost', True)                     # FUNCIONA BIEN pero molesta para editar 
-        #self.config (bg = 'magenta2')                            # FUNCIONA BIEN pero tiene mal aspecto
+        self.config (bg = 'magenta2')                            # FUNCIONA BIEN pero tiene mal aspecto
         #self.wm_attributes ('-transparentcolor', 'magenta2')     # FUNCIONA BIEN pero tiene mal aspecto
 
     def mapped_manager(self, event=None):       # / SOLO SE EJECUTA PARA VENTANAS 1,2,3   
@@ -1253,6 +1249,9 @@ class Interface(Frame, MoveAllCls):
         #_____Variables de Control Secundarias:
         self._gear = False
         self._minimize = False
+
+        #_____Variables de Seguimiento del Frame Contenedor de los Iconos en las Ventanas Secundarias:
+        self.resize_1 = False
 
         #_____Variables de Control de Tamaño y Posición de Todas las Ventanas:
         self.geo_principal = StringVar()
@@ -1472,7 +1471,7 @@ class Interface(Frame, MoveAllCls):
 
         if self.focus_get() == self.frame_botones:                            #
             for btn in (self.frame_botones. buttons22):                       #
-                if self.mobil_selected == btn.cget('text'):                #
+                if self.mobil_selected == btn.cget('text'):                   #
                     btn .config(bg='#bdfe04', fg='black')                     #
                 else:                                                         #
                     if btn .cget('text') in self.frame_botones .mobiles2:     #
@@ -1485,7 +1484,7 @@ class Interface(Frame, MoveAllCls):
 
         if self.focus_get() == None and self.mobil_selected is not None:
             for btn in (self.frame_botones. buttons22):                       #
-                if self.mobil_selected == btn.cget('text'):                #
+                if self.mobil_selected == btn.cget('text'):                   #
                     btn .config(bg='#bdfe04', fg='black')                     #
 
 
@@ -1494,17 +1493,6 @@ class Interface(Frame, MoveAllCls):
     #############################################################
     #############################################################
 
-
-    def a (self, event=None):
-        self.toplevel_LEFT.frame_control .pack(fill='both', expand=True)
-    
-    def b (self, event=None):
-        self.toplevel_LEFT.frame_control .pack_forget()
-
-
-
-
-        
     # G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S :
 
     def windows_123 (self, var_1, var_2, var_3, mobil=None):
@@ -1528,19 +1516,15 @@ class Interface(Frame, MoveAllCls):
         if not self._open_1:   # ----> Si open_1 es False:
             self.toplevel_LEFT = ToplevelCls (self, arg1, arg2)  # AQUI no se sabe quien es el padre correcto : self o self.master
             self.toplevel_LEFT .configure_toplevel ('Hoja Izquierda', self.geo_izq.get())
+            #self.toplevel_LEFT .config(bg='green2')
                                 
         container_frame_left = var_1 (self.toplevel_LEFT)  #  var_1 es un frame
 
         if self._frame_1 is not None:  
             self._frame_1 .destroy()
-            self._frame_1 .frame_controller .destroy() #new
+            self._frame_1 .frame_container_icons .destroy() #new
         self._frame_1 = container_frame_left
         self._frame_1 .pack(fill='both', expand=True)
-
-    
-
-        self.toplevel_LEFT.bind('<Enter>',self.a)
-        self.toplevel_LEFT.bind('<Leave>',self.b)
 
 
         #                                  V E N T A N A:   2
