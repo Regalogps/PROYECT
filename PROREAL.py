@@ -644,13 +644,7 @@ class ResizeCls(Frame):
         self.img .bind('<Configure>', self.resize)
 
     def resize(self, event):
-
-        if not self.master.master.master.resize_1 == True:
-            print(1111)
-            self.image = self.image_copy .resize((self.master.winfo_width(), self.master.winfo_height()))
-        else:
-            self.image = self.image_copy .resize((self.master.winfo_width(), self.master.winfo_height()-18))
-            print(2222)
+        self.image = self.image_copy .resize((self.master.winfo_width(), self.master.winfo_height()))
         self.photo_image = ImageTk.PhotoImage(self.image)
         self.img .config(image=self.photo_image)
         
