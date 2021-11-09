@@ -1132,13 +1132,21 @@ class ToplevelCls(Toplevel):
         self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)      # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
         self.frame_manager .bind("<B1-Motion>", self.on_move)              # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
 
-        #Esto se quito...new
-        """ self.label_title = Label(self.frame_manager, text='', fg="white", bg="green")   
-        self.label_title .pack(side=RIGHT, padx=0, pady=0)                                          # Derecha 
-        self.label_title .bind("<ButtonPress-1>", self.start_move)     # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
-        self.label_title .bind("<ButtonRelease-1>", self.stop_move)    # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
-        self.label_title .bind("<B1-Motion>", self.on_move) """            # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
-        #hasta aqui...
+    def create_labels(self, text):   #@@@
+        self.label_image = Label(self.frame_manager, text=text, fg="white", bg="green")   
+        self.label_image .pack(side=LEFT, )
+
+        self.label_image .bind("<ButtonPress-1>", self.start_move)
+        self.label_image .bind("<ButtonRelease-1>", self.stop_move)
+
+
+        self.label_title = Label(self.frame_manager, text=text, fg="white", bg="green")   
+        self.label_title .pack(side=LEFT, padx=10, pady=0)
+
+        self.label_title .bind("<ButtonPress-1>", self.start_move)
+        self.label_title .bind("<ButtonRelease-1>", self.stop_move)
+        self.label_title .bind("<B1-Motion>", self.on_move)
+
 
         #self.master .bind("<Map>", self.deiconify_1)                       # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
         #self.master .bind("<Unmap>", self.iconify_1)                       # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
