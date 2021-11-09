@@ -647,6 +647,47 @@ class ResizeCls(Frame):
         self.image = self.image_copy .resize((self.master.winfo_width(), self.master.winfo_height()))
         self.photo_image = ImageTk.PhotoImage(self.image)
         self.img .config(image=self.photo_image)
+
+
+class IconsIzqCls(Frame):
+    def __init__(self, master, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
+        
+
+        # INTERFACE DE CONTROL: Para cambiar las imagenes
+
+        # Frame: Contenedor de todos los iconos: 
+        self.frame_container_icons               = Frame(self, bg='#2f3337')
+        self.frame_container_icons                 .grid(column=0, row=0, sticky='new')
+
+        # Label: Iconos:
+        self.lbl_icon1 = Label(self.frame_container_icons, image=path_mini[26], bg='black', cursor="hand2", bd=0)
+        self.lbl_icon1   .grid(column=0, row=0, padx=0) # sticky='ew', para que el color de relleno del label ocupe todo
+
+        self.lbl_icon2 = Label(self.frame_container_icons, image=path_mini[25], bg='black', cursor="hand2", bd=0)
+        self.lbl_icon2   .grid(column=1, row=0, padx=0)
+
+        # Eventos: Para cambiar las imagenes 1
+        self.lbl_icon1   .bind('<Button-1>', self.open_image_miniature)
+        self.lbl_icon2   .bind('<Button-1>', self.open_image_miniature)
+
+        if indice == 17:
+
+            # Label: Iconos:    
+            self.lbl_icon3 = Label(self.frame_container_icons, text='33', bg='green', height=1, cursor="hand2")
+            self.lbl_icon3   .grid(column=2, row=0, padx=0)
+
+            self.lbl_icon4 = Label(self.frame_container_icons, text='44', bg='green', cursor="hand2")
+            self.lbl_icon4   .grid(column=3, row=0, padx=0)
+
+            # Eventos: Para cambiar las imagenes 2
+            self.lbl_icon3   .bind('<Button-1>', self.open_image_miniature)
+            self.lbl_icon4   .bind('<Button-1>', self.open_image_miniature)
+
+            self.frame_container_icons.columnconfigure((2,3), weight=1)
+          
+        
+    def controllers(self):  
         
 
 #********************************        ██████████████        *********************************
