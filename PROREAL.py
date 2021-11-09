@@ -1133,16 +1133,14 @@ class ToplevelCls(Toplevel):
         self.frame_manager .bind("<B1-Motion>", self.on_move)              # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
 
     def create_labels(self, text):   #@@@
-        self.label_image = Label(self.frame_manager, text=text, fg="white", bg="green")   
-        self.label_image .pack(side=LEFT, )
-
-        self.label_image .bind("<ButtonPress-1>", self.start_move)
-        self.label_image .bind("<ButtonRelease-1>", self.stop_move)
+        self.label_image_option = Label(self.frame_manager, image=self.image_falta, bg="green", bd=0)   
+        self.label_image_option .pack(side=LEFT)
+        self.label_image_option .bind("<ButtonPress-1>", self.start_move)
+        self.label_image_option .bind("<ButtonRelease-1>", self.stop_move)
 
 
         self.label_title = Label(self.frame_manager, text=text, fg="white", bg="green")   
         self.label_title .pack(side=LEFT, padx=10, pady=0)
-
         self.label_title .bind("<ButtonPress-1>", self.start_move)
         self.label_title .bind("<ButtonRelease-1>", self.stop_move)
         self.label_title .bind("<B1-Motion>", self.on_move)
