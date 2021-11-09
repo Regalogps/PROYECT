@@ -1091,13 +1091,6 @@ class ToplevelCls(Toplevel):
         self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)      # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
         self.frame_manager .bind("<B1-Motion>", self.on_move)              # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
 
-        #___Frame contenedor de los labels
-        """ self.frame_control = Frame(self, bg='blue')
-        self.frame_control .pack() """
-        #____
-
-
-
         #Esto se quito...new
         """ self.label_title = Label(self.frame_manager, text='', fg="white", bg="green")   
         self.label_title .pack(side=RIGHT, padx=0, pady=0)                                          # Derecha 
