@@ -1132,7 +1132,14 @@ class ToplevelCls(Toplevel):
         self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)      # Desactivado: Razon: Metodo global lo hace   /  # Asigna un estado de inicio o stop
         self.frame_manager .bind("<B1-Motion>", self.on_move)              # Desactivado: Razon: Metodo global lo hace   /  # Mueve la ventana 
 
-    def create_labels(self, text):   #@@@
+        if len(self.arg1) < 3:  # Toplevel Secundarias            
+            self.frame_manager .bind("<Map>",self.mapped_manager)
+
+
+    def create_label(self, text):   #@@@
+
+
+
         self.label_image_option = Label(self.frame_manager, image=self.image_falta, bg="green", bd=0)   
         self.label_image_option .pack(side=LEFT)
         self.label_image_option .bind("<ButtonPress-1>", self.start_move)
@@ -1146,16 +1153,80 @@ class ToplevelCls(Toplevel):
         self.label_title .bind("<B1-Motion>", self.on_move)
 
 
+                btn.bind("<Enter>", self.enter_mouse)
+                btn.bind("<Leave>", self.leave_mouse)
+                btn.bind("<ButtonPress-1>", self.press_mouse)
+                btn.bind("<ButtonRelease-1>", self.release_mouse)            
+
+                if texto in self.mobiles2: btn.config(fg='yellow')
+                self.buttons22.append(btn)   # Examinar si borrar porque no tiene uso la lista
+
+
+
+    # TAREA:
+    #   1- Cambia el color del boton al pasar el mouse sobre el
+    def enter_mouse(self, event):
+        if not event.widget .cget('bg') == '#bdfe04':           # -1  
+            event.widget .config(bg="#24364a")                   # >>>>
+        
+        # 1-  Si el color del boton sobre el que se posa el mouse, NO ES VERDE :▼▼▼▼
+            # >>>>   Cambia el color del boton a un --> [ CELESTE APAGADO ]
+
+    
+    # TAREA:
+    #   1- Cambia el color del boton al salir el mouse de el
+    def leave_mouse(self, event):
+        if not event.widget .cget('bg') == '#bdfe04':            # -1
+            event.widget.config(bg='#11161d')                     # >>>>
+
+        # 1-  Si el color de fondo del boton desde donde sale el mouse, NO ES VERDE :▼▼▼▼
+            # >>>>   Cambia el color del boton a un --> [ AZULINO DEFAULT ]
+
+
+    # TAREA:
+    #   1- Cambia el color del boton presionado actual a [VERDE-NEGRO]
+    def press_mouse(self, event):
+        widget_press = event.widget                                            # -1
+        widget_press .config(bg='#bdfe04', fg='black')                         # -2
+                     
+        for btn in (self.buttons22):
+            if btn != widget_press:
+                if btn .cget('text') in self.mobiles2:
+                    btn .config (bg='#11161d', fg='yellow')
+                else:
+                    btn .config (bg='#11161d', fg='white') 
+
+        self.container1 = widget_press                                         # -4
+
+        # 1-  Atrapa al boton clickeado [ Nombre ]
+        # 2-  Cambia el background y foreground del boton clikeado a un --> [ VERDE - NEGRO ]
+
+        # 3-  Si [self.container1 = boton clickeado anterior] deja de ser [None] y es diferente al boton clickeado actual :▼▼▼▼
+            # 3.1-  [self.container1 = boton clickeado anterior] tiene de texto algunas de las cadenas de la lista, self.mobiles2 :▼▼▼▼
+                # >>>>  Cambia el background y foreground del boton clikeado anterior a un --> [ AZULINO - AMARILLO ]
+            # 3.2-  Entonces :▼▼▼▼
+                # >>>>  Cambia el background y foreground del boton clikeado anterior a un --> [ AZULINO - BLANCO ]
+        
+        # 4-  Almacena el boton actual en una variable   
+
+
+    # TAREA:
+    #   1- Cambia el color del boton presionado actual a DEFAULT, si no coincide con el mismo boton presionado
+    def release_mouse(self, event):
+        widget_press = event.widget                                                 # -1
+        widget_release = event.widget.winfo_containing(event.x_root, event.y_root)  # -2
+
+        if widget_press != widget_release:                                          # -3
+
+            if widget_press .cget('text') in self.mobiles2:                          # -3.1
+                widget_press .config (bg='#11161d', fg='yellow')                      # >>>>
+            else:                                                                    # -3.2
+                widget_press .config (bg='#11161d', fg='white')                       # >>>>
+
+
+
         #self.master .bind("<Map>", self.deiconify_1)                       # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
         #self.master .bind("<Unmap>", self.iconify_1)                       # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
-
-        # GLOSARIO:
-            # _exception1: Es el argumento de la clase: Frame_manager_class que valida que tipo de funcion se va ejecutar en el Instancia creada
-                # None:         Default / para Toplevel Principal
-                # not is None:          / para Toplevel Secundarias
-            # value_exception1: Es el valor de _exception1, puede ser 'cualquier valor' y 'None'
-
-            # _exception1: Es el argumento de la clase: Toplevel_class que valida que tipo de funcion se va ejecutar en el Instancia creada,
 
         if len(self.arg1) < 3:  # Toplevel Secundarias            
             self.frame_manager .bind("<Map>",self.mapped_manager)
@@ -1198,6 +1269,16 @@ class ToplevelCls(Toplevel):
         self.update_idletasks()
         self.overrideredirect(True)
         self.state('normal')
+
+
+        # GLOSARIO:
+            # _exception1: Es el argumento de la clase: Frame_manager_class que valida que tipo de funcion se va ejecutar en el Instancia creada
+                # None:         Default / para Toplevel Principal
+                # not is None:          / para Toplevel Secundarias
+            # value_exception1: Es el valor de _exception1, puede ser 'cualquier valor' y 'None'
+
+            # _exception1: Es el argumento de la clase: Toplevel_class que valida que tipo de funcion se va ejecutar en el Instancia creada,
+
 
 
 #************************            ███████    ██████  ██████
