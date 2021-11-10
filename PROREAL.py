@@ -1139,8 +1139,8 @@ class ToplevelCls(Toplevel):
         #self.master .bind("<Unmap>", self.iconify_1)                       # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
 
 
-    def create_button_menu(self, text):   #@@@@
-        self.button_menu = Button(self.frame_manager, image=self.image_falta, bg="green", bd=0)   
+    def create_button_menu(self, metodo):   #@@@@
+        self.button_menu = Button(self.frame_manager, image=self.image_falta, command=metodo, bg="green", bd=0)   
         self.button_menu .pack(side=LEFT)
         self.button_menu .bind("<Enter>", self.enter_mouse)
         self.button_menu .bind("<Leave>", self.leave_mouse)
@@ -1176,11 +1176,14 @@ class ToplevelCls(Toplevel):
     def release_mouse(self, event):
         self.button_press .config(image=self.image_falta)
 
+        # ver si es necesario self en self.button_press
         # esto lo puedo borrar ya que creo q el botón tiene este comportamiento
         #widget_press = event.widget                                                 # -1
         #widget_release = event.widget.winfo_containing(event.x_root, event.y_root)  # -2
 
         #if widget_press != widget_release:                                          # -3
+
+    def open_
 
 
     def iconify_1(self, event):   # SOLO SE EJECUTA SI SE INSTANCIA INTERFACE SI NO NO SIRVE PORQUE ESTA INSTANCIADO EN TK
