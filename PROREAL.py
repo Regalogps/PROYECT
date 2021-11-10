@@ -1137,10 +1137,10 @@ class ToplevelCls(Toplevel):
 
 
     def create_button_menu(self, text):   #@@@@
-        self.label_image_option = Label(self.frame_manager, image=self.image_falta, bg="green", bd=0)   
-        self.label_image_option .pack(side=LEFT)
-        self.label_image_option .bind("<ButtonPress-1>", self.start_move)
-        self.label_image_option .bind("<ButtonRelease-1>", self.stop_move)
+        self.button_menu = Button(self.frame_manager, image=self.image_falta, bg="green", bd=0)   
+        self.button_menu .pack(side=LEFT)
+        self.button_menu .bind("<ButtonPress-1>", self.start_move)
+        self.button_menu .bind("<ButtonRelease-1>", self.stop_move)
 
 
     def create_label_title(self, text):  #@@@@
@@ -1164,22 +1164,12 @@ class ToplevelCls(Toplevel):
     # TAREA:
     #   1- Cambia el color del boton al pasar el mouse sobre el
     def enter_mouse(self, event):
-        if not event.widget .cget('bg') == '#bdfe04':           # -1  
-            event.widget .config(bg="#24364a")                   # >>>>
-        
-        # 1-  Si el color del boton sobre el que se posa el mouse, NO ES VERDE :▼▼▼▼
-            # >>>>   Cambia el color del boton a un --> [ CELESTE APAGADO ]
-
+        event.widget .config(image=self.image_falta2)    # Color: 
     
     # TAREA:
     #   1- Cambia el color del boton al salir el mouse de el
     def leave_mouse(self, event):
-        if not event.widget .cget('bg') == '#bdfe04':            # -1
-            event.widget.config(bg='#11161d')                     # >>>>
-
-        # 1-  Si el color de fondo del boton desde donde sale el mouse, NO ES VERDE :▼▼▼▼
-            # >>>>   Cambia el color del boton a un --> [ AZULINO DEFAULT ]
-
+        event.widget.config(image=self.image_falta)                     # >>>>
 
     # TAREA:
     #   1- Cambia el color del boton presionado actual a [VERDE-NEGRO]
