@@ -1136,16 +1136,14 @@ class ToplevelCls(Toplevel):
             self.frame_manager .bind("<Map>",self.mapped_manager)
 
 
-    def create_label(self, text):   #@@@
-
-
-
+    def create_button_menu(self, text):   #@@@@
         self.label_image_option = Label(self.frame_manager, image=self.image_falta, bg="green", bd=0)   
         self.label_image_option .pack(side=LEFT)
         self.label_image_option .bind("<ButtonPress-1>", self.start_move)
         self.label_image_option .bind("<ButtonRelease-1>", self.stop_move)
 
 
+    def create_label_title(self, text):  #@@@@
         self.label_title = Label(self.frame_manager, text=text, fg="white", bg="green")   
         self.label_title .pack(side=LEFT, padx=10, pady=0)
         self.label_title .bind("<ButtonPress-1>", self.start_move)
