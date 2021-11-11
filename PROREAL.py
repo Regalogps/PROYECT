@@ -1336,11 +1336,12 @@ class Interface(Frame, MoveAllCls):
         self.make_movable(self.frame_controller.btn_ash)                  # Class MoveAllCls: Añade a la lista de widget que permiten mover la ventana
 
 
-    # Tarea: 1- Asignar el tamaño y posicion de todas las ventanas a excepción de root:
+    # Tarea: 1. Asignar el tamaño y posicion de todas las ventanas a excepción de root:
     def size_position(self):
+        #____Tamaño de la Pantalla:
         screen_x = self.master.winfo_screenwidth()      # 1280
         screen_y = self.master.winfo_screenheight()     # 768
-        #print('    ancho total:', screen_x,'    alto total:', screen_y )
+        #print('Ancho Pantalla ---> ', screen_x, 'Alto Pantalla:', screen_y )
 
         #____Ventana Principal:
         width = 834                                     # Ancho
@@ -1376,7 +1377,7 @@ class Interface(Frame, MoveAllCls):
         #---------------------------------------------------------------------------------------------------------
 
    
-    # Tarea: 1- Configurar la ventana principal
+    # Tarea: 1. Configura la ventana principal:
     def configure_interface(self):
         
         # MASTER REFIERE A TOPLEVEL: PRINCIPAL
