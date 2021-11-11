@@ -1293,7 +1293,7 @@ class Interface(Frame, MoveAllCls):
         self.path_lst = self.generate_list (path, 'I')
         self.path_mini = self.generate_list (path, 'M')
         
-        #_____Variables de control para las ventanas:  [ 1,2,3 ]
+        #_____Variables de Control para los Frames Contenedores de Imagenes de las ventanas Secundarias: [ 1,2,3 ]
         self._frame_1 = None
         self._frame_2 = None
         self._frame_3 = None
@@ -1328,7 +1328,7 @@ class Interface(Frame, MoveAllCls):
         self.bind_all("<ButtonRelease-1>", self.stop_move_all)            # Punto final
         self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)    # Puntos de movimiento
 
-        #_____Enlaces para Pintar al Boton que Abrio las Ventanas:
+        #_____Enlaces para Marcar el Boton que Inicio las Ventanas:
         self.master.bind('<FocusIn>', self.focus_in)
         self.master.bind('<FocusOut>', self.focus_out)
 
@@ -1336,7 +1336,7 @@ class Interface(Frame, MoveAllCls):
         self.make_movable(self.frame_controller.btn_ash)                  # Metodo de MoveAllCls: añade a la lista de widget, que permiten mover la ventana
 
 
-    # Tareas:
+    # Tareas
     #   1- Asignar el tamaño y posicion de todas las ventanas a excepción de root 
     def size_position(self):
         screen_x = self.master.winfo_screenwidth()      # 1280
