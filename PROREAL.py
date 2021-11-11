@@ -688,6 +688,7 @@ class IconsIzqCls(Frame):
           
         
     def controllers(self):  
+        pass
         
 
 #********************************        ██████████████        *********************************
@@ -723,31 +724,7 @@ class TopIzqCls(Frame):
         self.frame_container_icons               = Frame(self, bg='#2f3337')
         self.frame_container_icons                 .grid(column=0, row=0, sticky='new')
 
-        # Label: Iconos:
-        self.lbl_icon1 = Label(self.frame_container_icons, image=path_mini[26], bg='black', cursor="hand2", bd=0)
-        self.lbl_icon1   .grid(column=0, row=0, padx=0) # sticky='ew', para que el color de relleno del label ocupe todo
-
-        self.lbl_icon2 = Label(self.frame_container_icons, image=path_mini[25], bg='black', cursor="hand2", bd=0)
-        self.lbl_icon2   .grid(column=1, row=0, padx=0)
-
-        # Eventos: Para cambiar las imagenes 1
-        self.lbl_icon1   .bind('<Button-1>', self.open_image_miniature)
-        self.lbl_icon2   .bind('<Button-1>', self.open_image_miniature)
-
-        if indice == 17:
-
-            # Label: Iconos:    
-            self.lbl_icon3 = Label(self.frame_container_icons, text='33', bg='green', height=1, cursor="hand2")
-            self.lbl_icon3   .grid(column=2, row=0, padx=0)
-
-            self.lbl_icon4 = Label(self.frame_container_icons, text='44', bg='green', cursor="hand2")
-            self.lbl_icon4   .grid(column=3, row=0, padx=0)
-
-            # Eventos: Para cambiar las imagenes 2
-            self.lbl_icon3   .bind('<Button-1>', self.open_image_miniature)
-            self.lbl_icon4   .bind('<Button-1>', self.open_image_miniature)
-
-            self.frame_container_icons.columnconfigure((2,3), weight=1)
+        
           
         # POSICIONAMIENTO DE IMAGENES:    
 
@@ -1044,8 +1021,8 @@ class FrameManagerCls(Frame):
 
     def creator_buttons(self):
         #___Botones: [Cerrar - Minimizar]
-        self.button_close = Button(self, image=self.image_close1, command=self.close, bd=0, bg='black', activebackground='black')
-        self.button_minimize = Button(self, image=self.image_minimize1, command=self.minimize, bd=0, bg='black', activebackground='black')
+        self.button_close = Button(self, image=self.image_close1, command=self.close, bd=0, bg='#1d2126', activebackground='black')
+        self.button_minimize = Button(self, image=self.image_minimize1, command=self.minimize, bd=0, bg='#1d2126', activebackground='black')
 
         self.button_close .pack(self.listmode [0])       # Orientacion del boton en el frame: Principal: (side=TOP, pady=7)    Secundario: (side=RIGHT) 
         self.button_minimize .pack(self.listmode [1])    # Orientacion del boton en el frame: Principal: (side=BOTTOM, pady=7) Secundario: (side=RIGHT, padx=10)            
@@ -1059,16 +1036,16 @@ class FrameManagerCls(Frame):
 
 
     def change_image_close1(self, event):   # Cambia el color al pasar el mouse sobre el      # Color: Celeste apagado
-        event.widget.config(image=self.image_close2)
+        event.widget.config(image=self.image_close2, bg='red')
 
-    def change_image_close2(self, event):   # Deja el color como estaba por defecto           # Color: Azul oscuro
-        event.widget.config(image=self.image_close1)
+    def change_image_close2(self, event):   # Deja el color como estaba por defecto           # Color: gris celesyte
+        event.widget.config(image=self.image_close1, bg='#1d2126')
    
-    def change_image_mini1(self, event):    # Deja el color como estaba por defecto           # Color: Azul oscuro
-        event.widget.config(image=self.image_minimize2)
+    def change_image_mini1(self, event):    # Deja el color como estaba por defecto           # Color: Azul celeste
+        event.widget.config(image=self.image_minimize2, bg='#4ca6ff')
 
-    def change_image_mini2(self, event):    # Deja el color como estaba por defecto           # Color: Azul oscuro
-        event.widget.config(image=self.image_minimize1)
+    def change_image_mini2(self, event):    # Deja el color como estaba por defecto           # Color: gris celeste
+        event.widget.config(image=self.image_minimize1, bg='#1d2126')
 
 
     def close(self):     # SOLUCIONAR SI QUEDAN PROCESOS ABIERTOS POR USO INADECUADO DE QUIT()
@@ -1119,13 +1096,18 @@ class ToplevelCls(Toplevel):
     def __init__(self, master=None, arg1=None, arg2=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.overrideredirect(True)
+
+
         
         self.arg1 = arg1
         self._x = 0
         self._y = 0
 
+        #___Metodos Llamados:
+        self.initializer_images()
+
         #___Frame contenedor de los botones "X" y "-"
-        self.frame_manager = FrameManagerCls(self, bg="black",  listmode = arg1)       # Frame: Gestor de Ventanas
+        self.frame_manager = FrameManagerCls(self, bg="#1d2126",  listmode = arg1)       # Frame: Gestor de Ventanas
         self.frame_manager .pack(arg2)
 
         self.frame_manager .bind("<ButtonPress-1>", self.start_move)       # Desactivado: Razon: Metodo global lo hace   /  # Intercepta los puntos x,y 
@@ -1139,8 +1121,8 @@ class ToplevelCls(Toplevel):
         #self.master .bind("<Unmap>", self.iconify_1)                       # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
 
 
-    def create_button_menu(self, metodo):   #@@@@
-        self.button_menu = Button(self.frame_manager, image=self.image_falta, command=metodo, bg="green", bd=0)   
+    def create_button_menu(self, metodo=None):   #@@@@
+        self.button_menu = Button(self.frame_manager, image=self.image_menu, command=metodo, bg="green", bd=0)   
         self.button_menu .pack(side=LEFT)
         self.button_menu .bind("<Enter>", self.enter_mouse)
         self.button_menu .bind("<Leave>", self.leave_mouse)
@@ -1183,7 +1165,7 @@ class ToplevelCls(Toplevel):
 
         #if widget_press != widget_release:                                          # -3
 
-    def open_
+    #def open_
 
 
     def iconify_1(self, event):   # SOLO SE EJECUTA SI SE INSTANCIA INTERFACE SI NO NO SIRVE PORQUE ESTA INSTANCIADO EN TK
@@ -1224,6 +1206,14 @@ class ToplevelCls(Toplevel):
         self.overrideredirect(True)
         self.state('normal')
 
+    
+
+    def initializer_images(self):
+        self.image_close1 = PhotoImage(file= 'E:/1-RICHI/MovilesDB/B_01.png')
+        self.image_minimize1 = PhotoImage(file= 'E:/1-RICHI/MovilesDB/B_02.png')
+        self.image_minimize2 = PhotoImage(file= 'E:/1-RICHI/MovilesDB/B_03.png')
+        self.image_menu = PhotoImage(file= 'E:/1-RICHI/MovilesDB/B_05.png')
+
 
         # GLOSARIO:
             # _exception1: Es el argumento de la clase: Frame_manager_class que valida que tipo de funcion se va ejecutar en el Instancia creada
@@ -1251,7 +1241,7 @@ class RootCls(Tk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # Posicion de los botones "X" y "-"
-        arg1 = ({'side':TOP, 'pady':6},{'side':BOTTOM, 'pady':6})       
+        arg1 = ({'side':TOP, 'pady':(0,6)},{'side':BOTTOM, 'pady':0})       
         # Posicion del frame contenedor de los botones "X" y "-"
         arg2 = {'side':RIGHT, 'fill':BOTH}
 
@@ -1354,7 +1344,7 @@ class Interface(Frame, MoveAllCls):
         #print('    ancho total:', screen_x,'    alto total:', screen_y )
 
         #____V E N T A N A___P R I N C I P A L:
-        width_0 = 830                                   # Ancho
+        width_0 = 834                                   # Ancho
         height_0 = 67                                   # Alto
         posx_0 = screen_x // 2 - width_0 // 2           # Posicion  eje X : horizontal    ----> 1280 / 2 - 830 / 2
         posy_0 = 0                                      # Posición  eje Y : vertical
@@ -1466,7 +1456,7 @@ class Interface(Frame, MoveAllCls):
 
             self.frame_configurer .pack (side=LEFT, fill=BOTH, expand=True)               # -1.4
             self.frame_configurer .focus_set()                                            # -1.5
-            self.master.geometry ('830x67')                                               # -1.6
+            self.master.geometry ('834x67')                                               # -1.6
 
             self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)                # -1.7
             
@@ -1490,7 +1480,7 @@ class Interface(Frame, MoveAllCls):
                 self.frame_listmode .spinboxx .delete(0, END)
                 if self.mobil_selected is not None:
                     self.frame_listmode .spinboxx .insert(0, self.mobil_selected)  
-                self.master.geometry ('250x67')                                              # -1.3.4
+                self.master.geometry ('254x67')                                              # -1.3.4
 
 
                 if not self.frame_listmode. _toggle_switch == True:                          # -1.3.5
@@ -1575,7 +1565,7 @@ class Interface(Frame, MoveAllCls):
         #_____________________________________________________________________
 
         # Posicion de los botones "X" y "-":                             ( None: diferencia los metodos )
-        arg1 = ({'side':RIGHT, 'padx':2, 'pady':(3,2)},{'side':RIGHT, 'padx':(2,10), 'pady':(3,2)}, None)   
+        arg1 = ({'side':RIGHT, 'padx':2, 'pady':(0)},{'side':RIGHT, 'padx':(2,10), 'pady':(0)}, None)   
         # Posicion del frame contenedor de los botones "X" y "-"
         arg2 = {'side':TOP, 'fill':BOTH}
 
@@ -1584,7 +1574,8 @@ class Interface(Frame, MoveAllCls):
         #__________________________________________________________________________________________________________
         if not self._open_1:   # ----> Si open_1 es False:
             self.toplevel_LEFT = ToplevelCls (self, arg1, arg2)  # AQUI no se sabe quien es el padre correcto : self o self.master
-            self.toplevel_LEFT .configure_toplevel ('Hoja Izquierda', self.geo_izq.get())
+            self.toplevel_LEFT .configure_toplevel('Hoja Izquierda', self.geo_izq.get())
+            self.toplevel_LEFT .create_button_menu()
             #self.toplevel_LEFT .config(bg='green2')
                                 
         container_frame_left = var_1 (self.toplevel_LEFT)  #  var_1 es un frame
