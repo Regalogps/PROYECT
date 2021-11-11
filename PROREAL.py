@@ -1289,11 +1289,11 @@ class Interface(Frame, MoveAllCls):
         MoveAllCls.__init__(self)   # Inicializando las variables de control
 
         path = 'E:/1-RICHI/MovilesDB'
-        #_____Coleccion de Imagenes:
+        #____Coleccion de Imagenes:
         self.path_lst = self.generate_list (path, 'I')
         self.path_mini = self.generate_list (path, 'M')
         
-        #_____Variables de Control para los Frames Contenedores de Imagenes de las ventanas Secundarias: [ 1,2,3 ]
+        #____Variables de Control para los Frames Contenedores de Imagenes de las ventanas Secundarias: [ 1,2,3 ]
         self._frame_1 = None
         self._frame_2 = None
         self._frame_3 = None
@@ -1302,48 +1302,47 @@ class Interface(Frame, MoveAllCls):
         self._open_2 = False 
         self._open_3 = False
 
-        #_____Variables de Seguimiento del Boton Seleccionado en la Interface de Botones:
+        #____Variables de Seguimiento del Boton Seleccionado en la Interface de Botones:
         self.mobil_selected = None
 
-        #_____Variables de Control Secundarias:
+        #____Variables de Control Secundarias:
         self._gear = False
         self._minimize = False
 
-        #_____Variables de Seguimiento del Frame Contenedor de los Iconos en las Ventanas Secundarias:
+        #____Variables de Seguimiento del Frame Contenedor de los Iconos en las Ventanas Secundarias:
         self.resize_1 = False
 
-        #_____Variables de Control de Tamaño y Posición de Todas las Ventanas:
+        #____Variables de Control de Tamaño y Posición de Todas las Ventanas:
         self.geo_principal = StringVar()
         self.geo_izq = StringVar()
         self.geo_der = StringVar()
         self.geo_stuf = StringVar()
         
-        #_____Métodos Llamados:
+        #____Métodos Llamados:
         self.size_position()
         self.configure_interface()
         self.widgets()
 
-        #_____Enlaces para Mover las Ventanas Globalmente:
+        #____Enlaces para Mover las Ventanas Globalmente:
         self.bind_all("<ButtonPress-1>", self.start_move_all)             # Punto inicial    
         self.bind_all("<ButtonRelease-1>", self.stop_move_all)            # Punto final
         self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)    # Puntos de movimiento
 
-        #_____Enlaces para Marcar el Boton que Inicio las Ventanas:
+        #____Enlaces para Marcar el Boton que Inicio las Ventanas:
         self.master.bind('<FocusIn>', self.focus_in)
         self.master.bind('<FocusOut>', self.focus_out)
 
-        #_____Métodos Llamados de Otras Clases:
+        #____Métodos Llamados de Otras Clases:
         self.make_movable(self.frame_controller.btn_ash)                  # Metodo de MoveAllCls: añade a la lista de widget, que permiten mover la ventana
 
 
-    # Tareas
-    #   1- Asignar el tamaño y posicion de todas las ventanas a excepción de root 
+    # Tarea:  1- Asignar el tamaño y posicion de todas las ventanas a excepción de root:
     def size_position(self):
         screen_x = self.master.winfo_screenwidth()      # 1280
         screen_y = self.master.winfo_screenheight()     # 768
         #print('    ancho total:', screen_x,'    alto total:', screen_y )
 
-        #____V E N T A N A___P R I N C I P A L:
+        #____V E N T A N A    P R I N C I P A L:
         width_0 = 834                                   # Ancho
         height_0 = 67                                   # Alto
         posx_0 = screen_x // 2 - width_0 // 2           # Posicion  eje X : horizontal    ----> 1280 / 2 - 830 / 2
@@ -1352,7 +1351,7 @@ class Interface(Frame, MoveAllCls):
         self.geo_principal .set(window_0)
 
 
-        #____V E N T A N A___I Z Q U I E R D A:
+        #____V E N T A N A    I Z Q U I E R D A:
         width_1 = int(screen_x * 15.6 / 100)            # Ancho   Aprox: 199
         height_1 = screen_y - 74                        # Alto    Aprox: 694
         posx_1 = 0                                      # Posición  eje X : horizontal 
@@ -1361,7 +1360,7 @@ class Interface(Frame, MoveAllCls):
         self.geo_izq .set(window_1)
 
 
-        #____V E N T A N A___D E R E C H A:
+        #____V E N T A N A    D E R E C H A:
         posx_2 = screen_x - width_1                     # Posición  eje X : horizontal    ----> 1280 - 199
         window_2 = '{}x{}+{}+{}'.format(width_1, height_1, posx_2, posy_1)
         self.geo_der .set(window_2)
