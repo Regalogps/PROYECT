@@ -1338,23 +1338,24 @@ class Interface(Frame, MoveAllCls):
 
     # Tarea: 1. Asignar el tamaño y posicion de todas las ventanas a excepción de root:
     def size_position(self):
+
         #____Tamaño de la Pantalla del Usuario:         # Mi pantalla: 1280 x 768
         screen_x = self.master.winfo_screenwidth()      # Tamaño Ancho
         screen_y = self.master.winfo_screenheight()     # Tamaño Alto
         #print('Ancho Pantalla ---> ', screen_x, '\nAlto Pantalla ---> ', screen_y )
 
 
-        #____Ventana Principal:                         # Redimensionable : No
+        #____VENTANA PRINCIPAL:                         # Redimensionable : No
         width = 834                                     # Tamaño Ancho
         height = 67                                     # Tamaño Alto
-        posx = screen_x // 2 - width // 2               # Posicion (x) ----> 1280 / 2 - 830 / 2
-        posy = 0                                        # Posición (y):
-
+        posx = screen_x // 2 - width // 2               # Posicion (x)        # Fórmula: (1280 / 2) - (830 / 2)
+        posy = 0                                        # Posición (y)
+        #____Tamaño y Posición:
         window = '{}x{}+{}+{}'.format(width, height, posx, posy)
         self.geo_principal .set(window)
         #---------------------------------------------------------------------------------------------------------
 
-        #____Ventana Izquierda:
+        #____VENTANA IZQUIERDA:
         width_1 = int(screen_x * 15.6 / 100)            # Ancho      : 199
         height_1 = screen_y - 74                        # Alto       : 694
         posx_1 = 0                                      # Posición  x: horizontal 
@@ -1363,13 +1364,13 @@ class Interface(Frame, MoveAllCls):
         self.geo_izq .set(window_1)
         #---------------------------------------------------------------------------------------------------------
 
-        #____Ventana Derecha:
+        #____VENTANA DERECHA:
         posx_2 = screen_x - width_1                     # Posición  x: horizontal    ----> 1280 - 199
         window_2 = '{}x{}+{}+{}'.format(width_1, height_1, posx_2, posy_1)
         self.geo_der .set(window_2)
         #---------------------------------------------------------------------------------------------------------
 
-        #____Ventana Stuff:
+        #____VENTANA STUFF:
         width_3 = 860                                   # Ancho      : 860
         height_3 = 75                                   # Alto       : 75
         posx_3 = screen_x // 2 - width_3 // 2           # Posicion  x: horizontal    ----> 1280 / 2 - 860 / 2
