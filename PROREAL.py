@@ -1289,11 +1289,17 @@ class Interface(Frame, MoveAllCls):
         MoveAllCls.__init__(self)   # Inicializando las variables de control
 
         path = 'E:/1-RICHI/MovilesDB'
-        ##___Coleccion de Imagenes:
+        #____Coleccion de Imagenes:
         self.path_lst = self.generate_list (path, 'I')
         self.path_mini = self.generate_list (path, 'M')
+
+        #____Variables de Control de Tamaño y Posición de Todas las Ventanas:
+        self.geo_principal = StringVar()
+        self.geo_izq = StringVar()
+        self.geo_der = StringVar()
+        self.geo_stuf = StringVar()
         
-        ##___Variables de Control para los Frames Contenedores de Imagenes de las ventanas Secundarias: [ 1,2,3 ]
+        #____Variables de Control de los Frames Contenedores de Imagenes de las ventanas Secundarias: [ 1,2,3 ]
         self._frame_1 = None
         self._frame_2 = None
         self._frame_3 = None
@@ -1312,17 +1318,6 @@ class Interface(Frame, MoveAllCls):
         #____Variables de Seguimiento del Frame Contenedor de los Iconos en las Ventanas Secundarias:
         self.resize_1 = False
 
-        #____Variables de Control de Tamaño y Posición de Todas las Ventanas:
-        self.geo_principal = StringVar()
-        self.geo_izq = StringVar()
-        self.geo_der = StringVar()
-        self.geo_stuf = StringVar()
-        
-        #____Métodos Llamados:
-        self.size_position()
-        self.configure_interface()
-        self.widgets()
-
         #____Enlaces para Mover las Ventanas Globalmente:
         self.bind_all("<ButtonPress-1>", self.start_move_all)             # Punto inicial    
         self.bind_all("<ButtonRelease-1>", self.stop_move_all)            # Punto final
@@ -1332,7 +1327,12 @@ class Interface(Frame, MoveAllCls):
         self.master.bind('<FocusIn>', self.focus_in)
         self.master.bind('<FocusOut>', self.focus_out)
 
-        #____Métodos Llamados de Otras Clases:
+        #____Métodos Llamados:
+        self.size_position()
+        self.configure_interface()
+        self.widgets()
+
+        #____Métodos Llamados de la Clase Heredada:
         self.make_movable(self.frame_controller.btn_ash)                  # Metodo de MoveAllCls: añade a la lista de widget, que permiten mover la ventana
 
 
@@ -1342,16 +1342,16 @@ class Interface(Frame, MoveAllCls):
         screen_y = self.master.winfo_screenheight()     # 768
         #print('    ancho total:', screen_x,'    alto total:', screen_y )
 
-        #____V E N T A N A    P R I N C I P A L:
+        #____Ventana Principal____#
         width_0 = 834                                   # Ancho
         height_0 = 67                                   # Alto
         posx_0 = screen_x // 2 - width_0 // 2           # Posicion  eje X : horizontal    ----> 1280 / 2 - 830 / 2
         posy_0 = 0                                      # Posición  eje Y : vertical
         window_0 = '{}x{}+{}+{}'.format(width_0, height_0, posx_0, posy_0)  
         self.geo_principal .set(window_0)
+        #---------------------------------------------------------------------------------------------------------
 
-
-        #____V E N T A N A    I Z Q U I E R D A:
+        #____Ventana Izquierda____#
         width_1 = int(screen_x * 15.6 / 100)            # Ancho   Aprox: 199
         height_1 = screen_y - 74                        # Alto    Aprox: 694
         posx_1 = 0                                      # Posición  eje X : horizontal 
