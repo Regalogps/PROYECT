@@ -1044,7 +1044,7 @@ class FrameManagerCls(Frame):
     def change_image_mini1(self, event):    # Deja el color como estaba por defecto           # Color: Azul celeste
         event.widget.config(image=self.image_minimize2, bg='#4ca6ff')
 
-    def change_image_mini2(self, event):    # Deja el color como estaba por defecto           # Color: gris celeste
+    def change_image_mini2(self, event):    # Deja el color como estaba por defecto           # Color: gris celesteff
         event.widget.config(image=self.image_minimize1, bg='#1d2126')
 
 
