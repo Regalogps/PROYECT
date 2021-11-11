@@ -1338,17 +1338,19 @@ class Interface(Frame, MoveAllCls):
 
     # Tarea: 1. Asignar el tamaño y posicion de todas las ventanas a excepción de root:
     def size_position(self):
-        #____Tamaño de la Pantalla:
-        screen_x = self.master.winfo_screenwidth()      # 1280
-        screen_y = self.master.winfo_screenheight()     # 768
-        #print('Ancho Pantalla ---> ', screen_x, 'Alto Pantalla:', screen_y )
+        #____Tamaño de la Pantalla del Usuario:         # Mi pantalla: 1280 x 768
+        screen_x = self.master.winfo_screenwidth()      # Tamaño Ancho
+        screen_y = self.master.winfo_screenheight()     # Tamaño Alto
+        #print('Ancho Pantalla ---> ', screen_x, '\nAlto Pantalla ---> ', screen_y )
 
-        #____Ventana Principal:
-        width = 834                                     # Ancho
-        height = 67                                     # Alto
-        posx = screen_x // 2 - width // 2               # Posicion  x: horizontal    ----> 1280 / 2 - 830 / 2
-        posy = 0                                        # Posición  y: vertical
-        window = '{}x{}+{}+{}'.format(width, height, posx, posy)  
+
+        #____Ventana Principal:                         # Redimensionable : No
+        width = 834                                     # Tamaño Ancho
+        height = 67                                     # Tamaño Alto
+        posx = screen_x // 2 - width // 2               # Posicion (x) ----> 1280 / 2 - 830 / 2
+        posy = 0                                        # Posición (y):
+
+        window = '{}x{}+{}+{}'.format(width, height, posx, posy)
         self.geo_principal .set(window)
         #---------------------------------------------------------------------------------------------------------
 
