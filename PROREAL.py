@@ -1338,8 +1338,9 @@ class Interface(Frame, MoveAllCls):
 
     # Tarea: 1. Asignar el tamaño y posicion de todas las ventanas a excepción de root:
     def size_position(self):
+        # Mi monitor: (1280 x 768)
 
-        #____Tamaño de la Pantalla del Usuario:         # Mi pantalla: 1280 x 768
+        #____Tamaño del Monitor del Usuario:
         screen_x = self.master.winfo_screenwidth()      # Tamaño Ancho
         screen_y = self.master.winfo_screenheight()     # Tamaño Alto
         #print('Ancho Pantalla ---> ', screen_x, '\nAlto Pantalla ---> ', screen_y )
@@ -1348,42 +1349,45 @@ class Interface(Frame, MoveAllCls):
         #____VENTANA PRINCIPAL:                         # Redimensionable : No
         width = 834                                     # Tamaño Ancho
         height = 67                                     # Tamaño Alto
-        posx = screen_x // 2 - width // 2               # Posicion (x)        # Fórmula: (1280 / 2) - (830 / 2)
+        posx = screen_x // 2 - width // 2               # Posicion (x)    : (1280 / 2) - (830 / 2)
         posy = 0                                        # Posición (y)
-        #____Tamaño y Posición:
+        #____Tamaño y Posición: 
         window = '{}x{}+{}+{}'.format(width, height, posx, posy)
         self.geo_principal .set(window)
         #---------------------------------------------------------------------------------------------------------
 
-        #____VENTANA IZQUIERDA:
-        width_1 = int(screen_x * 15.6 / 100)            # Ancho      : 199
-        height_1 = screen_y - 74                        # Alto       : 694
-        posx_1 = 0                                      # Posición  x: horizontal 
-        posy_1 = 35                                     # Posición  y: vertical
+        #____VENTANA IZQUIERDA:                         # Redimensionable : Si
+        width_1 = int(screen_x * 15.6 / 100)            # Tamaño Ancho    : 199
+        height_1 = screen_y - 74                        # Tamaño Alto     : 694
+        posx_1 = 0                                      # Posición (x)
+        posy_1 = 35                                     # Posición (y)
+        #____Tamaño y Posición:
         window_1 = '{}x{}+{}+{}'.format(width_1, height_1, posx_1, posy_1)
         self.geo_izq .set(window_1)
         #---------------------------------------------------------------------------------------------------------
 
         #____VENTANA DERECHA:
-        posx_2 = screen_x - width_1                     # Posición  x: horizontal    ----> 1280 - 199
+        posx_2 = screen_x - width_1                     # Posición (x)    : (1280 - 199)
+        #____Tamaño y Posición:
         window_2 = '{}x{}+{}+{}'.format(width_1, height_1, posx_2, posy_1)
         self.geo_der .set(window_2)
         #---------------------------------------------------------------------------------------------------------
 
-        #____VENTANA STUFF:
-        width_3 = 860                                   # Ancho      : 860
-        height_3 = 75                                   # Alto       : 75
-        posx_3 = screen_x // 2 - width_3 // 2           # Posicion  x: horizontal    ----> 1280 / 2 - 860 / 2
-        posy_3 = screen_y - height_3 - 40               # Posición  y: vertical      ----> 768 - 75 - 40
+        #____VENTANA STUFF:                             # Redimensionable : Si
+        width_3 = 860                                   # Tamaño Ancho    : 860
+        height_3 = 75                                   # Tamaño Alto     : 75
+        posx_3 = screen_x // 2 - width_3 // 2           # Posicion (x)    : (1280 / 2) - (860 / 2)
+        posy_3 = screen_y - height_3 - 40               # Posición (y)    : (768 - 75) - 40
+        #____Tamaño y Posición:
         window_3 = '{}x{}+{}+{}'.format(width_3, height_3, posx_3, posy_3)
         self.geo_stuf .set(window_3)
         #---------------------------------------------------------------------------------------------------------
 
    
     # Tarea: 1. Configura la ventana principal:
-    def configure_interface(self):
-        
-        # MASTER REFIERE A TOPLEVEL: PRINCIPAL
+    def configure_interface(self):      
+        # [self.master] Refiere a Toplevel Principal
+
         self.master.title ('_AshmanBot_')
         self.master.geometry (self.geo_principal.get())                   # TAMAÑO DE LA VENTANA
         self.master.resizable (1,1)                                       # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
@@ -1392,8 +1396,8 @@ class Interface(Frame, MoveAllCls):
         self.master.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
         self.master.wm_attributes ('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
 
-    # Tareas:
-    #   1- Inicializa las imagenes que se mandan a las ventanas
+
+    # Tarea: 1. Inicializa las imagenes que se mandan a las ventanas
     def generate_list(self, file, option):
 
         ouput = os.listdir (file)
