@@ -1332,51 +1332,51 @@ class Interface(Frame, MoveAllCls):
         self.configure_interface()
         self.widgets()
 
-        #____Métodos Llamados de la Clase Heredada:
-        #____Widgets que permiten mover la ventana:
-        self.make_movable(self.frame_controller.btn_ash)                  # Metodo de MoveAllCls: añade a la lista de widget, que permiten mover la ventana
+        #____Métodos Llamados de las Clases Heredadas:
+        self.make_movable(self.frame_controller.btn_ash)                  # Class MoveAllCls: Añade a la lista de widget que permiten mover la ventana
 
 
-    # Tarea:  1- Asignar el tamaño y posicion de todas las ventanas a excepción de root:
+    # Tarea: 1- Asignar el tamaño y posicion de todas las ventanas a excepción de root:
     def size_position(self):
         screen_x = self.master.winfo_screenwidth()      # 1280
         screen_y = self.master.winfo_screenheight()     # 768
         #print('    ancho total:', screen_x,'    alto total:', screen_y )
 
-        #____Ventana Principal____#
-        width_0 = 834                                   # Ancho
-        height_0 = 67                                   # Alto
-        posx_0 = screen_x // 2 - width_0 // 2           # Posicion  eje X : horizontal    ----> 1280 / 2 - 830 / 2
-        posy_0 = 0                                      # Posición  eje Y : vertical
-        window_0 = '{}x{}+{}+{}'.format(width_0, height_0, posx_0, posy_0)  
-        self.geo_principal .set(window_0)
+        #____Ventana Principal:
+        width = 834                                     # Ancho
+        height = 67                                     # Alto
+        posx = screen_x // 2 - width // 2               # Posicion  x: horizontal    ----> 1280 / 2 - 830 / 2
+        posy = 0                                        # Posición  y: vertical
+        window = '{}x{}+{}+{}'.format(width, height, posx, posy)  
+        self.geo_principal .set(window)
         #---------------------------------------------------------------------------------------------------------
 
-        #____Ventana Izquierda____#
-        width_1 = int(screen_x * 15.6 / 100)            # Ancho   Aprox: 199
-        height_1 = screen_y - 74                        # Alto    Aprox: 694
-        posx_1 = 0                                      # Posición  eje X : horizontal 
-        posy_1 = 35                                     # Posición  eje Y : vertical
+        #____Ventana Izquierda:
+        width_1 = int(screen_x * 15.6 / 100)            # Ancho      : 199
+        height_1 = screen_y - 74                        # Alto       : 694
+        posx_1 = 0                                      # Posición  x: horizontal 
+        posy_1 = 35                                     # Posición  y: vertical
         window_1 = '{}x{}+{}+{}'.format(width_1, height_1, posx_1, posy_1)
         self.geo_izq .set(window_1)
+        #---------------------------------------------------------------------------------------------------------
 
-
-        #____V E N T A N A    D E R E C H A:
-        posx_2 = screen_x - width_1                     # Posición  eje X : horizontal    ----> 1280 - 199
+        #____Ventana Derecha:
+        posx_2 = screen_x - width_1                     # Posición  x: horizontal    ----> 1280 - 199
         window_2 = '{}x{}+{}+{}'.format(width_1, height_1, posx_2, posy_1)
         self.geo_der .set(window_2)
+        #---------------------------------------------------------------------------------------------------------
 
-
-        #____V E N T A N A___S T U F:
-        width_3 = 860                                   # Ancho   Aprox: 860
-        height_3 = 75                                   # Alto    Aprox: 75
-        posx_3 = screen_x // 2 - width_3 // 2           # Posicion  eje X : horizontal    ----> 1280 / 2 - 860 / 2
-        posy_3 = screen_y - height_3 - 40               # Posición  eje Y : vertical      ----> 768 - 75 - 40
+        #____Ventana Stuff:
+        width_3 = 860                                   # Ancho      : 860
+        height_3 = 75                                   # Alto       : 75
+        posx_3 = screen_x // 2 - width_3 // 2           # Posicion  x: horizontal    ----> 1280 / 2 - 860 / 2
+        posy_3 = screen_y - height_3 - 40               # Posición  y: vertical      ----> 768 - 75 - 40
         window_3 = '{}x{}+{}+{}'.format(width_3, height_3, posx_3, posy_3)
         self.geo_stuf .set(window_3)
+        #---------------------------------------------------------------------------------------------------------
 
-    # Tareas:
-    #   1- Configurar la ventana principal
+   
+    # Tarea: 1- Configurar la ventana principal
     def configure_interface(self):
         
         # MASTER REFIERE A TOPLEVEL: PRINCIPAL
@@ -1424,14 +1424,15 @@ class Interface(Frame, MoveAllCls):
                     empty. append (img)
             return empty    
 
-    # Tareas:
-    #   1- Crea las interfaces de control: (4 instancias de clase)
-    #      1.1- self.frame_controller : Frame contenedor de 2 botones, logo y la rueda de configuracion
-    #      1.2- self.frame_botones    : Frame contenedor de 22 botones
-    #      1.3- self.frame_configurer : Frame contenedor de checkbuttons y labels
-    #      1.4- self.frame_listmode   : Frame Contenedor de Spinbox y Listbox   
+    
+    # Tarea: 1- Crea las interfaces de control: (4 instancias de clase)
     def widgets(self):
-        #____I N S T A N C I A S:  [ 4 ]
+        # (1) self.frame_controller : Frame contenedor de 2 botones, logo y la rueda de configuracion
+        # (2) self.frame_botones    : Frame contenedor de 22 botones
+        # (3) self.frame_configurer : Frame contenedor de checkbuttons y labels
+        # (4) self.frame_listmode   : Frame Contenedor de Spinbox y Listbox
+
+        #____Instancias:  [ 4 ]
         self.frame_controller = A1FrameCls (self, bg='#11161d', width=60, height=67)   # Posicionado     # Color: Azul
         self.frame_botones =    B1FrameCls (self, bg='#31343a', width=756, height=67)     # Posicionado     # Color: Plomo
         self.frame_configurer = B2FrameCls (self, bg='#31343a', width=756, height=67)  # No posicionado  # Color: Plomo
