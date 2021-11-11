@@ -1333,6 +1333,7 @@ class Interface(Frame, MoveAllCls):
         self.widgets()
 
         #____Métodos Llamados de la Clase Heredada:
+        #____Widgets que permiten mover la ventana:
         self.make_movable(self.frame_controller.btn_ash)                  # Metodo de MoveAllCls: añade a la lista de widget, que permiten mover la ventana
 
 
