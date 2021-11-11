@@ -1289,11 +1289,11 @@ class Interface(Frame, MoveAllCls):
         MoveAllCls.__init__(self)   # Inicializando las variables de control
 
         path = 'E:/1-RICHI/MovilesDB'
-        #____Coleccion de Imagenes:
+        #-----> Coleccion de Imagenes:
         self.path_lst = self.generate_list (path, 'I')
         self.path_mini = self.generate_list (path, 'M')
         
-        #____Variables de Control para los Frames Contenedores de Imagenes de las ventanas Secundarias: [ 1,2,3 ]
+        #-----> Variables de Control para los Frames Contenedores de Imagenes de las ventanas Secundarias: [ 1,2,3 ]
         self._frame_1 = None
         self._frame_2 = None
         self._frame_3 = None
