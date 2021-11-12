@@ -1401,27 +1401,27 @@ class Interface(Frame, MoveAllCls):
     def generate_list(self, file, option):
 
         ouput = os.listdir (file)
-        empty = []   
 
         if option == 'I': 
-            list_of_list = [[] for x in range(22)]
+            multilist = [[] for x in range(22)]
             mobiles = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Kal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Bar','Dra']
 
             for i in ouput:               
                 for index, mobil in enumerate(mobiles):
                     if mobil in i: 
                         full = file + '/' + i
-                        list_if_list[index].append(full)               
-            return _lst    
+                        multilist[index] .append(full)               
+            return multilist
 
            
         if option == 'M':
+            empty = []
             for i in ouput:  
                 if 'Mini' in i :      
                     full = file + '/' + i
                     open = Image.open(full)
                     img  = ImageTk.PhotoImage(open)
-                    empty. append (img)
+                    empty. append(img)
             return empty    
 
     
