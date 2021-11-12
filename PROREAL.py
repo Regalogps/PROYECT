@@ -1404,17 +1404,14 @@ class Interface(Frame, MoveAllCls):
         empty = []   
 
         if option == 'I': 
-            _lst = [[] for x in range(22)]
-            _str = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Kal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Bar','Dra']
+            list_of_list = [[] for x in range(22)]
+            mobiles = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Kal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Bar','Dra']
 
             for i in ouput:               
-                for index, iter in enumerate(_str):
-                    if iter in i: 
+                for index, mobil in enumerate(mobiles):
+                    if mobil in i: 
                         full = file + '/' + i
-                        #open = cv2.imread (full)
-                        #RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB) 
-                        #_lst[index].append(RGB)
-                        _lst[index].append(full)               
+                        list_if_list[index].append(full)               
             return _lst    
 
            
@@ -1422,11 +1419,6 @@ class Interface(Frame, MoveAllCls):
             for i in ouput:  
                 if 'Mini' in i :      
                     full = file + '/' + i
-                    #open = cv2.imread (full)
-                    #RGB = cv2.cvtColor (open, cv2.COLOR_BGR2RGB)
-                    #array = Image.fromarray (RGB)
-                    #img = ImageTk.PhotoImage (array)
-                    #empty. append (img)
                     open = Image.open(full)
                     img  = ImageTk.PhotoImage(open)
                     empty. append (img)
