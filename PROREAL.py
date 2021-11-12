@@ -600,7 +600,7 @@ class Checkbutton_class(Checkbutton):
         super().__init__(*args, **kwargs)
 
         self.variable = BooleanVar()
-        self.configure(variable=self.variable)
+        self.configure(variable=self.variable) # ver si acepta config en vez de configure
     
     def checked(self):
         return self.variable.get()
@@ -1433,7 +1433,7 @@ class Interface(Frame, MoveAllCls):
         # [ 3 ] self.frame_configurer : Labels y Checkbuttons
         # [ 4 ] self.frame_listmode   : Spinbox y Listbox
 
-        #____INTERFACES DE CONTROL: (4 instancias)
+        #____INTERFACES DE CONTROL: ( 4 instancias )
         self.frame_controller = A1FrameCls(self, bg='#11161d', width=60, height=67)   # Posicionado     # Color: Azul
         self.frame_botones    = B1FrameCls(self, bg='#31343a', width=756, height=67)     # Posicionado     # Color: Plomo
         self.frame_configurer = B2FrameCls(self, bg='#31343a', width=756, height=67)  # No posicionado  # Color: Plomo
@@ -1450,54 +1450,41 @@ class Interface(Frame, MoveAllCls):
 
     # Tarea: 1- Gestiona los widgets de la ventana principal
     def gear_stacking(self):
-        # 1- Si self._gear es False:  (Predeterminado False)
-             # 1.1-  Asigna self._gear = True
-             # 1.2-  Quita la interface de botones
-             # 1.3-  Quita la interface de lista
-             # 1.4-  Posiciona la interface de configuracion
-             # 1.5-  Le da el foco a la interfaces de configuracion
-             # 1.6-  Ajusta el tamaño de la ventana principal
-             # 1.7-  Activa el enlace self.on_move_all
+        # Dice: Si [self._gear] es falso: ( Predeterminado False )
 
-        if  not self._gear:                                                            # -1
-            self._gear = True                                                             # -1.1
-            self.frame_botones .pack_forget()                                             # -1.2
-            self.frame_listmode .pack_forget()                                            # -1.3
+        if not self._gear:
+            self._gear = True                                                          # 1.1
+            self.frame_botones .pack_forget()                                          # 1.2
+            self.frame_listmode .pack_forget()                                         # 1.3
 
-            self.frame_configurer .pack(side=LEFT, fill=BOTH, expand=True)               # -1.4
-            self.frame_configurer .focus_set()                                            # -1.5
-            self.master.geometry('834x67')                                               # -1.6
+            self.master.geometry('834x67')
+            self.frame_configurer .pack(side=LEFT, fill=BOTH, expand=True)             # 1.4
+            self.frame_configurer .focus_set()                                         # 1.5
+          
+            # Descripcion: Activa el método para mover las ventanas globalmente
+            self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)             # 1.7
 
-            self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)                # -1.7
-            
-            
-            # 1- Si self._gear es False:  [ Predeterminado False ]
-                # 1.1-  Asigna self._gear = True
-                # 1.2-  Quita la interface de botones
-                # 1.3-  Quita la interface de lista
-                # 1.4-  Posiciona la interface de configuracion
-                # 1.5-  Le da el foco a la interfaces de configuracion
-                # 1.6-  Ajusta el tamaño de la ventana principal
-                # 1.7-  Activa el enlace self.on_move_all
         else:                                                                          # -1
             self._gear = False                                                            # -1.1
             self.frame_configurer .pack_forget()                                          # -1.2
 
-            if self.frame_configurer .ckbutton5.variable.get() == True:                   # -1.3
-
-                self.frame_listmode .pack (side=LEFT, fill=BOTH)                             # -1.3.2
+            # Descripción: Si la casilla N°5 está marcada:
+            if self.frame_configurer .checkbutton5 .variable.get() == True:                   # -1.3
+                self.master.geometry ('254x67')
+                self.frame_listmode .pack(side=LEFT, fill=BOTH)                             # -1.3.2
                 self.frame_listmode .spinboxx .focus_set()                                   # -1.3.3
                 self.frame_listmode .spinboxx .delete(0, END)
+
+                # Descripción: Si se asignó el nombre de un móvil a la variable de seguimiento:
                 if self.mobil_selected is not None:
                     self.frame_listmode .spinboxx .insert(0, self.mobil_selected)  
-                self.master.geometry ('254x67')                                              # -1.3.4
-
 
                 if not self.frame_listmode. _toggle_switch == True:                          # -1.3.5
                     self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)              # -1.3.5.1
                 else:                                                                        # -1.3.6
                     self.unbind("",self.off_move)                                               # -1.3.6.1
 
+            # Descripción: Si la casilla N°5 no está marcada:
             else:                                                                         # -1.4
                 self.frame_listmode .pack_forget()                                           # -1.4.1
                 self.frame_botones .pack (side=LEFT, fill=BOTH)                              # -1.4.2
@@ -1508,7 +1495,7 @@ class Interface(Frame, MoveAllCls):
                 else:                                                                        # -1.4.4
                     self.unbind("",self.off_move)                                               # -1.4.4.1
 
-            # 1- Entonces si self._gear es True:
+            # 1- Entonces si [self._gear] es True:
                 # 1.1-  Asigna self._gear = False
                 # 1.2-  Quita la interface de configuracion
 
