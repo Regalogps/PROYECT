@@ -991,6 +991,9 @@ class MoveAllCls():
         self._y = None
 
     def on_move_all(self, event):
+        # [self.movable]   : Lista que permite mover su ventana
+        # [self.immovable] : Lista que no permite mover su ventana
+
         deltax = event.x - self._x
         deltay = event.y - self._y
 
