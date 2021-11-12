@@ -1490,35 +1490,15 @@ class Interface(Frame, MoveAllCls):
                 self.frame_botones .pack (side=LEFT, fill=BOTH)                              # -1.4.2
                 self.frame_botones .focus_set()                                             # nuevo
 
-                if not self.frame_configurer .ckbutton7.variable.get() == True:              # -1.4.3
-                    self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)              # -1.4.3.1
+                # Descripción: Si la casilla N°7 está marcada:
+                if self.frame_configurer .checkbutton7 .variable.get() == True:              # -1.4.3
+                    self.unbind("",self.off_move)  # Desactiva
+                
+                # Descripción: Si la casilla N°7 no está marcada:
                 else:                                                                        # -1.4.4
-                    self.unbind("",self.off_move)                                               # -1.4.4.1
-
-            # 1- Entonces si [self._gear] es True:
-                # 1.1-  Asigna self._gear = False
-                # 1.2-  Quita la interface de configuracion
-
-                # 1.3-  Si (ckbutton5.variable.get) es True:
-                    # 1.3.1-  Desmarca el boton seleccionado en la interface de botones
-                    # 1.3.2-  Posiciona la interface de lista
-                    # 1.3.3-  Le da el foco a spinbox, widget de la interface de lista
-                    # 1.3.4-  Ajusta el tamaño de la ventana principal
-
-                    # 1.3.5-  Si self._switch es False:  [ Predeterminado False ]
-                        # 1.3.5.1-  Activa el enlace self.on_move_all
-                    # 1.3.6-  Entonces si self._switch es True:
-                        # 1.3.6.1-  Desactiva el enlace self.on_move_all
-
-                # 1.4-  Entonces si (ckbutton5.variable.get) es False:     
-                    # 1.4.1-  Quita la interface de lista
-                    # 1.4.2-  Posiciona la interface de botones
-
-                    # 1.4.3-  Si (ckbutton7.variable.get) es False:
-                        # 1.4.3.1-  Activa el enlace self.on_move_all
-                    # 1.4.4-  Entonces (ckbutton7.variable.get) es True:
-                        # 1.4.4.1-  Desactiva el enlace self.on_move_all
-
+                    self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)  # Activa            # -1.4.3.1
+     
+     
             # NOTAS:
             # 1. self._switch es una variable de control de la interface de lista
   
