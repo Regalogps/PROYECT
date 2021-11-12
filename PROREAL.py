@@ -1416,6 +1416,7 @@ class Interface(Frame, MoveAllCls):
            
         if option == 'M':
             empty = []
+
             for i in ouput:  
                 if 'Mini' in i :      
                     full = file + '/' + i
@@ -1427,10 +1428,10 @@ class Interface(Frame, MoveAllCls):
     
     # Tarea: 1- Crea las interfaces de control: (4 instancias de clase)
     def widgets(self):
-        # (1) self.frame_controller : Frame contenedor de 2 botones, logo y la rueda de configuracion
-        # (2) self.frame_botones    : Frame contenedor de 22 botones
-        # (3) self.frame_configurer : Frame contenedor de checkbuttons y labels
-        # (4) self.frame_listmode   : Frame Contenedor de Spinbox y Listbox
+        # [ 1 ] self.frame_controller : Botones: Ash y Gear    : ( Frame )
+        # [ 2 ] self.frame_botones    : Botones: 22            : ( Frame )
+        # [ 3 ] self.frame_configurer : Labels y Checkbuttons  : ( Frame )
+        # [ 4 ] self.frame_listmode   : Spinbox y Listbox      : ( Frame )
 
         #____Instancias:  [ 4 ]
         self.frame_controller = A1FrameCls (self, bg='#11161d', width=60, height=67)   # Posicionado     # Color: Azul
@@ -1438,7 +1439,7 @@ class Interface(Frame, MoveAllCls):
         self.frame_configurer = B2FrameCls (self, bg='#31343a', width=756, height=67)  # No posicionado  # Color: Plomo
         self.frame_listmode =   B3FrameCls (self, self.path_mini)                                        # No posicionado  # Color: Azul y Plomo
          
-        #____P A C K ():
+        #____Gestor de geometria ():
         self.frame_controller .pack (side=LEFT, fill=BOTH)
         self.frame_botones .pack (side=LEFT, fill=BOTH) 
 
