@@ -1392,7 +1392,7 @@ class Interface(Frame, MoveAllCls):
         self.master.geometry(self.geo_principal.get())                   # TAMAÑO DE LA VENTANA
         self.master.resizable(1,1)                                       # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
         self.master.config(bg='magenta2')                                # CONFIGURA EL FONDO DE LA VENTANA, etc
-        self.master.transient()                                             # No funciona
+        self.master.transient()                                          # No funciona bien
         self.master.attributes('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
         self.master.wm_attributes('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
 
@@ -1402,30 +1402,30 @@ class Interface(Frame, MoveAllCls):
 
         ouput = os.listdir(file)
 
-        if option == 'I': 
+        if option == 'I':
             multilist = [[] for x in range(22)]
             mobiles = ['Fro','Fox','Boo','Ice','JD','Gru','Lig','Adu','Kni','Kal','Mag','Ran','Jol','Tur','Arm','Asa','Rao','Tri','Nak','Big','Bar','Dra']
 
-            for i in ouput:               
+            for i in ouput:
                 for index, mobil in enumerate(mobiles):
-                    if mobil in i: 
+                    if mobil in i:
                         full = file + '/' + i
-                        multilist[index] .append(full)               
+                        multilist[index] .append(full)
             return multilist
 
-           
+
         if option == 'M':
             empty = []
 
-            for i in ouput:  
-                if 'Mini' in i :      
+            for i in ouput:
+                if 'Mini' in i :
                     full = file + '/' + i
                     open = Image.open(full)
                     img  = ImageTk.PhotoImage(open)
                     empty. append(img)
-            return empty    
+            return empty
 
-    
+
     # Tarea: 1- Crea las interfaces de control:
     def widgets(self):
         # [ 1 ] self.frame_controller : Botones: Ash y Gear
@@ -1434,10 +1434,10 @@ class Interface(Frame, MoveAllCls):
         # [ 4 ] self.frame_listmode   : Spinbox y Listbox
 
         #____INTERFACES DE CONTROL: ( 4 instancias )
-        self.frame_controller = A1FrameCls(self, bg='#11161d', width=60, height=67)   # Posicionado     # Color: Azul
-        self.frame_botones    = B1FrameCls(self, bg='#31343a', width=756, height=67)     # Posicionado     # Color: Plomo
-        self.frame_configurer = B2FrameCls(self, bg='#31343a', width=756, height=67)  # No posicionado  # Color: Plomo
-        self.frame_listmode   = B3FrameCls(self, self.path_mini)                                        # No posicionado  # Color: Azul y Plomo
+        self.frame_controller = A1FrameCls(self, bg='#11161d', width=60, height=67)    # Posicionado     # Color: Azul
+        self.frame_botones    = B1FrameCls(self, bg='#31343a', width=756, height=67)   # Posicionado     # Color: Plomo
+        self.frame_configurer = B2FrameCls(self, bg='#31343a', width=756, height=67)   # No posicionado  # Color: Plomo
+        self.frame_listmode   = B3FrameCls(self, self.path_mini)                       # No posicionado  # Color: Azul y Plomo
          
         #____Posicionamiento:
         self.frame_controller .pack(side=LEFT, fill=BOTH)
@@ -1453,75 +1453,75 @@ class Interface(Frame, MoveAllCls):
         # Dice: Si [self._gear] es falso: ( Predeterminado False )
 
         if not self._gear:
-            self._gear = True                                                          # 1.1
-            self.frame_botones .pack_forget()                                          # 1.2
-            self.frame_listmode .pack_forget()                                         # 1.3
+            self._gear = True
+            self.frame_botones .pack_forget()
+            self.frame_listmode .pack_forget()
 
             self.master.geometry('834x67')
-            self.frame_configurer .pack(side=LEFT, fill=BOTH, expand=True)             # 1.4
-            self.frame_configurer .focus_set()                                         # 1.5
-          
-            # Descripcion: Activa el método para mover las ventanas globalmente
-            self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)             # 1.7
+            self.frame_configurer .pack(side=LEFT, fill=BOTH, expand=True)
+            self.frame_configurer .focus_set()
 
-        else:                                                                          # -1
-            self._gear = False                                                            # -1.1
-            self.frame_configurer .pack_forget()                                          # -1.2
+            # Descripcion: Activa el método para mover las ventanas globalmente
+            self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)
+
+        else:
+            self._gear = False
+            self.frame_configurer .pack_forget()
 
             # Descripción: Si la casilla N°5 está marcada:
-            if self.frame_configurer .checkbutton5 .variable.get() == True:                   # -1.3
+            if self.frame_configurer .checkbutton5 .variable.get() == True:
                 self.master.geometry('254x67')
-                self.frame_listmode .pack(side=LEFT, fill=BOTH)                             # -1.3.2
-                self.frame_listmode .spinboxx .focus_set()                                   # -1.3.3
+                self.frame_listmode .pack(side=LEFT, fill=BOTH)
+                self.frame_listmode .spinboxx .focus_set()
                 self.frame_listmode .spinboxx .delete(0, END)
 
                 # Descripción: Si se asignó el nombre de un móvil a la variable de seguimiento:
                 if self.mobil_selected is not None:
-                    self.frame_listmode .spinboxx .insert(0, self.mobil_selected)  
+                    self.frame_listmode .spinboxx .insert(0, self.mobil_selected)
 
-                if not self.frame_listmode. _toggle_switch == True:                          # -1.3.5
-                    self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)              # -1.3.5.1
-                else:                                                                        # -1.3.6
-                    self.unbind("", self.off_move)                                               # -1.3.6.1
+                if not self.frame_listmode. _toggle_switch == True:
+                    self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)
+                else:
+                    self.unbind("", self.off_move)
 
             # Descripción: Si la casilla N°5 no está marcada:
-            else:                                                                         # -1.4
-                self.frame_listmode .pack_forget()                                           # -1.4.1
-                self.frame_botones .pack (side=LEFT, fill=BOTH)                              # -1.4.2
-                self.frame_botones .focus_set()                                             # nuevo
+            else:
+                self.frame_listmode .pack_forget()
+                self.frame_botones .pack (side=LEFT, fill=BOTH)
+                self.frame_botones .focus_set()
 
                 # Descripción: Si la casilla N°7 está marcada:
-                if self.frame_configurer .checkbutton7 .variable.get() == True:              # -1.4.3
+                if self.frame_configurer .checkbutton7 .variable.get() == True:
                     self.unbind("", self.off_move)  # Desactiva
-                
+
                 # Descripción: Si la casilla N°7 no está marcada:
-                else:                                                                        # -1.4.4
-                    self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)  # Activa            # -1.4.3.1
+                else:
+                    self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)  # Activa
 
 
     # Tarea: 1- [Busca y Marca] el boton que inició las ventanas secundarias:
     def focus_in(self, event):
         # Entrada del foco a la ventana principal:
 
-        if self.focus_get() == self.frame_botones:                            #
-            for btn in (self.frame_botones. buttons22):                       #
-                if self.mobil_selected == btn.cget('text'):                   #
-                    btn .config(bg='#bdfe04', fg='black')                     #
-                else:                                                         #
-                    if btn .cget('text') in self.frame_botones .mobiles2:     #
-                        btn .config (bg='#11161d', fg='yellow')               #
-                    else:                                                     #
+        if self.focus_get() == self.frame_botones:
+            for btn in (self.frame_botones. buttons22):
+                if self.mobil_selected == btn.cget('text'):
+                    btn .config(bg='#bdfe04', fg='black')
+                else:
+                    if btn .cget('text') in self.frame_botones .mobiles2:
+                        btn .config (bg='#11161d', fg='yellow')
+                    else:
                         btn .config (bg='#11161d', fg='white')
 
-   
-    # Tarea: 1- [Busca y Marca] el boton que inició las ventanas secundarias:       
+
+    # Tarea: 1- [Busca y Marca] el boton que inició las ventanas secundarias:
     def focus_out(self, event):
         # Salida del foco de la ventana principal:
 
         if self.focus_get() == None and self.mobil_selected is not None:
-            for btn in (self.frame_botones. buttons22):                       #
-                if self.mobil_selected == btn.cget('text'):                   #
-                    btn .config(bg='#bdfe04', fg='black')                     #
+            for btn in (self.frame_botones. buttons22):
+                if self.mobil_selected == btn.cget('text'):
+                    btn .config(bg='#bdfe04', fg='black')
 
 
     #############################################################
