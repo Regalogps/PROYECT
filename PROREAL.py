@@ -967,12 +967,20 @@ class MoveAllCls():
         self._x = 0
         self._y = 0
         self.movable = []
+        self.immovable = []
           
     def make_movable(self, *widgets):
         self.movable.extend(widgets)
+
+    def make_immovable(self, *widgets):
+        self.immovable.extend(widgets)
         
     def is_movable(self, widget):
         return widget in self.movable
+
+    def is_immovable(self, widget):
+        return widget in self.immovable
+
     
     def start_move_all(self, event):        
         self._x = event.x
@@ -984,17 +992,24 @@ class MoveAllCls():
 
     def on_move_all(self, event):
         deltax = event.x - self._x
-        deltay = event.y - self._y     
-        _event = event.widget
-        _tops = event.widget.winfo_toplevel()
+        deltay = event.y - self._y
 
-        new_position = "+{}+{}".format (_tops.winfo_x() + deltax, _tops.winfo_y() + deltay)
+        widget = event.widget
+        window = event.widget.winfo_toplevel()
         
-        if not isinstance(_event, (Button, ttk.Sizegrip, Spinbox)) == True or self.is_movable(_event):                 # NOTA: self._is_movable(_event): Devuelve True 
-            _tops.geometry(new_position)                                                                      # Mueve todas las ventanas en general menos root 
+        new_position = "+{}+{}".format (window.winfo_x() + deltax, window.winfo_y() + deltay)
+        
+        #____CONDICIONES PARA MOVER LAS VENTANAS:
+        # 1- El widget no es una instancia de : [ Button / ttk.Sizegrip / Spinbox ]
+        # 2- El widget esta en lista          : [ self.movable ]
+        # 3- El widget no está en la lista    : [ self.immovable ]
+        if not isinstance(widget, (Button, ttk.Sizegrip, Spinbox)) == True or self.is_movable(widget) == True and not self.is_immovable(widget):                 # NOTA: self._is_movable(widget): Devuelve True 
+            window.geometry(new_position)
 
-        if isinstance(_tops.master, Tk)== True and not isinstance(_event, (Button, ttk.Sizegrip, Spinbox)) or self.is_movable(_event):                                                           # otro: if _tops.master == RootCls:
-            _tops.master.geometry(new_position)                                                               # Mueve la ventana root
+        #____CONDICIONES PARA MOVER ROOT:
+        if isinstance(window.master, Tk)== True and not isinstance(widget, (Button, ttk.Sizegrip, Spinbox)) or self.is_movable(widget):               
+            # Descripción: Mueve root                                        # otro: if _tops.master == RootCls:
+            window.master.geometry(new_position)
 
 
 #************************            ███████    ██████████████
