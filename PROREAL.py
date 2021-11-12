@@ -1003,13 +1003,20 @@ class MoveAllCls():
         # 1- El widget no es una instancia de : [ Button / ttk.Sizegrip / Spinbox ]
         # 2- El widget esta en lista          : [ self.movable ]
         # 3- El widget no está en la lista    : [ self.immovable ]
-        if not isinstance(widget, (Button, ttk.Sizegrip, Spinbox)) == True or self.is_movable(widget) == True and not self.is_immovable(widget):                 # NOTA: self._is_movable(widget): Devuelve True 
+
+        # Descripción: [Si no es una instancia de...] AND [tampoco está en la lista que mueven las ventanas]
+        if not isinstance(widget, (Button, ttk.Sizegrip, Spinbox)) == True and not self.is_immovable(widget) == False or self.is_movable(widget):                 # NOTA: self._is_movable(widget): Devuelve True 
             window.geometry(new_position)
+        #------------------------------------------------------------------------------------------------------------------------------------------
+
 
         #____CONDICIONES PARA MOVER ROOT:
+        # 
+
         if isinstance(window.master, Tk)== True and not isinstance(widget, (Button, ttk.Sizegrip, Spinbox)) or self.is_movable(widget):               
             # Descripción: Mueve root                                        # otro: if _tops.master == RootCls:
             window.master.geometry(new_position)
+        #------------------------------------------------------------------------------------------------------------------------------------------
 
 
 #************************            ███████    ██████████████
@@ -1465,8 +1472,8 @@ class Interface(Frame, MoveAllCls):
 
     # Tarea: 1- Gestiona los widgets de la ventana principal
     def gear_stacking(self):
-        # Dice: Si [self._gear] es falso: ( Predeterminado False )
 
+        # Dice: Si [self._gear] es falso: ( Predeterminado False )
         if not self._gear:
             self._gear = True
             self.frame_botones .pack_forget()
@@ -1479,18 +1486,19 @@ class Interface(Frame, MoveAllCls):
             # Descripcion: Activa el método para mover las ventanas globalmente
             self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)
 
+
         else:
             self._gear = False
             self.frame_configurer .pack_forget()
 
-            # Descripción: Si la casilla N°5 está marcada:
+            # Dice: Si la casilla N°5 está marcada:
             if self.frame_configurer .checkbutton5 .variable.get() == True:
                 self.master.geometry('254x67')
                 self.frame_listmode .pack(side=LEFT, fill=BOTH)
                 self.frame_listmode .spinboxx .focus_set()
                 self.frame_listmode .spinboxx .delete(0, END)
 
-                # Descripción: Si se asignó el nombre de un móvil a la variable de seguimiento:
+                # Dice: Si se asignó el nombre de un móvil a la variable de seguimiento:
                 if self.mobil_selected is not None:
                     self.frame_listmode .spinboxx .insert(0, self.mobil_selected)
 
@@ -1499,17 +1507,17 @@ class Interface(Frame, MoveAllCls):
                 else:
                     self.unbind("", self.off_move)
 
-            # Descripción: Si la casilla N°5 no está marcada:
+            # Dice: Si la casilla N°5 no está marcada:
             else:
                 self.frame_listmode .pack_forget()
                 self.frame_botones .pack (side=LEFT, fill=BOTH)
                 self.frame_botones .focus_set()
 
-                # Descripción: Si la casilla N°7 está marcada:
+                # Dice: Si la casilla N°7 está marcada:
                 if self.frame_configurer .checkbutton7 .variable.get() == True:
                     self.unbind("", self.off_move)  # Desactiva
 
-                # Descripción: Si la casilla N°7 no está marcada:
+                # Dice: Si la casilla N°7 no está marcada:
                 else:
                     self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)  # Activa
 
@@ -1547,7 +1555,7 @@ class Interface(Frame, MoveAllCls):
     # G E S T I O N   D E  V E N T A N A S   S U P E R I O R E S :
 
     def windows_123 (self, var_1, var_2, var_3, mobil=None):
-        # [self.mobil_selected] Almacena el nombre del boton presionado
+        # [self.mobil_selected] Almacena el nombre del boton presionado en el modo botones o lista
 
         for index, name in enumerate(self.frame_listmode .spinbox_values):
             if mobil == index:
