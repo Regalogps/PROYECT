@@ -1336,7 +1336,7 @@ class Interface(Frame, MoveAllCls):
         self.make_movable(self.frame_controller.btn_ash)                  # Class MoveAllCls: Añade a la lista de widget que permiten mover la ventana
 
 
-    # Tarea: 1. Asignar el tamaño y posicion de todas las ventanas a excepción de root:
+    # Tarea: 1- Asignar el tamaño y posicion de todas las ventanas a excepción de root:
     def size_position(self):
         # Mi monitor: (1280 x 768)
 
@@ -1384,23 +1384,23 @@ class Interface(Frame, MoveAllCls):
         #---------------------------------------------------------------------------------------------------------
 
    
-    # Tarea: 1. Configura la ventana principal:
+    # Tarea: 1- Configura la ventana principal:
     def configure_interface(self):      
         # [self.master] Refiere a Toplevel Principal
 
-        self.master.title ('_AshmanBot_')
-        self.master.geometry (self.geo_principal.get())                   # TAMAÑO DE LA VENTANA
-        self.master.resizable (1,1)                                       # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
-        self.master.config (bg='magenta2')                                # CONFIGURA EL FONDO DE LA VENTANA, etc
+        self.master.title('_AshmanBot_')
+        self.master.geometry(self.geo_principal.get())                   # TAMAÑO DE LA VENTANA
+        self.master.resizable(1,1)                                       # OTORGA PERMISO PARA CAMBIAR DE TAMANIO ALA VENTANA
+        self.master.config(bg='magenta2')                                # CONFIGURA EL FONDO DE LA VENTANA, etc
         self.master.transient()                                             # No funciona
-        self.master.attributes ('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
-        self.master.wm_attributes ('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
+        self.master.attributes('-topmost', True)                         # SUPERPONE LA VENTANA A OTRAS APLICACIONES ABIERTAS
+        self.master.wm_attributes('-transparentcolor', 'magenta2')       # BORRA EL COLOR SELECCIONADO DE LA VENTANA
 
 
-    # Tarea: 1. Inicializa las imagenes que se mandan a las ventanas
+    # Tarea: 1- Inicializa las imagenes que se mandan a las ventanas
     def generate_list(self, file, option):
 
-        ouput = os.listdir (file)
+        ouput = os.listdir(file)
 
         if option == 'I': 
             multilist = [[] for x in range(22)]
@@ -1433,32 +1433,40 @@ class Interface(Frame, MoveAllCls):
         # [ 3 ] self.frame_configurer : Labels y Checkbuttons
         # [ 4 ] self.frame_listmode   : Spinbox y Listbox
 
-        #____Interfaces de Control:  [ 4 instancias ]
-        self.frame_controller = A1FrameCls (self, bg='#11161d', width=60, height=67)   # Posicionado     # Color: Azul
-        self.frame_botones =    B1FrameCls (self, bg='#31343a', width=756, height=67)     # Posicionado     # Color: Plomo
-        self.frame_configurer = B2FrameCls (self, bg='#31343a', width=756, height=67)  # No posicionado  # Color: Plomo
-        self.frame_listmode =   B3FrameCls (self, self.path_mini)                                        # No posicionado  # Color: Azul y Plomo
+        #____INTERFACES DE CONTROL: (4 instancias)
+        self.frame_controller = A1FrameCls(self, bg='#11161d', width=60, height=67)   # Posicionado     # Color: Azul
+        self.frame_botones    = B1FrameCls(self, bg='#31343a', width=756, height=67)     # Posicionado     # Color: Plomo
+        self.frame_configurer = B2FrameCls(self, bg='#31343a', width=756, height=67)  # No posicionado  # Color: Plomo
+        self.frame_listmode   = B3FrameCls(self, self.path_mini)                                        # No posicionado  # Color: Azul y Plomo
          
-        #____Gestor de geometria ():
-        self.frame_controller .pack (side=LEFT, fill=BOTH)
-        self.frame_botones .pack (side=LEFT, fill=BOTH) 
+        #____Posicionamiento:
+        self.frame_controller .pack(side=LEFT, fill=BOTH)
+        self.frame_botones .pack(side=LEFT, fill=BOTH) 
 
-        #____P A C K___P R O P A G A T E ():
-        self.frame_controller .pack_propagate (False)
-        self.frame_botones .pack_propagate (False)
+        #____Propagación:
+        self.frame_controller .pack_propagate(False)
+        self.frame_botones .pack_propagate(False)
 
 
-    # Tarea:  1. Posiciona y quita las instancias de clase
-    def gear_stacking(self):   # ON: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
+    # Tarea: 1- Gestiona los widgets de la ventana principal
+    def gear_stacking(self):
+        # 1- Si self._gear es False:  (Predeterminado False)
+             # 1.1-  Asigna self._gear = True
+             # 1.2-  Quita la interface de botones
+             # 1.3-  Quita la interface de lista
+             # 1.4-  Posiciona la interface de configuracion
+             # 1.5-  Le da el foco a la interfaces de configuracion
+             # 1.6-  Ajusta el tamaño de la ventana principal
+             # 1.7-  Activa el enlace self.on_move_all
 
         if  not self._gear:                                                            # -1
             self._gear = True                                                             # -1.1
             self.frame_botones .pack_forget()                                             # -1.2
             self.frame_listmode .pack_forget()                                            # -1.3
 
-            self.frame_configurer .pack (side=LEFT, fill=BOTH, expand=True)               # -1.4
+            self.frame_configurer .pack(side=LEFT, fill=BOTH, expand=True)               # -1.4
             self.frame_configurer .focus_set()                                            # -1.5
-            self.master.geometry ('834x67')                                               # -1.6
+            self.master.geometry('834x67')                                               # -1.6
 
             self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)                # -1.7
             
