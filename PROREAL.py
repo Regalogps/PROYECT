@@ -357,23 +357,23 @@ class B2FrameCls(Frame):
     
     def create_checkbutton(self):
 
-        self.ckbutton1 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
-        self.ckbutton2 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
-        self.ckbutton3 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
-        self.ckbutton4 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
-        self.ckbutton5 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
-        self.ckbutton6 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
-        self.ckbutton7 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
-        self.ckbutton8 = Checkbutton_class (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        self.checkbutton1 = CheckbuttonCls (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        self.checkbutton2 = CheckbuttonCls (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        self.checkbutton3 = CheckbuttonCls (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        self.checkbutton4 = CheckbuttonCls (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        self.checkbutton5 = CheckbuttonCls (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        self.checkbutton6 = CheckbuttonCls (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        self.checkbutton7 = CheckbuttonCls (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
+        self.checkbutton8 = CheckbuttonCls (self, bg='#31343a', activebackground= '#31343a', bd=0, borderwidth=0,)
     
-        self.ckbutton1 .grid (column=1, row=0, pady=(10,0))
-        self.ckbutton2 .grid (column=1, row=1, pady=(0,0))
-        self.ckbutton3 .grid (column=3, row=0, pady=(10,0))
-        self.ckbutton4 .grid (column=3, row=1, pady=(0,0))
-        self.ckbutton5 .grid (column=5, row=0, pady=(10,0))
-        self.ckbutton6 .grid (column=5, row=1, pady=(0,0))
-        self.ckbutton7 .grid (column=7, row=0, padx=(0,200), pady=(10,0),)
-        self.ckbutton8 .grid (column=7, row=1, padx=(0,200), pady=(0,0),)
+        self.checkbutton1 .grid (column=1, row=0, pady=(10,0))
+        self.checkbutton2 .grid (column=1, row=1, pady=(0,0))
+        self.checkbutton3 .grid (column=3, row=0, pady=(10,0))
+        self.checkbutton4 .grid (column=3, row=1, pady=(0,0))
+        self.checkbutton5 .grid (column=5, row=0, pady=(10,0))
+        self.checkbutton6 .grid (column=5, row=1, pady=(0,0))
+        self.checkbutton7 .grid (column=7, row=0, padx=(0,200), pady=(10,0),)
+        self.checkbutton8 .grid (column=7, row=1, padx=(0,200), pady=(0,0),)
 
 
 #********************************        ██████████████
@@ -595,7 +595,7 @@ class B3FrameCls(Frame):
 #********************************        ██████████████
 
 # Frame Contenedor de Checkbutton
-class Checkbutton_class(Checkbutton):   
+class CheckbuttonCls(Checkbutton):   
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
@@ -1470,7 +1470,7 @@ class Interface(Frame, MoveAllCls):
 
             # Descripción: Si la casilla N°5 está marcada:
             if self.frame_configurer .checkbutton5 .variable.get() == True:                   # -1.3
-                self.master.geometry ('254x67')
+                self.master.geometry('254x67')
                 self.frame_listmode .pack(side=LEFT, fill=BOTH)                             # -1.3.2
                 self.frame_listmode .spinboxx .focus_set()                                   # -1.3.3
                 self.frame_listmode .spinboxx .delete(0, END)
@@ -1482,7 +1482,7 @@ class Interface(Frame, MoveAllCls):
                 if not self.frame_listmode. _toggle_switch == True:                          # -1.3.5
                     self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)              # -1.3.5.1
                 else:                                                                        # -1.3.6
-                    self.unbind("",self.off_move)                                               # -1.3.6.1
+                    self.unbind("", self.off_move)                                               # -1.3.6.1
 
             # Descripción: Si la casilla N°5 no está marcada:
             else:                                                                         # -1.4
@@ -1492,18 +1492,16 @@ class Interface(Frame, MoveAllCls):
 
                 # Descripción: Si la casilla N°7 está marcada:
                 if self.frame_configurer .checkbutton7 .variable.get() == True:              # -1.4.3
-                    self.unbind("",self.off_move)  # Desactiva
+                    self.unbind("", self.off_move)  # Desactiva
                 
                 # Descripción: Si la casilla N°7 no está marcada:
                 else:                                                                        # -1.4.4
                     self.off_move = self.bind_all("<B1-Motion>", self.on_move_all)  # Activa            # -1.4.3.1
-     
-     
-            # NOTAS:
-            # 1. self._switch es una variable de control de la interface de lista
-  
-    
+
+
+    # Tarea: 1- [Busca y Marca] el boton que inició las ventanas secundarias:
     def focus_in(self, event):
+        # Entrada del foco a la ventana principal:
 
         if self.focus_get() == self.frame_botones:                            #
             for btn in (self.frame_botones. buttons22):                       #
@@ -1515,8 +1513,10 @@ class Interface(Frame, MoveAllCls):
                     else:                                                     #
                         btn .config (bg='#11161d', fg='white')
 
-            
+   
+    # Tarea: 1- [Busca y Marca] el boton que inició las ventanas secundarias:       
     def focus_out(self, event):
+        # Salida del foco de la ventana principal:
 
         if self.focus_get() == None and self.mobil_selected is not None:
             for btn in (self.frame_botones. buttons22):                       #
