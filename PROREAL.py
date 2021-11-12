@@ -1386,7 +1386,7 @@ class Interface(Frame, MoveAllCls):
    
     # Tarea: 1- Configura la ventana principal:
     def configure_interface(self):      
-        # [self.master] Refiere a Toplevel Principal
+        # [self.master] Refiere a ventana principal
 
         self.master.title('_AshmanBot_')
         self.master.geometry(self.geo_principal.get())                   # TAMAÑO DE LA VENTANA
@@ -1441,7 +1441,7 @@ class Interface(Frame, MoveAllCls):
          
         #____Posicionamiento:
         self.frame_controller .pack(side=LEFT, fill=BOTH)
-        self.frame_botones .pack(side=LEFT, fill=BOTH) 
+        self.frame_botones .pack(side=LEFT, fill=BOTH)
 
         #____Propagación:
         self.frame_controller .pack_propagate(False)
@@ -1529,14 +1529,14 @@ class Interface(Frame, MoveAllCls):
     #############################################################
     #############################################################
 
-    # G E S T I O N   DE  V E N T A N A S   S U P E R I O R E S :
+    # G E S T I O N   D E  V E N T A N A S   S U P E R I O R E S :
 
     def windows_123 (self, var_1, var_2, var_3, mobil=None):
+        # [self.mobil_selected] Almacena el nombre del boton presionado
 
-        # (self.mobil_selected) : almacena el nombre del boton presionado    
-        for index,i in enumerate(self.frame_listmode .spinbox_values):
+        for index, name in enumerate(self.frame_listmode .spinbox_values):
             if mobil == index:
-                self.mobil_selected = i
+                self.mobil_selected = name
                 break
 
         #_____________________________________________________________________
