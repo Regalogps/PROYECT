@@ -1332,7 +1332,7 @@ class Interface(Frame, MoveAllCls):
         self.configure_interface()
         self.widgets()
 
-        #____Métodos Llamados de las Clases Heredadas:
+        #____Métodos Heredados Llamados:
         self.make_movable(self.frame_controller.btn_ash)                  # Class MoveAllCls: Añade a la lista de widget que permiten mover la ventana
 
 
@@ -1426,14 +1426,14 @@ class Interface(Frame, MoveAllCls):
             return empty    
 
     
-    # Tarea: 1- Crea las interfaces de control: (4 instancias de clase)
+    # Tarea: 1- Crea las interfaces de control:
     def widgets(self):
-        # [ 1 ] self.frame_controller : Botones: Ash y Gear    : ( Frame )
-        # [ 2 ] self.frame_botones    : Botones: 22            : ( Frame )
-        # [ 3 ] self.frame_configurer : Labels y Checkbuttons  : ( Frame )
-        # [ 4 ] self.frame_listmode   : Spinbox y Listbox      : ( Frame )
+        # [ 1 ] self.frame_controller : Botones: Ash y Gear
+        # [ 2 ] self.frame_botones    : Botones: 22
+        # [ 3 ] self.frame_configurer : Labels y Checkbuttons
+        # [ 4 ] self.frame_listmode   : Spinbox y Listbox
 
-        #____Instancias:  [ 4 ]
+        #____Interfaces de Control:  [ 4 instancias ]
         self.frame_controller = A1FrameCls (self, bg='#11161d', width=60, height=67)   # Posicionado     # Color: Azul
         self.frame_botones =    B1FrameCls (self, bg='#31343a', width=756, height=67)     # Posicionado     # Color: Plomo
         self.frame_configurer = B2FrameCls (self, bg='#31343a', width=756, height=67)  # No posicionado  # Color: Plomo
@@ -1447,8 +1447,8 @@ class Interface(Frame, MoveAllCls):
         self.frame_controller .pack_propagate (False)
         self.frame_botones .pack_propagate (False)
 
-    # Tareas:
-    #   1- Posiciona y quita las instancias de clase
+
+    # Tarea:  1. Posiciona y quita las instancias de clase
     def gear_stacking(self):   # ON: CON CLICK IZQUIERDO EN LA RUEDA DE CONFIGURACION - QUITA Y PONE WIDGET, REDIMENSIONA LA VENTANA PRINCIPAL,ETC
 
         if  not self._gear:                                                            # -1
