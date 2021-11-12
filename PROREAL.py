@@ -1004,7 +1004,7 @@ class MoveAllCls():
         # 2- El widget esta en lista          : [ self.movable ]
         # 3- El widget no está en la lista    : [ self.immovable ]
 
-        # Descripción: [Si no es una instancia de...] AND [tampoco está en la lista que mueven las ventanas]
+        # Dice: [ Si no es una instancia de... ] and [ No está en la lista (self.immovable) ] or [ Si está en la lista (self.movable) ]
         if not isinstance(widget, (Button, ttk.Sizegrip, Spinbox)) == True and not self.is_immovable(widget) == False or self.is_movable(widget):                 # NOTA: self._is_movable(widget): Devuelve True 
             window.geometry(new_position)
         #------------------------------------------------------------------------------------------------------------------------------------------
