@@ -1321,7 +1321,7 @@ class Interface(Frame, MoveAllCls):
         self.geo_der = StringVar()
         self.geo_stuf = StringVar()
         
-        #____Variables de Control de los Frames Contenedores de Imagenes de las ventanas Secundarias: [ 1,2,3 ]
+        #____Variables de Control de los Frames de las Ventanas Secundarias: [ 1,2,3 ]
         self._frame_1 = None
         self._frame_2 = None
         self._frame_3 = None
