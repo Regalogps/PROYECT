@@ -1003,13 +1003,13 @@ class MoveAllCls():
         new_position = "+{}+{}".format (window.winfo_x() + deltax, window.winfo_y() + deltay)
 
 
-        # Dice: [ Si no es una instancia de... ] and [ No está en la lista (self.immovable) ] or [ Si está en la lista (self.movable) ]
+        # Dice: [ Si no es una instancia de... ] and [ No está en la lista (self.immovable) ] or [ Esta en la lista (self.movable) ]
         if not isinstance(widget, (Button, ttk.Sizegrip, Spinbox)) == True and not self.is_immovable(widget) == False or self.is_movable(widget):     #self._is_movable(widget): Devuelve True
             # Descripción: Mueve la ventana a excepción de root
             window.geometry(new_position)
         #------------------------------------------------------------------------------------------------------------------------------------------
 
-        # Dice: [ Si es una instancia de... ] and [ No es una instancia de... ] or [ Si está en la lista (self.movable) ]
+        # Dice: [ Si es una instancia de... ] and [ No es una instancia de... ] or [  Esta en la lista (self.movable) ]
         if isinstance(window.master, Tk)== True and not isinstance(widget, (Button, ttk.Sizegrip, Spinbox)) or self.is_movable(widget):               
             # Descripción: Mueve root                                        # otro: if _tops.master == RootCls:
             window.master.geometry(new_position)
