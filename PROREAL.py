@@ -1352,7 +1352,8 @@ class Interface(Frame, MoveAllCls):
         self.widgets()
 
         #____Métodos Heredados Llamados:
-        self.make_movable(self.frame_controller.btn_ash)                  # Class MoveAllCls: Añade a la lista de widget que permiten mover la ventana
+        self.make_movable(self.frame_controller.btn_ash)                  # Class MoveAllCls: Añade a la lista de widget que permite mover la ventana
+        self.make_immovable(self.frame_controller.frame_1)
 
 
     # Tarea: 1- Asignar el tamaño y posicion de todas las ventanas a excepción de root:
