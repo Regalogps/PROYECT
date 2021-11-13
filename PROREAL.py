@@ -999,23 +999,17 @@ class MoveAllCls():
 
         widget = event.widget
         window = event.widget.winfo_toplevel()
-        
+        #____Nueva Posición:
         new_position = "+{}+{}".format (window.winfo_x() + deltax, window.winfo_y() + deltay)
-        
-        #____CONDICIONES PARA MOVER LAS VENTANAS:
-        # 1- El widget no es una instancia de : [ Button / ttk.Sizegrip / Spinbox ]
-        # 2- El widget esta en lista          : [ self.movable ]
-        # 3- El widget no está en la lista    : [ self.immovable ]
+
 
         # Dice: [ Si no es una instancia de... ] and [ No está en la lista (self.immovable) ] or [ Si está en la lista (self.movable) ]
-        if not isinstance(widget, (Button, ttk.Sizegrip, Spinbox)) == True and not self.is_immovable(widget) == False or self.is_movable(widget):                 # NOTA: self._is_movable(widget): Devuelve True 
+        if not isinstance(widget, (Button, ttk.Sizegrip, Spinbox)) == True and not self.is_immovable(widget) == False or self.is_movable(widget):     #self._is_movable(widget): Devuelve True
+            # Descripción: Mueve la ventana a excepción de root
             window.geometry(new_position)
         #------------------------------------------------------------------------------------------------------------------------------------------
 
-
-        #____CONDICIONES PARA MOVER ROOT:
-        # 
-
+        # Dice: [ Si es una instancia de... ] and [ No es una instancia de... ] or [ Si está en la lista (self.movable) ]
         if isinstance(window.master, Tk)== True and not isinstance(widget, (Button, ttk.Sizegrip, Spinbox)) or self.is_movable(widget):               
             # Descripción: Mueve root                                        # otro: if _tops.master == RootCls:
             window.master.geometry(new_position)
