@@ -1010,7 +1010,7 @@ class MoveAllCls():
         #------------------------------------------------------------------------------------------------------------------------------------------
 
         # Dice: [ Si es una instancia de... ] and [ No es una instancia de... ] or [  Esta en la lista (self.movable) ]
-        if isinstance(window.master, Tk)== True and not isinstance(widget, (Button, ttk.Sizegrip, Spinbox)) or self.is_movable(widget):               
+        if isinstance(window.master, Tk)== True and not isinstance(widget, (Button, ttk.Sizegrip, Spinbox)) == True and not self.is_immovable(widget) == True or self.is_movable(widget):               
             # Descripción: Mueve root                                        # otro: if _tops.master == RootCls:
             window.master.geometry(new_position)
         #------------------------------------------------------------------------------------------------------------------------------------------
