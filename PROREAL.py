@@ -41,30 +41,31 @@ class A1FrameCls(Frame):
         
         self.initializer_images()
         self.create_buttons()
-        
+
+    # Tarea: 1- Crea los botones:
     def create_buttons(self):
-        # [self.btn_logo] : Logo
-        # [self.btn_gear] : Engrane
+        # [self.btn_logotipo] : Logo
+        # [self.btn_settings] : Engranaje
 
         #____BOTONES: ( 2 )
-        self.btn_logo = Button (self, image=self.image_ash, bg='#11161d', bd=0, activebackground='#11161d' ,
-                               command=self.minimize_windows)
-        self.btn_gear = Button (self, image=self.image_gear1, bg='#11161d', bd=0, activebackground='#11161d',
-                               command=self.master.gear_stacking)
+        self.btn_logotipo = Button(self, image=self.image_ash, bg='#11161d', bd=0, activebackground='#11161d',
+                                   command=self.minimize_windows)
+        self.btn_settings = Button(self, image=self.image_gear1, bg='#11161d', bd=0, activebackground='#11161d',
+                                   command=self.master.gear_stacking)
                          
         #____Posicionamiento:
-        self.btn_logo .grid (column=0, row=0, padx=(6,6))
-        self.btn_gear .grid (column=0, row=1)
+        self.btn_logotipo .grid(column=0, row=0, padx=(6,6))
+        self.btn_settings .grid(column=0, row=1)
 
         #____Eventos:
-        self.btn_logo .bind('<Double-Button-3>', self.close_windows)  # Cierra Toplevel Secundarias
-        self.btn_gear .bind('<Enter>', self.change_image_gear1)
-        self.btn_gear .bind('<Leave>', self.change_image_gear2)
+        self.btn_logotipo .bind('<Double-Button-3>', self.close_windows)  # Cierra Toplevel Secundarias
+        self.btn_settings .bind('<Enter>', self.change_image_gear1)
+        self.btn_settings .bind('<Leave>', self.change_image_gear2)
 
 
     # Tarea: 1- Cierra las ventanas secundarias:
     def close_windows(self, event):   # ACTIVA: CON DOBLE CLICK DERECHO EN EL LOGO 
-    
+
         try:
             self.master.toplevel_LEFT .destroy() 
             self.master._open_1 = False
