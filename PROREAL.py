@@ -38,28 +38,31 @@ from A_import import *
 class A1FrameCls(Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        #_____C O N T E N E D O R E S:  [ 0 ]
-
-        self.initializer_images()
-        self.controllers()
         
-    def controllers(self):  # Botones
-        #____B U T T O N S:  [2]:  Logo y rueda
-        self.btn_ash = Button (self, image=self.image_ash, bg='#11161d', bd=0, activebackground='#11161d' ,
+        self.initializer_images()
+        self.create_buttons()
+        
+    def create_buttons(self):
+        # [self.btn_logo] : Logo
+        # [self.btn_gear] : Engrane
+
+        #____BOTONES: ( 2 )
+        self.btn_logo = Button (self, image=self.image_ash, bg='#11161d', bd=0, activebackground='#11161d' ,
                                command=self.minimize_windows)
         self.btn_gear = Button (self, image=self.image_gear1, bg='#11161d', bd=0, activebackground='#11161d',
-                               command=self.master.gear_stacking)                               
-
-        self.btn_ash .grid (column=0, row=0, padx=(6,6), pady=0)
+                               command=self.master.gear_stacking)
+                         
+        #____Posicionamiento:
+        self.btn_logo .grid (column=0, row=0, padx=(6,6))
         self.btn_gear .grid (column=0, row=1)
 
-        #____B I N D ():
-        self.btn_ash .bind ('<Double-Button-3>', self.close_windows)  # Cierra Toplevel Secundarias
-        self.btn_gear.bind("<Enter>", self.change_image_gear1)
-        self.btn_gear.bind("<Leave>", self.change_image_gear2)
+        #____Eventos:
+        self.btn_logo .bind('<Double-Button-3>', self.close_windows)  # Cierra Toplevel Secundarias
+        self.btn_gear .bind('<Enter>', self.change_image_gear1)
+        self.btn_gear .bind('<Leave>', self.change_image_gear2)
 
 
-    # Cierra las ventanas secundarias:
+    # Tarea: 1- Cierra las ventanas secundarias:
     def close_windows(self, event):   # ACTIVA: CON DOBLE CLICK DERECHO EN EL LOGO 
     
         try:
