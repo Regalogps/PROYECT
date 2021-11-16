@@ -1356,7 +1356,7 @@ class Interface(Frame, MoveAllCls):
         self.widgets()
 
         #____Métodos Heredados Llamados:
-        self.make_movable(self.frame_controller.btn_ash)                  # Class MoveAllCls: Añade a la lista de widget que permite mover la ventana
+        self.make_movable(self.frame_controller.btn_logotipo)                  # Class MoveAllCls: Añade a la lista de widget que permite mover la ventana
         self.make_immovable(self.frame_botones.frame_1)
 
 
@@ -1653,6 +1653,7 @@ class Interface(Frame, MoveAllCls):
     #    1- Permitir la apertura de las ventanas secundarias en la siguiente llamada
     #    2- Desactiva la seleccion del boton en la interface de botones
     def closing_toplevel(self,  number, event):
+        print(11111)
         
         if isinstance(event.widget, Toplevel):
             if number == 1:
