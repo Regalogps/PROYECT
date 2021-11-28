@@ -8,6 +8,6 @@ from PIL import ImageTk, Image
 import cv2
 import imutils
 import numpy as np
-import os 
-#import sys
+import os   # os.path.join(), os.listdir()
+import sys  # sys.argv
 import time

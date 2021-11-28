@@ -1,6 +1,6 @@
 reducir el tiempo de ejecucion de milisegundos de gear-ash-botones de moviles
 crear bucle para mover. star bind
-
+dragonbound.net/r/fKpVre
 
 
 Comandos de botones generados en un ciclo asociados a expresiones lambda se borran
