@@ -1030,8 +1030,8 @@ class MoveAllCls():
 #************************            ███████    ██████████████
 
 class FrameManagerCls(Frame):
-    def __init__(self, master=None, listmode=None, icon_lst=None, **kwargs):
-        super().__init__(master, **kwargs)
+    def __init__(self, master=None, listmode=None, icon_lst=None, *args, **kwargs):
+        super().__init__(master, *args **kwargs)
         self.listmode = listmode
         self.icon_lst = icon_lst
 
@@ -1123,8 +1123,8 @@ class ToplevelCls(Toplevel):
         
         self.number = arg1
         self.position = arg2
-        self.icon_lst1 = icon_lst[0]
-        self.icon_lst2 = icon_lst[1]
+        self.icon_lst = icon_lst
+        print(len(self.icon_lst))
         self._x = 0
         self._y = 0
 
@@ -1136,7 +1136,7 @@ class ToplevelCls(Toplevel):
         # [ 1 ] self.frame_manager  : Frame(contenedor): Botones:[X] y [-]
 
         #____GESTOR DE VENTANA: ( 1 instancia )
-        self.frame_manager = FrameManagerCls(self, bg="#1d2126",  listmode = number, self.icon_lst)
+        self.frame_manager = FrameManagerCls(self, listmode = number, self.icon_lst, bg="#1d2126")
         self.frame_manager .pack(position)
 
         #____Enlaces: Mueven la ventana
@@ -1289,7 +1289,7 @@ class RootCls(Tk):
 
         #____VENTANA PRINCIPAL: ( 2 instancias )
         self.toplevel_principal = ToplevelCls(self, arg1, arg2, self.icon_lst)
-        self.frame_interface    = InterfazCls(self.toplevel_principal, self.main_lst)
+        self.frame_interface    = InterfazCls(self.toplevel_principal, self.main_lst, self.mini_lst)
 
         #____Posicionamiento:
         self.frame_interface .pack(side=RIGHT, fill=BOTH)
@@ -1365,12 +1365,13 @@ class RootCls(Tk):
 #_______2- Gestiona toda la aplicacion
 
 class InterfazCls(Frame, MoveAllCls):
-    def __init__(self, master=None, images_list=None, *args, **kwargs):
+    def __init__(self, master=None, main_lst=None, mini_lst=None, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
         MoveAllCls.__init__(self)   # Inicializando las variables de control
 
         #____Coleccion de Imagenes:
-        self.main_lst = images_list
+        self.main_lst = main_lst
+        self.mini_lst = mini_lst
 
         #____Variables de Control de Tamaño y Posición de Todas las Ventanas:
         self.geo_principal = StringVar()
@@ -1407,7 +1408,7 @@ class InterfazCls(Frame, MoveAllCls):
         self.master.bind('<FocusOut>', self.focus_out)
 
         #____Métodos Llamados:
-        self.size_position()
+        self.size_position_windows()
         self.configure_interface()
         self.widgets()
 
@@ -1417,7 +1418,7 @@ class InterfazCls(Frame, MoveAllCls):
 
 
     # Tarea: 1- Asignar el tamaño y posicion de todas las ventanas a excepción de root:
-    def size_position(self):
+    def size_position_windows(self):
         # Mi monitor: (1280 x 768)
 
         #____Tamaño del Monitor del Usuario:
@@ -1488,7 +1489,7 @@ class InterfazCls(Frame, MoveAllCls):
         self.frame_static     = A1FrameCls(self, bg='#11161d', width=60, height=67)    # Posicionado     # Color: Azul
         self.frame_botones    = B1FrameCls(self, bg='#31343a', width=756, height=67)   # Posicionado     # Color: Plomo
         self.frame_configurer = B2FrameCls(self, bg='#31343a', width=756, height=67)   # No posicionado  # Color: Plomo
-        self.frame_listmode   = B3FrameCls(self, self.path_mini)                       # No posicionado  # Color: Azul y Plomo
+        self.frame_listmode   = B3FrameCls(self, self.mini_lst)                       # No posicionado  # Color: Azul y Plomo
          
         #____Posicionamiento:
         self.frame_static .pack(side=LEFT, fill=BOTH)
