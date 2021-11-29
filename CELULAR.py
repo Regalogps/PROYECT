@@ -1123,26 +1123,22 @@ class FrameManagerCls(Frame):
 #************************            ███████    ██████████████
 
 class ToplevelCls(Toplevel):
-    def __init__(self, master=None, arg1=None, arg2=None, icon_lst=None, *args, **kwargs):
+    def __init__(self, master=None, icon_lst=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.overrideredirect(True)
-
-        self.arg1 = arg1
-        self.arg2 = arg2
         self.icon_lst = icon_lst
+
         self._x = 0
         self._y = 0
 
-
-        print(self.arg1)
-        #___Metodos Llamados:
+        #___Metodos Llamados: 0
 
 
-    def create_manager(self, *position, number):
+    def create_manager(self, *position):
         # [ 1 ] self.frame_manager  : Frame(contenedor): Botones:[X] y [-]
 
         #____GESTOR DE VENTANA: ( 1 instancia )
-        self.frame_manager = FrameManagerCls(self, self.icon_lst[0], lismode= njmer, bg="#1d2126")
+        self.frame_manager = FrameManagerCls(self, self.icon_lst[0], bg="#1d2126")
         self.frame_manager .pack(position)
 
         #____Enlaces: Mueven la ventana
@@ -1168,10 +1164,9 @@ class ToplevelCls(Toplevel):
         self.label_title .bind("<B1-Motion>", self.on_move)
 
 
-
     def create_button_menu(self, metodo=None):   #@@@@
-        #____BOTONES: ( 1 )
-        self.button_menu = Button(self.frame_manager, image=self.icon_lst[4], command=metodo, bg="green", bd=0)   
+        #____BOTONES: 1 ( Menu )
+        self.button_menu = Button(self.frame_manager, image=self.icon_lst[0][0], command=metodo, bg="green", bd=0)   
         self.button_menu .pack(side=LEFT)
 
         #____Enlaces: Cambian la imagen del boton menu
@@ -1234,7 +1229,8 @@ class ToplevelCls(Toplevel):
         self.config (bg = 'magenta2')                            # FUNCIONA BIEN pero tiene mal aspecto
         #self.wm_attributes ('-transparentcolor', 'magenta2')     # FUNCIONA BIEN pero tiene mal aspecto
 
-    def mapped_manager(self, event=None):       # / SOLO SE EJECUTA PARA VENTANAS 1,2,3   
+    def mapped_manager(self, event=None):       # / SOLO SE EJECUTA PARA VENTANAS 1,2,3
+        #____
         self.update_idletasks()
         self.overrideredirect(True)
         self.state('normal')
