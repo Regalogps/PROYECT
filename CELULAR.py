@@ -1053,22 +1053,24 @@ class FrameManagerCls(Frame):
 
 
     def create_buttons(self):
-        # Posicion de los botones "X" y "-"
-        arg1 = {'side':TOP, 'pady':(0,6)}
-        arg2 = {'side':BOTTOM, 'pady':0} 
-        arg3 = {'side':RIGHT, 'padx':2, 'pady':(0)}
-        arg4 = {'side':RIGHT, 'padx':(2,10), 'pady':(0)}
+        #____Posicion de los botones: ( PRINCIPAL )
+        close1 = {'side':TOP, 'pady':(0,6)}                   
+        minimize1 = {'side':BOTTOM, 'pady':0}
 
-        height = self.master.winfo_reqheight()
-        width = self.master.winfo_reqwidth()
+        #____Posicion de los botones: ( SECUNDARIA )
+        close2 = {'side':RIGHT, 'padx':2, 'pady':(0)}
+        minimize2 = {'side':RIGHT, 'padx':(2,10), 'pady':(0)}
 
-        #____BOTONES: [Cerrar - Minimizar]
+        y = self.master.winfo_reqheight()
+        x = self.master.winfo_reqwidth()
+
+        #____BOTONES: ( Cerrar - Minimizar )
         self.button_close = Button(self, image=self.icon_lst[0][0], command=self.close, bd=0, bg='#1d2126', activebackground='black')
         self.button_minimize = Button(self, image=self.icon_lst[0][1], command=self.minimize, bd=0, bg='#1d2126', activebackground='black')
 
         #____Posicionamiento:
-        self.button_close .pack(arg1 if height > width == True else arg2)       # Orientacion del boton en el frame: Principal: (side=TOP, pady=7)    Secundario: (side=RIGHT) 
-        self.button_minimize .pack(arg3 if height > width == True else arg4)    # Orientacion del boton en el frame: Principal: (side=BOTTOM, pady=7) Secundario: (side=RIGHT, padx=10)            
+        self.button_close .pack(close1 if y > x == True else close2)
+        self.button_minimize .pack(minimize1 if y > x == True else minimize2)
 
         #____Enlaces: Cambian la imagen de los botones
         self.button_close.bind("<Enter>", self.enter_mouse_close)
@@ -1142,7 +1144,6 @@ class ToplevelCls(Toplevel):
         super().__init__(master, *args, **kwargs)
         self.overrideredirect(True)
 
-        self.master = master
         self.arg1 = arg1
         self.arg2 = arg2
         self.icon_lst = icon_lst
@@ -1152,19 +1153,14 @@ class ToplevelCls(Toplevel):
 
         print(self.arg1)
         #___Metodos Llamados:
-        self.create_manager(self.arg1, self.arg2)
 
 
-    def create_manager(self, number, position):
+    def create_manager(self, *position, number):
         # [ 1 ] self.frame_manager  : Frame(contenedor): Botones:[X] y [-]
 
         #____GESTOR DE VENTANA: ( 1 instancia )
-        self.frame_manager = FrameManagerCls(self, self.icon_lst, listmode = number, bg="#1d2126")
-        #self.frame_manager .pack(position)
-        arg1 = {'side':RIGHT, 'fill':BOTH}
-        arg2 = {'side':TOP, 'fill':BOTH}
-
-        self.frame_manager .pack(arg1 if isinstance(self.master, Tk) == True else arg2)
+        self.frame_manager = FrameManagerCls(self, self.icon_lst, lismode= njmer, bg="#1d2126")
+        self.frame_manager .pack(position)
 
         #____Enlaces: Mueven la ventana
         self.frame_manager .bind("<ButtonPress-1>", self.start_move)
@@ -1312,6 +1308,7 @@ class RootCls(Tk):
 
         #____VENTANA PRINCIPAL: ( 2 instancias )
         self.toplevel_principal = ToplevelCls(self, arg1, arg2, self.icon_lst)
+        self.toplevel_principal .create_manager(side=RIGHT, fill=BOTH)
         self.frame_interface    = InterfazCls(self.toplevel_principal, self.main_lst, self.mini_lst)
 
         #____Posicionamiento:
