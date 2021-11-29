@@ -1039,20 +1039,11 @@ class FrameManagerCls(Frame):
         #___Métodos Llamados:
         self.create_buttons()
 
-        # ventana principal.
-        # Posicion de los botones "X" y "-"
-        arg1 = ({'side':TOP, 'pady':(0,6)},{'side':BOTTOM, 'pady':0})       
-        # Posicion del frame contenedor de los botones "X" y "-"
-        arg2 = {'side':RIGHT, 'fill':BOTH}
-
-
-        # Posicion de los botones "X" y "-":                             ( None: diferencia los metodos )
-        arg1 = ({'side':RIGHT, 'padx':2, 'pady':(0)},{'side':RIGHT, 'padx':(2,10), 'pady':(0)}, None)   
-        # Posicion del frame contenedor de los botones "X" y "-"
-        arg2 = {'side':TOP, 'fill':BOTH}
-
 
     def create_buttons(self):
+        y = self.master.winfo_reqheight()
+        x = self.master.winfo_reqwidth()
+
         #____Posicion de los botones: ( PRINCIPAL )
         close1 = {'side':TOP, 'pady':(0,6)}                   
         minimize1 = {'side':BOTTOM, 'pady':0}
@@ -1061,12 +1052,9 @@ class FrameManagerCls(Frame):
         close2 = {'side':RIGHT, 'padx':2, 'pady':(0)}
         minimize2 = {'side':RIGHT, 'padx':(2,10), 'pady':(0)}
 
-        y = self.master.winfo_reqheight()
-        x = self.master.winfo_reqwidth()
-
-        #____BOTONES: ( Cerrar - Minimizar )
-        self.button_close = Button(self, image=self.icon_lst[0][0], command=self.close, bd=0, bg='#1d2126', activebackground='black')
-        self.button_minimize = Button(self, image=self.icon_lst[0][1], command=self.minimize, bd=0, bg='#1d2126', activebackground='black')
+        #____BOTONES: 2 ( Cerrar - Minimizar )
+        self.button_close = Button(self, image=self.icon_lst[0], command=self.close, bd=0, bg='#1d2126', activebackground='black')
+        self.button_minimize = Button(self, image=self.icon_lst[1], command=self.minimize, bd=0, bg='#1d2126', activebackground='black')
 
         #____Posicionamiento:
         self.button_close .pack(close1 if y > x == True else close2)
@@ -1082,24 +1070,19 @@ class FrameManagerCls(Frame):
 
     def enter_mouse_close(self, event):
         # Entrada del mouse sobre el boton (Imagen: change)
-
-        event.widget.config(image=self.icon_lst[0][2], bg='red')
+        event.widget.config(image=self.icon_lst[2], bg='red')
 
     def leave_mouse_close(self, event):
         # Salida del mouse sobre el boton (Imagen: default)
-
-        event.widget.config(image=self.icon_lst[0][0], bg='#1d2126')
+        event.widget.config(image=self.icon_lst[0], bg='#1d2126')
 
     def enter_mouse_minimize(self, event):
         # Entrada del mouse sobre el boton (Imagen: change)
-
-        event.widget.config(image=self.icon_lst[0][3], bg='#4ca6ff')
+        event.widget.config(image=self.icon_lst[3], bg='#4ca6ff')
 
     def leave_mouse_minimize(self, event):
         # Salida del mouse sobre el boton (Imagen: default)
-
-        event.widget.config(image=self.icon_lst[0][1], bg='#1d2126')
-
+        event.widget.config(image=self.icon_lst[1], bg='#1d2126')
 
 
     def close(self):     # SOLUCIONAR SI QUEDAN PROCESOS ABIERTOS POR USO INADECUADO DE QUIT()
@@ -1159,7 +1142,7 @@ class ToplevelCls(Toplevel):
         # [ 1 ] self.frame_manager  : Frame(contenedor): Botones:[X] y [-]
 
         #____GESTOR DE VENTANA: ( 1 instancia )
-        self.frame_manager = FrameManagerCls(self, self.icon_lst, lismode= njmer, bg="#1d2126")
+        self.frame_manager = FrameManagerCls(self, self.icon_lst[0], lismode= njmer, bg="#1d2126")
         self.frame_manager .pack(position)
 
         #____Enlaces: Mueven la ventana
