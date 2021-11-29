@@ -1030,23 +1030,45 @@ class MoveAllCls():
 #************************            ███████    ██████████████
 
 class FrameManagerCls(Frame):
-    def __init__(self, master=None, listmode=None, icon_lst=None, *args, **kwargs):
-        super().__init__(master, *args **kwargs)
+    def __init__(self, master=None, icon_lst=None, listmode=None, *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
         self.listmode = listmode
         self.icon_lst = icon_lst
+        print(self.listmode)
 
         #___Métodos Llamados:
         self.create_buttons()
 
+        # ventana principal.
+        # Posicion de los botones "X" y "-"
+        arg1 = ({'side':TOP, 'pady':(0,6)},{'side':BOTTOM, 'pady':0})       
+        # Posicion del frame contenedor de los botones "X" y "-"
+        arg2 = {'side':RIGHT, 'fill':BOTH}
+
+
+        # Posicion de los botones "X" y "-":                             ( None: diferencia los metodos )
+        arg1 = ({'side':RIGHT, 'padx':2, 'pady':(0)},{'side':RIGHT, 'padx':(2,10), 'pady':(0)}, None)   
+        # Posicion del frame contenedor de los botones "X" y "-"
+        arg2 = {'side':TOP, 'fill':BOTH}
+
 
     def create_buttons(self):
+        # Posicion de los botones "X" y "-"
+        arg1 = {'side':TOP, 'pady':(0,6)}
+        arg2 = {'side':BOTTOM, 'pady':0} 
+        arg3 = {'side':RIGHT, 'padx':2, 'pady':(0)}
+        arg4 = {'side':RIGHT, 'padx':(2,10), 'pady':(0)}
+
+        height = self.master.winfo_reqheight()
+        width = self.master.winfo_reqwidth()
+
         #____BOTONES: [Cerrar - Minimizar]
-        self.button_close = Button(self, image=self.icon_lst[0], command=self.close, bd=0, bg='#1d2126', activebackground='black')
-        self.button_minimize = Button(self, image=self.icon_lst[1], command=self.minimize, bd=0, bg='#1d2126', activebackground='black')
+        self.button_close = Button(self, image=self.icon_lst[0][0], command=self.close, bd=0, bg='#1d2126', activebackground='black')
+        self.button_minimize = Button(self, image=self.icon_lst[0][1], command=self.minimize, bd=0, bg='#1d2126', activebackground='black')
 
         #____Posicionamiento:
-        self.button_close .pack(self.listmode [0])       # Orientacion del boton en el frame: Principal: (side=TOP, pady=7)    Secundario: (side=RIGHT) 
-        self.button_minimize .pack(self.listmode [1])    # Orientacion del boton en el frame: Principal: (side=BOTTOM, pady=7) Secundario: (side=RIGHT, padx=10)            
+        self.button_close .pack(arg1 if height > width == True else arg2)       # Orientacion del boton en el frame: Principal: (side=TOP, pady=7)    Secundario: (side=RIGHT) 
+        self.button_minimize .pack(arg3 if height > width == True else arg4)    # Orientacion del boton en el frame: Principal: (side=BOTTOM, pady=7) Secundario: (side=RIGHT, padx=10)            
 
         #____Enlaces: Cambian la imagen de los botones
         self.button_close.bind("<Enter>", self.enter_mouse_close)
@@ -1059,22 +1081,22 @@ class FrameManagerCls(Frame):
     def enter_mouse_close(self, event):
         # Entrada del mouse sobre el boton (Imagen: change)
 
-        event.widget.config(image=self.icon_lst[2], bg='red')
+        event.widget.config(image=self.icon_lst[0][2], bg='red')
 
     def leave_mouse_close(self, event):
         # Salida del mouse sobre el boton (Imagen: default)
 
-        event.widget.config(image=self.icon_lst[0], bg='#1d2126')
+        event.widget.config(image=self.icon_lst[0][0], bg='#1d2126')
 
     def enter_mouse_minimize(self, event):
         # Entrada del mouse sobre el boton (Imagen: change)
 
-        event.widget.config(image=self.icon_lst[3], bg='#4ca6ff')
+        event.widget.config(image=self.icon_lst[0][3], bg='#4ca6ff')
 
     def leave_mouse_minimize(self, event):
         # Salida del mouse sobre el boton (Imagen: default)
 
-        event.widget.config(image=self.icon_lst[1], bg='#1d2126')
+        event.widget.config(image=self.icon_lst[0][1], bg='#1d2126')
 
 
 
@@ -1120,31 +1142,36 @@ class ToplevelCls(Toplevel):
         super().__init__(master, *args, **kwargs)
         self.overrideredirect(True)
 
-        
-        self.number = arg1
-        self.position = arg2
+        self.master = master
+        self.arg1 = arg1
+        self.arg2 = arg2
         self.icon_lst = icon_lst
-        print(len(self.icon_lst))
         self._x = 0
         self._y = 0
 
+
+        print(self.arg1)
         #___Metodos Llamados:
-        self.create_manager(self.position)
+        self.create_manager(self.arg1, self.arg2)
 
 
     def create_manager(self, number, position):
         # [ 1 ] self.frame_manager  : Frame(contenedor): Botones:[X] y [-]
 
         #____GESTOR DE VENTANA: ( 1 instancia )
-        self.frame_manager = FrameManagerCls(self, listmode = number, self.icon_lst, bg="#1d2126")
-        self.frame_manager .pack(position)
+        self.frame_manager = FrameManagerCls(self, self.icon_lst, listmode = number, bg="#1d2126")
+        #self.frame_manager .pack(position)
+        arg1 = {'side':RIGHT, 'fill':BOTH}
+        arg2 = {'side':TOP, 'fill':BOTH}
+
+        self.frame_manager .pack(arg1 if isinstance(self.master, Tk) == True else arg2)
 
         #____Enlaces: Mueven la ventana
         self.frame_manager .bind("<ButtonPress-1>", self.start_move)
         self.frame_manager .bind("<ButtonRelease-1>", self.stop_move)
         self.frame_manager .bind("<B1-Motion>", self.on_move)
 
-        if len(self.number) < 3:  # Toplevel Secundarias            
+        if len(self.arg1) < 3:  # Toplevel Secundarias
             self.frame_manager .bind("<Map>",self.mapped_manager)
 
         #self.master .bind("<Map>", self.deiconify_1)                       # Estado: Inactivo, esta definido en Root_class: (Solo sirve para root)
@@ -1164,7 +1191,7 @@ class ToplevelCls(Toplevel):
 
 
     def create_button_menu(self, metodo=None):   #@@@@
-        #____BOTON: ( 1 )
+        #____BOTONES: ( 1 )
         self.button_menu = Button(self.frame_manager, image=self.icon_lst[4], command=metodo, bg="green", bd=0)   
         self.button_menu .pack(side=LEFT)
 
@@ -1176,23 +1203,19 @@ class ToplevelCls(Toplevel):
 
     def enter_mouse_menu(self, event):
         # Entrada del mouse sobre el boton (Imagen: change)
-
         event.widget .config(image=self.icon_lst[5])
 
     def leave_mouse_menu(self, event):
         # Salida del mouse sobre el boton (Imagen: default)
-
         event.widget .config(image=self.icon_lst[4])
 
     def press_mouse_menu(self, event):
         # Botón presionado (Imagen: change)
-
         self.button_press = event.widget
         self.button_press .config(image=self.icon_lst[6])
 
     def release_mouse_menu(self, event):
         # Botón soltado (Imagen: default)
-
         self.button_press .config(image=self.icon_lst[4])
 
 
@@ -1220,7 +1243,7 @@ class ToplevelCls(Toplevel):
         new_position = "+{}+{}".format(self.winfo_x() + deltax, self.winfo_y() + deltay)
         self.geometry(new_position)                 # Mueve todas las ventanas en general menos root
 
-        if len(self.number) < 3:                      # Default
+        if len(self.arg1) < 3:                      # Default
             self.master.geometry(new_position)      # Mueve la ventana root
 
 
@@ -1413,7 +1436,7 @@ class InterfazCls(Frame, MoveAllCls):
         self.widgets()
 
         #____Métodos Heredados Llamados:
-        self.make_movable(self.frame_controller.btn_ash)                  # Class MoveAllCls: Añade a la lista de widget que permite mover la ventana
+        self.make_movable(self.frame_static.btn_logotipo)                  # Class MoveAllCls: Añade a la lista de widget que permite mover la ventana
         self.make_immovable(self.frame_botones.frame_1)
 
 
