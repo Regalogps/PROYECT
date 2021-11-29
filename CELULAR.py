@@ -1134,7 +1134,7 @@ class ToplevelCls(Toplevel):
         #___Metodos Llamados: 0
 
 
-    def create_manager(self, *position):
+    def create_frame_manager(self, *position):
         # [ 1 ] self.frame_manager  : Frame(contenedor): Botones:[X] y [-]
 
         #____GESTOR DE VENTANA: ( 1 instancia )
@@ -1164,9 +1164,9 @@ class ToplevelCls(Toplevel):
         self.label_title .bind("<B1-Motion>", self.on_move)
 
 
-    def create_button_menu(self, metodo=None):   #@@@@
+    def create_button_menu(self, metodo=None):
         #____BOTONES: 1 ( Menu )
-        self.button_menu = Button(self.frame_manager, image=self.icon_lst[0][0], command=metodo, bg="green", bd=0)   
+        self.button_menu = Button(self.frame_manager, image=self.icon_lst[1][0], command=metodo, bg="green", bd=0)   
         self.button_menu .pack(side=LEFT)
 
         #____Enlaces: Cambian la imagen del boton menu
@@ -1177,20 +1177,20 @@ class ToplevelCls(Toplevel):
 
     def enter_mouse_menu(self, event):
         # Entrada del mouse sobre el boton (Imagen: change)
-        event.widget .config(image=self.icon_lst[5])
+        event.widget .config(image=self.icon_lst[1][1])
 
     def leave_mouse_menu(self, event):
         # Salida del mouse sobre el boton (Imagen: default)
-        event.widget .config(image=self.icon_lst[4])
+        event.widget .config(image=self.icon_lst[1][0])
 
     def press_mouse_menu(self, event):
         # Botón presionado (Imagen: change)
         self.button_press = event.widget
-        self.button_press .config(image=self.icon_lst[6])
+        self.button_press .config(image=self.icon_lst[1][2])
 
     def release_mouse_menu(self, event):
-        # Botón soltado (Imagen: default)
-        self.button_press .config(image=self.icon_lst[4])
+        # Botón soltado (Imagen: default) $$-$$$
+        self.button_press .config(image=self.icon_lst[1][1])
 
 
     #def open_
@@ -1287,7 +1287,8 @@ class RootCls(Tk):
 
         #____VENTANA PRINCIPAL: ( 2 instancias )
         self.toplevel_principal = ToplevelCls(self, arg1, arg2, self.icon_lst)
-        self.toplevel_principal .create_manager(side=RIGHT, fill=BOTH)
+        self.toplevel_principal .create_frame_manager(side=RIGHT, fill=BOTH)
+
         self.frame_interface    = InterfazCls(self.toplevel_principal, self.main_lst, self.mini_lst)
 
         #____Posicionamiento:
@@ -1593,18 +1594,16 @@ class InterfazCls(Frame, MoveAllCls):
 
         #_____________________________________________________________________
 
-        # Posicion de los botones "X" y "-":                             ( None: diferencia los metodos )
-        arg1 = ({'side':RIGHT, 'padx':2, 'pady':(0)},{'side':RIGHT, 'padx':(2,10), 'pady':(0)}, None)   
-        # Posicion del frame contenedor de los botones "X" y "-"
-        arg2 = {'side':TOP, 'fill':BOTH}
-
 
         #                                  V E N T A N A:   1
         #__________________________________________________________________________________________________________
         if not self._open_1:   # ----> Si open_1 es False:
             self.toplevel_LEFT = ToplevelCls (self, arg1, arg2)  # AQUI no se sabe quien es el padre correcto : self o self.master
+            #____Submetodos Llamados:
             self.toplevel_LEFT .configure_toplevel('Hoja Izquierda', self.geo_izq.get())
-            self.toplevel_LEFT .create_button_menu()
+            self.toplevel_LEFT .create_frame_manager(side=TOP, fill=BOTH)
+            self.toplevel_LEFT .create_label_title('AshmanBot: 1')
+            self.toplevel_LEFT .create_button_menu() #Metodo
             #self.toplevel_LEFT .config(bg='green2')
                                 
         container_frame_left = var_1 (self.toplevel_LEFT)  #  var_1 es un frame
@@ -1620,7 +1619,11 @@ class InterfazCls(Frame, MoveAllCls):
         #__________________________________________________________________________________________________________
         if not self._open_2:
             self.toplevel_RIGHT = ToplevelCls (self, arg1, arg2)
+            #____Submetodos Llamados:
             self.toplevel_RIGHT .configure_toplevel ('Hoja Derecha', self.geo_der.get())
+            self.toplevel_LEFT .create_frame_manager(side=TOP, fill=BOTH)
+            self.toplevel_LEFT .create_label_title('AshmanBot: 2')
+            self.toplevel_LEFT .create_button_menu() #Metodo
 
         container_frame_right = var_2 (self.toplevel_RIGHT) 
 
@@ -1635,7 +1638,11 @@ class InterfazCls(Frame, MoveAllCls):
         #__________________________________________________________________________________________________________
         if not self._open_3:
             self.toplevel_STUF = ToplevelCls (self, arg1, arg2)
+            #____Submetodos Llamados:
             self.toplevel_STUF .configure_toplevel ('Game Stuff', self.geo_stuf.get())
+            self.toplevel_LEFT .create_frame_manager(side=TOP, fill=BOTH)
+            self.toplevel_LEFT .create_label_title('AshmanBot: 3')
+            self.toplevel_LEFT .create_button_menu() #Metodo
 
         container_frame_stuf = var_3 (self.toplevel_STUF) 
 
