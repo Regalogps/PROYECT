@@ -33,7 +33,7 @@ from A_import import *
 #********************************            ██   ██
 #********************************            ███████
 
-# Frame Contenedor de los botones: Ash y Gear
+# Interface inamovible: (Logo y Engranaje)
 class A1FrameCls(Frame):
     def __init__(self, master, icon_lst=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
@@ -42,10 +42,9 @@ class A1FrameCls(Frame):
         self.icon_lst = icon_lst
 
         #____Métodos Llamados:
-        self.initializer_images()
         self.create_buttons()
 
-    # Tarea: 1- Crea los botones:
+
     def create_buttons(self):
         # [self.btn_logotipo] : Logo
         # [self.btn_settings] : Engranaje
@@ -62,8 +61,8 @@ class A1FrameCls(Frame):
 
         #____Eventos:
         self.btn_logotipo .bind('<Double-Button-3>', self.close_windows)  # Cierra Toplevel Secundarias
-        self.btn_settings .bind('<Enter>', self.change_image_gear1)
-        self.btn_settings .bind('<Leave>', self.change_image_gear2)
+        self.btn_settings .bind('<Enter>', self.enter_mouse_settings)
+        self.btn_settings .bind('<Leave>', self.leave_mouse_settings)
 
 
     # Tarea: 1- Cierra las ventanas secundarias:
@@ -126,23 +125,13 @@ class A1FrameCls(Frame):
                 self.master._minimize = False
    
 
-    def change_image_gear1(self, event):
+    def enter_mouse_settings(self, event):
         # Entrada del mouse sobre el boton (Imagen: change)
-        event.widget.config(image=self.image_gear2) 
+        event.widget.config(image=self.icon_lst[2]) 
 
-    def change_image_gear2(self, event):
+    def leave_mouse_settings(self, event):
         # Salida del mouse sobre el boton (Imagen: default)
-        event.widget.config(image=self.image_gear1)
-
-    
-    def initializer_images(self):
-        ash = Image.open('E:/1-RICHI/MovilesDB/SubList__00.jpg')
-        gear1 = Image.open('E:/1-RICHI/MovilesDB/SubList__01.jpg')
-        gear2 = Image.open('E:/1-RICHI/MovilesDB/SubList__03.jpg')
-        
-        self.image_ash = ImageTk.PhotoImage(ash)
-        self.image_gear1 = ImageTk.PhotoImage(gear1)
-        self.image_gear2 = ImageTk.PhotoImage(gear2)
+        event.widget.config(image=self.icon_lst[1])
 
 
 #********************************        ██████████████
@@ -1490,7 +1479,7 @@ class InterfazCls(Frame, MoveAllCls):
         # [ 4 ] self.frame_listmode   : Spinbox y Listbox
 
         #____INTERFACES DE CONTROL: ( 4 instancias )
-        self.frame_static     = A1FrameCls(self, bg='#11161d', width=60, height=67)    # Posicionado     # Color: Azul
+        self.frame_static     = A1FrameCls(self, self.icon_lst, bg='#11161d', width=60, height=67)    # Posicionado     # Color: Azul
         self.frame_botones    = B1FrameCls(self, bg='#31343a', width=756, height=67)   # Posicionado     # Color: Plomo
         self.frame_configurer = B2FrameCls(self, bg='#31343a', width=756, height=67)   # No posicionado  # Color: Plomo
         self.frame_listmode   = B3FrameCls(self, self.mini_lst)                       # No posicionado  # Color: Azul y Plomo
