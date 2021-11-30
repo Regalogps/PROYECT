@@ -36,7 +36,7 @@ from A_import import *
 # TAREAS:
 #_______1- Gestiona la Interface Inamovible: (Logo y Engranaje)
 
-class LogoSettingCls(Frame):
+class Container1Cls(Frame):
     def __init__(self, master, icon_lst=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
