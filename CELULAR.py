@@ -35,9 +35,13 @@ from A_import import *
 
 # Frame Contenedor de los botones: Ash y Gear
 class A1FrameCls(Frame):
-    def __init__(self, master, *args, **kwargs):
+    def __init__(self, master, icon_lst=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
-        
+
+        #____Colección de Imágenes:
+        self.icon_lst = icon_lst
+
+        #____Métodos Llamados:
         self.initializer_images()
         self.create_buttons()
 
@@ -46,10 +50,10 @@ class A1FrameCls(Frame):
         # [self.btn_logotipo] : Logo
         # [self.btn_settings] : Engranaje
 
-        #____BOTONES: ( 2 )
-        self.btn_logotipo = Button(self, image=self.image_ash, bg='#11161d', bd=0, activebackground='#11161d',
+        #____BOTONES: 2 ( Logotipo - Settings )
+        self.btn_logotipo = Button(self, image=self.icon_lst[0], bg='#11161d', bd=0, activebackground='#11161d',
                                    command=self.minimize_windows)
-        self.btn_settings = Button(self, image=self.image_gear1, bg='#11161d', bd=0, activebackground='#11161d',
+        self.btn_settings = Button(self, image=self.icon_lst[1], bg='#11161d', bd=0, activebackground='#11161d',
                                    command=self.master.gear_stacking)
                          
         #____Posicionamiento:
@@ -122,12 +126,12 @@ class A1FrameCls(Frame):
                 self.master._minimize = False
    
 
-    # Cambia la imagen al pasar el mouse sobre el boton:
-    def change_image_gear1(self, event):   
+    def change_image_gear1(self, event):
+        # Entrada del mouse sobre el boton (Imagen: change)
         event.widget.config(image=self.image_gear2) 
 
-    # Deja la imagen que estaba por defecto:
     def change_image_gear2(self, event):
+        # Salida del mouse sobre el boton (Imagen: default)
         event.widget.config(image=self.image_gear1)
 
     
