@@ -393,11 +393,11 @@ class B2FrameCls(Frame):
 
 # Frame Contenedor de Spinbox y Listbox
 class B3FrameCls(Frame):
-    def __init__(self, master, path_lst,  *args, **kwargs):
+    def __init__(self, master, mini_lst,  *args, **kwargs):
         super().__init__(master, *args, kwargs)
 
         #_____Coleccion de imagenes  
-        self.Miniatures = path_lst
+        self.Miniatures = mini_lst
 
         #_____C O N T E N E D O R E S:   [ 2 ]
         self.frame_1 = Frame (self, bg='#31343a', width=116, height=67)    # Color: Plomo       
