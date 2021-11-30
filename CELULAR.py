@@ -33,8 +33,10 @@ from A_import import *
 #********************************            ██   ██
 #********************************            ███████
 
-# Interface inamovible: (Logo y Engranaje)
-class A1FrameCls(Frame):
+# TAREAS:
+#_______1- Gestiona la Interface Inamovible: (Logo y Engranaje)
+
+class LogoSettingCls(Frame):
     def __init__(self, master, icon_lst=None, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
 
@@ -146,8 +148,9 @@ class A1FrameCls(Frame):
 #********************************        ██          ██
 #********************************        ██████████████
 
-# Se encarga de:
-# 1- Servir de molde para crear los botones con la configuacion que se desea
+# TAREAS:
+#_______1- Crea Botones con una configuracion ya establecida: (22 Botones)
+
 class DefaultButtonCls(Button):
     def __init__(self, master, *args, **kwargs):
         kwargs = {"font":('Calibri',9,'bold'), 'bg': '#11161d', 'fg':'white', 'activebackground':'#bdfe04', 'width':10, 'bd':0, **kwargs}
@@ -166,9 +169,10 @@ class DefaultButtonCls(Button):
 #********************************        ██          ██
 #********************************        ██████████████
 
-# Se encarga de:
-# 1- Crear los 22 botones
-# 2- Abrir las Ventanas Secundarias con los indices que se indican
+# TAREAS:
+#_______1- Crear los 22 botones
+#_______2- Abrir las Ventanas Secundarias
+
 class B1FrameCls(Frame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
@@ -1273,16 +1277,11 @@ class RootCls(Tk):
         # [ 1 ] self.toplevel_principal  : Toplevel: Ventana principal
         # [ 2 ] self.frame_interface     : Frame: Interface de control
 
-        # Posicion de los botones "X" y "-"
-        arg1 = ({'side':TOP, 'pady':(0,6)},{'side':BOTTOM, 'pady':0})       
-        # Posicion del frame contenedor de los botones "X" y "-"
-        arg2 = {'side':RIGHT, 'fill':BOTH}
-
         #____VENTANA PRINCIPAL: ( 2 instancias )
         self.toplevel_principal = ToplevelCls(self, arg1, arg2, self.icon_lst)
         self.toplevel_principal .create_frame_manager(side=RIGHT, fill=BOTH)
 
-        self.frame_interface    = InterfazCls(self.toplevel_principal, self.main_lst, self.mini_lst)
+        self.frame_interface    = InterfazCls(self.toplevel_principal, self.main_lst, self.mini_lst, self.icon_lst[2])
 
         #____Posicionamiento:
         self.frame_interface .pack(side=RIGHT, fill=BOTH)
@@ -1295,7 +1294,7 @@ class RootCls(Tk):
         self.toplevel_principal.deiconify()
 
 
-    # Tarea: 1- Inicializa las imagenes que se mandan a las ventanas
+    # Tarea: 1- Inicializa las imagenes
     def generate_list(self, file, option):
 
         ouput = os.listdir(file)
@@ -1358,13 +1357,14 @@ class RootCls(Tk):
 #_______2- Gestiona toda la aplicacion
 
 class InterfazCls(Frame, MoveAllCls):
-    def __init__(self, master=None, main_lst=None, mini_lst=None, *args, **kwargs):
+    def __init__(self, master=None, main_lst=None, mini_lst=None, icon_lst=None, *args, **kwargs):
         Frame.__init__(self, master, *args, **kwargs)
         MoveAllCls.__init__(self)   # Inicializando las variables de control
 
         #____Coleccion de Imagenes:
         self.main_lst = main_lst
         self.mini_lst = mini_lst
+        self.icon_lst = icon_lst
 
         #____Variables de Control de Tamaño y Posición de Todas las Ventanas:
         self.geo_principal = StringVar()
@@ -1480,9 +1480,9 @@ class InterfazCls(Frame, MoveAllCls):
 
         #____INTERFACES DE CONTROL: ( 4 instancias )
         self.frame_static     = A1FrameCls(self, self.icon_lst, bg='#11161d', width=60, height=67)    # Posicionado     # Color: Azul
-        self.frame_botones    = B1FrameCls(self, bg='#31343a', width=756, height=67)   # Posicionado     # Color: Plomo
-        self.frame_configurer = B2FrameCls(self, bg='#31343a', width=756, height=67)   # No posicionado  # Color: Plomo
-        self.frame_listmode   = B3FrameCls(self, self.mini_lst)                       # No posicionado  # Color: Azul y Plomo
+        self.frame_botones    = B1FrameCls(self, bg='#31343a', width=756, height=67)                  # Posicionado     # Color: Plomo
+        self.frame_configurer = B2FrameCls(self, bg='#31343a', width=756, height=67)                  # No posicionado  # Color: Plomo
+        self.frame_listmode   = B3FrameCls(self, self.mini_lst)                                       # No posicionado  # Color: Azul y Plomo
          
         #____Posicionamiento:
         self.frame_static .pack(side=LEFT, fill=BOTH)
